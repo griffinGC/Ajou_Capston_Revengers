@@ -1,59 +1,106 @@
 <template>
-  <div class="hello">
-    <h1>{{ msg }}</h1>
-    <p>
-      For a guide and recipes on how to configure / customize this project,<br>
-      check out the
-      <a href="https://cli.vuejs.org" target="_blank" rel="noopener">vue-cli documentation</a>.
-    </p>
-    <h3>Installed CLI Plugins</h3>
-    <ul>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-babel" target="_blank" rel="noopener">babel</a></li>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-pwa" target="_blank" rel="noopener">pwa</a></li>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-unit-mocha" target="_blank" rel="noopener">unit-mocha</a></li>
-    </ul>
-    <h3>Essential Links</h3>
-    <ul>
-      <li><a href="https://vuejs.org" target="_blank" rel="noopener">Core Docs</a></li>
-      <li><a href="https://forum.vuejs.org" target="_blank" rel="noopener">Forum</a></li>
-      <li><a href="https://chat.vuejs.org" target="_blank" rel="noopener">Community Chat</a></li>
-      <li><a href="https://twitter.com/vuejs" target="_blank" rel="noopener">Twitter</a></li>
-      <li><a href="https://news.vuejs.org" target="_blank" rel="noopener">News</a></li>
-    </ul>
-    <h3>Ecosystem</h3>
-    <ul>
-      <li><a href="https://router.vuejs.org" target="_blank" rel="noopener">vue-router</a></li>
-      <li><a href="https://vuex.vuejs.org" target="_blank" rel="noopener">vuex</a></li>
-      <li><a href="https://github.com/vuejs/vue-devtools#vue-devtools" target="_blank" rel="noopener">vue-devtools</a></li>
-      <li><a href="https://vue-loader.vuejs.org" target="_blank" rel="noopener">vue-loader</a></li>
-      <li><a href="https://github.com/vuejs/awesome-vue" target="_blank" rel="noopener">awesome-vue</a></li>
-    </ul>
+  <div class="signup-form">
+    <link href="https://fonts.googleapis.com/css?family=Permanent+Marker" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+    <img alt="logo" src="../assets/logo.png">
+    <form class>
+      <h1>Sign In</h1>
+      <input type="text" placeholder="Username" class="txtb">
+      <input type="password" placeholder="Password" class="txtb">
+      <input type="submit" @click="signIn()" value="Sign In" class="signup-btn" >
+      <a href="#" @click="signUp()">Sign up one?</a>
+    </form>
   </div>
 </template>
 
 <script>
 export default {
   name: 'HelloWorld',
-  props: {
-    msg: String
+  methods:{
+    signIn(){
+      this.$router.push('/about')
+    },
+    signUp(){
+      this.$router.push('/signup');
+    }
   }
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-h3 {
-  margin: 40px 0 0;
-}
-ul {
-  list-style-type: none;
+<style>
+body{
+  margin: 0;
   padding: 0;
+  /*background: #487eb0;*/
+   background: white; 
+
 }
-li {
-  display: inline-block;
-  margin: 0 10px;
+.signup-form{
+  width: 40%;
+  padding: 30%;
+  text-align: center;
+  position: absolute;
+  background: url(../assets/bg.png); 
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  overflow: hidden;
 }
-a {
-  color: #42b983;
+
+.signup-form logo{
+  width: auto;
+  height: 40px;
+}
+
+.signup-form h1{
+  margin-top: 50px;
+  font-family: 'Permanent Marker', cursive;
+  color: #fff;
+  font-size: 40px;
+}
+
+.signup-form input{
+  font-family: 'Montserrat', sans-serif;
+  display: block;
+  text-align: center;
+  width:100%;
+  height: 44px;
+  box-sizing: border-box;
+  outline: none;
+  border: none;
+}
+
+.txtb{
+  margin: 20px 0;
+  background: rgba(255, 255, 255, 5);
+  border-radius: 6px;
+}
+
+.signup-btn{
+  margin-top: 60px;
+  margin-bottom: 20px;
+  background: #1e90ff;
+  border-radius: 44px;
+  cursor: pointerl;
+  transition: 0.8s; 
+  color: #fff;
+}
+
+.signup-btn :hover{
+  transform: scale(0.96);
+}
+
+.signup-form a{
+  text-decoration: none;
+  color: #fff;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px;
+  padding: 10px;
+  transform: 0.8s;
+}
+
+.signup-form a:hover{
+  background: rgba(0, 0, 0, 3);
 }
 </style>

@@ -1,7 +1,7 @@
 <template>
   <div class="about">
     <div class="head">
-      <h1>City Gallery</h1>
+      <h1>Ajou Revengers</h1>
     </div>
 
     <div class="nav">
@@ -20,7 +20,7 @@
       </div>
     </div>
 
-    <div class="footer">Copyright W3School.com.cn</div>
+    <div class="footer">Copyright Ajou Uni.com</div>
   </div>
 </template>
 

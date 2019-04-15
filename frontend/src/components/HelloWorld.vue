@@ -18,7 +18,9 @@ export default {
   name: 'HelloWorld',
   methods:{
     signIn(){
-      this.$router.push('/about')
+      this.$axios.post().then(response=>{
+
+      })
     },
     signUp(){
       this.$router.push('/signup');

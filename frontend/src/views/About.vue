@@ -12,11 +12,11 @@
     </div>
 
     <div class="nav-center">
-      <a>Host </a>|
-      <a>Guest </a>
+      <a>Host</a>|
+      <a>Guest</a>
 
       <div class="section">
-        <Host></Host>
+        <Host></Host>₩
       </div>
     </div>
 
@@ -25,35 +25,34 @@
 </template>
 
 <script>
-import Host from '@/components/HostBoards.vue'
+import Host from "@/components/HostBoards.vue";
 
 export default {
-  name: 'about',
-  components:{
+  name: "about",
+  components: {
     Host
   }
 };
 </script>
 <style >
-
 .head {
   background-color: #57606f;
   color: white;
   text-align: center;
   padding: 5px;
-  font-family: 'Permanent Marker', cursive;
+  font-family: "Permanent Marker", cursive;
 }
 .nav {
   line-height: 30px;
   background-color: #eeeeee;
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   height: 880px;
   width: 10%;
   float: left;
   padding: 5px;
 }
-.nav-center{
-  border-bottom-style:outset
+.nav-center {
+  border-bottom-style: outset;
 }
 .section {
   width: 80%;
@@ -67,6 +66,6 @@ export default {
   clear: both;
   text-align: center;
   padding: 5px;
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
 }
 </style>

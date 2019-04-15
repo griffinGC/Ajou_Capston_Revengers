@@ -6,6 +6,8 @@ var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var loginRouter = require('./routes/login');
+
 var connect = require('./schemas');
 
 var app = express();
@@ -24,6 +26,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 //여기서 '/user'라고 적어주면 밑에서는 '/'만 적어도 됨 
 app.use('/users', usersRouter);
+
+//login 기능 라우터 
+app.use('/login',loginRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

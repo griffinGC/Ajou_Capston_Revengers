@@ -6,8 +6,10 @@ var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var connect = require('./schemas');
 
 var app = express();
+connect();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -20,6 +22,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
+//여기서 '/user'라고 적어주면 밑에서는 '/'만 적어도 됨 
 app.use('/users', usersRouter);
 
 // catch 404 and forward to error handler

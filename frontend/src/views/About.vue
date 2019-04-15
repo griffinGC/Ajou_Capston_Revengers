@@ -20,7 +20,7 @@
       </div>
     </div>
 
-    <div class="footer">Copyright Ajou Uni.com</div>
+    <div class="footer">Copyright Ajou University.com</div>
   </div>
 </template>
 

@@ -24,6 +24,7 @@ module.exports = () => {
     mongoose.connection.on('disconnected', () =>{
         console.log('디비와 연결이 끊겼습니다.')
     });
-    // require('./user');
-    // require('./connect');
+    //스키마 불러 오는것 
+    require('./user');
+    require('./connect');
 }

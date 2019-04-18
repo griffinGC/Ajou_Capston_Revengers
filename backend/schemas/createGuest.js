@@ -42,10 +42,11 @@ const guestSchema = new Schema({
         type : Number
     }
 })
+/*
 guestSchema.plugin(autoIncrement,{
     model : 'guest',
     field : 'guestId',
     startAt : 0
-})
+})*/
 
 module.exports = mongoose.model('guest', guestSchema);

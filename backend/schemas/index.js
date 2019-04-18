@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const autoIncrement = require('mongoose-auto-increment');
 
 module.exports = () => {
     //connect 함수 정의
@@ -18,6 +19,8 @@ module.exports = () => {
     };
     //connect실행 
     connect();
+    // autoIncrement.initialize(mongoose.connection);
+    // autoIncrement: autoIncrement.plugin
     mongoose.connection.on('error', (error) =>{
         console.log('디비 연결 에러', error);
     });

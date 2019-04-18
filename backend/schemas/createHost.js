@@ -48,10 +48,11 @@ const hostSchema = new Schema({
         type : Number
     }
 })
+/*
 hostSchema.plugin(autoIncrement,{
     model : 'host',
     field : 'hostId',
     startAt : 0
-})
+})*/
 
 module.exports = mongoose.model('host', hostSchema);

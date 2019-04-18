@@ -25,6 +25,6 @@ module.exports = () => {
         console.log('디비와 연결이 끊겼습니다.')
     });
     //스키마 불러 오는것 
-    require('./user');
-    require('./connect');
+    require('./createGuest');
+    require('./createHost');
 }

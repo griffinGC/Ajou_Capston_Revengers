@@ -24,14 +24,14 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// app.use(bodyParser.urlencoded({extended: true}))
-// app.use(bodyParser.json())
-// app.use((req, res, next) =>{
-//   res.header("Access-Control-Allow-Origin", "*")
-//   res.header('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE, OPTIONS');
-//   res.header("Access-Control-Allow-Headers", "X-Requested-With, Content-Type")
-//   next()
-// })
+app.use(bodyParser.urlencoded({extended: true}))
+app.use(bodyParser.json())
+app.use((req, res, next) =>{
+  res.header("Access-Control-Allow-Origin", "*")
+  res.header('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE, OPTIONS');
+  res.header("Access-Control-Allow-Headers", "X-Requested-With, Content-Type")
+  next()
+})
 
 app.use('/', indexRouter);
 //여기서 '/user'라고 적어주면 밑에서는 '/'만 적어도 됨 

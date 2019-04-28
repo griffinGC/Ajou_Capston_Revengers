@@ -1,33 +1,32 @@
 const mongoose = require('mongoose');
 const autoIncrement = require('mongoose-auto-increment');
 
-module.exports = () => {
-    //connect 함수 정의
-    const connect = () =>{
-        if(process.env.NODE_ENV !== 'production'){
-            mongoose.set('debug', true);
+const connect = () =>{
+    mongoose.connect('mongodb://localhost:27017/capDTest',
+    { useNewUrlParser : true }, (error) =>{
+        if(error){
+            console.log('디비 연결 에러', error);
+        }else{
+            console.log('디비 연결 성공');
         }
+    });
+};
+//connect실행 
 
-        mongoose.connect('mongodb://localhost:27017/capDTest',
-        { useNewUrlParser : true }, (error) =>{
-            if(error){
-                console.log('디비 연결 에러', error);
-            }else{
-                console.log('디비 연결 성공');
-            }
-        });
-    };
-    //connect실행 
-    connect();
-    // autoIncrement.initialize(mongoose.connection);
-    // autoIncrement: autoIncrement.plugin
-    mongoose.connection.on('error', (error) =>{
-        console.log('디비 연결 에러', error);
-    });
-    mongoose.connection.on('disconnected', () =>{
-        console.log('디비와 연결이 끊겼습니다.')
-    });
-    //스키마 불러 오는것 
-    require('./createGuest');
-    require('./createHost');
+connect();
+mongoose.connection.on('connected', ()=>{
+    console.log('디비가 연결되었습니다.');
+})
+// autoIncrement.initialize(connect);
+autoIncrement.initialize(mongoose.connection);
+mongoose.connection.on('error', (error) =>{
+    console.log('디비 연결 에러', error);
+});
+mongoose.connection.on('disconnected', () =>{
+    console.log('디비와 연결이 끊겼습니다.')
+});
+
+module.exports = {
+    mongoose,
+    autoIncrement : autoIncrement.plugin
 }

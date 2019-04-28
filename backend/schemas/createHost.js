@@ -1,8 +1,7 @@
-const mongoose = require('mongoose');
-const autoIncrement = require('mongoose-auto-increment');
+// const mongoose = require('mongoose');
+const {mongoose, autoIncrement} = require('./index');
 
-const {Schema} = mongoose;
-const hostSchema = new Schema({
+const hostSchema = new mongoose.Schema({
     //db에 저장하는 id 자동적으로 1씩 증가 
     hostId:{
         type : Number,
@@ -48,11 +47,11 @@ const hostSchema = new Schema({
         type : Number
     }
 })
-/*
+
 hostSchema.plugin(autoIncrement,{
-    model : 'host',
+    model : 'hosts',
     field : 'hostId',
     startAt : 0
-})*/
+})
 
-module.exports = mongoose.model('host', hostSchema);
+module.exports = mongoose.model('hosts', hostSchema);

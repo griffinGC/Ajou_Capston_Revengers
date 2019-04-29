@@ -9,6 +9,9 @@ router.get('/',function(req, res, error){
 })
 
 router.post('/',function(req, res, error){
+    if(error){
+        return res.json({state : -1, msg : error});
+    }
     if(!req.body.id){
         res.json({state: -1, msg : "username is empty"});
     }

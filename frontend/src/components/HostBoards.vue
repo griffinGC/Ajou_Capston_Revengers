@@ -8,3 +8,10 @@
       </p>
   </div>  
 </template>
+
+
+<style>
+.host-boards{
+  border-bottom-style: outset;
+}
+</style>

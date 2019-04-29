@@ -1,22 +1,28 @@
 <template>
   <div class="about">
     <div class="head">
-      <h1>Ajou Revengers</h1>
+      <h1>Farm Road</h1>
     </div>
 
     <div class="nav">
-      London
-      <br>Paris
-      <br>Tokyo
-      <br>
+     
+      <a>soul</a><br>
+      <a>Paris</a><br>
+      <a>My Page</a><br>
+      <a>신고</a><br>
+      <a>Login out</a>
     </div>
 
     <div class="nav-center">
-      <a>Host</a>|
-      <a>Guest</a>
+      <a>Home  </a>| 
+      <a>Host </a>|
+      <a>Guest  </a>|
+      <a>Messenger  </a>|
+      <a>Search </a>
+
 
       <div class="section">
-        <Host></Host>₩
+        <MainPage></MainPage>
       </div>
     </div>
 
@@ -25,12 +31,15 @@
 </template>
 
 <script>
-import Host from "@/components/HostBoards.vue";
+import Host from "@/components/HostBoards.vue"
+import MainPage from "@/components/MainPage.vue"
 
 export default {
   name: "about",
   components: {
-    Host
+    Host,
+    MainPage
+
   }
 };
 </script>

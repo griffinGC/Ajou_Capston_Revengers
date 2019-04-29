@@ -6,6 +6,7 @@ import HostBoards from './components/HostBoards.vue'
 
 Vue.use(Router)
 
+
 export default new Router({
   routes: [
     {

@@ -24,7 +24,8 @@ router.post('/',function(req, res, error){
         if(guestModel[0] == null){
             res.json({state : -1, msg : "login fail!!"});
         }else{
-            res.json(guestModel);
+            // res.json(guestModel);
+            res.json({state : 0, msg: "login success"});
         }
        
     });

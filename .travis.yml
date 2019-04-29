@@ -1,0 +1,5 @@
+language: ndoe_js
+branches:
+	only:
+	-master
+	-LIJIPU

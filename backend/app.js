@@ -4,17 +4,19 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var bodyParser = require('body-parser');
+var session = require('express-session');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var loginRouter = require('./routes/signIn');
+var logoutRouter = require('./routes/logOut');
 // var signUpRouter = require('./routes/signUp');
 
 // var connect = require('./schemas/index');
 require('./schemas/index');
 
 var app = express();
-// connect();
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -24,6 +26,12 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
+app.use(session({
+  resave : false,
+  saveUninitialized : false,
+  secret : 'secret code',
+}));
+
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(bodyParser.urlencoded({extended: true}))
@@ -44,6 +52,9 @@ app.use('/signIn',loginRouter);
 
 //회원가입 기능 라우터
 // app.use('/signUp', signUpRouter);
+
+//logout 기능 라우터
+app.use('/logOut',logoutRouter)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

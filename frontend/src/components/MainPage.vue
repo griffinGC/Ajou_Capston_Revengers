@@ -11,9 +11,19 @@
   </div>
 </template>
 
+
 <script>
 export default {
-  
+  name: "MainPage",
+  data(){
+    return{
+      id:''
+    }
+  },
+  methods:{
+    
+  }
+
 }
 </script>
 

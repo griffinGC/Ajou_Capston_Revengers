@@ -5,10 +5,17 @@
     <img alt="logo" src="../assets/logo.png">
     <form class>
       <h1>Sign In</h1>
-      <input type="text" placeholder="Username" class="txtb" v-model="id">
+      <input type="text" placeholder="Id" class="txtb" v-model="id">
       <input type="password" placeholder="Password" class="txtb" v-model="pwd">
+      <select id="roles" class="txtb">
+        <option v-for="role in roles" :key='role' :value="role.value">
+          {{role.name}}
+        </option>
+      </select>
       <input type="submit" @click="signIn()" value="Sign In" class="signup-btn">
-      <a href="#" @click="signUp()">Sign up one?</a>
+      <a href="#" @click="hostSignUp()">Sign up host?</a>
+      <br>
+      <a href="#" @click="guestSignUp()">Sign up guest?</a>
     </form>
   </div>
 </template>
@@ -19,28 +26,54 @@ export default {
   data() {
     return {
       id: "",
-      pwd: ""
+      pwd: "",
+      roles: [
+        {
+          name: 'host',
+          value: 1
+        },
+        {
+          name: 'guest',
+          value: 0
+        }
+      ],
     };
   },
   methods: {
+    // signIn(){
+    //   var roleValue = document.getElementById('roles').value
+    //   console.log(roleValue)
+    // },
     signIn() {
-      this.axios.post('http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/signIn',{
-        id: this.id,
-        pwd: this.pwd
-      }).then(response=>{
-        console.log(response)
-        if(response.data.state == -1){
-          alert(response.data.msg)
-          return
-        }
-        if(response.data.state == 0){
-          this.$router.push("/about")
-        }
-        
-      })
+      var roleValue = document.getElementById('roles').value
+      console.log(roleValue)
+      this.axios
+        .post(
+          "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/signIn",
+          {
+            id: this.id,
+            pwd: this.pwd,
+            radio: roleValue
+          }
+        )
+        .then(response => {
+          console.log(response);
+          if (response.data.state == -1) {
+            alert(response.data.msg);
+            this.id = "";
+            this.password = "";
+          }
+          if (response.data.state == 0) {
+            localStorage.name = this.id;
+            this.$router.push("/about");
+          }
+        });
     },
-    signUp() {
-      this.$router.push("/signup");
+    hostSignUp() {
+      this.$router.push("/hsignup");
+    },
+    guestSignUp() {
+      this.$router.push("/gsignup");
     }
   }
 };
@@ -79,6 +112,17 @@ body {
 }
 
 .signup-form input {
+  font-family: "Montserrat", sans-serif;
+  display: block;
+  text-align: center;
+  width: 100%;
+  height: 44px;
+  box-sizing: border-box;
+  outline: none;
+  border: none;
+}
+
+.signup-form select {
   font-family: "Montserrat", sans-serif;
   display: block;
   text-align: center;

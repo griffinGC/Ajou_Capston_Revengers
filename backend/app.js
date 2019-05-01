@@ -8,6 +8,7 @@ var bodyParser = require('body-parser');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var loginRouter = require('./routes/signIn');
+// var signUpRouter = require('./routes/signUp');
 
 // var connect = require('./schemas/index');
 require('./schemas/index');
@@ -40,6 +41,9 @@ app.use('/users', usersRouter);
 
 //login 기능 라우터 
 app.use('/signIn',loginRouter);
+
+//회원가입 기능 라우터
+// app.use('/signUp', signUpRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

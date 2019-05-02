@@ -4,21 +4,18 @@ const guestModel = require('../schemas/createGuest');
 const hostModel = require('../schemas/createHost');
 
 //guestid 확인용, gudstid 가입, hostid 확인, hostid 가입 => 총 4개의 router 지정해야함 
-
-router.post('/host',function(req, res,next){
+router.get('/host',function(req, res,next){
     if(!req.body.userName){
-        res.json({status: 1, message: 'ID can not be empty!'})
+        res.json({status: -1, message: 'ID can not be empty!'})
     }
     if(!req.body.password){
-            res.json({status: 1, message: 'password can not be empty!'})
-
+            res.json({status: -1, message: 'password can not be empty!'})
     }    
-
     if(!req.body.phone){
-        res.json({status: 1, message: 'phone can not be empty!'})
+        res.json({status: -1, message: 'phone can not be empty!'})
     }
     if(!req.body.email){
-        res.json({status: 1, message: 'email can not be empty!'})
+        res.json({status: -1, message: 'email can not be empty!'})
     }
     
     hostModel.find({userName : req.body.id},function(err,hostModel){
@@ -29,10 +26,14 @@ router.post('/host',function(req, res,next){
         if(hostModel[0]){
             res.json({state : -1, msg : "ID alreay exists!"})
         } 
-        else {           
+        else {
+            res.json({state : 0, msg : "Available Id"})         
           }
-        })        
-        
+        })
+      });   
+      
+      
+router.post('/host',function(req, res, next){        
         let registerUser = new hostModel();
         registerUser.userName = req.body.userName;
         registerUser.password = req.body.password;
@@ -48,24 +49,23 @@ router.post('/host',function(req, res,next){
               res.json({state : -1, msg : "error is occured"});
           }
         res.json({ status: 0, message: 'guest register success!' })
-
       }) 
+    });
+      
 
-      });
 
-
-router.post('/guest',function(req, res,next){
+router.get('/guest',function(req, res,next){
     if(!req.body.userName){
-    res.json({status: 1, message: 'ID can not be empty!'})
+    res.json({status: -1, message: 'ID can not be empty!'})
     }
     if(!req.body.password){
-        res.json({status: 1, message: 'password can not be empty!'})
+        res.json({status: -1, message: 'password can not be empty!'})
     }    
     if(!req.body.phone){
-    res.json({status: 1, message: 'phone can not be empty!'})
+    res.json({status: -1, message: 'phone can not be empty!'})
     }
     if(!req.body.email){
-    res.json({status: 1, message: 'email can not be empty!'})
+    res.json({status: -1, message: 'email can not be empty!'})
     }
 
     guestModel.find({userName : req.body.id},function(err,guestModel){
@@ -76,10 +76,13 @@ router.post('/guest',function(req, res,next){
         if(guestModel[0]){
             res.json({state : -1, msg : "ID alreay exists!"})
         } 
-        else {           
+        else {
+          res.json({state : 0, msg : "Available Id"})           
           }
         }) 
-        
+      });
+
+router.post('/guest',function(req,res,next){      
         let registerUser = new guestModel();
         registerUser.userName = req.body.userName;
         registerUser.password = req.body.password;

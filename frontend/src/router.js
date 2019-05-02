@@ -5,6 +5,7 @@ import HostSignUp from './components/HostSignUp.vue'
 import GuestSignUp from './components/GuestSignUp.vue'
 import HostBoards from './components/HostBoards.vue'
 
+
 Vue.use(Router)
 
 
@@ -37,6 +38,6 @@ export default new Router({
       path: '/host',
       name: 'host',
       component: HostBoards
-    }
+    },
   ]
 })

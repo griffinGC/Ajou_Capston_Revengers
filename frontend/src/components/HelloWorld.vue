@@ -40,35 +40,34 @@ export default {
     };
   },
   methods: {
-    // signIn(){
+    signIn(){
+      this.$router.push("/about");
+    },
+    // signIn() {
     //   var roleValue = document.getElementById('roles').value
     //   console.log(roleValue)
+    //   this.axios
+    //     .post(
+    //       "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/signIn",
+    //       {
+    //         id: this.id,
+    //         pwd: this.pwd,
+    //         radio: roleValue
+    //       }
+    //     )
+    //     .then(response => {
+    //       console.log(response);
+    //       if (response.data.state == -1) {
+    //         alert(response.data.msg);
+    //         this.id = "";
+    //         this.password = "";
+    //       }
+    //       if (response.data.state == 0) {
+    //         localStorage.name = this.id;
+    //         this.$router.push("/about");
+    //       }
+    //     });
     // },
-    signIn() {
-      var roleValue = document.getElementById('roles').value
-      console.log(roleValue)
-      this.axios
-        .post(
-          "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/signIn",
-          {
-            id: this.id,
-            pwd: this.pwd,
-            radio: roleValue
-          }
-        )
-        .then(response => {
-          console.log(response);
-          if (response.data.state == -1) {
-            alert(response.data.msg);
-            this.id = "";
-            this.password = "";
-          }
-          if (response.data.state == 0) {
-            localStorage.name = this.id;
-            this.$router.push("/about");
-          }
-        });
-    },
     hostSignUp() {
       this.$router.push("/hsignup");
     },

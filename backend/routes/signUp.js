@@ -4,13 +4,16 @@ const guestModel = require('../schemas/createGuest');
 const hostModel = require('../schemas/createHost');
 
 //guestid 확인용, gudstid 가입, hostid 확인, hostid 가입 => 총 4개의 router 지정해야함 
+
 router.post('/host',function(req, res,next){
     if(!req.body.userName){
         res.json({status: 1, message: 'ID can not be empty!'})
     }
     if(!req.body.password){
             res.json({status: 1, message: 'password can not be empty!'})
+
     }    
+
     if(!req.body.phone){
         res.json({status: 1, message: 'phone can not be empty!'})
     }
@@ -45,6 +48,7 @@ router.post('/host',function(req, res,next){
               res.json({state : -1, msg : "error is occured"});
           }
         res.json({ status: 0, message: 'guest register success!' })
+
       }) 
 
       });

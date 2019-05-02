@@ -1,4 +1,3 @@
-// const mongoose = require('mongoose');
 const {mongoose, autoIncrement} = require('./index');
 
 const hostSchema = new mongoose.Schema({

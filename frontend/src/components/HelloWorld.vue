@@ -45,7 +45,7 @@ export default {
     //   console.log(roleValue)
     // },
     signIn() {
-      var roleValue = document.getElementById('roles').value
+      var roleValue = parseInt(document.getElementById('roles').value)
       console.log(roleValue)
       this.axios
         .post(

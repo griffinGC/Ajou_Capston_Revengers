@@ -10,7 +10,7 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var loginRouter = require('./routes/signIn');
 var logoutRouter = require('./routes/logOut');
-// var signUpRouter = require('./routes/signUp');
+var signUpRouter = require('./routes/signUp');
 
 // var connect = require('./schemas/index');
 require('./schemas/index');
@@ -51,7 +51,7 @@ app.use('/users', usersRouter);
 app.use('/signIn',loginRouter);
 
 //회원가입 기능 라우터
-// app.use('/signUp', signUpRouter);
+app.use('/signUp', signUpRouter);
 
 //logout 기능 라우터
 app.use('/logOut',logoutRouter)

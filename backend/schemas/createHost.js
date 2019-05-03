@@ -13,7 +13,7 @@ const hostSchema = new mongoose.Schema({
         required : true
     },
     password :{
-        type : Number,
+        type : String,
         required : true
     },
     name : {
@@ -35,7 +35,7 @@ const hostSchema = new mongoose.Schema({
         type : String
     },
     phone : {
-        type : Number,
+        type : String,
         required : true
     },
     email : {

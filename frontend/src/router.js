@@ -1,7 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './views/Home.vue'
-import SignUp from './components/SignUp.vue'
+import HostSignUp from './components/HostSignUp.vue'
+import GuestSignUp from './components/GuestSignUp.vue'
 import HostBoards from './components/HostBoards.vue'
 
 Vue.use(Router)
@@ -23,9 +24,14 @@ export default new Router({
       component: () => import(/* webpackChunkName: "about" */ './views/About.vue')
     },
     {
-      path: '/signup',
-      name: 'signup',
-      component: SignUp
+      path: '/hsignup',
+      name: 'hsignup',
+      component: HostSignUp
+    },
+    {
+      path: '/gsignup',
+      name: 'gsignup',
+      component: GuestSignUp
     },
     {
       path: '/host',

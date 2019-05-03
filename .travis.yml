@@ -1,6 +1,6 @@
 language: ndoe_js
 node_js:
-	-"stable"
+  -"stable"
 before_install:
   - npm i -g npm@6.4.1
 branches:

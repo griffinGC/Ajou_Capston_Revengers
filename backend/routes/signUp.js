@@ -15,6 +15,7 @@ router.get('/hostConfirm/:id',function(req, res,next){
   console.log(req.params.id);
     hostModel.find({userName : req.params.id},function(err,hostModel){
       // console.log(req.params.id);
+
         if(err) {
           return res.json(err);
         };

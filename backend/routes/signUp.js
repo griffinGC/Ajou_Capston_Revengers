@@ -61,11 +61,10 @@ router.post('/host',function(req, res,next){
           if(err){
               res.json({state : -1, msg : "error is occured"});
           }
+
         res.json({ status: 0, message: "host register success!" });
       });
-
 });
-
 
 
 router.get('/guestConfirm/:id',function(req, res,next){
@@ -96,6 +95,7 @@ router.post('/guest',function(req, res,next){
         if(!req.body.email){
         res.json({status: -1, message: 'email can not be empty!'})
         }        
+
         let registerUser = new guestModel();
         registerUser.userName = req.body.userName;
         registerUser.password = req.body.password;

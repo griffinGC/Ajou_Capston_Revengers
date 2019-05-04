@@ -18,7 +18,10 @@ const guestBoardSchema = new mongoose.Schema({
         type : String,
         required : true
     },
-    date : {
+    startDate : {
+        type : Date,
+    },
+    endDate:{
         type : Date,
     },
     difficulty :{

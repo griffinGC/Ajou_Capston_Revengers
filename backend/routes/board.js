@@ -14,15 +14,18 @@ router.get('/',function(req, res,next){
   return res.json({state : 0, msg : "board router test"});
   });     
 
+//guest게시판 글 가져오기
 router.get('/getGuestList',function(req, res,next){
     guestBoard.find({},function(err,guestBoardContent){
         if(err) {
           return res.json(err);
         };
-        return res.json({state : 0, guestBoard : `${guestBoardContent}`});
+        //json형식으로 응답
+        return res.json({state : 0, guestBoard : guestBoardContent});
         })
   });        
 
+//guest게시판 작성자 정보 가져오기
 router.get('/getGuestMsg/:id', function(req, res, next){
     guestModel.find({userName : req.params.id}, function(err, guestIdInfo){
         if(err){
@@ -32,10 +35,12 @@ router.get('/getGuestMsg/:id', function(req, res, next){
     });
 })
 
+//board post test
 router.post('/', function(req, res, next){
     res.json({state : "testNormal"});
 });  
 
+//guest게시판 글 작성 
 router.post('/guestCreateBoard', function(req, res, next){
     if(!req.body.title){
         return res.json({state : -1, msg : "Title is empty!"});

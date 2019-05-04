@@ -59,7 +59,8 @@ router.post('/host',function(req, res,next){
         registerUser.gender = req.body.gender;
       registerUser.save(function (err) {
           if(err){
-              res.json({state : -1, msg : "error is occured"});
+              return res.json({state : -1, msg : "error is occured"});
+              // return;
           }
         res.json({ status: 0, message: "host register success!" });
       });
@@ -107,6 +108,7 @@ router.post('/guest',function(req, res,next){
       registerUser.save(function (err) {
           if(err){
               res.json({state : -1, msg : "error is occured"});
+              return;
           }
         res.json({ status: 0, message: 'guest register success!' })
       })

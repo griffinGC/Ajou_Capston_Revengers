@@ -109,7 +109,7 @@ router.post('/guest',function(req, res,next){
           if(err){
               return res.json({state : -1, msg : "error is occured"});
           }
-        // res.json({ state: 0, msg: 'guest register success!' })
+        res.json({ state: 0, msg: 'guest register success!' })
       })
 });
 

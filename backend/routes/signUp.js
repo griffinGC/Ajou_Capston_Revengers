@@ -35,16 +35,16 @@ router.post('/', function(req, res, next){
 router.post('/host',function(req, res,next){ 
   console.log("test");
       if(!req.body.userName){
-          res.json({status: -1, message: 'ID can not be empty!'})
+          res.json({state: -1, message: 'ID can not be empty!'})
       }
       if(!req.body.password){
-              res.json({status: -1, message: 'password can not be empty!'})
+              res.json({state: -1, message: 'password can not be empty!'})
       }    
       if(!req.body.phone){
-          res.json({status: -1, message: 'phone can not be empty!'})
+          res.json({state: -1, message: 'phone can not be empty!'})
       }
       if(!req.body.email){
-          res.json({status: -1, message: 'email can not be empty!'})
+          res.json({state: -1, message: 'email can not be empty!'})
       }
        console.log(req.body.userName);
         let registerUser = new hostModel();
@@ -62,7 +62,7 @@ router.post('/host',function(req, res,next){
               return res.json({state : -1, msg : "error is occured"});
               // return;
           }
-        res.json({ status: 0, message: "host register success!" });
+        res.json({ state: 0, message: "host register success!" });
       });
 
 });
@@ -86,16 +86,16 @@ router.get('/guestConfirm/:id',function(req, res,next){
 
 router.post('/guest',function(req, res,next){
       if(!req.body.userName){
-        res.json({status: -1, message: 'ID can not be empty!'})
+        res.json({state: -1, message: 'ID can not be empty!'})
         }
         if(!req.body.password){
-            res.json({status: -1, message: 'password can not be empty!'})
+            res.json({state: -1, message: 'password can not be empty!'})
         }    
         if(!req.body.phone){
-        res.json({status: -1, message: 'phone can not be empty!'})
+        res.json({state: -1, message: 'phone can not be empty!'})
         }
         if(!req.body.email){
-        res.json({status: -1, message: 'email can not be empty!'})
+        res.json({state: -1, message: 'email can not be empty!'})
         }        
         let registerUser = new guestModel();
         registerUser.userName = req.body.userName;
@@ -109,7 +109,7 @@ router.post('/guest',function(req, res,next){
           if(err){
               return res.json({state : -1, msg : "error is occured"});
           }
-        res.json({ status: 0, message: 'guest register success!' })
+        res.json({ state: 0, message: 'guest register success!' })
       })
 });
 

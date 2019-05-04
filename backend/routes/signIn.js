@@ -42,7 +42,7 @@ router.post('/',function(req, res, error){
                     req.session.save(function(){
                         res.json({state : 0, msg : "session is saved! && guest login is success"});
                     });
-                    //여기도 같이 하면 오류발생 
+                    //비동기이기때문에 저장하는데 시간이 걸려서 json이 두번 전송되기 때문에 오류발생
                     //  res.json({state : 0, msg : "guest login success!!!"});
             }   
         });
@@ -65,7 +65,7 @@ router.post('/',function(req, res, error){
                     req.session.save(function(){
                         res.json({state : 0, msg : "session is saved & host login is success"})
                     });
-                    //여기도 같이 하면 오류발생 
+                    //비동기이기때문에 저장하는데 시간이 걸려서 json이 두번 전송되기 때문에 오류발생
                 //  res.json({state: 0, msg:" host login success!!"});
             }
         });

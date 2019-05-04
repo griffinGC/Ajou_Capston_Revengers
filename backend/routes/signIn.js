@@ -16,8 +16,8 @@ router.get('/',function(req, res, error){
 router.post('/',function(req, res, error){
     //세션을 저장 
     var sess = req.session;
-    var userId = req.body.id;
-    var userPwd = req.body.pwd;
+    var userId = req.body.userName;
+    var userPwd = req.body.password;
 
     if(!userId){
         return res.json({state: -1, msg : "username is empty"});

@@ -8,9 +8,7 @@
       <input type="text" placeholder="Id" class="txtb" v-model="id">
       <input type="password" placeholder="Password" class="txtb" v-model="pwd">
       <select id="roles" class="txtb">
-        <option v-for="role in roles" :key='role' :value="role.value">
-          {{role.name}}
-        </option>
+        <option v-for="role in roles" :key="role" :value="role.value">{{role.name}}</option>
       </select>
       <input type="submit" @click="signIn()" value="Sign In" class="signup-btn">
       <a href="#" @click="hostSignUp()">Sign up host?</a>
@@ -29,45 +27,57 @@ export default {
       pwd: "",
       roles: [
         {
-          name: 'host',
+          name: "host",
           value: 1
         },
         {
-          name: 'guest',
+          name: "guest",
           value: 0
         }
-      ],
+      ]
     };
   },
   methods: {
-    signIn(){
-      this.$router.push("/about");
-    },
-    // signIn() {
-    //   var roleValue = document.getElementById('roles').value
-    //   console.log(roleValue)
-    //   this.axios
-    //     .post(
-    //       "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/signIn",
-    //       {
-    //         id: this.id,
-    //         pwd: this.pwd,
-    //         radio: roleValue
-    //       }
-    //     )
-    //     .then(response => {
-    //       console.log(response);
-    //       if (response.data.state == -1) {
-    //         alert(response.data.msg);
-    //         this.id = "";
-    //         this.password = "";
-    //       }
-    //       if (response.data.state == 0) {
-    //         localStorage.name = this.id;
-    //         this.$router.push("/about");
-    //       }
-    //     });
+    // signIn(){
+    //   this.$router.push("/about");
     // },
+    signIn() {
+      var roleValue = parseInt(document.getElementById("roles").value);
+      console.log(roleValue);
+      this.axios
+        .post(
+          "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/signIn",
+          {
+            id: this.id,
+            pwd: this.pwd,
+            radio: roleValue
+          }
+        )
+        .then(response => {
+          console.log(response);
+          if (response.data.state == -1) {
+            alert(response.data.msg);
+            this.id = "";
+            this.password = "";
+          }
+          if (response.data.state == 0) {
+            localStorage.name = this.id;
+            this.$router.push("/about");
+          }
+
+          this.axios
+            .get(
+              "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/signIn"
+            )
+            .then(response => {
+              console.log("this is created function");
+              console.log(response);
+              if (response.data.state == -1) {
+                this.$router.push("/");
+              }
+            });
+        });
+    },
     hostSignUp() {
       this.$router.push("/hsignup");
     },

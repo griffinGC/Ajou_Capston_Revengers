@@ -8,7 +8,6 @@ import VueLocalStorage from 'vue-localstorage'
 import VueAxios from 'vue-axios'
 import Vuetify from 'vuetify'
 
-import 'vuetify/dist/vuetify.min.css'
 
 
 

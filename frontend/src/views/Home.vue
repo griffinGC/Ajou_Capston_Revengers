@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <SignIn/>
+    <HelloWorld/>
   </div>
 </template>
 
@@ -11,7 +11,7 @@ import HelloWorld from '@/components/HelloWorld.vue'
 export default {
   name: 'home',
   components: {
-    SignIn
+    HelloWorld
   }
 }
 </script>

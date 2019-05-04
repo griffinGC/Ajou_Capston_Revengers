@@ -10,7 +10,7 @@ module.exports = {
       staticIndexPage: 'index.html',
       staticErrorPage: 'index.html',
       assetPath: 'dist',
-      assetMatch: 'dist',
+      assetMatch: '**',
       deployPath: '/',
       acl: 'public-read',
       pwa: true,

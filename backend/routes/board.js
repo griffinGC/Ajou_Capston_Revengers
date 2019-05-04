@@ -24,7 +24,7 @@ router.get('/getGuestList',function(req, res,next){
   });        
 
 router.get('/getGuestMsg/:id', function(req, res, next){
-    guestModel.
+    // guestModel.
 })
   
 router.post('/', function(req, res, next){

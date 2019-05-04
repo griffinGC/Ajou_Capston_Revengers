@@ -21,7 +21,7 @@ router.get('/getGuestList',function(req, res,next){
           return res.json(err);
         };
         //json형식으로 응답
-        return res.json({state : 0, guestBoard : guestBoardContent});
+        return res.json(guestBoardContent);
         })
   });        
 
@@ -31,7 +31,7 @@ router.get('/getGuestMsg/:id', function(req, res, next){
         if(err){
             return res.json(err);
         };
-        return res.json({state : 0, guestInfo : `${guestIdInfo}`});
+        return res.json(guestIdInfo);
     });
 })
 

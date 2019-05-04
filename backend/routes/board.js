@@ -1,30 +1,20 @@
 var express = require('express');
 var router = express.Router();
-const guestModel = require('../schemas/createGuest');
-const hostModel = require('../schemas/createHost');
+const guestBoard = require('../schemas/guestBoard');
+const hostBoard = require('../schemas/hostBoard');
 
-//guestid 확인용, gudstid 가입, hostid 확인, hostid 가입 => 총 4개의 router 지정해야함 
-router.get('/:id',function(req, res,next){
-  console.log("start");
-  console.log(req.params.id);
-  res.json({state : 0});
-    
+//board 라우터 테스트
+router.get('/',function(req, res,next){
+  console.log("board Test");
+  return res.json({state : 0, msg : "board router test"});
   });     
 
-router.get('/hostConfirm/:id',function(req, res,next){
-  console.log(req.params.id);
-    hostModel.find({userName : req.params.id},function(err,hostModel){
-      // console.log(req.params.id);
-
+router.get('/getGuestList',function(req, res,next){
+    hostModel.find({},function(err,guestBoardContent){
         if(err) {
           return res.json(err);
         };
-        if(hostModel[0]){
-            res.json({state : -1, msg : "host ID alreay exists!"});
-        } 
-        else {
-            res.json({state : 0, msg : "host ID can use"});           
-          }
+        return res.json({state : 0, guestBoard : `${guestBoardContent}`});
         })
   });        
         

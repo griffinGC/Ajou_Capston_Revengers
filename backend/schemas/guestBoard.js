@@ -42,9 +42,9 @@ const guestBoardSchema = new mongoose.Schema({
 })
 
 guestBoardSchema.plugin(autoIncrement,{
-    model : 'hostBoard',
-    field : 'hostBoardId',
+    model : 'guestBoard',
+    field : 'guestBoardId',
     startAt : 1
 })
 
-module.exports = mongoose.model('hostBoard', hostBoardSchema);
+module.exports = mongoose.model('guestBoard', guestBoardSchema);

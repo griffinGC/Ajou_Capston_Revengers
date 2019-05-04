@@ -11,6 +11,7 @@ var usersRouter = require('./routes/users');
 var loginRouter = require('./routes/signIn');
 var logoutRouter = require('./routes/logOut');
 var signUpRouter = require('./routes/signUp');
+var boardRouter = require('./routes/board');
 
 // var connect = require('./schemas/index');
 require('./schemas/index');
@@ -54,7 +55,10 @@ app.use('/signIn',loginRouter);
 app.use('/signUp', signUpRouter);
 
 //logout 기능 라우터
-app.use('/logOut',logoutRouter)
+app.use('/logOut',logoutRouter);
+
+//게시판 기능 라우터
+app.use('/board', boardRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

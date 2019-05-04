@@ -51,7 +51,7 @@ router.post('/',function(req, res, error){
     
     if(req.body.radio){
         console.log("host test");
-        hostModel.find({userName : req.body.uerName, password : req.body.password}, function(err, hostModel){
+        hostModel.find({userName : req.body.userName, password : req.body.password}, function(err, hostModel){
             console.log("host확인");
             if(err){
                 return res.json(err);

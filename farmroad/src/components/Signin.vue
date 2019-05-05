@@ -4,6 +4,7 @@
       <v-card>
         <v-card-title class="headline">Sign In</v-card-title>
         <v-card-text>
+
           <!--输入框组-->
           <v-form class="px-3" ref="form" v-model="valid" lazy-validation>
             <v-text-field
@@ -33,9 +34,10 @@
           </v-form>
         </v-card-text>
         <v-card-actions>
+          <!--分界标签-->
           <v-spacer></v-spacer>
-          <!--按钮组-->
 
+          <!--底部按钮组-->
           <v-btn color="green darken-1" flat @click="dialog = false">Host signUp</v-btn>
           <v-btn color="green darken-1" flat @click="dialog = false">Guest SignUP</v-btn>
         </v-card-actions>

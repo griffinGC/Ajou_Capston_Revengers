@@ -1,6 +1,6 @@
 <template>
   <nav>
-    <v-toolbar color="cyan" dark tabs>
+    <v-toolbar color="cyan"  app dark tabs>
       <v-toolbar-side-icon class="white--text" @click="drawer= !drawer"></v-toolbar-side-icon>
       <v-toolbar-title class="text-uppercase white-text">
         <span class="font-weight-light">Farm</span>
@@ -9,11 +9,24 @@
 
       <v-spacer></v-spacer>
 
+       <!--dropdown menu-->
+      <v-menu offset-y>
+        <v-btn flat slot="activator" class="white--text">
+          <v-icon left>expand_more</v-icon>
+          <span>Menu</span>
+        </v-btn>
+        <v-list>
+          <v-list-tile v-for="link in links" :key="link.text" router :to="link.route">
+            <v-list-tile-title>{{link.text}}</v-list-tile-title>
+          </v-list-tile>
+        </v-list>
+      </v-menu>
+
       <v-btn flat color="white">
         <span>Sign Out</span>
         <v-icon right>exit_to_app</v-icon>
       </v-btn>
-
+      
       <!--Tabs-->
       <template v-slot:extension>
         <v-tabs v-model="model" centered color="cyan" slider-color="yellow" fixed-tabs>
@@ -68,8 +81,8 @@ export default {
       drawer: false,
 
       links: [
-        { icon: "dashboard", text: "Dashboard", route: "/" },
-        { icon: "folder", text: "My Projects", route: "/projects" },
+        { icon: "dashboard", text: "Home", route: "/" },
+        { icon: "folder", text: "About", route: "/about" },
         { icon: "person", text: "Team", route: "/team" }
       ],
       model: "tab-2",

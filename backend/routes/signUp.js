@@ -64,9 +64,7 @@ router.post('/host',function(req, res,next){
           }
         res.json({ state: 0, msg: "host register success!" });
       });
-
 });
-
 
 
 router.get('/guestConfirm/:id',function(req, res,next){
@@ -97,6 +95,7 @@ router.post('/guest',function(req, res,next){
         if(!req.body.email){
             return res.json({state: -1, msg: 'email can not be empty!'})
         }        
+
         let registerUser = new guestModel();
         registerUser.userName = req.body.userName;
         registerUser.password = req.body.password;

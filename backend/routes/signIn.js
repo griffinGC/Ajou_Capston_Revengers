@@ -16,8 +16,8 @@ router.get('/',function(req, res, error){
 router.post('/',function(req, res, error){
     //세션을 저장 
     var sess = req.session;
-    var userId = req.body.id;
-    var userPwd = req.body.pwd;
+    var userId = req.body.userName;
+    var userPwd = req.body.password;
 
     if(!userId){
         return res.json({state: -1, msg : "username is empty"});
@@ -29,7 +29,7 @@ router.post('/',function(req, res, error){
 
     console.log(req.body.radio);
     if(!req.body.radio){
-        guestModel.find({userName : req.body.id, password : req.body.pwd}, function(err,guestModel){
+        guestModel.find({userName : req.body.userName, password : req.body.password}, function(err,guestModel){
             console.log("guest확인");
             if(err) {
               return res.json(err);
@@ -42,7 +42,7 @@ router.post('/',function(req, res, error){
                     req.session.save(function(){
                         res.json({state : 0, msg : "session is saved! && guest login is success"});
                     });
-                    //여기도 같이 하면 오류발생 
+                    //비동기이기때문에 저장하는데 시간이 걸려서 json이 두번 전송되기 때문에 오류발생
                     //  res.json({state : 0, msg : "guest login success!!!"});
             }   
         });
@@ -51,7 +51,7 @@ router.post('/',function(req, res, error){
     
     if(req.body.radio){
         console.log("host test");
-        hostModel.find({userName : req.body.id, password : req.body.pwd}, function(err, hostModel){
+        hostModel.find({userName : req.body.userName, password : req.body.password}, function(err, hostModel){
             console.log("host확인");
             if(err){
                 return res.json(err);
@@ -65,7 +65,7 @@ router.post('/',function(req, res, error){
                     req.session.save(function(){
                         res.json({state : 0, msg : "session is saved & host login is success"})
                     });
-                    //여기도 같이 하면 오류발생 
+                    //비동기이기때문에 저장하는데 시간이 걸려서 json이 두번 전송되기 때문에 오류발생
                 //  res.json({state: 0, msg:" host login success!!"});
             }
         });

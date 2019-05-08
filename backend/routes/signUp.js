@@ -57,6 +57,7 @@ router.post('/host',function(req, res,next){
         registerUser.age = req.body.age;
         registerUser.work = req.body.work;
         registerUser.gender = req.body.gender;
+        registrUser.role = "host";
       registerUser.save(function (err) {
           if(err){
               return res.json({state : -1, msg : "error is occured"});
@@ -104,8 +105,11 @@ router.post('/guest',function(req, res,next){
         registerUser.ability= req.body.abiity;        
         registerUser.age = req.body.age;        
         registerUser.gender = req.body.gender;
+        registerUser.role = "guest";
+        console.log("1");
       registerUser.save(function (err) {
           if(err){
+              console.log(err);
               return res.json({state : -1, msg : "error is occured"});
           }
         res.json({ state: 0, msg: 'guest register success!' })

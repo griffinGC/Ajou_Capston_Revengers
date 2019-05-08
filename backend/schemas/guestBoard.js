@@ -18,6 +18,9 @@ const guestBoardSchema = new mongoose.Schema({
         type : String,
         required : true
     },
+    boardImg : {
+        type : String
+    },
     startDate : {
         type : Date,
     },

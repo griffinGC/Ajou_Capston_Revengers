@@ -65,6 +65,8 @@ router.post('/guestCreateBoard', function(req, res, next){
     let canNumber = writeBoard.candidate.length;
     console.log(canNumber);
     writeBoard.candidateNumber = canNumber;
+    writeBoard.boardImg = "http://localhost:3000/images/guestBoard/"+req.body.guestInfo+req.body.title+".jpeg";
+    // writeBoard.boardImg = "http://localhost:3000/images/guestBoard/test1.jpeg";
     writeBoard.save(function(err){
         if(err){
             return res.json({state : -1, msg : "guestBoard save is failed"});

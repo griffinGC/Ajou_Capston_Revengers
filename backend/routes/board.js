@@ -65,6 +65,7 @@ router.post('/guestCreateBoard', function(req, res, next){
     let canNumber = writeBoard.candidate.length;
     console.log(canNumber);
     writeBoard.candidateNumber = canNumber;
+    //startDate를 required로 바꾸고 넣는거 생각 
     writeBoard.boardImg = "http://localhost:3000/images/guestBoard/"+req.body.guestInfo+req.body.title+".jpeg";
     // writeBoard.boardImg = "http://localhost:3000/images/guestBoard/test1.jpeg";
     writeBoard.save(function(err){
@@ -74,7 +75,65 @@ router.post('/guestCreateBoard', function(req, res, next){
         res.json({state : 0, msg : "guestBoard save is success"});
     })
 })
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+//host게시판 글 가져오기
+router.get('/getHostList',function(req, res,next){
+    hostBoard.find({},function(err,hostBoardContent){
+        if(err) {
+          return res.json(err);
+        };
+        //json형식으로 응답
+        return res.json(hostBoardContent);
+        })
+  });        
+
+//host게시판 작성자 정보 가져오기
+router.get('/getHostMsg/:id', function(req, res, next){
+    hostModel.find({userName : req.params.id}, function(err, hostIdInfo){
+        if(err){
+            return res.json(err);
+        };
+        return res.json(hostIdInfo);
+    });
+})
+
+
+//host게시판 글 작성 
+router.post('/hostCreateBoard', function(req, res, next){
+    if(!req.body.title){
+        return res.json({state : -1, msg : "Title is empty!"});
+    }
+    if(!req.body.content){
+        return res.json({state : -1, msg : "Content is empty!"});
+    }
+    if(!req.body.hostInfo){
+        return res.json({state : -1, msg : "guestID is empty!"});
+    }
+    let writeBoard = new hostBoard();
+    writeBoard.title = req.body.title;
+    writeBoard.content = req.body.content;
+    writeBoard.hostInfo = req.body.hostInfo;
+    writeBoard.startDate = req.body.startDate;
+    writeBoard.endDate = req.body.endDate;
+    writeBoard.difficulty = req.body.difficulty;
+    writeBoard.workDay = req.body.workDay;
+    writeBoard.category = req.body.category;
+    writeBoard.reward = req.body.reward;
+    writeBoard.candidate = req.body.candidate;
+    let canNumber = writeBoard.candidate.length;
+    console.log(canNumber);
+    writeBoard.candidateNumber = canNumber;
+    //startDate를 required로 바꾸고 넣는거 생각 
+    writeBoard.boardImg = "http://localhost:3000/images/hostBoard/"+req.body.hostInfo+req.body.title+".jpeg";
+
+    writeBoard.save(function(err){
+        if(err){
+            return res.json({state : -1, msg : "hostBoard save is failed"});
+        }
+        res.json({state : 0, msg : "hostBoard save is success"});
+    })
+})
 
 
 

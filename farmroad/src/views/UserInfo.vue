@@ -86,17 +86,13 @@ export default {
   methods: {
     validate() {
       if (this.$refs.form.validate()) {
+        let userId = "userId"
         this.snackbar = true;
         this.axios
-          .post("http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/signUp/guest", {
-            userName: this.username,
-            password: this.password,
-            email: this.email,
-            phone: this.phone
-          })
+          .get(`http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/user/getInfo/${userId}`)
           .then(respones => {
             console.log(respones.data);
-            this.$router.push('/')
+            // this.$router.push('/')
           });
 
 

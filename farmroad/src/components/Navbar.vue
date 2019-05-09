@@ -9,7 +9,7 @@
 
       <v-spacer></v-spacer>
 
-       <!--dropdown menu-->
+      <!--dropdown menu-->
       <v-menu offset-y>
         <v-btn flat slot="activator" class="white--text">
           <v-icon left>expand_more</v-icon>
@@ -22,29 +22,32 @@
         </v-list>
       </v-menu>
 
+      <Popup/>
+
       <v-btn flat color="white">
         <span>Sign Out</span>
         <v-icon right>exit_to_app</v-icon>
       </v-btn>
       
       <!--Tabs-->
-      <template v-slot:extension>
+      <!-- <template v-slot:extension>
         <v-tabs v-model="model" centered color="cyan" slider-color="yellow" fixed-tabs>
           <v-tab v-for="i in 3" :key="i" :href="`#tab-${i}`">Item {{ i }}</v-tab>
         </v-tabs>
-      </template>
+      </template> -->
     </v-toolbar>
 
     <!--Tab items-->
-    <v-tabs-items v-model="model">
+    <!-- <v-tabs-items v-model="model">
       <v-tab-item v-for="i in 3" :key="i" :value="`tab-${i}`">
         <v-card flat>
           <v-card-text>{{text}}</v-card-text>
         </v-card>
       </v-tab-item>
-    </v-tabs-items>
+    </v-tabs-items> -->
 
     <v-navigation-drawer app v-model="drawer" class="primary">
+
       <!--头像和名字-->
       <!-- <v-layout column align-center>
         <v-flex class="mt-5">
@@ -56,6 +59,7 @@
         </v-flex>
       </v-layout>-->
       <!--menu item-->
+
       <v-list>
         <v-list-tile v-for="link in links" :key="link.text" router :to="link.route">
           <v-list-tile-action>
@@ -70,9 +74,9 @@
   </nav>
 </template>
 <script>
-import Popup from "./Popup";
-
+import Popup from "./Popup"
 export default {
+  
   components: {
     Popup
   },
@@ -81,9 +85,9 @@ export default {
       drawer: false,
 
       links: [
-        { icon: "dashboard", text: "Home", route: "/" },
-        { icon: "folder", text: "About", route: "/about" },
-        { icon: "person", text: "Team", route: "/team" }
+        { icon: "home", text: "Home", route: "/" },
+        { icon: "dashboard", text: "Boards", route: "/about" },
+        { icon: "person", text: "Profile", route: "/team" }
       ],
       model: "tab-2",
       text:

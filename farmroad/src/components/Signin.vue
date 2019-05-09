@@ -27,8 +27,8 @@
               @click:append="show1 = !show1"
             ></v-text-field>
             <v-radio-group v-model="radios" :mandatory="false">
-              <v-radio label="Host" value="0"></v-radio>
-              <v-radio label="Guest" value="1"></v-radio>
+              <v-radio label="Host" value="1"></v-radio>
+              <v-radio label="Guest" value="0"></v-radio>
             </v-radio-group>
             <v-btn :disabled="!valid" left color="success" @click="validate">Sign In</v-btn>
           </v-form>
@@ -60,7 +60,7 @@ export default {
       password: "",
       passwordRules: {
         required: value => !!value || "Required.",
-        min: v => v.length >= 8 || "Min 8 characters",
+        min: v => v.length >= 4 || "Min 4 characters",
         emailMatch: () => "The email and password you entered don't match"
       },
 
@@ -80,18 +80,26 @@ export default {
   methods: {
     validate() {
       if (this.$refs.form.validate()) {
+        console.log(parseInt(this.radios))
         this.snackbar = true;
-        this.dialog = false
+        this.axios
+        .post("http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/signIn", {
+          userName: this.username,
+          password: this.password,
+          radio: parseInt(this.radios)
+        })
+        .then(respones => {
+          console.log(respones.data);
+          if(respones.data.state == -1){
+            alert(respones.data.msg)
+          }else{
+            this.dialog = false
+          }
+           
+        });
+       
       }
-      // this.axios
-      //   .post("", {
-      //     id: this.username,
-      //     pwd: this.password,
-      //     radio: 1
-      //   })
-      //   .then(respones => {
-      //     console.log(respones.data);
-      //   });
+      
     }
   }
 };

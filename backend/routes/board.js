@@ -67,8 +67,11 @@ router.post('/guestCreateBoard', function(req, res, next){
         console.log(canNumber);
         writeBoard.candidateNumber = canNumber;
         //startDate를 required로 바꾸고 넣는거 생각 
-        writeBoard.boardImg = "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/images/guestBoard/"+req.body.guestInfo+req.body.title+".jpeg";
-        // writeBoard.boardImg = "http://localhost:3000/images/guestBoard/test1.jpeg";
+        let d = new Date();
+        let today = d.getDate() +""+ d.getHours(); 
+        console.log(today);
+        writeBoard.boardImg = "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/images/guestBoard/"+req.body.guestId+today+".jpeg";
+        // writeBoard.boardImg = "http://localhost:3000/images/guestBoard/"+req.body.guestId+today+".jpeg";
         writeBoard.save(function(err){
             if(err){
                 console.log(err);
@@ -130,8 +133,8 @@ router.post('/hostCreateBoard', function(req, res, next){
         console.log(canNumber);
         writeBoard.candidateNumber = canNumber;
         //startDate를 required로 바꾸고 넣는거 생각 
-        writeBoard.boardImg = "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/images/hostBoard/"+req.body.guestInfo+req.body.title+".jpeg";
-        // writeBoard.boardImg = "http://localhost:3000/images/guestBoard/test1.jpeg";
+        writeBoard.boardImg = "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/images/hostBoard/"+req.body.hostId+today+".jpeg";
+        // writeBoard.boardImg = "http://localhost:3000/images/hostBoard/"+req.body.hostId+today+".jpeg";
         writeBoard.save(function(err){
             if(err){
                 console.log(err);

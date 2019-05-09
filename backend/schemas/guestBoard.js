@@ -1,4 +1,5 @@
 const {mongoose, autoIncrement} = require('./index');
+const guestModel = require('./createGuest');
 
 const guestBoardSchema = new mongoose.Schema({
     //db에 저장하는 id 자동적으로 1씩 증가 
@@ -15,8 +16,7 @@ const guestBoardSchema = new mongoose.Schema({
         required : true
     },
     guestInfo : {
-        type : String,
-        required : true
+        type : Object,
     },
     boardImg : {
         type : String
@@ -46,6 +46,10 @@ const guestBoardSchema = new mongoose.Schema({
         type : Number
     }
 })
+
+guestBoardSchema.statics.findByUserName = function(name, callBack){
+    guestModel.find({userName : name}, callBack)
+}
 
 guestBoardSchema.plugin(autoIncrement,{
     model : 'guestBoard',

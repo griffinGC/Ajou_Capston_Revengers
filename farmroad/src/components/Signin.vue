@@ -40,7 +40,7 @@
 
           <!--底部按钮组-->
           <v-btn color="green darken-1" flat @click="dialog = false" router :to="hostRoute">Host signUp</v-btn>
-          <v-btn color="green darken-1" flat @click="dialog = false">Guest SignUP</v-btn>
+          <v-btn color="green darken-1" flat @click="dialog = false" router :to="guestRoute">Guest SignUP</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -74,7 +74,8 @@ export default {
       show3: false,
       show4: false,
 
-      hostRoute: '/hostsign'
+      hostRoute: '/hostsign',
+      guestRoute: '/guestsign'
     };
   },
   methods: {

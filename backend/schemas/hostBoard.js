@@ -18,11 +18,18 @@ const hostBoardSchema = new mongoose.Schema({
         type : String,
         required : true
     },
-    date : {
+    boardImg : {
+        type : String
+    },
+    startDate : {
+        type : Date,
+    },
+    endDate:{
         type : Date,
     },
     difficulty :{
-        type : Number
+        type : Number,
+        required : true
     },
     workDay : {
         type : Number

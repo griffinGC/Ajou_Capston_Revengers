@@ -60,7 +60,7 @@ export default {
       password: "",
       passwordRules: {
         required: value => !!value || "Required.",
-        min: v => v.length >= 8 || "Min 8 characters",
+        min: v => v.length >= 8 || "Min 8 characters"
       },
 
       dialog: true,
@@ -72,10 +72,10 @@ export default {
         v => /.+@.+/.test(v) || "E-mail must be valid"
       ],
 
-      phone:'',
-      phoneRules:{
-        required:  value => !!value || "Required.",
-        min: v => v.length >= 8 || "Min 8 characters",
+      phone: "",
+      phoneRules: {
+        required: value => !!value || "Required.",
+        min: v => v.length >= 8 || "Min 8 characters"
       },
 
       show1: false,
@@ -88,17 +88,21 @@ export default {
     validate() {
       if (this.$refs.form.validate()) {
         this.snackbar = true;
-        this.$router.push('/')
+        this.axios
+          .post("http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/signUp/guest", {
+            userName: this.username,
+            password: this.password,
+            email: this.email,
+            phone: this.phone
+          })
+          .then(respones => {
+            console.log(respones.data);
+            this.$router.push('/')
+          });
+
+
+        
       }
-      // this.axios
-      //   .post("", {
-      //     id: this.username,
-      //     pwd: this.password,
-      //     radio: 1
-      //   })
-      //   .then(respones => {
-      //     console.log(respones.data);
-      //   });
     }
   }
 };

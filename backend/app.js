@@ -5,6 +5,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var bodyParser = require('body-parser');
 var session = require('express-session');
+var MongoClient = require('mongodb');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -12,10 +13,25 @@ var loginRouter = require('./routes/signIn');
 var logoutRouter = require('./routes/logOut');
 var signUpRouter = require('./routes/signUp');
 
+
 // var connect = require('./schemas/index');
 require('./schemas/index');
 
 var app = express();
+
+/*var databaes;
+
+function connectDB(){
+  var databaesUrl = 'mongodb://localhost:27017.local';
+
+  MongoClient.connect(databaesUrl, function(err, db){
+    if(err) throw err;
+    console.log('success  '+databaesUrl);
+
+    databaes=db;
+  });
+}*/
+
 
 
 // view engine setup

@@ -136,7 +136,7 @@ router.post('/hostCreateBoard', function(req, res, next){
         //startDate를 required로 바꾸고 넣는거 생각 
         let d = new Date();
         let today = d.getDate() +""+ d.getHours(); 
-        let urlName = req.body.guestId + "" + today;
+        let urlName = req.body.hostId + "" + today;
         console.log(urlName);
         writeBoard.boardImg = "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/images/hostBoard/"+urlName+".jpeg";
         // writeBoard.boardImg = "http://localhost:3000/images/hostBoard/"+req.body.hostId+today+".jpeg";

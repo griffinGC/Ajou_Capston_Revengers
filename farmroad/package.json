@@ -16,6 +16,7 @@
     "vue": "^2.6.10",
     "vue-axios": "^2.1.4",
     "vue-cli-plugin-s3-deploy": "^3.0.0",
+    "vue-localstorage": "^0.6.2",
     "vue-router": "^3.0.3",
     "vuetify": "^1.5.5",
     "vuex": "^3.0.1"

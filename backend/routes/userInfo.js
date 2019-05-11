@@ -18,7 +18,7 @@ router.get('/',function(req, res,next){
       
 
 //guest정보 가져오기
-router.get('/getInfo/:id', function(req, res, next){
+router.get('/getInfo/guest/:id', function(req, res, next){
     guestModel.find({userName : req.params.id}, function(err, getInfo){
         if(err){
             return res.json(err);
@@ -33,7 +33,7 @@ router.post('/', function(req, res, next){
 });  
 
 //guest회원정보 수정 
-router.post('/updateInfo', function(req, res, next){
+router.post('/updateInfo/guest', function(req, res, next){
     
        
     let editInfo = new guestModel();
@@ -56,7 +56,7 @@ router.post('/updateInfo', function(req, res, next){
 })
 
 //Host정보 가져오기
-router.get('/getInfo/:id', function(req, res, next){
+router.get('/getInfo/host/:id', function(req, res, next){
     hostModel.find({userName : req.params.id}, function(err, getInfo){
         if(err){
             return res.json(err);
@@ -71,7 +71,7 @@ router.post('/', function(req, res, next){
 });  
 
 //host회원정보 수정 
-router.post('/updateInfo', function(req, res, next){
+router.post('/updateInfo/host', function(req, res, next){
     
        
     let editInfo = new hostModel();
@@ -87,7 +87,7 @@ router.post('/updateInfo', function(req, res, next){
     console.log("userInfo Test");
     hostModel.update({$set : {password : req.body.password, userName:req.body.userName, name : req.body.name
         ,work : req.body.work, phone : req.body.phone,email : req.body.email,
-        address = req.body.address,loacation = req.body.loacation  }},function(err){
+        address : req.body.address,loacation : req.body.loacation  }},function(err){
         if(err){
             return res.json({state : -1, msg : "Information is failed to modify "});
         }

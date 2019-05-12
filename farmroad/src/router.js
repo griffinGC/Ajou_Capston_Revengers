@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Home from './views/Home.vue'
 import HostSignUp from './views/HostSignUp'
 import UserInfo from './views/UserInfo'
+import EditUserInfo from './views/EditUserInfo'
 Vue.use(Router)
 
 export default new Router({
@@ -28,6 +29,11 @@ export default new Router({
       path: '/userInfo',
       name: 'userInfo',
       component : UserInfo
+    },
+    {
+      path : '/editUserInfo',
+      name : 'editUserInfo',
+      component : EditUserInfo
     }
   ]
 })

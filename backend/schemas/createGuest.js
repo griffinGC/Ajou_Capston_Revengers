@@ -21,10 +21,9 @@ const guestSchema = new mongoose.Schema({
     },
     profileImg :{
         type : String,
-        
     },
     gender : {
-        type : Boolean
+        type : Number
     },
     age :{
         type : Number

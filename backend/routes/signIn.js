@@ -28,6 +28,7 @@ router.post('/',function(req, res, error){
     console.log("id랑 패스워드, 유형선택 확인완료");
 
     console.log(req.body.radio);
+    //0이면 guest
     if(!req.body.radio){
         guestModel.find({userName : req.body.userName, password : req.body.password}, function(err,guestModel){
             console.log("guest확인");
@@ -48,7 +49,7 @@ router.post('/',function(req, res, error){
         });
     }
     
-    
+    //0이면 host
     if(req.body.radio){
         console.log("host test");
         hostModel.find({userName : req.body.userName, password : req.body.password}, function(err, hostModel){

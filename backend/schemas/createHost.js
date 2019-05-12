@@ -24,7 +24,7 @@ const hostSchema = new mongoose.Schema({
         
     },
     gender : {
-        type : Boolean
+        type : Number
     },
     age :{
         type : Number

@@ -2,7 +2,7 @@
   <v-layout row>
     <v-dialog v-model="dialog" persistent fullscreen>
       <v-card>
-        <v-card-title class="headline">개인정보</v-card-title>
+        <v-card-title class="headline">유저정보수정</v-card-title>
         <!-- <v-card-text> -->
           <v-card-title>
           <v-flex lg12>
@@ -28,18 +28,18 @@
             </span>
           </v-flex>
           </v-card-title>          
-          <v-card-title><strong >이름 : </strong >{{name}}</v-card-title>
+          <v-card-title><strong >이름 : </strong ><v-text-field v-model="name"></v-text-field></v-card-title>
           <v-card-title><strong >성별 : </strong >{{gender}}</v-card-title>
-          <v-card-title><strong >나이 : </strong >{{age}}</v-card-title>
-          <v-card-title><strong >능력 : </strong >{{ability}}</v-card-title>
-          <v-card-title><strong >전화번호 : </strong >{{phone}}</v-card-title>
-          <v-card-title><strong >이메일 : </strong >{{email}}</v-card-title>
+          <v-card-title><strong >나이 : </strong ><v-text-field v-model="age"></v-text-field></v-card-title>
+          <v-card-title><strong >능력 : </strong ><v-text-field v-model="ability"></v-text-field></v-card-title>
+          <v-card-title><strong >전화번호 : </strong ><v-text-field v-model="phone"></v-text-field></v-card-title>
+          <v-card-title><strong >이메일 : </strong ><v-text-field v-model="email"></v-text-field></v-card-title>
           <!-- <v-card-title>직업 : {{work}}</v-card-title> -->
-          <v-card-title><strong >지역 : </strong >{{location}}</v-card-title>
-          <v-card-title><strong >주소 : </strong >{{address}}</v-card-title>
+          <v-card-title><strong >지역 : </strong ><v-text-field v-model="location"></v-text-field></v-card-title>
+          <v-card-title><strong >주소 : </strong ><v-text-field v-model="address"></v-text-field></v-card-title>
           <v-card-title><strong >평점 : </strong >{{reference}}</v-card-title>
         <!-- </v-card-text> -->
-        <v-btn v-on:click.native="editInfo">수정하기</v-btn>
+        <v-btn v-on:click.native="saveEdit">확인</v-btn>
         <v-btn v-on:click.native="saveCancel">취소 </v-btn>
       </v-card>
 
@@ -63,16 +63,15 @@ export default {
       phone : "01011112222",
       email : "chchch@gggg",
       reference : "",
+      role : "dfdf",
       work : "dfdf",            
       address : "dfdf",
-      location : "zzzz",
-      role :""
+      location : "zzzz"
 
     };
   },
   created(){
-    console.log("userInfo is created");
-    console.log(parseInt(localStorage.role));
+    console.log("userEdit is created");
     // getInfo();
   },
   methods: {
@@ -114,9 +113,10 @@ export default {
         });
       };
     },
-    editInfo(){
-      console.log("edit clicked!")
-      this.$router.push('/editUserInfo');
+    saveEdit(){
+      console.log("ebaba ");
+      this.$router.push('/')
+
     },
     saveCancel(){
       console.log("save cancel");

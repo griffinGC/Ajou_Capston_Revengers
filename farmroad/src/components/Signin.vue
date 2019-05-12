@@ -1,6 +1,6 @@
 <template>
   <v-layout row justify-center>
-    <v-dialog v-model="dialog" persistent>
+    <v-dialog v-model="SignInDialog" persistent>
       <v-card>
         <v-card-title class="headline">Sign In</v-card-title>
         <v-card-text>
@@ -39,8 +39,8 @@
           <v-spacer></v-spacer>
 
           <!--底部按钮组-->
-          <v-btn color="green darken-1" flat @click="dialog = false" router :to="hostRoute">Host signUp</v-btn>
-          <v-btn color="green darken-1" flat @click="dialog = false">Guest SignUP</v-btn>
+          <v-btn color="green darken-1" flat @click="SignInDialog = false" router :to="hostRoute">Host signUp</v-btn>
+          <v-btn color="green darken-1" flat @click="SignInDialog = false">Guest SignUP</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -64,7 +64,7 @@ export default {
         emailMatch: () => "The email and password you entered don't match"
       },
 
-      dialog: true,
+      SignInDialog: true,
       valid: true,
 
       radios: "0",
@@ -92,8 +92,11 @@ export default {
           console.log(respones.data);
           if(respones.data.state == -1){
             alert(respones.data.msg)
+            
           }else{
-            this.dialog = false
+            localStorage.username = this.username
+            localStorage.role = parseInt(this.radios)
+            this.SignInDialog = false
           }
            
         });

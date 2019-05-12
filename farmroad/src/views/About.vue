@@ -25,44 +25,16 @@
 </template>
 
 <script>
-import { constants } from "crypto";
 import PopupChat from "@/components/PopupChat.vue";
 
 export default {
   data() {
     return {
-      team: [
-        {
-          name: "the net Ninja",
-          role: "web developer",
-          avatar: "https://cdn.vuetifyjs.com/images/cards/house.jpg"
-        },
-        {
-          name: "Ryo",
-          role: "Graphic designer",
-          avatar: "https://cdn.vuetifyjs.com/images/cards/sunshine.jpg"
-        },
-        {
-          name: "Chun Li",
-          role: "Web developer",
-          avatar: "https://cdn.vuetifyjs.com/images/cards/road.jpg"
-        },
-        {
-          name: "gouken",
-          role: "sales guru",
-          avatar: "https://cdn.vuetifyjs.com/images/cards/plane.jpg"
-        },
-        {
-          name: "yoshi",
-          role: "sales guru",
-          avatar: "https://cdn.vuetifyjs.com/images/cards/docks.jpg"
-        }
-      ],
       boards: []
     };
   },
 
-  mounted: function() {
+  created: function() {
     this.$store.dispatch("fetchHostBoards");
     this.boards = this.$store.getters.doneHostBoards;
     this.$store.dispatch("fetchGuestBoards");

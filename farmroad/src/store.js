@@ -8,7 +8,8 @@ export default new Vuex.Store({
   state: {
     loadingStatus: 'loading',
     hostBoards: [],
-    guestBoards: []
+    guestBoards: [],
+    user: '',
   },
   mutations: {
     SET_LOADING_STATUS(state, status) {
@@ -19,6 +20,9 @@ export default new Vuex.Store({
     },
     SET_GUEST_BOARDS(state, guestBoards) {
       state.guestBoards = guestBoards
+    },
+    SET_SIGN_STATUS(state, user){
+      state.user = user
     }
   },
   actions: {
@@ -37,7 +41,14 @@ export default new Vuex.Store({
           context.commit('SET_LOADING_STATUS', 'notLoading')
           context.commit('SET_GUEST_BOARDS', response.data)
         })
+    },
+    UserSignin(context){
+      context.commit('SET_SIGN_STATUS','signin')
+    },
+    UserSignout(context){
+      context.commit('SET_SIGN_STATUS','')
     }
+    
   },
   getters: {
     doneHostBoards(state) {
@@ -45,6 +56,9 @@ export default new Vuex.Store({
     },
     doneGuestBoards(state){
       return state.guestBoards
+    },
+    getUserStatus(state){
+      return state.user
     }
   }
 })

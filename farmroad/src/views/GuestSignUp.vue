@@ -101,6 +101,7 @@ export default {
         rules: [
           v => v <= 100 || 'Really?!'
       ],
+      ability: "",
       show1: false,
       show2: true,
       show3: false,

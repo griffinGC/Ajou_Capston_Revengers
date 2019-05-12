@@ -48,32 +48,40 @@ router.post('/guestCreateBoard', function(req, res, next){
     if(!req.body.content){
         return res.json({state : -1, msg : "Content is empty!"});
     }
-    if(!req.body.guestInfo){
+    if(!req.body.guestId){
         return res.json({state : -1, msg : "guestID is empty!"});
     }
     let writeBoard = new guestBoard();
-    writeBoard.title = req.body.title;
-    writeBoard.content = req.body.content;
-    writeBoard.guestInfo = req.body.guestInfo;
-    writeBoard.startDate = req.body.startDate;
-    writeBoard.endDate = req.body.endDate;
-    writeBoard.difficulty = req.body.difficulty;
-    writeBoard.workDay = req.body.workDay;
-    writeBoard.category = req.body.category;
-    writeBoard.preferLocation = req.body.preferLocation;
-    writeBoard.candidate = req.body.candidate;
-    let canNumber = writeBoard.candidate.length;
-    console.log(canNumber);
-    writeBoard.candidateNumber = canNumber;
-    //startDate를 required로 바꾸고 넣는거 생각 
-    writeBoard.boardImg = "http://localhost:3000/images/guestBoard/"+req.body.guestInfo+req.body.title+".jpeg";
-    // writeBoard.boardImg = "http://localhost:3000/images/guestBoard/test1.jpeg";
-    writeBoard.save(function(err){
-        if(err){
-            return res.json({state : -1, msg : "guestBoard save is failed"});
-        }
-        res.json({state : 0, msg : "guestBoard save is success"});
-    })
+    guestBoard.findByUserName(req.body.guestId, function(err, userInfo){
+        writeBoard.title = req.body.title;
+        writeBoard.content = req.body.content;
+        writeBoard.guestInfo = userInfo;
+        writeBoard.startDate = req.body.startDate;
+        writeBoard.endDate = req.body.endDate;
+        writeBoard.difficulty = req.body.difficulty;
+        writeBoard.workDay = req.body.workDay;
+        writeBoard.category = req.body.category;
+        writeBoard.preferLocation = req.body.preferLocation;
+        writeBoard.candidate = req.body.candidate;
+        let canNumber = writeBoard.candidate.length;
+        console.log(canNumber);
+        writeBoard.candidateNumber = canNumber;
+        //startDate를 required로 바꾸고 넣는거 생각 
+        let d = new Date();
+        let today = d.getDate() +""+ d.getHours(); 
+        let urlName = req.body.guestId + "" + today;
+        console.log(urlName);
+        writeBoard.boardImg = "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/images/guestBoard/"+urlName+".jpeg";
+        // writeBoard.boardImg = "http://localhost:3000/images/guestBoard/"+req.body.guestId+today+".jpeg";
+        writeBoard.save(function(err){
+            if(err){
+                console.log(err);
+                return res.json({state : -1, msg : "guestBoard save is failed"});
+            }
+            res.json({state : 0, msg : "guestBoard save is success"});
+        })
+    });
+
 })
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -107,32 +115,39 @@ router.post('/hostCreateBoard', function(req, res, next){
     if(!req.body.content){
         return res.json({state : -1, msg : "Content is empty!"});
     }
-    if(!req.body.hostInfo){
+    if(!req.body.hostId){
         return res.json({state : -1, msg : "guestID is empty!"});
     }
     let writeBoard = new hostBoard();
-    writeBoard.title = req.body.title;
-    writeBoard.content = req.body.content;
-    writeBoard.hostInfo = req.body.hostInfo;
-    writeBoard.startDate = req.body.startDate;
-    writeBoard.endDate = req.body.endDate;
-    writeBoard.difficulty = req.body.difficulty;
-    writeBoard.workDay = req.body.workDay;
-    writeBoard.category = req.body.category;
-    writeBoard.reward = req.body.reward;
-    writeBoard.candidate = req.body.candidate;
-    let canNumber = writeBoard.candidate.length;
-    console.log(canNumber);
-    writeBoard.candidateNumber = canNumber;
-    //startDate를 required로 바꾸고 넣는거 생각 
-    writeBoard.boardImg = "http://localhost:3000/images/hostBoard/"+req.body.hostInfo+req.body.title+".jpeg";
-
-    writeBoard.save(function(err){
-        if(err){
-            return res.json({state : -1, msg : "hostBoard save is failed"});
-        }
-        res.json({state : 0, msg : "hostBoard save is success"});
-    })
+    hostBoard.findByUserName(req.body.hostId, function(err, userInfo){
+        writeBoard.title = req.body.title;
+        writeBoard.content = req.body.content;
+        writeBoard.hostInfo = userInfo;
+        writeBoard.startDate = req.body.startDate;
+        writeBoard.endDate = req.body.endDate;
+        writeBoard.difficulty = req.body.difficulty;
+        writeBoard.workDay = req.body.workDay;
+        writeBoard.category = req.body.category;
+        writeBoard.preferLocation = req.body.preferLocation;
+        writeBoard.candidate = req.body.candidate;
+        let canNumber = writeBoard.candidate.length;
+        console.log(canNumber);
+        writeBoard.candidateNumber = canNumber;
+        //startDate를 required로 바꾸고 넣는거 생각 
+        let d = new Date();
+        let today = d.getDate() +""+ d.getHours(); 
+        let urlName = req.body.hostId + "" + today;
+        console.log(urlName);
+        writeBoard.boardImg = "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/images/hostBoard/"+urlName+".jpeg";
+        // writeBoard.boardImg = "http://localhost:3000/images/hostBoard/"+req.body.hostId+today+".jpeg";
+        writeBoard.save(function(err){
+            if(err){
+                console.log(err);
+                return res.json({state : -1, msg : "hostBoard save is failed"});
+            }
+            res.json({state : 0, msg : "hostBoard save is success"});
+        })
+    });
 })
 
 

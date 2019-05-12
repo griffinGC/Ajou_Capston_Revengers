@@ -87,7 +87,7 @@ export default {
       links: [
         { icon: "home", text: "Home", route: "/" },
         { icon: "dashboard", text: "Boards", route: "/about" },
-        { icon: "person", text: "Profile", route: "/team" }
+        { icon: "person", text: "Profile", route: "/userInfo" }
       ],
     };
   },

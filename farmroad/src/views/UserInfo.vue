@@ -57,6 +57,7 @@ export default {
       userName : "test",
       name : "default",
       profileImg : "https://cdn.vuetifyjs.com/images/cards/house.jpg",
+      password : "",
       gender : "man",
       age : "22",
       ability : "can do anything",

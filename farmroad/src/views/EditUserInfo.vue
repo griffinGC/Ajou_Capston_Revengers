@@ -27,10 +27,12 @@
               &nbsp;{{ userName }}
             </span>
           </v-flex>
-          </v-card-title>          
+          </v-card-title>
+          <v-card-title><strong >비밀번호 : </strong ><v-text-field v-model="password"></v-text-field></v-card-title>          
           <v-card-title><strong >이름 : </strong ><v-text-field v-model="name"></v-text-field></v-card-title>
           <v-card-title><strong >성별 : </strong >{{gender}}</v-card-title>
-          <v-card-title><strong >나이 : </strong ><v-text-field v-model="age"></v-text-field></v-card-title>
+          <v-card-title><strong >나이 : </strong >{{age}}</v-card-title>
+          <!-- <v-card-title><strong >나이 : </strong ><v-text-field v-model="age"></v-text-field></v-card-title> -->
           <v-card-title><strong >능력 : </strong ><v-text-field v-model="ability"></v-text-field></v-card-title>
           <v-card-title><strong >전화번호 : </strong ><v-text-field v-model="phone"></v-text-field></v-card-title>
           <v-card-title><strong >이메일 : </strong ><v-text-field v-model="email"></v-text-field></v-card-title>
@@ -57,6 +59,7 @@ export default {
       userName : "test",
       name : "default",
       profileImg : "https://cdn.vuetifyjs.com/images/cards/house.jpg",
+      password : "",
       gender : "man",
       age : "22",
       ability : "can do anything",
@@ -114,9 +117,32 @@ export default {
       };
     },
     saveEdit(){
-      console.log("ebaba ");
-      this.$router.push('/')
+      console.log("save Action start! ");// localStorage.role == 0 이면 guest && 1이면 host
+        let userId = localStorage.username;
+        if(localStorage.role === 0){
+        this.axios
+          .post("http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/user/updateInfo/guest",{
+            userName : this.userName,
+            password : this.password,
+            name : this.name,
+            ability :this.ability,
+            phone : this.phone,
+            email : this.email 
 
+          })
+      }else{
+        this.axios
+        .post("http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/user/updateInfo/host",{
+            userName : this.userName,
+            password : this.password,
+            name : this.name,
+            ability :this.ability,
+            phone : this.phone,
+            email : this.email 
+        })
+        .then(console.log("save is success"));
+      };
+      this.$router.push('/')
     },
     saveCancel(){
       console.log("save cancel");

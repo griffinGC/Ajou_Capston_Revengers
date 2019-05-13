@@ -57,13 +57,12 @@ router.post('/host',function(req, res,next){
         registerUser.location = req.body.location;
         registerUser.age = req.body.age;
         registerUser.work = req.body.work;
-        //gender => number
+
+        //gender => number man=0, woman =1
         registerUser.gender = req.body.gender;
         registerUser.role = "host";
-        
       registerUser.save(function (err) {
           if(err){
-            console.log(err);
               return res.json({state : -1, msg : "error is occured"});
               
               // return;
@@ -104,11 +103,13 @@ router.post('/guest',function(req, res,next){
 
         let registerUser = new guestModel();
         registerUser.userName = req.body.userName;
+        registerUser.name = req.body.name;
         registerUser.password = req.body.password;
         registerUser.email = req.body.email;
         registerUser.phone = req.body.phone;
         registerUser.ability= req.body.abiity;        
-        registerUser.age = req.body.age;        
+        registerUser.age = req.body.age;  
+        //gender => number man=0, woman =1      
         registerUser.gender = req.body.gender;
         registerUser.role = "guest";
         console.log("1");

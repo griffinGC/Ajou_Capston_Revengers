@@ -4,6 +4,8 @@ import Home from './views/Home.vue'
 import HostSignUp from './views/HostSignUp'
 import UserInfo from './views/UserInfo'
 import Signin from './views/Signin'
+import EditUserInfo from './views/EditUserInfo'
+
 Vue.use(Router)
 
 const router =  new Router({
@@ -41,6 +43,11 @@ const router =  new Router({
       path: '/signin',
       name: 'Signin',
       component: Signin
+    },
+    {
+      path : '/editUserInfo',
+      name : 'editUserInfo',
+      component : EditUserInfo
     }
   ]
 })

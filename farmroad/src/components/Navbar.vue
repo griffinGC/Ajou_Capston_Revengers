@@ -20,12 +20,7 @@
             <v-list-tile-title>{{link.text}}</v-list-tile-title>
           </v-list-tile>
         </v-list>
-<<<<<<< HEAD
-      </v-menu>
-      <GuestBoard/>
-=======
       </v-menu>-->
->>>>>>> master
 
       <!--add board btn-->
       <Popup v-if="user"/>
@@ -56,12 +51,7 @@
   </nav>
 </template>
 <script>
-<<<<<<< HEAD
-import Popup from "./Popup"
-import GuestBoard from "./GuestBoard"
-=======
 import Popup from "./Popup";
->>>>>>> master
 export default {
   components: {
     Popup,

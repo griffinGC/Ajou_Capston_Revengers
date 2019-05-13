@@ -19,6 +19,10 @@ const guestSchema = new mongoose.Schema({
     name : {
         type : String
     },
+    profileImg :{
+        type : String,
+        
+    },
     gender : {
         type : Boolean
     },
@@ -38,6 +42,9 @@ const guestSchema = new mongoose.Schema({
     },
     reference : {
         type : Number
+    },
+    role : {
+        type : String
     }
 })
 

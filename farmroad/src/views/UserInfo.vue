@@ -1,11 +1,9 @@
 <template>
   <v-layout row justify-center>
-    <v-dialog v-model="SignInDialog" persistent>
+    <v-dialog v-model="dialog" persistent fullscreen>
       <v-card>
-        <v-card-title class="headline">Sign In</v-card-title>
+        <v-card-title class="headline">Host Sign Up</v-card-title>
         <v-card-text>
-
-          <!--输入框组-->
           <v-form class="px-3" ref="form" v-model="valid" lazy-validation>
             <v-text-field
               label="Username"
@@ -26,21 +24,22 @@
               prepend-icon="lock"
               @click:append="show1 = !show1"
             ></v-text-field>
-            <v-radio-group v-model="radios" :mandatory="false">
-              <v-radio label="Host" value="1"></v-radio>
-              <v-radio label="Guest" value="0"></v-radio>
-            </v-radio-group>
-            <v-btn :disabled="!valid" left color="success" @click="validate">Sign In</v-btn>
+
+            <v-text-field
+              v-model="email"
+              :rules="emailRules"
+              label="E-mail"
+              required
+              prepend-icon="email"
+            ></v-text-field>
+            <v-text-field v-model="phone" label="phone" required prepend-icon="phone"></v-text-field>
+
+            <v-btn :disabled="!valid" left color="success" @click="validate">Sign Up</v-btn>
           </v-form>
         </v-card-text>
         <v-card-actions>
-
           <!--分界标签-->
           <v-spacer></v-spacer>
-
-          <!--底部按钮组-->
-          <v-btn color="green darken-1" flat @click="SignInDialog = false" router :to="hostRoute">Host signUp</v-btn>
-          <v-btn color="green darken-1" flat @click="SignInDialog = false">Guest SignUP</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -60,49 +59,45 @@ export default {
       password: "",
       passwordRules: {
         required: value => !!value || "Required.",
-        min: v => v.length >= 4 || "Min 4 characters",
-        emailMatch: () => "The email and password you entered don't match"
+        min: v => v.length >= 8 || "Min 8 characters"
       },
 
-      SignInDialog: true,
+      dialog: true,
       valid: true,
 
-      radios: "0",
+      email: "",
+      emailRules: [
+        v => !!v || "E-mail is required",
+        v => /.+@.+/.test(v) || "E-mail must be valid"
+      ],
+
+      phone: "",
+      phoneRules: {
+        required: value => !!value || "Required.",
+        min: v => v.length >= 8 || "Min 8 characters"
+      },
 
       show1: false,
       show2: true,
       show3: false,
-      show4: false,
-
-      hostRoute: '/hostsign'
+      show4: false
     };
   },
   methods: {
     validate() {
       if (this.$refs.form.validate()) {
-        console.log(parseInt(this.radios))
+        let userId = "userId"
         this.snackbar = true;
         this.axios
-        .post("http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/signIn", {
-          userName: this.username,
-          password: this.password,
-          radio: parseInt(this.radios)
-        })
-        .then(respones => {
-          console.log(respones.data);
-          if(respones.data.state == -1){
-            alert(respones.data.msg)
-            
-          }else{
-            localStorage.username = this.username
-            localStorage.role = parseInt(this.radios)
-            this.SignInDialog = false
-          }
-           
-        });
-       
+          .get(`http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/user/getInfo/${userId}`)
+          .then(respones => {
+            console.log(respones.data);
+            // this.$router.push('/')
+          });
+
+
+        
       }
-      
     }
   }
 };

@@ -1,4 +1,5 @@
 const {mongoose, autoIncrement} = require('./index');
+const hostModel = require('./createHost');
 
 const hostBoardSchema = new mongoose.Schema({
     //db에 저장하는 id 자동적으로 1씩 증가 
@@ -15,14 +16,20 @@ const hostBoardSchema = new mongoose.Schema({
         required : true
     },
     hostInfo : {
-        type : String,
-        required : true
+        type : Object,
     },
-    date : {
+    boardImg : {
+        type : String
+    },
+    startDate : {
+        type : Date,
+    },
+    endDate:{
         type : Date,
     },
     difficulty :{
-        type : Number
+        type : Number,
+        required : true
     },
     workDay : {
         type : Number
@@ -40,6 +47,10 @@ const hostBoardSchema = new mongoose.Schema({
         type : Number
     }
 })
+
+hostBoardSchema.statics.findByUserName = function(name, callBack){
+    hostModel.find({userName : name}, callBack)
+}
 
 hostBoardSchema.plugin(autoIncrement,{
     model : 'hostBoard',

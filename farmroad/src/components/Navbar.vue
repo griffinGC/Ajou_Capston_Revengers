@@ -49,15 +49,15 @@
     <v-navigation-drawer app v-model="drawer" class="primary">
 
       <!--头像和名字-->
-      <!-- <v-layout column align-center>
+      <v-layout column align-center>
         <v-flex class="mt-5">
         
-          <v-avatar size="100">
+          <!-- <v-avatar size="100">
             <img src="/img/imgs/avatar-2.png">
-          </v-avatar>
-          <p class="white--text subheading mt-1">Require SignIn</p>
+          </v-avatar> -->
+          <p class="white--text subheading mt-1">{{showUser}}</p>
         </v-flex>
-      </v-layout>-->
+      </v-layout>
       <!--menu item-->
 
       <v-list>
@@ -87,12 +87,20 @@ export default {
       links: [
         { icon: "home", text: "Home", route: "/" },
         { icon: "dashboard", text: "Boards", route: "/about" },
-        { icon: "person", text: "Profile", route: "/team" }
+        { icon: "person", text: "Profile", route: "/userInfo" }
       ],
-      model: "tab-2",
-      text:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
     };
+  },
+  computed:{
+    showUser: function(){
+      var role = ''
+      if(localStorage == 1){
+        role = 'host'
+      }else{
+        role = 'guest'
+      }
+      return 'Hello! '+role+','+localStorage.username
+    }
   }
 };
 </script>

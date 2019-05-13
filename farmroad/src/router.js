@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './views/Home.vue'
 import HostSignUp from './views/HostSignUp'
-
+import GuestSignUp from './views/GuestSignUp'
 import UserInfo from './views/UserInfo'
 import Signin from './views/Signin'
 import EditUserInfo from './views/EditUserInfo'
@@ -35,6 +35,11 @@ const router =  new Router({
       path: '/hostsign',
       name: 'HostSignup',
       component: HostSignUp
+    },
+    {
+      path: '/guestsign',
+      name: 'GuestSignup',
+      component: GuestSignUp
     },
     {
       path: '/userInfo',

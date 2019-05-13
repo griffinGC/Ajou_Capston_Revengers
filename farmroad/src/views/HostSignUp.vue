@@ -1,6 +1,4 @@
 <template>
-  <v-layout row justify-center>
-    <v-dialog v-model="dialog" persistent fullscreen>
       <v-card>
         <v-card-title class="headline">Host Sign Up</v-card-title>
         <v-card-text>
@@ -43,8 +41,6 @@ x
           <v-spacer></v-spacer>
         </v-card-actions>
       </v-card>
-    </v-dialog>
-  </v-layout>
 </template>
 
 <script>

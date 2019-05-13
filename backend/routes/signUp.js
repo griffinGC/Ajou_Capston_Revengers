@@ -52,14 +52,19 @@ router.post('/host',function(req, res,next){
         registerUser.password = req.body.password;
         registerUser.email = req.body.email;
         registerUser.phone = req.body.phone;
+        registerUser.name = req.body.name;
         registerUser.address= req.body.address;
         registerUser.location = req.body.location;
         registerUser.age = req.body.age;
         registerUser.work = req.body.work;
+
+        //gender => number man=0, woman =1
         registerUser.gender = req.body.gender;
+        registerUser.role = "host";
       registerUser.save(function (err) {
           if(err){
               return res.json({state : -1, msg : "error is occured"});
+              
               // return;
           }
         res.json({ state: 0, msg: "host register success!" });
@@ -98,14 +103,19 @@ router.post('/guest',function(req, res,next){
 
         let registerUser = new guestModel();
         registerUser.userName = req.body.userName;
+        registerUser.name = req.body.name;
         registerUser.password = req.body.password;
         registerUser.email = req.body.email;
         registerUser.phone = req.body.phone;
         registerUser.ability= req.body.abiity;        
-        registerUser.age = req.body.age;        
+        registerUser.age = req.body.age;  
+        //gender => number man=0, woman =1      
         registerUser.gender = req.body.gender;
+        registerUser.role = "guest";
+        console.log("1");
       registerUser.save(function (err) {
           if(err){
+              console.log(err);
               return res.json({state : -1, msg : "error is occured"});
           }
         res.json({ state: 0, msg: 'guest register success!' })

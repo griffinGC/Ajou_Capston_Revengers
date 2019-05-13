@@ -21,6 +21,7 @@
           </v-list-tile>
         </v-list>
       </v-menu>
+      <GuestBoard/>
 
       <Popup/>
 
@@ -75,10 +76,12 @@
 </template>
 <script>
 import Popup from "./Popup"
+import GuestBoard from "./GuestBoard"
 export default {
   
   components: {
-    Popup
+    Popup,
+    GuestBoard
   },
   data() {
     return {

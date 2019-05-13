@@ -1,6 +1,6 @@
 <template>
-  <v-layout row>
-    <v-dialog v-model="dialog" persistent fullscreen>
+  <!-- <v-layout row> -->
+    <!-- <v-dialog v-model="dialog" persistent fullscreen> -->
       <v-card>
         <v-card-title class="headline">유저정보수정</v-card-title>
         <!-- <v-card-text> -->
@@ -45,8 +45,8 @@
         <v-btn v-on:click.native="saveCancel">취소 </v-btn>
       </v-card>
 
-    </v-dialog>
-  </v-layout>
+    <!-- </v-dialog> -->
+  <!-- </v-layout> -->
 </template>
 
 <script>

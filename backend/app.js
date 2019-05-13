@@ -50,6 +50,7 @@ app.use(session({
   secret : 'secret code',
 }));
 
+//정적파일사용 
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(bodyParser.urlencoded({extended: true}))

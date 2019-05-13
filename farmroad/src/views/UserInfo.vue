@@ -1,7 +1,7 @@
 <template>
-  <v-layout row>
-    <v-dialog v-model="dialog" persistent fullscreen>
-      <v-card>
+  <!-- <v-layout> -->
+    <!-- <v-dialog v-model="dialog" persistent fullscreen> -->
+      <v-card max-width>
         <v-card-title class="headline">개인정보</v-card-title>
         <!-- <v-card-text> -->
           <v-card-title>
@@ -28,7 +28,7 @@
             </span>
           </v-flex>
           </v-card-title>          
-          <v-card-title><strong >이름 : </strong >{{name}}</v-card-title>
+          <v-card-title center><strong >이름 : </strong >{{name}}</v-card-title>
           <v-card-title><strong >성별 : </strong >{{gender}}</v-card-title>
           <v-card-title><strong >나이 : </strong >{{age}}</v-card-title>
           <v-card-title><strong >능력 : </strong >{{ability}}</v-card-title>
@@ -43,8 +43,8 @@
         <v-btn v-on:click.native="saveCancel">취소 </v-btn>
       </v-card>
 
-    </v-dialog>
-  </v-layout>
+    <!-- </v-dialog> -->
+  <!-- </v-layout> -->
 </template>
 
 <script>
@@ -74,7 +74,7 @@ export default {
   created(){
     console.log("userInfo is created");
     console.log(parseInt(localStorage.role));
-    // getInfo();
+    this.getInfo();
   },
   methods: {
     getInfo() {

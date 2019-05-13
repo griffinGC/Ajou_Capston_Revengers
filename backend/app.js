@@ -8,7 +8,6 @@ var session = require('express-session');
 var MongoClient = require('mongodb');
 
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
 var loginRouter = require('./routes/signIn');
 var logoutRouter = require('./routes/logOut');
 var signUpRouter = require('./routes/signUp');
@@ -64,7 +63,7 @@ app.use((req, res, next) =>{
 
 app.use('/', indexRouter);
 //여기서 '/user'라고 적어주면 밑에서는 '/'만 적어도 됨 
-app.use('/users', usersRouter);
+// app.use('/users', usersRouter);
 
 //login 기능 라우터 
 app.use('/signIn',loginRouter);

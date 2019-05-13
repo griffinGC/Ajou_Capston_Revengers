@@ -57,13 +57,14 @@ router.post('/host',function(req, res,next){
         registerUser.location = req.body.location;
         registerUser.age = req.body.age;
         registerUser.work = req.body.work;
+
         //gender => number man=0, woman =1
         registerUser.gender = req.body.gender;
         registerUser.role = "host";
       registerUser.save(function (err) {
           if(err){
-
               return res.json({state : -1, msg : "error is occured"});
+              
               // return;
           }
         res.json({ state: 0, msg: "host register success!" });

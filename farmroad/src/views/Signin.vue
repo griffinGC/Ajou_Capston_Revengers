@@ -1,10 +1,8 @@
 <template>
-  <v-layout row justify-center>
-    <v-dialog v-model="SignInDialog" persistent>
+    <div class="login container">
       <v-card>
         <v-card-title class="headline">Sign In</v-card-title>
         <v-card-text>
-
           <!--输入框组-->
           <v-form class="px-3" ref="form" v-model="valid" lazy-validation>
             <v-text-field
@@ -34,21 +32,18 @@
           </v-form>
         </v-card-text>
         <v-card-actions>
-
           <!--分界标签-->
           <v-spacer></v-spacer>
 
           <!--底部按钮组-->
-          <v-btn color="green darken-1" flat @click="SignInDialog = false" router :to="hostRoute">Host signUp</v-btn>
-          <v-btn color="green darken-1" flat @click="SignInDialog = false">Guest SignUP</v-btn>
+          <v-btn color="green darken-1" flat router  :to="{name: 'HostSignup'}">Host signUp</v-btn>
+          <v-btn color="green darken-1" flat router >Guest SignUP</v-btn>
         </v-card-actions>
       </v-card>
-    </v-dialog>
-  </v-layout>
+    </div>
 </template>
 
 <script>
-import { constants } from "crypto";
 export default {
   data() {
     return {
@@ -64,7 +59,6 @@ export default {
         emailMatch: () => "The email and password you entered don't match"
       },
 
-      SignInDialog: true,
       valid: true,
 
       radios: "0",
@@ -74,37 +68,36 @@ export default {
       show3: false,
       show4: false,
 
-      hostRoute: '/hostsign'
+      hostRoute: "/hostsign"
     };
   },
   methods: {
     validate() {
       if (this.$refs.form.validate()) {
-        console.log(parseInt(this.radios))
         this.snackbar = true;
         this.axios
-        .post("http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/signIn", {
-          userName: this.username,
-          password: this.password,
-          radio: parseInt(this.radios)
-        })
-        .then(respones => {
-          console.log(respones.data);
-          if(respones.data.state == -1){
-            alert(respones.data.msg)
-            
-          }else{
-            localStorage.username = this.username
-            localStorage.role = parseInt(this.radios)
-            this.SignInDialog = false
-          }
-           
-        });
-       
+          .post(
+            "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/signIn",
+            {
+              userName: this.username,
+              password: this.password,
+              radio: parseInt(this.radios)
+            }
+          )
+          .then(respones => {
+            if (respones.data.state == -1) {
+              alert(respones.data.msg);
+            } else {
+              localStorage.username = this.username;
+              localStorage.role = parseInt(this.radios);
+              this.$store.dispatch("UserSignin");
+              this.$router.push({name: 'home'})
+              location.reload()
+              
+            }
+          });
       }
-      
     }
   }
 };
 </script>
-

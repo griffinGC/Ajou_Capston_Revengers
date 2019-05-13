@@ -4,8 +4,6 @@ var router = express.Router();
 const guestModel = require('../schemas/createGuest');
 const hostModel = require('../schemas/createHost');
 
-const guestInfo = require('../schemas/createGuest');
-const hostInfo= require('../schemas/createHost');
 
 
 
@@ -34,8 +32,6 @@ router.post('/', function(req, res, next){
 
 //guest회원정보 수정 
 router.post('/updateInfo/guest', function(req, res, next){
-    
-       
     let editInfo = new guestModel();
     editInfo.userName = req.body.userName;
     editInfo.password = req.body.password;
@@ -45,13 +41,13 @@ router.post('/updateInfo/guest', function(req, res, next){
     editInfo.email = req.body.email;    
     
     console.log("userInfo Test");
-    guestModel.update({$set : {password : req.body.password, userName:req.body.userName, name : req.body.name
+    guestModel.update({userName : req.body.userName},{$set : {password : req.body.password, userName:req.body.userName, name : req.body.name
         ,ability : req.body.ability, phone : req.body.phone,email : req.body.email }},function(err){
         if(err){
-            return res.json({state : -1, msg : "Information is failed to modify "});
+            return res.json({state : -1, msg : "guest Information is failed to modify "});
         }
         console.log(editInfo);
-        res.json({state : 0, msg : "Information successfully modified"});
+        res.json({state : 0, msg : "guest Information successfully modified"});
     })
 })
 
@@ -71,9 +67,7 @@ router.post('/', function(req, res, next){
 });  
 
 //host회원정보 수정 
-router.post('/updateInfo/host', function(req, res, next){
-    
-       
+router.post('/updateInfo/host', function(req, res, next){   
     let editInfo = new hostModel();
     editInfo.userName = req.body.userName;
     editInfo.password = req.body.password;
@@ -85,14 +79,14 @@ router.post('/updateInfo/host', function(req, res, next){
     editInfo.email = req.body.email;    
     
     console.log("userInfo Test");
-    hostModel.update({$set : {password : req.body.password, userName:req.body.userName, name : req.body.name
+    hostModel.update({userName : req.body.userName},{$set : {password : req.body.password, userName:req.body.userName, name : req.body.name
         ,work : req.body.work, phone : req.body.phone,email : req.body.email,
         address : req.body.address,loacation : req.body.loacation  }},function(err){
         if(err){
-            return res.json({state : -1, msg : "Information is failed to modify "});
+            return res.json({state : -1, msg : "host Information is failed to modify "});
         }
         console.log(editInfo);
-        res.json({state : 0, msg : "Information successfully modified"});
+        res.json({state : 0, msg : "host Information successfully modified"});
     })
 })
 

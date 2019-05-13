@@ -4,11 +4,16 @@
       <link href="https://fonts.googleapis.com/css?family=Permanent+Marker" rel="stylesheet">
       <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
       <form class>
-        <h1>guest sign up</h1>
+         <h1>guest sign up</h1>
         <input type="text" placeholder="Username" class="txtb">
         <input type="email" placeholder="e-mail" class="txtb">
         <input type="password" placeholder="Password" class="txtb">
         <input type="password" placeholder="Confirm Password" class="txtb">
+        <input type="date" value="2019-01-01" class="txtb">
+        <input type="tel" placeholder="Phone" class="txtb">
+        <input type="text" placeholder="Ability" class="txtb">
+        <span><label>Male</label><input class="b" type ="radio" name = "gender"></span>
+        <span><label>Female</label><input class="b" type ="radio" name = "gender"></span>
         <input type="submit" @click="signUp()" value="Create Account" class="signup-btn">
         <a href="#" @click="signUp()">Already Have one ?</a>
       </form>
@@ -110,5 +115,23 @@ body {
 .signup-form a:hover {
   background: rgba(0, 0, 0, 3);
 }
-
+.signup-form{
+  width:350px;
+}
+.signup-form input{
+  height: 50px;
+}
+.signup-form span{
+  display:inline-block;
+  align-content: center;
+  width: 50px;
+  height: 50px;
+  color:white;
+  margin-left:35px;
+  margin-right:50px;
+}
+.signup-form label{
+  margin-left:5px;
+}
+</style>
 

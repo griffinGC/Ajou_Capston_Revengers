@@ -39,7 +39,7 @@
       <v-card-actions>
         <!--分界标签-->
         <v-spacer></v-spacer>
-        <v-btn color="green darken-1" flat router  :to="{name: 'Signin'}">Back</v-btn>
+        <v-btn color="green darken-1" flat router :to="{name: 'Signin'}">Back</v-btn>
       </v-card-actions>
     </v-card>
   </div>
@@ -98,13 +98,12 @@ export default {
           )
           .then(response => {
             console.log(response.data);
-            if(response.data.state == 0){
-              localStorage.username = this.username, 
-              localStorage.role = 1
+            if (response.data.state == 0) {
+              (localStorage.username = this.username), (localStorage.role = 1);
               this.$router.push("/");
-              location.reload()
-            }else{
-              console.log('error'+response.data)
+              location.reload();
+            } else {
+              console.log("error" + response.data);
             }
           });
       }

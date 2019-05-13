@@ -2,6 +2,14 @@
   <div class="about">
     <v-btn flat class="success" @click="showHostBoards">show host boards</v-btn>
     <v-btn flat class="success" @click="showGuestBoards">show guest boards</v-btn>
+    <v-form>
+      <v-flex xs6 sm3>
+         <v-select
+          :items="items"
+          label="difficulty"
+        ></v-select>
+      </v-flex>
+    </v-form>
     <v-container class="my-5">
       <v-layout row wrap>
         <v-flex xs12 sm6 md4 lg3 v-for="board in boards" :key="board._id">
@@ -69,6 +77,7 @@ export default {
     return {
       boards: [],
       rating: 3,
+      items:[1,2,3,4,5]
     };
   },
 

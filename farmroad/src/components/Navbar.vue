@@ -4,7 +4,7 @@
       <v-toolbar-side-icon class="white--text" @click="drawer= !drawer" v-if="user"></v-toolbar-side-icon>
       <v-toolbar-title class="text-uppercase white-text">
         <span class="font-weight-light">Farm</span>
-        <span>Load</span>
+        <span>Road</span>
       </v-toolbar-title>
 
       <v-spacer></v-spacer>

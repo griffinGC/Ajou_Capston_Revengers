@@ -2,7 +2,6 @@
   <div class="home">
     <h1 class="subheading grey--text">Message</h1>
     <v-container row class="mb-3">
-      
       <!--卡片内容-->
       <v-card class="pa-3" v-for="project in projects" :key="project.id">
         <v-layout row wrap :class="`pa-3 project.${project.title}`">
@@ -11,7 +10,6 @@
             <div>{{project.title}}</div>
           </v-flex>
 
-          
           <v-flex xs6 sm4 md2>
             <div class="caption grey--text">preson</div>
             <div>{{project.guestInfo}}</div>
@@ -24,7 +22,8 @@
 
           <v-flex xs6 sm4 md2>
             <div>
-              <v-chip small :class="`dark--text caption`">{{project.status}}</v-chip>
+              <v-chip small :class="`white--text green`">confirm</v-chip>
+              <v-chip small :class="`white--text red `">refuse</v-chip>
             </div>
           </v-flex>
         </v-layout>
@@ -34,13 +33,11 @@
 </template>
 
 <script>
-  
-
-  export default {
-    name: 'home',
-    data(){
-      return{
-        projects: [
+export default {
+  name: "home",
+  data() {
+    return {
+      projects: [
         {
           title: "Design a new webside",
           person: "Ninja",
@@ -74,10 +71,8 @@
             "尝试Vue.js 最简单的方法是使用JSFiddle 上的Hello World 例子。你可以在浏览器新标签页中打开它，跟着例子学习一些基础用法。或者你也可以创建一个 .html 文件，"
         }
       ]
-      }
-    },
-    components: {
-      
-    }
-  }
+    };
+  },
+  components: {}
+};
 </script>

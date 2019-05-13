@@ -1,6 +1,6 @@
 <template>
   <v-dialog max-width="600px">
-    <v-btn flat slot="activator" class="success">add new Board</v-btn>
+    <v-btn flat slot="activator" class="success">add Host Board</v-btn>
     <v-card>
       <v-card-title>
         <h2>Add a new Board</h2>

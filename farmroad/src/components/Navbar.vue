@@ -1,6 +1,6 @@
 <template>
   <nav>
-    <v-toolbar color="cyan" app dark tabs>
+    <v-toolbar color="cyan" app dark>
       <v-toolbar-side-icon class="white--text" @click="drawer= !drawer" v-if="user"></v-toolbar-side-icon>
       <v-toolbar-title class="text-uppercase white-text">
         <span class="font-weight-light">Farm</span>
@@ -35,7 +35,7 @@
       </v-btn>
     </v-toolbar>
 
-    <v-navigation-drawer app v-model="drawer" class="primary">
+    <v-navigation-drawer app v-model="drawer" class="primary" disable-resize-watcher>
       <!--menu item-->
       <v-list>
         <v-list-tile v-for="link in links" :key="link.text" router :to="link.route">

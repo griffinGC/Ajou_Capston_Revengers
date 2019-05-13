@@ -36,7 +36,7 @@
           <v-spacer></v-spacer>
 
           <!--底部按钮组-->
-          <v-btn color="green darken-1" flat router >Host signUp</v-btn>
+          <v-btn color="green darken-1" flat router  :to="{name: 'HostSignup'}">Host signUp</v-btn>
           <v-btn color="green darken-1" flat router >Guest SignUP</v-btn>
         </v-card-actions>
       </v-card>

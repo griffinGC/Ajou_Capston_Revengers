@@ -23,6 +23,7 @@
       </v-menu>-->
 
       <!--add board btn-->
+      <GuestBoard v-if="user"/>
       <Popup v-if="user"/>
 
       <li v-if="user">
@@ -52,6 +53,7 @@
 </template>
 <script>
 import Popup from "./Popup";
+import GuestBoard from "./GuestBoard";
 export default {
   components: {
     Popup,

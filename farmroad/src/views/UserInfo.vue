@@ -13,9 +13,7 @@
                 alt="Avatar">
               <v-icon
                 v-else
-                :color="color"
-                v-text="person"
-              ></v-icon>
+              >person</v-icon>
             </v-avatar>
           </v-flex>
 
@@ -73,20 +71,22 @@ export default {
   },
   created(){
     console.log("userInfo is created");
-    console.log(parseInt(localStorage.role));
+    // console.log("로컬 스토리지! : "+localStorage.role);
+    this.role = localStorage.role
     this.getInfo();
   },
   methods: {
     getInfo() {
       // localStorage.role == 0 이면 guest && 1이면 host
         let userId = localStorage.username;
-        if(localStorage.role === 0){
+        // console.log("로컬 스토리지 역할 정보 : "+localStorage.role);
+        if(localStorage.role === '0'){
         this.axios
           .get(`http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/user/getInfo/guest/${userId}`)
-          .then(respones => {
-            console.log(respones.data);
-            let userData = response.data;
-            // userName = userData.userName;
+          .then(response => {
+            console.log(response.data[0]);
+            let userData = response.data[0];
+            this.userName = userData.userName;
             this.name = userData.name;
             this.profileImg = userData.profileImg;
             this.age = userData.age;
@@ -98,9 +98,9 @@ export default {
       }else{
         this.axios
         .get(`http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/user/getInfo/host/${userId}`)
-        .then(responses =>{
-          console.log(response.data);
-            let userData = response.data;
+        .then(response =>{
+          console.log(response.data[0]);
+            let userData = response.data[0];
             // userName = userData.userName;
             this.name = userData.name;
             this.profileImg = userData.profileImg;

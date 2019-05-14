@@ -1,6 +1,6 @@
 <template>
       <v-card>
-        <v-card-title class="headline">Host Sign Up</v-card-title>
+        <v-card-title class="headline">Guest Sign Up</v-card-title>
         <v-card-text>
           <!--输入框组-->
           <v-form class="px-3" ref="form" v-model="valid" lazy-validation>
@@ -23,7 +23,6 @@
               prepend-icon="lock"
               @click:append="show1 = !show1"
             ></v-text-field>
-
             <v-text-field
               v-model="email"
               :rules="emailRules"
@@ -32,8 +31,24 @@
               prepend-icon="email"
             ></v-text-field>
             <v-text-field v-model="phone" label="phone" required prepend-icon="phone"></v-text-field>
-
-x
+            <v-slider
+               v-model="value"
+               :rules="rules"
+               label="age"
+               step="1"
+               thumb-label="always"
+               ticks
+               required prepend-icon="accessibility">
+            </v-slider>
+            <v-select
+              v-model="select"
+              :items="gender"
+              :rules="[v => !!v || 'Item is required']"
+              label="gender"
+              required prepend-icon="wc"
+            ></v-select>
+            <v-text-field v-model="ability" label="ability" required prepend-icon="list_alt"></v-text-field>
+            <v-btn :disabled="!valid" left color="success" @click="validate">Sign Up</v-btn>
           </v-form>
         </v-card-text>
         <v-card-actions>
@@ -73,7 +88,16 @@ export default {
         required: value => !!value || "Required.",
         min: v => v.length >= 8 || "Min 8 characters"
       },
-
+      select: null,
+      gender: [
+        'Male',
+        'Female',
+      ],
+      value: 20,
+        rules: [
+          v => v <= 100 || 'Really?!'
+      ],
+      ability: "",
       show1: false,
       show2: true,
       show3: false,

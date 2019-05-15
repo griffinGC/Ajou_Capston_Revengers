@@ -103,10 +103,7 @@ export default {
             } else {
               console.log("error" + response.data);
             }
-          });
-
-
-        
+          })
       }
     }
   }

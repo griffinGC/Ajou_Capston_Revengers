@@ -2,7 +2,12 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './views/Home.vue'
 import HostSignUp from './views/HostSignUp'
+import GuestSignUp from './views/GuestSignUp'
+import UserInfo from './views/UserInfo'
 import Signin from './views/Signin'
+import EditUserInfo from './views/EditUserInfo'
+
+
 Vue.use(Router)
 
 const router =  new Router({
@@ -32,9 +37,24 @@ const router =  new Router({
       component: HostSignUp
     },
     {
+      path: '/guestsign',
+      name: 'GuestSignup',
+      component: GuestSignUp
+    },
+    {
+      path: '/userInfo',
+      name: 'userInfo',
+      component : UserInfo
+    },
+    {
       path: '/signin',
       name: 'Signin',
       component: Signin
+    },
+    {
+      path : '/editUserInfo',
+      name : 'editUserInfo',
+      component : EditUserInfo
     }
   ]
 })

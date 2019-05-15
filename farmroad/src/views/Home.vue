@@ -22,8 +22,8 @@
 
           <v-flex xs6 sm4 md2>
             <div>
-              <v-chip small :class="`white--text green`">confirm</v-chip>
-              <v-chip small :class="`white--text red `">refuse</v-chip>
+              <v-chip small :class="`white--text green`">View</v-chip>
+            
             </div>
           </v-flex>
         </v-layout>

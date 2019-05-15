@@ -1,6 +1,6 @@
 <template>
       <v-card>
-        <v-card-title class="headline">Host Sign Up</v-card-title>
+        <v-card-title class="headline">Guest Sign Up</v-card-title>
         <v-card-text>
           <!--输入框组-->
           <v-form class="px-3" ref="form" v-model="valid" lazy-validation>
@@ -23,24 +23,39 @@
               prepend-icon="lock"
               @click:append="show1 = !show1"
             ></v-text-field>
-
-          <v-text-field
-            v-model="email"
-            :rules="emailRules"
-            label="E-mail"
-            required
-            prepend-icon="email"
-          ></v-text-field>
-          <v-text-field v-model="phone" label="phone" required prepend-icon="phone"></v-text-field>
-          <v-btn :disabled="!valid" left color="success" @click="validate">Sign Up</v-btn>
-        </v-form>
-      </v-card-text>
-      <v-card-actions>
-        <!--分界标签-->
-        <v-spacer></v-spacer>
-        <v-btn color="green darken-1" flat router :to="{name: 'Signin'}">Back</v-btn>
-      </v-card-actions>
-    </v-card>
+            <v-text-field
+              v-model="email"
+              :rules="emailRules"
+              label="E-mail"
+              required
+              prepend-icon="email"
+            ></v-text-field>
+            <v-text-field v-model="phone" label="phone" required prepend-icon="phone"></v-text-field>
+            <v-slider
+               v-model="value"
+               :rules="rules"
+               label="age"
+               step="1"
+               thumb-label="always"
+               ticks
+               required prepend-icon="accessibility">
+            </v-slider>
+            <v-select
+              v-model="select"
+              :items="gender"
+              :rules="[v => !!v || 'Item is required']"
+              label="gender"
+              required prepend-icon="wc"
+            ></v-select>
+            <v-text-field v-model="ability" label="ability" required prepend-icon="list_alt"></v-text-field>
+            <v-btn :disabled="!valid" left color="success" @click="validate">Sign Up</v-btn>
+          </v-form>
+        </v-card-text>
+        <v-card-actions>
+          <!--分界标签-->
+          <v-spacer></v-spacer>
+        </v-card-actions>
+      </v-card>
 </template>
 
 <script>
@@ -73,7 +88,16 @@ export default {
         required: value => !!value || "Required.",
         min: v => v.length >= 8 || "Min 8 characters"
       },
-
+      select: null,
+      gender: [
+        'Male',
+        'Female',
+      ],
+      value: 20,
+        rules: [
+          v => v <= 100 || 'Really?!'
+      ],
+      ability: "",
       show1: false,
       show2: true,
       show3: false,
@@ -85,24 +109,15 @@ export default {
       if (this.$refs.form.validate()) {
         this.snackbar = true;
         this.axios
-          .post(
-            "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/signUp/guest",
-            {
-              userName: this.username,
-              password: this.password,
-              email: this.email,
-              phone: this.phone
-            }
-          )
-          .then(response => {
-            console.log(response.data);
-            if (response.data.state == 0) {
-              (localStorage.username = this.username), (localStorage.role = 1);
-              this.$router.push("/");
-              location.reload();
-            } else {
-              console.log("error" + response.data);
-            }
+          .post("http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/signUp/guest", {
+            userName: this.username,
+            password: this.password,
+            email: this.email,
+            phone: this.phone
+          })
+          .then(respones => {
+            console.log(respones.data);
+            this.$router.push('/')
           });
 
 

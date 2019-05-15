@@ -37,7 +37,7 @@
 
           <!--底部按钮组-->
           <v-btn color="green darken-1" flat router  :to="{name: 'HostSignup'}">Host signUp</v-btn>
-          <v-btn color="green darken-1" flat router >Guest SignUP</v-btn>
+          <v-btn color="green darken-1" flat router :to="{name: 'GuestSignup'}">Guest SignUP</v-btn>
         </v-card-actions>
       </v-card>
     </div>
@@ -68,7 +68,8 @@ export default {
       show3: false,
       show4: false,
 
-      hostRoute: "/hostsign"
+      hostRoute: "/hostsign",
+      guestRoute: "/guestsign"
     };
   },
   methods: {

@@ -5,17 +5,34 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var bodyParser = require('body-parser');
 var session = require('express-session');
+var MongoClient = require('mongodb');
 
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
 var loginRouter = require('./routes/signIn');
 var logoutRouter = require('./routes/logOut');
 var signUpRouter = require('./routes/signUp');
+var boardRouter = require('./routes/board');
+var userinfoRouter = require('./routes/userInfo');
+
 
 // var connect = require('./schemas/index');
 require('./schemas/index');
 
 var app = express();
+
+/*var databaes;
+
+function connectDB(){
+  var databaesUrl = 'mongodb://localhost:27017.local';
+
+  MongoClient.connect(databaesUrl, function(err, db){
+    if(err) throw err;
+    console.log('success  '+databaesUrl);
+
+    databaes=db;
+  });
+}*/
+
 
 
 // view engine setup
@@ -32,6 +49,7 @@ app.use(session({
   secret : 'secret code',
 }));
 
+//정적파일사용 
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(bodyParser.urlencoded({extended: true}))
@@ -45,7 +63,7 @@ app.use((req, res, next) =>{
 
 app.use('/', indexRouter);
 //여기서 '/user'라고 적어주면 밑에서는 '/'만 적어도 됨 
-app.use('/users', usersRouter);
+// app.use('/users', usersRouter);
 
 //login 기능 라우터 
 app.use('/signIn',loginRouter);
@@ -54,7 +72,13 @@ app.use('/signIn',loginRouter);
 app.use('/signUp', signUpRouter);
 
 //logout 기능 라우터
-app.use('/logOut',logoutRouter)
+app.use('/logOut',logoutRouter);
+
+//게시판 기능 라우터
+app.use('/board', boardRouter);
+
+//개인정보수정 기/능 라우터
+app.use('/user',userinfoRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

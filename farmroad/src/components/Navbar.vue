@@ -8,21 +8,9 @@
       </v-toolbar-title>
 
       <v-spacer></v-spacer>
-
-      <!-- dropdown menu
-      <v-menu offset-y v-if="user">
-        <v-btn flat slot="activator" class="white--text">
-          <v-icon left>expand_more</v-icon>
-          <span>Menu</span>
-        </v-btn>
-        <v-list>
-          <v-list-tile v-for="link in links" :key="link.text" router :to="link.route">
-            <v-list-tile-title>{{link.text}}</v-list-tile-title>
-          </v-list-tile>
-        </v-list>
-      </v-menu>-->
-
+      
       <!--add board btn-->
+      <GuestBoard v-if="user"/>
       <Popup v-if="user"/>
 
       <li v-if="user">
@@ -52,9 +40,11 @@
 </template>
 <script>
 import Popup from "./Popup";
+import GuestBoard from "./GuestBoard";
 export default {
   components: {
-    Popup
+    Popup,
+    GuestBoard
   },
   data() {
     return {
@@ -63,9 +53,10 @@ export default {
       links: [
         { icon: "home", text: "Home", route: "/" },
         { icon: "dashboard", text: "Boards", route: "/about" },
-        { icon: "person", text: "Profile", route: "/team" }
+        { icon: "person", text: "Profile", route: "/userInfo" }
       ],
-      user: null
+      user: null,
+      role: null
     };
   },
   methods: {
@@ -80,6 +71,7 @@ export default {
   },
   created() {
     if (localStorage.username) {
+      this
       this.user = localStorage.username;
     } else {
       this.user = false;

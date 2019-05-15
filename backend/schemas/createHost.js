@@ -13,14 +13,18 @@ const hostSchema = new mongoose.Schema({
         required : true
     },
     password :{
-        type : Number,
+        type : String,
         required : true
     },
     name : {
         type : String
     },
+    profileImg :{
+        type : String,
+        
+    },
     gender : {
-        type : Boolean
+        type : Number
     },
     age :{
         type : Number
@@ -35,7 +39,7 @@ const hostSchema = new mongoose.Schema({
         type : String
     },
     phone : {
-        type : Number,
+        type : String,
         required : true
     },
     email : {
@@ -44,6 +48,9 @@ const hostSchema = new mongoose.Schema({
     },
     reference : {
         type : Number
+    },
+    role :{
+        type : String
     }
 })
 

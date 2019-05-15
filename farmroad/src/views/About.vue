@@ -1,7 +1,38 @@
 <template>
   <div class="about">
-    <v-btn flat class="success" @click="showHostBoards">show host boards</v-btn>
-    <v-btn flat class="success" @click="showGuestBoards">show guest boards</v-btn>
+    <!--条件选择表格-->
+    <v-form>
+      <v-flex xs6 sm3>
+        <!--难度选择-->
+        <v-select :items="items" label="difficulty"></v-select>
+        <!--时间选择-->
+        <v-menu
+          ref="menu1"
+          v-model="menu1"
+          :close-on-content-click="false"
+          :nudge-right="40"
+          lazy
+          transition="scale-transition"
+          offset-y
+          full-width
+          max-width="290px"
+          min-width="290px"
+        >
+          <template v-slot:activator="{ on }">
+            <v-text-field
+              v-model="dateFormatted"
+              label="Date"
+              hint="MM/DD/YYYY format"
+              persistent-hint
+              prepend-icon="event"
+              @blur="date = parseDate(dateFormatted)"
+              v-on="on"
+            ></v-text-field>
+          </template>
+          <v-date-picker v-model="date" no-title @input="menu1 = false"></v-date-picker>
+        </v-menu>
+      </v-flex>
+    </v-form>
     <v-container class="my-5">
       <v-layout row wrap>
         <v-flex xs12 sm6 md4 lg3 v-for="board in boards" :key="board._id">
@@ -69,24 +100,48 @@ export default {
     return {
       boards: [],
       rating: 3,
+      items: [1, 2, 3, 4, 5],
+      menu1: false,
+      date: new Date().toISOString().substr(0, 10),
+      dateFormatted: this.formatDate(new Date().toISOString().substr(0, 10)),
+      showCard:false
     };
   },
 
-  created: function() {
-    this.$store.dispatch("fetchHostBoards");
-    this.boards = this.$store.getters.doneHostBoards;
-    this.$store.dispatch("fetchGuestBoards");
-  },
-  components: {},
-  methods: {
-    showHostBoards() {
-      this.boards = "";
+  mounted: function() {
+    if (localStorage.role == 0) {
+      this.$store.dispatch("fetchHostBoards");
       this.boards = this.$store.getters.doneHostBoards;
-    },
-    showGuestBoards() {
-      this.boards = "";
+      
+    } else {
+      this.$store.dispatch("fetchGuestBoards");
       this.boards = this.$store.getters.doneGuestBoards;
+      
     }
+  },
+  components: {
+    computedDateFormatted() {
+      return this.formatDate(this.date);
+    }
+  },
+  watch: {
+      date (val) {
+        this.dateFormatted = this.formatDate(this.date)
+      }
+    },
+  methods: {
+    formatDate (date) {
+        if (!date) return null
+
+        const [year, month, day] = date.split('-')
+        return `${month}/${day}/${year}`
+      },
+      parseDate (date) {
+        if (!date) return null
+
+        const [month, day, year] = date.split('/')
+        return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`
+      }
   }
 };
 </script>

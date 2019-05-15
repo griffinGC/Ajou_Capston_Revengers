@@ -3,7 +3,7 @@
     <v-btn flat slot="activator" class="success">add guest Board</v-btn>
     <v-card>
       <v-card-title>
-        <h2>Add a new Board</h2>
+        <h2>Add a Guest Board</h2>
       </v-card-title>
       <v-card-text>
         <v-form class="px-3">

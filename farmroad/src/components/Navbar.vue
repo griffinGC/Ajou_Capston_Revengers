@@ -10,8 +10,8 @@
       <v-spacer></v-spacer>
       
       <!--add board btn-->
-      <GuestBoard v-if="user"/>
-      <Popup v-if="user"/>
+      <GuestBoard v-if="role && user"/>
+      <Popup v-if="!role && user"/>
 
       <li v-if="user">
         <a class="white--text subheading mt-1">{{user}}</a>
@@ -71,8 +71,12 @@ export default {
   },
   created() {
     if (localStorage.username) {
-      this
       this.user = localStorage.username;
+      if(localStorage.role ==1){
+        this.role = false
+      }else{
+        this.role = true
+      }
     } else {
       this.user = false;
     }

@@ -7,7 +7,9 @@ const notifyGuest =require('../schemas/notificationGuest');
  
 
 router.post('/guest/registerNotification',function(req, res,next){ 
-  console.log("test");
+  console.log("test");      
+       console.log(req.body.userName);
+        let applyUser = new notifyHost();
 
        console.log(req.body.userName);
         let applyUser = new notifyGuest();
@@ -17,15 +19,33 @@ router.post('/guest/registerNotification',function(req, res,next){
         
       applyUser.save({userName : req.body.userName, boardID : req.body.boardID},function (err) {
           if(err){
-              return res.json({state : -1, msg : "error is occured"});
+              return res.json({state : -1, msg : "Sending notification to host is failed"});
               
               // return;
           }
-        res.json({ state: 0, msg: "The application was successful!" });
+        res.json({ state: 0, msg: "Sending notification to host was successful!" });
       });
 });
 
-//main화면에서 나에게 온 알림 요청하는 api 작성 필요 
+router.post('/host/registerNotification',function(req, res,next){ 
+    console.log("test");
+        
+        
+         console.log(req.body.userName);
+          let applyUser = new notifyGuest();
+          applyUser.userName = req.body.userName;
+          applyUser.boardID = req.body.boardID;
+          
+        applyUser.save({userName : req.body.userName, boardID : req.body.boardID},function (err) {
+            if(err){
+                return res.json({state : -1, msg : "Sending notification to guest is failed"});
+                
+                // return;
+            }
+          res.json({ state: 0, msg: "Sending notification to guest was successful!" });
+        });
+  });
+ 
 
 
    

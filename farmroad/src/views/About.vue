@@ -100,7 +100,7 @@
                       <span>{{board.content}}</span>
                     </div>
                     <div class="text-xs">
-                      <v-rating v-model="rating"></v-rating>
+                      <v-rating :value ="board.difficulty" readonly></v-rating>
                     </div>
                   </v-card-text>
                   <v-card-actions>

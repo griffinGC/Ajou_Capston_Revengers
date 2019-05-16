@@ -73,11 +73,18 @@
           content:
             "尝试Vue.js 最简单的方法是使用JSFiddle 上的Hello World 例子。你可以在浏览器新标签页中打开它，跟着例子学习一些基础用法。或者你也可以创建一个 .html 文件，"
         }
-      ]
+      ],
+      boardList:[]
       }
     },
     components: {
       
+    },
+    created :function(){
+
+    },
+    methods: {
+
     }
   }
 </script>

@@ -8,20 +8,12 @@ const notifyGuest =require('../schemas/notificationGuest');
 
 router.post('/guest/registerNotification',function(req, res,next){ 
   console.log("test");
-      
-      if(req.body.state==1){//1: 매칭완료
-          return res.json({state: 1, msg: 'Complete Matching!'})
-      }    
-      if(!req.body.state==-1){//-1: 매칭 실패
-          return res.json({state: -1, msg: 'Fail to Matching!'})
-      }
-      if(!req.body.state==0){//0: 진행중
-          return res.json({state: -1, msg: 'Ongoing!'})
-      }
+
        console.log(req.body.userName);
-        let applyUser = new apaplicant();
+        let applyUser = new notifyGuest();
         applyUser.userName = req.body.userName;
         applyUser.boardID = req.body.boardID;
+        applyUser.state = "ongoing"
         
       applyUser.save({userName : req.body.userName, boardID : req.body.boardID},function (err) {
           if(err){
@@ -33,6 +25,7 @@ router.post('/guest/registerNotification',function(req, res,next){
       });
 });
 
+//main화면에서 나에게 온 알림 요청하는 api 작성 필요 
 
 
    

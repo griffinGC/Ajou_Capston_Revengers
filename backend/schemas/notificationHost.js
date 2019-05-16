@@ -2,7 +2,10 @@ const {mongoose, autoIncrement} = require('./index');
 
 const notificationSchema = new mongoose.Schema({
     //db에 저장하는 id 자동적으로 1씩 증가 
-   
+    notificationHostId :{
+        type : Number,
+        unique : true
+    },
     userName:{
         type : String,
         unique : true,
@@ -18,13 +21,13 @@ const notificationSchema = new mongoose.Schema({
         type : String,        
     },
     state : {
-        type : Number
+        type : String
     }
 })
 
 notificationSchema.plugin(autoIncrement,{
     model : 'notificationHost',
-    field : 'notificationNumber',
+    field : 'notificationHostId',
     startAt : 0
 })
 

@@ -9,9 +9,6 @@ const notifyGuest =require('../schemas/notificationGuest');
 router.post('/guest/registerNotification',function(req, res,next){ 
   console.log("test");      
        console.log(req.body.userName);
-        let applyUser = new notifyHost();
-
-       console.log(req.body.userName);
         let applyUser = new notifyGuest();
         applyUser.userName = req.body.userName;
         applyUser.boardID = req.body.boardID;
@@ -29,8 +26,6 @@ router.post('/guest/registerNotification',function(req, res,next){
 
 router.post('/host/registerNotification',function(req, res,next){ 
     console.log("test");
-        
-        
          console.log(req.body.userName);
           let applyUser = new notifyGuest();
           applyUser.userName = req.body.userName;

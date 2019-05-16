@@ -14,7 +14,7 @@ const notificationSchema = new mongoose.Schema({
     boardID :{
         type : String,        
     },
-    content : {
+    hostUsername : {
         type : String
     },
     nowdate :{
@@ -31,4 +31,5 @@ notificationSchema.plugin(autoIncrement,{
     startAt : 0
 })
 
-module.exports = mongoose.model('notificationHost', notificationSchema);
+module.exports = mongoose.model('notificationHosst', notificationSchema);
+

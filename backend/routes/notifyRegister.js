@@ -8,12 +8,18 @@ const notifyGuest =require('../schemas/notificationGuest');
 
 router.post('/guest/registerNotification',function(req, res,next){ 
   console.log("test");
+<<<<<<< HEAD
       
       
        console.log(req.body.userName);
         let applyUser = new notifyHost();
+=======
+
+       console.log(req.body.userName);
+        let applyUser = new notifyGuest();
         applyUser.userName = req.body.userName;
         applyUser.boardID = req.body.boardID;
+        applyUser.state = "ongoing"
         
       applyUser.save({userName : req.body.userName, boardID : req.body.boardID},function (err) {
           if(err){

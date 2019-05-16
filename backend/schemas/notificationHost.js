@@ -32,3 +32,4 @@ notificationSchema.plugin(autoIncrement,{
 })
 
 module.exports = mongoose.model('notificationHosst', notificationSchema);
+

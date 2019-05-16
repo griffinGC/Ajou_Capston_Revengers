@@ -7,13 +7,9 @@ const notifyGuest =require('../schemas/notificationGuest');
  
 
 router.post('/guest/registerNotification',function(req, res,next){ 
-  console.log("test");
-<<<<<<< HEAD
-      
-      
+  console.log("test");      
        console.log(req.body.userName);
         let applyUser = new notifyHost();
-=======
 
        console.log(req.body.userName);
         let applyUser = new notifyGuest();
@@ -49,7 +45,7 @@ router.post('/host/registerNotification',function(req, res,next){
           res.json({ state: 0, msg: "Sending notification to guest was successful!" });
         });
   });
-  
+ 
 
 
    

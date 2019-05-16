@@ -104,7 +104,7 @@
                     </div>
                   </v-card-text>
                   <v-card-actions>
-                    <v-btn slot="activator" color="success">
+                    <v-btn slot="activator" v-on:click.native="saveNotification(board._id, board.guestInfo)" color="success">
                       <v-icon small left>add</v-icon>
                       <span>register</span>
                     </v-btn>

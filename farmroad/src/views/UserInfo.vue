@@ -26,14 +26,16 @@
             </span>
           </v-flex>
           </v-card-title>          
+          <v-card-title v-if="role === '1'"><strong >유저정보 : </strong >Host</v-card-title>
+          <v-card-title v-if="role === '0'"><strong >유저정보 : </strong >Guest</v-card-title>
           <v-card-title center><strong >이름 : </strong >{{name}}</v-card-title>
           <v-card-title><strong >성별 : </strong >{{gender}}</v-card-title>
           <v-card-title><strong >나이 : </strong >{{age}}</v-card-title>
-          <v-card-title><strong >능력 : </strong >{{ability}}</v-card-title>
+          <v-card-title v-if="role === '0'"><strong >능력 : </strong >{{ability}}</v-card-title>
           <v-card-title><strong >전화번호 : </strong >{{phone}}</v-card-title>
           <v-card-title><strong >이메일 : </strong >{{email}}</v-card-title>
-          <!-- <v-card-title>직업 : {{work}}</v-card-title> -->
-          <v-card-title><strong >지역 : </strong >{{location}}</v-card-title>
+          <v-card-title v-if="role === '1'">직업 : {{work}}</v-card-title>
+          <v-card-title v-if="role === '1'"><strong >지역 : </strong >{{location}}</v-card-title>
           <v-card-title><strong >주소 : </strong >{{address}}</v-card-title>
           <v-card-title><strong >평점 : </strong >{{reference}}</v-card-title>
         <!-- </v-card-text> -->

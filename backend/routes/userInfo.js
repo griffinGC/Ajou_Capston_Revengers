@@ -32,6 +32,7 @@ router.post('/', function(req, res, next){
 
 //guest회원정보 수정 
 router.post('/updateInfo/guest', function(req, res, next){
+    //굳이 만들필요 없을듯 ? test 해볼 것 
     let editInfo = new guestModel();
     editInfo.userName = req.body.userName;
     editInfo.password = req.body.password;

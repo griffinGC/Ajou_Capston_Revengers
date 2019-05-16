@@ -1,6 +1,6 @@
 <template>
     <div class="login container">
-      <v-card>
+      <v-card flat>
         <v-card-title class="headline">Sign In</v-card-title>
         <v-card-text>
           <!--输入框组-->

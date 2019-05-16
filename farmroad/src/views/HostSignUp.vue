@@ -24,23 +24,23 @@
               @click:append="show1 = !show1"
             ></v-text-field>
 
-            <v-text-field
-              v-model="email"
-              :rules="emailRules"
-              label="E-mail"
-              required
-              prepend-icon="email"
-            ></v-text-field>
-            <v-text-field v-model="phone" label="phone" required prepend-icon="phone"></v-text-field>
-
-x
-          </v-form>
-        </v-card-text>
-        <v-card-actions>
-          <!--分界标签-->
-          <v-spacer></v-spacer>
-        </v-card-actions>
-      </v-card>
+          <v-text-field
+            v-model="email"
+            :rules="emailRules"
+            label="E-mail"
+            required
+            prepend-icon="email"
+          ></v-text-field>
+          <v-text-field v-model="phone" label="phone" required prepend-icon="phone"></v-text-field>
+          <v-btn :disabled="!valid" left color="success" @click="validate">Sign Up</v-btn>
+        </v-form>
+      </v-card-text>
+      <v-card-actions>
+        <!--分界标签-->
+        <v-spacer></v-spacer>
+        <v-btn color="green darken-1" flat router :to="{name: 'Signin'}">Back</v-btn>
+      </v-card-actions>
+    </v-card>
 </template>
 
 <script>
@@ -85,19 +85,25 @@ export default {
       if (this.$refs.form.validate()) {
         this.snackbar = true;
         this.axios
-          .post("http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/signUp/guest", {
-            userName: this.username,
-            password: this.password,
-            email: this.email,
-            phone: this.phone
+          .post(
+            "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/signUp/guest",
+            {
+              userName: this.username,
+              password: this.password,
+              email: this.email,
+              phone: this.phone
+            }
+          )
+          .then(response => {
+            console.log(response.data);
+            if (response.data.state == 0) {
+              (localStorage.username = this.username), (localStorage.role = 1);
+              this.$router.push("/");
+              location.reload();
+            } else {
+              console.log("error" + response.data);
+            }
           })
-          .then(respones => {
-            console.log(respones.data);
-            this.$router.push('/')
-          });
-
-
-        
       }
     }
   }

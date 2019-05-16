@@ -4,27 +4,14 @@
       <v-toolbar-side-icon class="white--text" @click="drawer= !drawer" v-if="user"></v-toolbar-side-icon>
       <v-toolbar-title class="text-uppercase white-text">
         <span class="font-weight-light">Farm</span>
-        <span>Load</span>
+        <span>Road</span>
       </v-toolbar-title>
 
       <v-spacer></v-spacer>
-
-      <!-- dropdown menu
-      <v-menu offset-y v-if="user">
-        <v-btn flat slot="activator" class="white--text">
-          <v-icon left>expand_more</v-icon>
-          <span>Menu</span>
-        </v-btn>
-        <v-list>
-          <v-list-tile v-for="link in links" :key="link.text" router :to="link.route">
-            <v-list-tile-title>{{link.text}}</v-list-tile-title>
-          </v-list-tile>
-        </v-list>
-      </v-menu>-->
-
+      
       <!--add board btn-->
-      <GuestBoard v-if="user"/>
-      <Popup v-if="user"/>
+      <GuestBoard v-if="role && user"/>
+      <Popup v-if="!role && user"/>
 
       <li v-if="user">
         <a class="white--text subheading mt-1">{{user}}</a>
@@ -68,7 +55,8 @@ export default {
         { icon: "dashboard", text: "Boards", route: "/about" },
         { icon: "person", text: "Profile", route: "/userInfo" }
       ],
-      user: null
+      user: null,
+      role: null
     };
   },
   methods: {
@@ -84,6 +72,11 @@ export default {
   created() {
     if (localStorage.username) {
       this.user = localStorage.username;
+      if(localStorage.role ==1){
+        this.role = false
+      }else{
+        this.role = true
+      }
     } else {
       this.user = false;
     }

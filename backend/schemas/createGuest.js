@@ -46,7 +46,10 @@ const guestSchema = new mongoose.Schema({
         type : String
     }
 })
-
+//guestId로 객체찾기
+guestSchema.statics.findByUserName = function(name, callback){
+    guestSchema.find({userName : name}, callbck);
+};
 guestSchema.plugin(autoIncrement,{
     model : 'guests',
     field : 'guestId',

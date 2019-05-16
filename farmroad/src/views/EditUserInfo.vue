@@ -13,9 +13,7 @@
                 alt="Avatar">
               <v-icon
                 v-else
-                :color="color"
-                v-text="person"
-              ></v-icon>
+              >person</v-icon>
             </v-avatar>
           </v-flex>
 
@@ -28,17 +26,25 @@
             </span>
           </v-flex>
           </v-card-title>
-          <v-card-title><strong >비밀번호 : </strong ><v-text-field v-model="password"></v-text-field></v-card-title>          
+          <v-card-title><strong >비밀번호 : </strong ><v-text-field v-model="password"              
+              :append-icon="show1 ? 'visibility' : 'visibility_off'"
+              :rules="[rules.required, rules.min]"
+              :type="show1 ? 'text' : 'password'"
+              name="input-10-1"
+              hint="At least 8 characters"
+              counter
+              @click:append="show1 = !show1"
+            ></v-text-field></v-card-title>          
           <v-card-title><strong >이름 : </strong ><v-text-field v-model="name"></v-text-field></v-card-title>
           <v-card-title><strong >성별 : </strong >{{gender}}</v-card-title>
           <v-card-title><strong >나이 : </strong >{{age}}</v-card-title>
           <!-- <v-card-title><strong >나이 : </strong ><v-text-field v-model="age"></v-text-field></v-card-title> -->
-          <v-card-title><strong >능력 : </strong ><v-text-field v-model="ability"></v-text-field></v-card-title>
+          <v-card-title v-if="role === '0'"><strong >능력 : </strong ><v-text-field v-model="ability"></v-text-field></v-card-title>
           <v-card-title><strong >전화번호 : </strong ><v-text-field v-model="phone"></v-text-field></v-card-title>
           <v-card-title><strong >이메일 : </strong ><v-text-field v-model="email"></v-text-field></v-card-title>
-          <!-- <v-card-title>직업 : {{work}}</v-card-title> -->
-          <v-card-title><strong >지역 : </strong ><v-text-field v-model="location"></v-text-field></v-card-title>
-          <v-card-title><strong >주소 : </strong ><v-text-field v-model="address"></v-text-field></v-card-title>
+          <v-card-title v-if="role === '1'"><strong>직업 : </strong>{{work}}</v-card-title>
+          <v-card-title v-if="role === '1'"><strong >지역 : </strong ><v-text-field v-model="location"></v-text-field></v-card-title>
+          <v-card-title ><strong >주소 : </strong ><v-text-field v-model="address"></v-text-field></v-card-title>
           <v-card-title><strong >평점 : </strong >{{reference}}</v-card-title>
         <!-- </v-card-text> -->
         <v-btn v-on:click.native="saveEdit">확인</v-btn>
@@ -69,25 +75,34 @@ export default {
       role : "dfdf",
       work : "dfdf",            
       address : "dfdf",
-      location : "zzzz"
+      location : "zzzz",
+
+      show1: false,
+      rules: {
+        required: value => !!value || 'Required.',
+        min: v => v.length >= 8 || 'Min 8 characters',
+        emailMatch: () => ('The email and password you entered don\'t match')
+      },
+      role : ""
 
     };
   },
   created(){
     console.log("userEdit is created");
-    // getInfo();
+    this.role = localStorage.role;
+    this.getInfo();
   },
   methods: {
     getInfo() {
       // localStorage.role == 0 이면 guest && 1이면 host
         let userId = localStorage.username;
-        if(localStorage.role === 0){
+        if(localStorage.role === '0'){
         this.axios
           .get(`http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/user/getInfo/guest/${userId}`)
-          .then(respones => {
-            console.log(respones.data);
-            let userData = response.data;
-            // userName = userData.userName;
+          .then(response => {
+            console.log(response.data[0]);
+            let userData = response.data[0];
+            this.userName = userData.userName;
             this.name = userData.name;
             this.profileImg = userData.profileImg;
             this.age = userData.age;
@@ -99,9 +114,9 @@ export default {
       }else{
         this.axios
         .get(`http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/user/getInfo/host/${userId}`)
-        .then(responses =>{
-          console.log(response.data);
-            let userData = response.data;
+        .then(response =>{
+          console.log(response.data[0]);
+            let userData = response.data[0];
             // userName = userData.userName;
             this.name = userData.name;
             this.profileImg = userData.profileImg;
@@ -119,7 +134,12 @@ export default {
     saveEdit(){
       console.log("save Action start! ");// localStorage.role == 0 이면 guest && 1이면 host
         let userId = localStorage.username;
-        if(localStorage.role === 0){
+        if(!this.password)
+        {
+          alert("비밀번호를 입력해주세요!");
+          return;
+        }
+        if(localStorage.role === '0'){
         this.axios
           .post("http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/user/updateInfo/guest",{
             userName : this.userName,
@@ -142,7 +162,7 @@ export default {
         })
         .then(console.log("save is success"));
       };
-      this.$router.push('/')
+      this.$router.push('/userInfo')
     },
     saveCancel(){
       console.log("save cancel");

@@ -108,9 +108,9 @@
                       <v-icon small left>add</v-icon>
                       <span>register</span>
                     </v-btn>
-                    <v-btn flat slot="activator" color="success">
-                      <v-icon small left>message</v-icon>
-                      <span>message</span>
+                    <v-btn flat slot="activator" router :to="{name: 'Chat'}" color="success">
+                      <v-icon  small left>message</v-icon>
+                      <span >message</span>
                     </v-btn>
                   </v-card-actions>
                 </v-card>
@@ -136,7 +136,8 @@ export default {
       date: new Date().toISOString().substr(0, 10),
       dateFormatted: this.formatDate(new Date().toISOString().substr(0, 10)),
       showCard: false,
-      diff: ""
+      diff: "",
+      chatRoute: "/chat"
     };
   },
 

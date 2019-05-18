@@ -6,7 +6,7 @@ import GuestSignUp from './views/GuestSignUp'
 import UserInfo from './views/UserInfo'
 import Signin from './views/Signin'
 import EditUserInfo from './views/EditUserInfo'
-
+import Chat from './views/Chat'
 
 Vue.use(Router)
 
@@ -55,6 +55,11 @@ const router =  new Router({
       path : '/editUserInfo',
       name : 'editUserInfo',
       component : EditUserInfo
+    },
+    {
+      path : '/chat',
+      name : 'Chat',
+      component : Chat
     }
   ]
 })

@@ -12,36 +12,30 @@ router.post('/', function(req, res){
   });
 });
 
+//register등록 및 업데이트 
 router.post('/guest/registerNotification',function(req, res,next){ 
-  // console.log("test");      
-       console.log(req.body.userName);
-        let applyUser = new notifyGuest();
-        applyUser.userName = req.body.userName;
-        applyUser.boardID = req.body.boardID;
-        applyUser.state = "ongoing"
-      
+  // console.log("test");            
+      //frontend에서 보낼때는 boardId, userName, 작성자 정보 이렇게 3개를 보낼예정
       notifyGuest.updateCandidate(req.body.userName, req.body.boardId, function(err){
-        console.log("get into save sentence");
-        applyUser.save({userName : req.body.userName, boardID : req.body.boardID},function (err) {
-          if(err){
-            console.log(err);
-              return res.json({state : -1, msg : "Sending notification to host is failed"});
-              
-              // return;
-          }
-        res.json({ state: 0, msg: "Sending notification to host was successful!" });
-      });
-      })
-    //   applyUser.save({userName : req.body.userName, boardID : req.body.boardID},function (err) {
-    //     if(err){
-    //       console.log(err);
-    //         return res.json({state : -1, msg : "Sending notification to host is failed"});
-            
-    //         // return;
-    //     }
-    //   res.json({ state: 0, msg: "Sending notification to host was successful!" });
-    // });
-
+        console.log(req.body.userName);
+        notifyGuest.findBoard(req.body.boardId, function(err, boardInfo){
+          let applyUser = new notifyGuest();
+          // console.log("board정보 : " + boardInfo);
+          applyUser.userName = req.body.userName;
+          applyUser.boardInfo = boardInfo;
+          applyUser.writer = req.body.writer;
+          applyUser.state = "ongoing"
+          console.log("get into save sentence");
+          applyUser.save(function (err) {
+            if(err){
+              console.log(err);
+                return res.json({state : -1, msg : "Sending notification to host is failed"});
+                // return;
+            }
+          res.json({ state: 0, msg: "Sending notification to host was successful!" });
+            });
+          })
+        })
 });
 
 router.post('/host/registerNotification',function(req, res,next){ 

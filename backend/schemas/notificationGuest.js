@@ -11,10 +11,10 @@ const notificationSchema = new mongoose.Schema({
         type : String,
         required : true
     },
-    boardID :{
-        type : String,        
+    boardInfo :{
+        type : Object,        
     },
-    guestUsername : {
+    writer : {
         type : String
     },
     nowdate :{
@@ -29,26 +29,32 @@ notificationSchema.statics.updateCandidate =function(name, boardId,  callback){
     this.findBoard(boardId, function(err, boardInfo){
         //boardInfo가 boardId로 찾아온 게시글 정보 
         let updateCandidate = "";
-        if(boardInfo.candidate){
-            console.log("넣기전 : " +boardInfo.candidate);
-            boardInfo.candidate.push(name);
-            updateCandidate = boardInfo.candidate;
-            console.log("넣은후 : " + boardInfo.candidate);
+        console.log("1");
+        let receiveBoardInfo = boardInfo[0].candidate;
+        console.log("board 정보에 있는 candidate " + receiveBoardInfo);
+        if(receiveBoardInfo){
+            console.log("넣기전 : " +receiveBoardInfo);
+            receiveBoardInfo.push(name);
+            updateCandidate = receiveBoardInfo;
+            console.log("넣은후 : " + receiveBoardInfo);
             console.log("candidate : " + updateCandidate);
         }else{
-            updateCandidate = updateCandidate.push(name);
-            console.log(updateCandidate);
+            updateCandidate = [name];
+            console.log("없을 경우 update : " +updateCandidate);
         }
-        updateCandidateNumber = candidate.length;
-        guestBoard.update({_id : boardInfo._id}, {$set : {candidate : candidate, candidateNumber : updateCandidateNumber}})
+        updateCandidateNumber = updateCandidate.length;
+        //callback을 넣어서 update한 뒤에 저장되도록 만듬 
+        guestBoard.update({guestBoardId : boardId}, {$set : {candidate : updateCandidate, candidateNumber : updateCandidateNumber}}, callback)
         console.log("update success");
-        //callback을 넣는 곳이 뭔가 이상함
-    }, callback);
+    });
 };   
 
 //boardId 받아와서 board 찾기
 notificationSchema.statics.findBoard = function(boardId, callback){
-    guestBoard.find({_id : boardId}, callback);
+    console.log(boardId);
+    //_id는 object라서 받기 힘듬 
+    // guestBoard.find({_id : boardId}, callback);
+    guestBoard.find({guestBoardId : boardId}, callback);
 };
 
 

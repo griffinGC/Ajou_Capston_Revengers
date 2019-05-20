@@ -47,6 +47,26 @@ notificationSchema.statics.updateCandidate =function(name, boardId,  callback){
     });
 };   
 
+notificationSchema.statics.deleteCandidate = function(name, boardId, callback){
+    this.findBoard(boardId, function(err, boardInfo){
+        let deleteCandidate = name;
+        let receiveBoardInfo = boardInfo[0].candidate;
+        if(receiveBoardInfo){
+            // console.log("넣기전 : " +receiveBoardInfo);
+            receiveBoardInfo.push(name);
+            updateCandidate = receiveBoardInfo;
+            // console.log("candidate : " + updateCandidate);
+        }else{
+            updateCandidate = [name];
+            // console.log("없을 경우 update : " +updateCandidate);
+        }
+        updateCandidateNumber = updateCandidate.length;
+        //callback을 넣어서 update한 뒤에 저장되도록 만듬 
+        guestBoard.update({guestBoardId : boardId}, {$set : {candidate : updateCandidate, candidateNumber : updateCandidateNumber}}, callback)
+        // console.log("guest update success");
+    })
+}
+
 //boardId 받아와서 board 찾기
 notificationSchema.statics.findBoard = function(boardId, callback){
     console.log(boardId);

@@ -13,7 +13,9 @@ var logoutRouter = require('./routes/logOut');
 var signUpRouter = require('./routes/signUp');
 var boardRouter = require('./routes/board');
 var userinfoRouter = require('./routes/userInfo');
-var notifyRouter = require('./routes/notifyRegister');
+var notifyRegisterRouter = require('./routes/notifyRegister');
+var notifyDeleteRouter = require('./routes/notifyDelete');
+var mainRouter = require('./routes/main');
 
 
 // var connect = require('./schemas/index');
@@ -82,7 +84,13 @@ app.use('/board', boardRouter);
 app.use('/user',userinfoRouter);
 
 //신청 알림 기능 라우터
-app.use('/notifyRegister',notifyRouter);
+app.use('/notifyRegister',notifyRegisterRouter);
+
+//신청 삭제 기능 라우터
+app.use('/notifyDelete', notifyDeleteRouter);
+
+//main 화면 기능 라우터
+app.use('/main', mainRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

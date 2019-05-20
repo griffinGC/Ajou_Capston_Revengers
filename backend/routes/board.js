@@ -58,7 +58,7 @@ router.post('/guestCreateBoard', function(req, res, next){
         writeBoard.guestInfo = userInfo;
         writeBoard.startDate = req.body.startDate;
         writeBoard.endDate = req.body.endDate;
-        writeBoard.difficulty = req.body.difficulty;
+        // writeBoard.difficulty = req.body.difficulty;
         writeBoard.workDay = req.body.workDay;
         writeBoard.category = req.body.category;
         writeBoard.preferLocation = req.body.preferLocation;

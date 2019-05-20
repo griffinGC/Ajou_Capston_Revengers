@@ -8,7 +8,6 @@ const notificationSchema = new mongoose.Schema({
     },
     userName:{
         type : String,
-        unique : true,
         required : true
     },
     boardID :{
@@ -26,10 +25,10 @@ const notificationSchema = new mongoose.Schema({
 })
 
 notificationSchema.plugin(autoIncrement,{
-    model : 'notificationHost',
+    model : 'notificationHosts',
     field : 'notificationHostId',
     startAt : 0
 })
 
-module.exports = mongoose.model('notificationHosst', notificationSchema);
+module.exports = mongoose.model('notificationHosts', notificationSchema);
 

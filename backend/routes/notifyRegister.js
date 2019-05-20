@@ -5,23 +5,43 @@ const hostModel = require('../schemas/createHost');
 const notifyHost =require('../schemas/notificationHost');
 const notifyGuest =require('../schemas/notificationGuest');
  
+router.post('/', function(req, res){
+  console.log("test updateCandidate");
+  notifyGuest.updateCandidate(req.body.userName, function(err, userInfo){
+    console.log("test2")
+  });
+});
 
 router.post('/guest/registerNotification',function(req, res,next){ 
-  console.log("test");      
+  // console.log("test");      
        console.log(req.body.userName);
         let applyUser = new notifyGuest();
         applyUser.userName = req.body.userName;
         applyUser.boardID = req.body.boardID;
         applyUser.state = "ongoing"
-        
-      applyUser.save({userName : req.body.userName, boardID : req.body.boardID},function (err) {
+      
+      notifyGuest.updateCandidate(req.body.userName, req.body.boardId, function(err){
+        console.log("get into save sentence");
+        applyUser.save({userName : req.body.userName, boardID : req.body.boardID},function (err) {
           if(err){
+            console.log(err);
               return res.json({state : -1, msg : "Sending notification to host is failed"});
               
               // return;
           }
         res.json({ state: 0, msg: "Sending notification to host was successful!" });
       });
+      })
+    //   applyUser.save({userName : req.body.userName, boardID : req.body.boardID},function (err) {
+    //     if(err){
+    //       console.log(err);
+    //         return res.json({state : -1, msg : "Sending notification to host is failed"});
+            
+    //         // return;
+    //     }
+    //   res.json({ state: 0, msg: "Sending notification to host was successful!" });
+    // });
+
 });
 
 router.post('/host/registerNotification',function(req, res,next){ 

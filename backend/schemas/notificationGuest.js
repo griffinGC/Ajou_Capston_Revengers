@@ -29,23 +29,21 @@ notificationSchema.statics.updateCandidate =function(name, boardId,  callback){
     this.findBoard(boardId, function(err, boardInfo){
         //boardInfo가 boardId로 찾아온 게시글 정보 
         let updateCandidate = "";
-        console.log("1");
         let receiveBoardInfo = boardInfo[0].candidate;
-        console.log("board 정보에 있는 candidate " + receiveBoardInfo);
+        // console.log("board 정보에 있는 candidate " + receiveBoardInfo);
         if(receiveBoardInfo){
-            console.log("넣기전 : " +receiveBoardInfo);
+            // console.log("넣기전 : " +receiveBoardInfo);
             receiveBoardInfo.push(name);
             updateCandidate = receiveBoardInfo;
-            console.log("넣은후 : " + receiveBoardInfo);
-            console.log("candidate : " + updateCandidate);
+            // console.log("candidate : " + updateCandidate);
         }else{
             updateCandidate = [name];
-            console.log("없을 경우 update : " +updateCandidate);
+            // console.log("없을 경우 update : " +updateCandidate);
         }
         updateCandidateNumber = updateCandidate.length;
         //callback을 넣어서 update한 뒤에 저장되도록 만듬 
         guestBoard.update({guestBoardId : boardId}, {$set : {candidate : updateCandidate, candidateNumber : updateCandidateNumber}}, callback)
-        console.log("update success");
+        // console.log("guest update success");
     });
 };   
 

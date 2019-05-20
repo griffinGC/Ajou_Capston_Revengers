@@ -45,7 +45,10 @@ const router =  new Router({
     {
       path: '/userInfo',
       name: 'userInfo',
-      component : UserInfo
+      component : UserInfo,
+      meta:{
+        requiresAuth: true
+      }
     },
     {
       path: '/signin',
@@ -55,12 +58,18 @@ const router =  new Router({
     {
       path : '/editUserInfo',
       name : 'editUserInfo',
-      component : EditUserInfo
+      component : EditUserInfo,
+      meta:{
+        requiresAuth: true
+      }
     },
     {
       path: '/chat',
       name: 'chat',
-      component: Chat
+      component: Chat,
+      meta:{
+        requiresAuth: true
+      }
     }
   ]
 })
@@ -74,6 +83,7 @@ router.beforeEach((to, before, next)=>{
       next()
     }else{
       //no user sign in ,redirect to login
+      alert("Do not do this SB!!")
       next({name: 'Signin'})
     }
   }else{

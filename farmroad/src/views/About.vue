@@ -2,10 +2,9 @@
   <div class="about">
     <!--条件选择表格-->
     <v-form>
-      <v-flex xs6 sm3>
+      <v-flex xs6>
         <!--难度选择-->
         <v-select :items="items" v-model="diff" label="difficulty" return-object></v-select>
-        diff : {{ diff }}
         <!--时间选择-->
         <!--start Date-->
         <v-menu
@@ -26,16 +25,17 @@
               label="Start Date"
               hint="MM/DD/YYYY format"
               persistent-hint
-              prepend-icon="event"
+              
               @blur="date = parseDate(dateFormatted)"
               v-on="on"
             ></v-text-field>
           </template>
           <v-date-picker v-model="date" no-title @input="menu1 = false"></v-date-picker>
         </v-menu>
-        <!--天数-->
-        <v-slider v-model="WorkDays" color="orange" label="work days" min="1" max="100" thumb-label></v-slider>
-        <v-btn flat class="success" @click="findByDifficulty(boards)">Search</v-btn>
+        
+        <!--work days-->
+        <v-slider v-model="WorkDays" color="orange" label="work days" min="1" max="30" thumb-label></v-slider>
+        <v-btn flat class="success" @click="findBoards(boards)">Search</v-btn>
       </v-flex>
     </v-form>
     <v-container class="my-5">
@@ -120,7 +120,6 @@ export default {
       diff: ""
     };
   },
-
   mounted: function() {
     if (localStorage.role == 0) {
       this.axios
@@ -176,6 +175,16 @@ export default {
       });
       this.newBoards = temBoards;
       console.log(this.newBoards);
+    },
+    findBoards(boards){
+      var tempBoards = new Array()
+      boards.forEach(item=>{
+        if(item.workDay == this.workDay && item.difficulty == this.diff){
+          tempBoards.push(item)
+        }
+      })
+      this.newBoards = tempBoards
+      console.log(this.newBoards)
     }
   }
 };

@@ -61,7 +61,7 @@ router.post('/host',function(req, res,next){
         registerUser.age = req.body.age;
         registerUser.work = req.body.work;
 
-        //gender => number man=0, woman =1
+        
         registerUser.gender = req.body.gender;
         registerUser.role = "host";
       registerUser.save(function (err) {
@@ -116,7 +116,7 @@ router.post('/guest',function(req, res,next){
         registerUser.phone = req.body.phone;
         registerUser.ability= req.body.abiity;        
         registerUser.age = req.body.age;  
-        //gender => number man=0, woman =1      
+           
         registerUser.gender = req.body.gender;
         registerUser.role = "guest";
         console.log("1");

@@ -16,6 +16,7 @@ var userinfoRouter = require('./routes/userInfo');
 var notifyRegisterRouter = require('./routes/notifyRegister');
 var notifyDeleteRouter = require('./routes/notifyDelete');
 var mainRouter = require('./routes/main');
+var chatRouter = require('./routes/chat');
 
 
 // var connect = require('./schemas/index');
@@ -91,6 +92,9 @@ app.use('/notifyDelete', notifyDeleteRouter);
 
 //main 화면 기능 라우터
 app.use('/main', mainRouter);
+
+//chat 기능 라우터 
+app.use('/chat', chatRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

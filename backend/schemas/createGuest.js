@@ -23,7 +23,7 @@ const guestSchema = new mongoose.Schema({
         type : String,
     },
     gender : {
-        type : Number
+        type : String
     },
     age :{
         type : Number

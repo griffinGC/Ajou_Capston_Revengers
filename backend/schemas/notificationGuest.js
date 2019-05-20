@@ -47,20 +47,22 @@ notificationSchema.statics.updateCandidate =function(name, boardId,  callback){
     });
 };   
 
+//수정해야함 
 notificationSchema.statics.deleteCandidate = function(name, boardId, callback){
     this.findBoard(boardId, function(err, boardInfo){
-        let deleteCandidate = name;
+        let deleteCandidate = "";
+        let deleteCandidateInfo = name;
         let receiveBoardInfo = boardInfo[0].candidate;
-        if(receiveBoardInfo){
-            // console.log("넣기전 : " +receiveBoardInfo);
-            receiveBoardInfo.push(name);
-            updateCandidate = receiveBoardInfo;
-            // console.log("candidate : " + updateCandidate);
+        let deleteIndex = receiveBoardInfo.indexOf(deleteCandidateInfo);
+        console.log("삭제할 candidate의 index : " + deleteIndex);
+        if(deleteIndex != -1){
+            console.log("삭제할 candidate가 존재함");
+            deleteCandidate = receiveBoardInfo.splice(deleteIndex, 1);
+            console.log("삭제하고 남은 candidate : " +receiveBoardinfo);
         }else{
-            updateCandidate = [name];
-            // console.log("없을 경우 update : " +updateCandidate);
+            console.log("candidate가 존재하지 않음");
         }
-        updateCandidateNumber = updateCandidate.length;
+        deleteCandidateNumber = updateCandidate.length;
         //callback을 넣어서 update한 뒤에 저장되도록 만듬 
         guestBoard.update({guestBoardId : boardId}, {$set : {candidate : updateCandidate, candidateNumber : updateCandidateNumber}}, callback)
         // console.log("guest update success");

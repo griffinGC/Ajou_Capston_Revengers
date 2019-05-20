@@ -63,9 +63,7 @@ router.post('/guestCreateBoard', function(req, res, next){
         writeBoard.category = req.body.category;
         writeBoard.preferLocation = req.body.preferLocation;
         writeBoard.candidate = req.body.candidate;
-        let canNumber = writeBoard.candidate.length;
-        console.log(canNumber);
-        writeBoard.candidateNumber = canNumber;
+        
         //startDate를 required로 바꾸고 넣는거 생각 
         let d = new Date();
         let today = d.getDate() +""+ d.getHours(); 
@@ -130,9 +128,7 @@ router.post('/hostCreateBoard', function(req, res, next){
         writeBoard.category = req.body.category;
         writeBoard.preferLocation = req.body.preferLocation;
         writeBoard.candidate = req.body.candidate;
-        let canNumber = writeBoard.candidate.length;
-        console.log(canNumber);
-        writeBoard.candidateNumber = canNumber;
+        
         //startDate를 required로 바꾸고 넣는거 생각 
         let d = new Date();
         let today = d.getDate() +""+ d.getHours(); 

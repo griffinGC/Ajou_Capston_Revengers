@@ -3,7 +3,14 @@
     <v-layout row wrap>
         <v-flex xs12 sm12>
           <h1 class="subheading grey--text">Real Time Chat</h1><br>
-          <div class="chat-list">
+          <v-card height="50%">
+          <div class="chat-list"
+          v-scroll="onScroll"
+          column
+          align-center
+          justify-center
+          style="height: 250px"
+          >
               <ul>
                   <li v-for="message in messages">{{ message.chat }}</li>
               </ul>  
@@ -16,8 +23,8 @@
             type="text" 
             append-icon="send"
             @click:append='newMessage(chat)'
-            v-on:keyup.enter="newMessage(chat)"
             v-on:newMessage="newMessage(chat)"
+            v-on:keyup.enter="newMessage(chat)"
             >
             <template v-slot:append-outer>
               <!-- <v-btn v-on="on">
@@ -25,6 +32,7 @@
               </v-btn> -->
                 </template>
             </v-text-field>
+          </v-card>
           </v-flex>
     </v-layout>
   </v-form>
@@ -36,9 +44,9 @@ export default {
 	data () {
 		return {
 			chat:null,
-			messages: []
+      messages: [],
 		}
-	},
+  },
 	methods:{
 		newMessage(chat){
 			if(chat != null){
@@ -46,7 +54,7 @@ export default {
 				this.chat = null
 			}
     },
-    clearMessage(){
+    onScroll() {
 
     }
 	}
@@ -55,8 +63,7 @@ export default {
 
 <style>
 .chat-list {
-  background-color:bisque;
-  height: 150%;
+  background-color:antiquewhite;
   overflow: auto;
   }
 ul{

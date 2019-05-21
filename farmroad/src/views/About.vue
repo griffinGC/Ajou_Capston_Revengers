@@ -2,10 +2,11 @@
   <div class="about">
     <!--条件选择表格-->
     <v-form>
-      <v-flex xs6 sm3>
+      <v-flex xs6>
         <!--难度选择-->
-        <v-select :items="items" label="difficulty"></v-select>
+        <v-select :items="items" v-model="diff" label="difficulty" return-object></v-select>
         <!--时间选择-->
+        <!--start Date-->
         <v-menu
           ref="menu1"
           v-model="menu1"
@@ -21,21 +22,25 @@
           <template v-slot:activator="{ on }">
             <v-text-field
               v-model="dateFormatted"
-              label="Date"
+              label="Start Date"
               hint="MM/DD/YYYY format"
               persistent-hint
-              prepend-icon="event"
+              
               @blur="date = parseDate(dateFormatted)"
               v-on="on"
             ></v-text-field>
           </template>
           <v-date-picker v-model="date" no-title @input="menu1 = false"></v-date-picker>
         </v-menu>
+        
+        <!--work days-->
+        <v-slider v-model="WorkDays" color="orange" label="work days" min="1" max="30" thumb-label></v-slider>
+        <v-btn flat class="success" @click="findBoards(boards)">Search</v-btn>
       </v-flex>
     </v-form>
     <v-container class="my-5">
       <v-layout row wrap>
-        <v-flex xs12 sm6 md4 lg3 v-for="board in boards" :key="board._id">
+        <v-flex xs12 sm6 md4 lg3 v-for="board in newBoards" :key="board._id">
           <v-card flex class="text-xs-center ma-3">
             <v-responsive class="pt-4">
               <img height="300px" :src="board.boardImg">
@@ -71,15 +76,19 @@
                       <span>{{board.content}}</span>
                     </div>
                     <div class="text-xs">
-                      <v-rating v-model="rating"></v-rating>
+                      <v-rating :value="board.difficulty" readonly></v-rating>
                     </div>
                   </v-card-text>
                   <v-card-actions>
-                    <v-btn slot="activator" color="success">
+                    <v-btn
+                      slot="activator"
+                      v-on:click.native="saveNotification(board._id, board.guestInfo)"
+                      color="success"
+                    >
                       <v-icon small left>add</v-icon>
                       <span>register</span>
                     </v-btn>
-                    <v-btn flat slot="activator" color="success">
+                    <v-btn flat slot="activator" color="success" router :to="{name: 'chat'}">
                       <v-icon small left>message</v-icon>
                       <span>message</span>
                     </v-btn>
@@ -99,24 +108,39 @@ export default {
   data() {
     return {
       boards: [],
+      newBoards: [],
       rating: 3,
       items: [1, 2, 3, 4, 5],
+      workDays: "",
+
       menu1: false,
       date: new Date().toISOString().substr(0, 10),
       dateFormatted: this.formatDate(new Date().toISOString().substr(0, 10)),
-      showCard:false
+      showCard: false,
+      diff: ""
     };
   },
-
   mounted: function() {
     if (localStorage.role == 0) {
-      this.$store.dispatch("fetchHostBoards");
-      this.boards = this.$store.getters.doneHostBoards;
-      
+      this.axios
+        .get(
+          "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/board/getHostList"
+        )
+        .then(response => {
+          console.log(response.data);
+          this.boards = response.data;
+          this.newBoards = response.data;
+        });
     } else {
-      this.$store.dispatch("fetchGuestBoards");
-      this.boards = this.$store.getters.doneGuestBoards;
-      
+      this.axios
+        .get(
+          "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/board/getGuestList"
+        )
+        .then(response => {
+          console.log(response.data);
+          this.boards = response.data;
+          this.newBoards = response.data;
+        });
     }
   },
   components: {
@@ -125,23 +149,43 @@ export default {
     }
   },
   watch: {
-      date (val) {
-        this.dateFormatted = this.formatDate(this.date)
-      }
-    },
+    date(val) {
+      this.dateFormatted = this.formatDate(this.date);
+    }
+  },
   methods: {
-    formatDate (date) {
-        if (!date) return null
+    formatDate(date) {
+      if (!date) return null;
 
-        const [year, month, day] = date.split('-')
-        return `${month}/${day}/${year}`
-      },
-      parseDate (date) {
-        if (!date) return null
+      const [year, month, day] = date.split("-");
+      return `${month}/${day}/${year}`;
+    },
+    parseDate(date) {
+      if (!date) return null;
 
-        const [month, day, year] = date.split('/')
-        return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`
-      }
+      const [month, day, year] = date.split("/");
+      return `${year}-${month.padStart(2, "0")}-${day.padStart(2, "0")}`;
+    },
+    findByDifficulty(boards) {
+      var temBoards = new Array();
+      boards.forEach(item => {
+        if (item.difficulty == this.diff) {
+          temBoards.push(item);
+        }
+      });
+      this.newBoards = temBoards;
+      console.log(this.newBoards);
+    },
+    findBoards(boards){
+      var tempBoards = new Array()
+      boards.forEach(item=>{
+        if(item.workDay == this.workDay && item.difficulty == this.diff){
+          tempBoards.push(item)
+        }
+      })
+      this.newBoards = tempBoards
+      console.log(this.newBoards)
+    }
   }
 };
 </script>

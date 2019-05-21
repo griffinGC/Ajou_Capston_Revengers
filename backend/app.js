@@ -13,6 +13,9 @@ var logoutRouter = require('./routes/logOut');
 var signUpRouter = require('./routes/signUp');
 var boardRouter = require('./routes/board');
 var userinfoRouter = require('./routes/userInfo');
+var notifyRouter = require('./routes/notifyRegister');
+var searchRouter = require('./routes/searchBoard');
+var deleteRouter = require('./routes/deletePost');
 
 
 // var connect = require('./schemas/index');
@@ -79,6 +82,15 @@ app.use('/board', boardRouter);
 
 //개인정보수정 기/능 라우터
 app.use('/user',userinfoRouter);
+
+//신청 알림 기능 라우터
+app.use('/notifyRegister',notifyRouter);
+
+//특정유저가 작성한 모든 게시글 라우터
+app.use('/searchBoard',searchRouter); 
+
+//특정유저가 작성한 게시글 삭제 라우터
+app.use('/deletePost',deleteRouter); 
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

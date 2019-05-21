@@ -44,7 +44,7 @@
           <v-card-title><strong >이메일 : </strong ><v-text-field v-model="email"></v-text-field></v-card-title>
           <v-card-title v-if="role === '1'"><strong>직업 : </strong>{{work}}</v-card-title>
           <v-card-title v-if="role === '1'"><strong >지역 : </strong ><v-text-field v-model="location"></v-text-field></v-card-title>
-          <v-card-title v-if="role === '1'"><strong >주소 : </strong ><v-text-field v-model="address"></v-text-field></v-card-title>
+          <v-card-title ><strong >주소 : </strong ><v-text-field v-model="address"></v-text-field></v-card-title>
           <v-card-title><strong >평점 : </strong >{{reference}}</v-card-title>
         <!-- </v-card-text> -->
         <v-btn v-on:click.native="saveEdit">확인</v-btn>

@@ -7,7 +7,6 @@ import './registerServiceWorker'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 import VueLocalStorage from 'vue-localstorage'
- 
 Vue.use(VueAxios, axios)
 Vue.use(VueLocalStorage)
 Vue.config.productionTip = false

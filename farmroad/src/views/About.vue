@@ -33,32 +33,8 @@
           </template>
           <v-date-picker v-model="date" no-title @input="menu1 = false"></v-date-picker>
         </v-menu>
-        <!--end Date-->
-        <v-menu
-          ref="menu2"
-          v-model="menu2"
-          :close-on-content-click="false"
-          :nudge-right="40"
-          lazy
-          transition="scale-transition"
-          offset-y
-          full-width
-          max-width="290px"
-          min-width="290px"
-        >
-          <template v-slot:activator="{ on }">
-            <v-text-field
-              v-model="dateFormatted"
-              label="End Date"
-              hint="MM/DD/YYYY format"
-              persistent-hint
-              prepend-icon="event"
-              @blur="date = parseDate(dateFormatted)"
-              v-on="on"
-            ></v-text-field>
-          </template>
-          <v-date-picker v-model="date" no-title @input="menu2 = false"></v-date-picker>
-        </v-menu>
+        <!--天数-->
+        <v-slider v-model="WorkDays" color="orange" label="work days" min="1" max="100" thumb-label></v-slider>
         <v-btn flat class="success" @click="findByDifficulty(boards)">Search</v-btn>
       </v-flex>
     </v-form>
@@ -100,17 +76,21 @@
                       <span>{{board.content}}</span>
                     </div>
                     <div class="text-xs">
-                      <v-rating v-model="rating"></v-rating>
+                      <v-rating :value="board.difficulty" readonly></v-rating>
                     </div>
                   </v-card-text>
                   <v-card-actions>
-                    <v-btn slot="activator" v-on:click.native="saveNotification(board._id, board.guestInfo)" color="success">
+                    <v-btn
+                      slot="activator"
+                      v-on:click.native="saveNotification(board._id, board.guestInfo)"
+                      color="success"
+                    >
                       <v-icon small left>add</v-icon>
                       <span>register</span>
                     </v-btn>
-                    <v-btn flat slot="activator" router :to="{name: 'Chat'}" color="success">
-                      <v-icon  small left>message</v-icon>
-                      <span >message</span>
+                    <v-btn flat slot="activator" color="success" router :to="{name: 'chat'}">
+                      <v-icon small left>message</v-icon>
+                      <span>message</span>
                     </v-btn>
                   </v-card-actions>
                 </v-card>
@@ -131,8 +111,9 @@ export default {
       newBoards: [],
       rating: 3,
       items: [1, 2, 3, 4, 5],
+      workDays: "",
+
       menu1: false,
-      menu2: false,
       date: new Date().toISOString().substr(0, 10),
       dateFormatted: this.formatDate(new Date().toISOString().substr(0, 10)),
       showCard: false,
@@ -150,7 +131,7 @@ export default {
         .then(response => {
           console.log(response.data);
           this.boards = response.data;
-          this.newBoards = response.data
+          this.newBoards = response.data;
         });
     } else {
       this.axios
@@ -160,8 +141,7 @@ export default {
         .then(response => {
           console.log(response.data);
           this.boards = response.data;
-           this.newBoards = response.data
-          
+          this.newBoards = response.data;
         });
     }
   },
@@ -189,13 +169,13 @@ export default {
       return `${year}-${month.padStart(2, "0")}-${day.padStart(2, "0")}`;
     },
     findByDifficulty(boards) {
-      var temBoards = new Array()
+      var temBoards = new Array();
       boards.forEach(item => {
         if (item.difficulty == this.diff) {
           temBoards.push(item);
         }
       });
-      this.newBoards = temBoards
+      this.newBoards = temBoards;
       console.log(this.newBoards);
     }
   }

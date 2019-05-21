@@ -7,6 +7,7 @@ import UserInfo from './views/UserInfo'
 import Signin from './views/Signin'
 import EditUserInfo from './views/EditUserInfo'
 import Chat from './views/Chat'
+import Welcome from './views/Welcome'
 
 Vue.use(Router)
 
@@ -57,9 +58,14 @@ const router =  new Router({
       component : EditUserInfo
     },
     {
-      path : '/chat',
-      name : 'Chat',
-      component : Chat
+      path: '/chat',
+      name: 'chat',
+      component: Chat
+    },
+    {
+      path: '/welcome',
+      name: 'welcome',
+      component: Welcome
     }
   ]
 })

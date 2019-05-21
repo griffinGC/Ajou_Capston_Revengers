@@ -7,7 +7,7 @@ import UserInfo from './views/UserInfo'
 import Signin from './views/Signin'
 import EditUserInfo from './views/EditUserInfo'
 import Chat from './views/Chat'
-
+import Welcome from './views/Welcome'
 
 Vue.use(Router)
 
@@ -16,13 +16,14 @@ const router =  new Router({
   base: process.env.BASE_URL,
   routes: [
     {
-      path: '/',
+      path: '/home',
       name: 'home',
       component: Home,
       meta:{
         requiresAuth: true
       }
     },
+    
     {
       path: '/about',
       name: 'about',
@@ -70,6 +71,11 @@ const router =  new Router({
       meta:{
         requiresAuth: true
       }
+    },
+    {
+      path: '/',
+      name: 'welcome',
+      component: Welcome
     }
   ]
 })

@@ -117,7 +117,8 @@ export default {
       date: new Date().toISOString().substr(0, 10),
       dateFormatted: this.formatDate(new Date().toISOString().substr(0, 10)),
       showCard: false,
-      diff: ""
+      diff: "",
+      chatRoute: "/chat"
     };
   },
   mounted: function() {

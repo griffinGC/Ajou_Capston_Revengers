@@ -20,6 +20,7 @@ var chatRouter = require('./routes/chat');
 var searchRouter = require('./routes/searchBoard');
 var deleteRouter = require('./routes/deletePost');
 
+var imageRouter = require('./routes/image');
 
 
 // var connect = require('./schemas/index');
@@ -104,6 +105,9 @@ app.use('/searchBoard',searchRouter);
 
 //특정유저가 작성한 게시글 삭제 라우터
 app.use('/deletePost',deleteRouter); 
+
+// image upload test 라우터
+app.use('/imageUpload', imageRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

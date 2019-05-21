@@ -22,7 +22,7 @@ router.post('/', function(req, res, next){
     newChat.save(function(err){
         if(err){
             console.log(err);
-            return res.json(err);
+            return res.json({state : -1, msg : "error is occured!"});
         }else{
             return res.json({state : 0, msg : "newChat is created"});
         };

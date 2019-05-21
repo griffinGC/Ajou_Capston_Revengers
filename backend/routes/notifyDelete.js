@@ -15,7 +15,14 @@ router.get('/guest/deleteNotification/:id',function(req, res,next){
       //frontend에서 보낼때는 notificationId를 보낼 예정
       // console.log("notifidationId 정보 : " + boardInfo);
       notifyGuest.find({notificationGuestId : req.params.id}, function(err, info){
+        if(err){
+          return res.json(err);
+        }
         console.log(info);
+        if(!info[0])
+        {
+          return res.json({state : -1, msg : "삭제할 글을 찾을 수 없습니다."})
+        }
         let deleteBoardId = info[0].boardInfo.guestBoardId;
         let userName = info[0].userName;
         console.log("삭제할 boardId : " + deleteBoardId);

@@ -21,6 +21,10 @@
         <span>Sign Out</span>
         <v-icon right>exit_to_app</v-icon>
       </v-btn>
+       <v-btn flat color="white" router  :to="{name: 'Signin'}" v-if="!user">
+         <v-icon left>account_circle</v-icon>
+        <span>Sign In</span>
+      </v-btn>
     </v-toolbar>
 
     <v-navigation-drawer app v-model="drawer" class="primary" disable-resize-watcher>
@@ -51,7 +55,7 @@ export default {
       drawer: false,
 
       links: [
-        { icon: "home", text: "Home", route: "/" },
+        { icon: "home", text: "Home", route: "/home" },
         { icon: "dashboard", text: "Boards", route: "/about" },
         { icon: "person", text: "Profile", route: "/userInfo" }
       ],

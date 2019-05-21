@@ -55,14 +55,16 @@ var storage = multer.diskStorage({
     },
     filename: function(req, file, cb){
         let checkFile = file.originalname;
-        
+        let newFile = "";
+        console.log("jpeg 있는곳의 index : " + checkFile.indexOf(".jpeg"));
+        console.log("jpg 있는곳의 index : " + checkFile.indexOf(".jpg"))
         if(checkFile.indexOf(".jpeg") != -1){
-            checkFile.replace(".jpeg", "");
+            newFile = checkFile.replace(".jpeg", "");
         }else if(checkFile.indexOf(".jpg") === -1){
-            checkFile.replace(".jpg", "");
+            newFile = checkFile.replace(".jpg", "");
         }
         console.log("변경된 파일명 : " + checkFile);
-        let newFile = checkFile + Date.now()+".jpeg";
+        newFile = checkFile + Date.now()+".jpeg";
         cb(null, newFile);
     }
 })
@@ -73,20 +75,20 @@ var upload = multer({storage : storage});
 //guest게시판 글 작성 
 router.post('/createBoard',upload.single('img'), function(req, res, next){
     //startDate를 required로 바꾸고 넣는거 생각 
-    let d = new Date();
-    let today = d.getDate() +""+ d.getHours(); 
-    let urlName = req.body.guestId + "" + today;
-    console.log("img 파일 이름 : " + urlName);
+    // let d = new Date();
+    // let today = d.getDate() +""+ d.getHours(); 
+    // let urlName = req.body.guestId + "" + today;
+    // console.log("img 파일 이름 : " + urlName);
     console.log("파일의 원래 이름 : " + req.file.originalname);
     let checkFile = req.file.originalname;
-        
+    let newFile = "";    
     if(checkFile.indexOf(".jpeg") != -1){
-        checkFile.replace(".jpeg", "");
+        newFile = checkFile.replace(".jpeg", "");
     }else if(checkFile.indexOf(".jpg") === -1){
-        checkFile.replace(".jpg", "");
+        newFile = checkFile.replace(".jpg", "");
     }
     console.log("변경된 파일명 : " + checkFile);
-    let newFile = checkFile + Date.now()+".jpeg";
+    newFile = checkFile + Date.now()+".jpeg";
     console.log("최종 파일명 : " + newFile);
     
     if(!req.body.title){
@@ -119,8 +121,6 @@ router.post('/createBoard',upload.single('img'), function(req, res, next){
             console.log(canNumber);
             writeBoard.candidateNumber = canNumber;
         }
-
- 
         // console.log("이미지 파일 이름 2 : " + urlName);
         writeBoard.boardImg = "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/images/guestBoard/"+newFile;
         // writeBoard.boardImg = "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/images/guestBoard/"+urlName+".jpeg";

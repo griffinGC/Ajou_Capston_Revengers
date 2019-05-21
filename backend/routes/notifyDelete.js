@@ -10,55 +10,63 @@ router.post('/', function(req, res){
     return res.json({state : 0, msg : "test delete router"});
 });
 
-//candidate삭제 및 업데이트 
-router.post('/guest/deleteNotification',function(req, res,next){ 
-      //frontend에서 보낼때는 guest boardId (boardId), userName, 작성자 정보 이렇게 3개를 보낼예정
-      notifyGuest.updateCandidate(req.body.userName, req.body.boardId, function(err){
-        console.log(req.body.userName);
-        notifyGuest.findBoard(req.body.boardId, function(err, boardInfo){
-          let applyUser = new notifyGuest();
-          // console.log("board정보 : " + boardInfo);
-          applyUser.userName = req.body.userName;
-          applyUser.boardInfo = boardInfo;
-          applyUser.writer = req.body.writer;
-          applyUser.state = "ongoing"
-          console.log("get into guest notification save sentence");
-          applyUser.save(function (err) {
+//guestboard candidate삭제 및 업데이트 
+router.get('/guest/deleteNotification/:id',function(req, res,next){ 
+      //frontend에서 보낼때는 notificationId를 보낼 예정
+      // console.log("notifidationId 정보 : " + boardInfo);
+      notifyGuest.find({notificationGuestId : req.params.id}, function(err, info){
+        console.log(info);
+        let deleteBoardId = info[0].boardInfo.guestBoardId;
+        let userName = info[0].userName;
+        console.log("삭제할 boardId : " + deleteBoardId);
+        console.log("삭제할 userName : " + userName);
+        notifyGuest.deleteCandidate(userName, deleteBoardId, function(err){
+          console.log("get in here");
+          if(err){
+            console.log(err);
+            return res.json(err);
+          }
+          notifyGuest.deleteOne({notificationGuestId : req.params.id}, function(err){
             if(err){
               console.log(err);
-                return res.json({state : -1, msg : "Sending notification to guest is failed"});
-                // return;
+              return res.json(err);
+            }else{
+              return res.json({ state: 0, msg: "Delete notification in guest was successful!" });
             }
-          res.json({ state: 0, msg: "Sending notification to guest was successful!" });
-            });
-          })
-        })
+          })  
+        });
+    });
 });
 
-//guest => host
-router.post('/host/registerNotification',function(req, res,next){ 
-      //frontend에서 보낼때는 guest boardId (boardId), userName, 작성자 정보 이렇게 3개를 보낼예정
-      notifyHost.updateCandidate(req.body.userName, req.body.boardId, function(err){
-        console.log(req.body.userName);
-        notifyHost.findBoard(req.body.boardId, function(err, boardInfo){
-          let applyUser = new notifyHost();
-          // console.log("board정보 : " + boardInfo);
-          applyUser.userName = req.body.userName;
-          applyUser.boardInfo = boardInfo;
-          applyUser.writer = req.body.writer;
-          applyUser.state = "ongoing"
-          console.log("get into host notification save sentence");
-          applyUser.save(function (err) {
-            if(err){
-              console.log(err);
-                return res.json({state : -1, msg : "Sending notification to host is failed"});
-                // return;
-            }
-          res.json({ state: 0, msg: "Sending notification to host was successful!" });
-            });
-          })
-        })
+// host board candidate 삭제 및 notification 삭제 
+router.get('/host/deleteNotification/:id',function(req, res,next){ 
+  //frontend에서 보낼때는 notificationId를 보낼 예정
+  // console.log("notifidationId 정보 : " + boardInfo);
+  notifyHost.find({notificationHostId : req.params.id}, function(err, info){
+    console.log(info);
+    let deleteBoardId = info[0].boardInfo.hostBoardId;
+    let userName = info[0].userName;
+    console.log("삭제할 boardId : " + deleteBoardId);
+    console.log("삭제할 userName : " + userName);
+    notifyHost.deleteCandidate(userName, deleteBoardId, function(err){
+      console.log("get in here");
+      if(err){
+        console.log(err);
+        return res.json(err);
+      }
+      notifyHost.deleteOne({notificationHostId : req.params.id}, function(err){
+        if(err){
+          console.log(err);
+          return res.json(err);
+        }else{
+          return res.json({ state: 0, msg: "Delete notification in host was successful!" });
+        }
+      })  
+    });
+  });
 });
+
+
  
 
 

@@ -62,8 +62,8 @@ var storage = multer.diskStorage({
             checkFile.replace(".jpg", "");
         }
         console.log("변경된 파일명 : " + checkFile);
-        checkFile = checkFile + Date.now();
-        cb(null, checkFile);
+        let newFile = checkFile + Date.now()+".jpeg";
+        cb(null, newFile);
     }
 })
 
@@ -86,7 +86,8 @@ router.post('/createBoard',upload.single('img'), function(req, res, next){
         checkFile.replace(".jpg", "");
     }
     console.log("변경된 파일명 : " + checkFile);
-    checkFile = checkFile + Date.now();
+    let newFile = checkFile + Date.now()+".jpeg";
+    console.log("최종 파일명 : " + newFile);
     
     if(!req.body.title){
         return res.json({state : -1, msg : "Title is empty!"});
@@ -121,7 +122,7 @@ router.post('/createBoard',upload.single('img'), function(req, res, next){
 
  
         // console.log("이미지 파일 이름 2 : " + urlName);
-        writeBoard.boardImg = "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/images/guestBoard/"+checkFile+".jpeg";
+        writeBoard.boardImg = "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/images/guestBoard/"+newFile;
         // writeBoard.boardImg = "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/images/guestBoard/"+urlName+".jpeg";
         // writeBoard.boardImg = "http://localhost:3000/images/guestBoard/"+req.body.guestId+today+".jpeg";
         writeBoard.save(function(err){

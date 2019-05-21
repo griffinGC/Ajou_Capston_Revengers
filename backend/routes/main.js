@@ -11,9 +11,9 @@ router.post('/', function(req, res){
 });
 
 //메인화면에서 notification schema 읽어오기 
-router.post('/guest/getNotification',function(req, res,next){ 
+router.get('/guest/getNotification/:id',function(req, res,next){ 
       //인자로 guestId 만을 가져옴 
-      notifyGuest.find({writer : req.body.userName}, function(err, notifyList){
+      notifyGuest.find({writer : req.params.id}, function(err, notifyList){
           if(err){
               console.log(err);
               return res.json(err);
@@ -23,9 +23,9 @@ router.post('/guest/getNotification',function(req, res,next){
       })
 });
 
-router.post('/host/getNotification',function(req, res,next){ 
+router.get('/host/getNotification/:id',function(req, res,next){ 
     //인자로 hostId 만을 가져옴 
-    notifyHost.find({writer : req.body.userName}, function(err, notifyList){
+    notifyHost.find({writer : req.params.id}, function(err, notifyList){
         if(err){
             console.log(err);
             return res.json(err);

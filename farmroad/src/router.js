@@ -16,13 +16,14 @@ const router =  new Router({
   base: process.env.BASE_URL,
   routes: [
     {
-      path: '/',
+      path: '/home',
       name: 'home',
       component: Home,
       meta:{
         requiresAuth: true
       }
     },
+    
     {
       path: '/about',
       name: 'about',
@@ -45,7 +46,10 @@ const router =  new Router({
     {
       path: '/userInfo',
       name: 'userInfo',
-      component : UserInfo
+      component : UserInfo,
+      meta:{
+        requiresAuth: true
+      }
     },
     {
       path: '/signin',
@@ -55,15 +59,21 @@ const router =  new Router({
     {
       path : '/editUserInfo',
       name : 'editUserInfo',
-      component : EditUserInfo
+      component : EditUserInfo,
+      meta:{
+        requiresAuth: true
+      }
     },
     {
       path: '/chat',
       name: 'chat',
-      component: Chat
+      component: Chat,
+      meta:{
+        requiresAuth: true
+      }
     },
     {
-      path: '/welcome',
+      path: '/',
       name: 'welcome',
       component: Welcome
     }
@@ -79,6 +89,7 @@ router.beforeEach((to, before, next)=>{
       next()
     }else{
       //no user sign in ,redirect to login
+      alert("Do not do this SB!!")
       next({name: 'Signin'})
     }
   }else{

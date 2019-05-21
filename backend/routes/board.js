@@ -56,19 +56,22 @@ router.post('/guestCreateBoard', function(req, res, next){
         writeBoard.title = req.body.title;
         writeBoard.content = req.body.content;
         writeBoard.guestInfo = userInfo;
+        console.log(userInfo);
         writeBoard.startDate = req.body.startDate;
         writeBoard.endDate = req.body.endDate;
-        writeBoard.difficulty = req.body.difficulty;
+        // writeBoard.difficulty = req.body.difficulty;
         writeBoard.workDay = req.body.workDay;
         writeBoard.category = req.body.category;
         writeBoard.preferLocation = req.body.preferLocation;
         writeBoard.candidate = req.body.candidate;
+
         let canNumber = "";
         if(req.body.candidate){
             canNumber = writeBoard.candidate.length;
             console.log(canNumber);
             writeBoard.candidateNumber = canNumber;
         }
+
         //startDate를 required로 바꾸고 넣는거 생각 
         let d = new Date();
         let today = d.getDate() +""+ d.getHours(); 
@@ -133,12 +136,14 @@ router.post('/hostCreateBoard', function(req, res, next){
         writeBoard.category = req.body.category;
         writeBoard.preferLocation = req.body.preferLocation;
         writeBoard.candidate = req.body.candidate;
+
         let canNumber = "";
         if(req.body.candidate){
             canNumber = writeBoard.candidate.length;
             console.log(canNumber);
             writeBoard.candidateNumber = canNumber;
         }
+
 
         //startDate를 required로 바꾸고 넣는거 생각 
         let d = new Date();

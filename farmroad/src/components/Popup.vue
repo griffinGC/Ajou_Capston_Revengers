@@ -1,5 +1,5 @@
 <template>
-  <v-dialog max-width="600px">
+  <v-dialog v-model="dialog" max-width="600px">
     <v-btn flat slot="activator" class="success">add host Board</v-btn>
     <v-card>
       <v-card-title>
@@ -57,7 +57,8 @@ export default {
       content: "",
       diff: 3,
       items: [1, 2, 3, 4, 5],
-      alert: false
+      alert: false,
+      dialog: false
     };
   },
 
@@ -97,7 +98,6 @@ export default {
             difficulty: this.diff,
             workDay: 3,
             startDate: this.date,
-            endDate: 20190309
           }
         )
         .then(resposne => {
@@ -105,7 +105,10 @@ export default {
           if (resposne.data.state == 0) {
             this.$router.push({ name: "about" });
             this.alert = true;
-            setTimeout(()=>{this.alert = false}, 2000)
+            setTimeout(()=>{this.alert = false ,this.dialog = false}, 800)
+            console.log(this.date)
+          }else{
+            alert(resposne.data.msg)
           }
         });
     }

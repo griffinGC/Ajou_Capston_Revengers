@@ -9,7 +9,7 @@
                 <img :src="user.avatar">
               </v-list-tile-avatar>
               <v-list-tile-content>
-                <v-list-tile-title v-html="user.name"></v-list-tile-title>
+                <v-list-tile-title v-html="user.name">:</v-list-tile-title>
                 <v-list-tile-sub-title v-html="user.content"></v-list-tile-sub-title>
               </v-list-tile-content>
             </v-list-tile>
@@ -18,7 +18,7 @@
         <v-divider></v-divider>
 
         <v-card-actions>
-          <v-textarea label="Message:" rows="1"></v-textarea>
+          <v-textarea label="Message:" rows="2"></v-textarea>
         </v-card-actions>
       </v-card>
     </v-flex>
@@ -35,7 +35,7 @@ export default {
           avatar: "https://cdn.vuetifyjs.com/images/lists/1.jpg",
           name: "Brunch ",
           content:
-            "<span class='text--primary'>Ali Connors</span> &mdash; I'll be in your neighborhood doing errands this weekend. Do you want to hang out?"
+            "I'll be in your neighborhood doing errands this weekend. Do you want to hang out?"
         },
         {
           avatar: "https://cdn.vuetifyjs.com/images/lists/2.jpg",

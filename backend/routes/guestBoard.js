@@ -46,7 +46,7 @@ router.post('/', upload.single('img'), function(req, res, next){
     console.log(req.file);
     res.json({msg : 'uploaded', msg2 : req.file});
   });  
-
+var newFile = "";
 
 var storage = multer.diskStorage({
     //cb는 콜백 
@@ -55,7 +55,7 @@ var storage = multer.diskStorage({
     },
     filename: function(req, file, cb){
         let checkFile = file.originalname;
-        var newFile = "";
+        // var newFile = "";
         console.log("jpeg 있는곳의 index : " + checkFile.indexOf(".jpeg"));
         console.log("jpg 있는곳의 index : " + checkFile.indexOf(".jpg"))
         newFile = Date.now() + "" + checkFile;

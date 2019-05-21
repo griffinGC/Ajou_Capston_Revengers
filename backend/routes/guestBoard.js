@@ -58,11 +58,11 @@ var storage = multer.diskStorage({
         let newFile = "";
         console.log("jpeg 있는곳의 index : " + checkFile.indexOf(".jpeg"));
         console.log("jpg 있는곳의 index : " + checkFile.indexOf(".jpg"))
-        if(checkFile.indexOf(".jpeg") != -1){
+        // if(checkFile.indexOf(".jpeg") != -1){
             newFile = checkFile.replace(".jpeg", "");
-        }else if(checkFile.indexOf(".jpg") === -1){
+        // }else if(checkFile.indexOf(".jpg") === -1){
             newFile = checkFile.replace(".jpg", "");
-        }
+        // }
         console.log("변경된 파일명 : " + checkFile);
         newFile = checkFile + Date.now()+".jpeg";
         cb(null, newFile);
@@ -82,11 +82,11 @@ router.post('/createBoard',upload.single('img'), function(req, res, next){
     console.log("파일의 원래 이름 : " + req.file.originalname);
     let checkFile = req.file.originalname;
     let newFile = "";    
-    if(checkFile.indexOf(".jpeg") != -1){
+    // if(checkFile.indexOf(".jpeg") != -1){
         newFile = checkFile.replace(".jpeg", "");
-    }else if(checkFile.indexOf(".jpg") === -1){
+    // }else if(checkFile.indexOf(".jpg") === -1){
         newFile = checkFile.replace(".jpg", "");
-    }
+    // }
     console.log("변경된 파일명 : " + checkFile);
     newFile = checkFile + Date.now()+".jpeg";
     console.log("최종 파일명 : " + newFile);

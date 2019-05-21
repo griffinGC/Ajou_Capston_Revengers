@@ -1,5 +1,5 @@
 <template>
-  <v-dialog max-width="600px">
+  <v-dialog v-model="dialog" max-width="600px">
     <v-btn flat slot="activator" class="success">add guest Board</v-btn>
     <v-card>
       <v-card-title>
@@ -9,7 +9,7 @@
         <v-form class="px-3">
           <v-text-field label="Title" v-model="title" prepend-icon="folder"></v-text-field>
           <!--时间选择栏-->
-          <v-menu
+          <!-- <v-menu
             ref="menu1"
             v-model="menu1"
             :close-on-content-click="false"
@@ -33,12 +33,11 @@
               ></v-text-field>
             </template>
             <v-date-picker v-model="date" no-title @input="menu1 = false"></v-date-picker>
-          </v-menu>
+          </v-menu>-->
 
-          <v-text-field label="Location" v-model="title" prepend-icon="map"></v-text-field>
           <v-textarea label="Content" v-model="content" prepend-icon="edit"></v-textarea>
-
-          <v-btn flat class="success mx-0 mt-3">Add project</v-btn>
+          <v-alert v-model="alert" dismissible type="success">create Guest success</v-alert>
+          <v-btn flat class="success mx-0 mt-3" @click="createGuestBoard">Add project</v-btn>
         </v-form>
       </v-card-text>
     </v-card>
@@ -46,39 +45,69 @@
 </template>
 <script>
 export default {
- data: vm => ({
-      date: new Date().toISOString().substr(0, 10),
-      dateFormatted: vm.formatDate(new Date().toISOString().substr(0, 10)),
-      menu1: false,
-      menu2: false,
-      title: '',
-      content: ''
-    }),
+  data() {
+    return {
+      // date: new Date().toISOString().substr(0, 10),
+      // dateFormatted: this.formatDate(new Date().toISOString().substr(0, 10)),
+      // menu1: false,
+      // menu2: false,
+      title: "",
+      content: "",
+      alert: false,
+      dialog: false
+    };
+  },
 
-    computed: {
-      computedDateFormatted () {
-        return this.formatDate(this.date)
-      }
-    },
-
-    watch: {
-      date (val) {
-        this.dateFormatted = this.formatDate(this.date)
-      }
-    },
-     methods: {
-      formatDate (date) {
-        if (!date) return null
-
-        const [year, month, day] = date.split('-')
-        return `${month}/${day}/${year}`
-      },
-      parseDate (date) {
-        if (!date) return null
-
-        const [month, day, year] = date.split('/')
-        return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`
-      }
+  computed: {
+    computedDateFormatted() {
+      return this.formatDate(this.date);
     }
+  },
+
+  watch: {
+    date(val) {
+      this.dateFormatted = this.formatDate(this.date);
+    }
+  },
+  methods: {
+    formatDate(date) {
+      if (!date) return null;
+
+      const [year, month, day] = date.split("-");
+      return `${month}/${day}/${year}`;
+    },
+    parseDate(date) {
+      if (!date) return null;
+
+      const [month, day, year] = date.split("/");
+      return `${year}-${month.padStart(2, "0")}-${day.padStart(2, "0")}`;
+    },
+    createGuestBoard() {
+      this.axios
+        .post(
+          "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/board/guestCreateBoard",
+          {
+            title: this.title,
+            content: this.content,
+            guestId: localStorage.username
+          }
+        )
+        .then(response => {
+          console.log(response.data);
+          if (response.data.state == 0) {
+            this.$router.push({ name: "about" });
+            this.title=''
+            this.content=''
+            this.alert = true;
+            
+            setTimeout(() => {
+              (this.alert = false), (this.dialog = false);
+            }, 800);
+          }else{
+            alert(response.data.msg)
+          }
+        });
+    }
+  }
 };
 </script>

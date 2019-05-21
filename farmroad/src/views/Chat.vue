@@ -2,24 +2,24 @@
   <v-layout row>
     <v-flex>
       <v-card>
-        <v-list two-line>
-          <template v-for="(user) in users">
-            <v-list-tile :key="user.name" avatar>
-              <v-list-tile-avatar>
+        <v-list two-line class="messages">
+          <template v-for="(msg) in messages">
+            <v-list-tile :key="msg.id" avatar>
+              <!-- <v-list-tile-avatar>
                 <img :src="user.avatar">
-              </v-list-tile-avatar>
+              </v-list-tile-avatar>-->
               <v-list-tile-content>
-                <v-list-tile-title v-html="user.name"></v-list-tile-title>
-                <v-list-tile-sub-title v-html="user.content"></v-list-tile-sub-title>
+                <span class="grey--text">{{msg.name}}:</span>
+                <span>{{msg.content}}</span>
               </v-list-tile-content>
             </v-list-tile>
           </template>
         </v-list>
         <v-divider></v-divider>
 
-        <v-card-actions>
-          <v-textarea label="Message:" rows="1"></v-textarea>
-        </v-card-actions>
+        <form @submit.prevent="addMessage">
+          <v-text-field label="new message" v-model="newMessage" :rules="newMessageRules" required></v-text-field>
+        </form>
       </v-card>
     </v-flex>
   </v-layout>
@@ -27,30 +27,67 @@
 
 
 <script>
+import db from "@/firebase/init";
 export default {
   data() {
     return {
-      users: [
-        {
-          avatar: "https://cdn.vuetifyjs.com/images/lists/1.jpg",
-          name: "Brunch ",
-          content:
-            "<span class='text--primary'>Ali Connors</span> &mdash; I'll be in your neighborhood doing errands this weekend. Do you want to hang out?"
-        },
-        {
-          avatar: "https://cdn.vuetifyjs.com/images/lists/2.jpg",
-          name: "Summer ",
-          content:
-            "to Alex, Scott, Jennifer &mdash; Wish I could come, but I'm out of town this weekend."
-        },
-        {
-          avatar: "https://cdn.vuetifyjs.com/images/lists/1.jpg",
-          name: "Brunch",
-          content:
-            "Sandra Adams &mdash; Do you have Paris recommendations? Have you ever been?"
-        }
-      ]
+      messages: [],
+      newMessage: "",
+      newMessageRules: [v => !!v || "Message is required"]
     };
+  },
+  created() {
+    let ref = db.collection("message").orderBy("timestamp");
+
+    ref.onSnapshot(snapshot => {
+      snapshot.docChanges().forEach(change => {
+        if (change.type == "added") {
+          let doc = change.doc;
+          this.messages.push({
+            id: doc.id,
+            name: doc.data().name,
+            content: doc.data().content
+            //timestamp: moments(doc.data().timestamp).format('lll')
+          });
+        }
+      });
+    });
+  },
+  methods: {
+    addMessage() {
+      console.log(this.newMessage, this.name, Date.now());
+      if (this.newMessage) {
+        db.collection("message")
+          .add({
+            content: this.newMessage,
+            name: localStorage.username,
+            timestamp: Date.now()
+          })
+          .catch(err => {
+            console.log(err);
+          });
+        this.newMessage = null;
+      } else {
+       
+      }
+    }
   }
 };
 </script>
+
+<style>
+.messages {
+  max-height: 300px;
+  overflow: auto;
+}
+.messages::-webkit-scrollbar {
+  widows: 3px;
+}
+.messages::-webkit-scrollbar-track {
+  background: #ddd;
+}
+.messages::-webkit-scrollbar-thumb {
+  background: #aaa;
+}
+</style>
+

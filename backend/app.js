@@ -17,6 +17,9 @@ var notifyRegisterRouter = require('./routes/notifyRegister');
 var notifyDeleteRouter = require('./routes/notifyDelete');
 var mainRouter = require('./routes/main');
 var chatRouter = require('./routes/chat');
+var searchRouter = require('./routes/searchBoard');
+var deleteRouter = require('./routes/deletePost');
+
 
 
 // var connect = require('./schemas/index');
@@ -95,6 +98,12 @@ app.use('/main', mainRouter);
 
 //chat 기능 라우터 
 app.use('/chat', chatRouter);
+
+//특정유저가 작성한 모든 게시글 라우터
+app.use('/searchBoard',searchRouter); 
+
+//특정유저가 작성한 게시글 삭제 라우터
+app.use('/deletePost',deleteRouter); 
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

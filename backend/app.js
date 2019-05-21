@@ -11,7 +11,8 @@ var indexRouter = require('./routes/index');
 var loginRouter = require('./routes/signIn');
 var logoutRouter = require('./routes/logOut');
 var signUpRouter = require('./routes/signUp');
-var boardRouter = require('./routes/board');
+var guestBoardRouter = require('./routes/guestBoard');
+var hostBoardRouter = require('./routes/hostBoard');
 var userinfoRouter = require('./routes/userInfo');
 var notifyRegisterRouter = require('./routes/notifyRegister');
 var notifyDeleteRouter = require('./routes/notifyDelete');
@@ -82,8 +83,11 @@ app.use('/signUp', signUpRouter);
 //logout 기능 라우터
 app.use('/logOut',logoutRouter);
 
-//게시판 기능 라우터
-app.use('/board', boardRouter);
+//게스트 게시판 기능 라우터
+app.use('/guestBoard', guestBoardRouter);
+
+//호스트 게시판 기능 라우터
+app.use('/hostBoard', hostBoardRouter);
 
 //개인정보수정 기/능 라우터
 app.use('/user',userinfoRouter);

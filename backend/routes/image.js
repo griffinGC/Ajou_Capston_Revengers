@@ -4,9 +4,6 @@ var router = express.Router();
 const multer = require('multer');
 // const upload = multer({dest : 'uploads/'})
 
-const fs = require('fs');
-
-
 var storage = multer.diskStorage({
     //cb는 콜백 
     destination : function(req, file, cb){

@@ -82,7 +82,7 @@ router.post('/updateInfo/host', function(req, res, next){
     console.log("userInfo Test");
     hostModel.update({userName : req.body.userName},{$set : {password : req.body.password, userName:req.body.userName, name : req.body.name
         ,work : req.body.work, phone : req.body.phone,email : req.body.email,
-        address : req.body.address,loacation : req.body.loacation  }},function(err){
+        address : req.body.address,location : req.body.location  }},function(err){
         if(err){
             return res.json({state : -1, msg : "host Information is failed to modify "});
         }

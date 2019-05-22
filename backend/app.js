@@ -10,7 +10,10 @@ var MongoClient = require('mongodb');
 var indexRouter = require('./routes/index');
 var loginRouter = require('./routes/signIn');
 var logoutRouter = require('./routes/logOut');
-var signUpRouter = require('./routes/signUp');
+
+var guestSignUpRouter = require('./routes/guestSignUp');
+var hostSignUpRouter = require('./routes/hostSignUp');
+
 var guestBoardRouter = require('./routes/guestBoard');
 var hostBoardRouter = require('./routes/hostBoard');
 
@@ -81,7 +84,8 @@ app.use('/', indexRouter);
 app.use('/signIn',loginRouter);
 
 //회원가입 기능 라우터
-app.use('/signUp', signUpRouter);
+app.use('/hostSignUp', hostSignUpRouter);
+app.use('/guestSignUp', guestSignUpRouter);
 
 //logout 기능 라우터
 app.use('/logOut',logoutRouter);

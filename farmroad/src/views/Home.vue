@@ -19,7 +19,7 @@
           </v-flex>
 
           <v-flex xs6 sm4 md2>
-            <div class="caption grey--text">Dua by</div>
+            <div class="caption grey--text">Due</div>
             <!-- <div>{{project.due}}</div> -->
             <div></div>
           </v-flex>

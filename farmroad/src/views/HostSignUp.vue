@@ -118,17 +118,23 @@ export default {
   },
   methods: {
     validate() {
+      var formData = new FormData();
+      formData.append("img", this.imageFile);
+      formData.append("userName", this.username);
+      formData.append("password", this.password);
+      formData.append("name", this.myName);
+      formData.append("email", this.email);
+      formData.append("phone", this.phone);
       if (this.$refs.form.validate()) {
         this.snackbar = true;
         this.axios
           .post(
-            "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/signUp/host",
+            "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/hostSignUp/host",
+            formData,
             {
-              userName: this.username,
-              password: this.password,
-              name: this.myName,
-              email: this.email,
-              phone: this.phone
+              headers: {
+                "Content-Type": "multipart/form-data"
+              }
             }
           )
           .then(response => {
@@ -146,7 +152,7 @@ export default {
     checkUsername() {
       this.axios
         .get(
-          "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/signUp/hostConfirm/" +
+          "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/hostSignUp/hostConfirm/" +
             this.username
         )
         .then(response => {
@@ -161,7 +167,7 @@ export default {
           }
         });
     },
-     pickFile() {
+    pickFile() {
       this.$refs.image.click();
     },
 
@@ -183,7 +189,7 @@ export default {
         this.imageFile = "";
         this.imageUrl = "";
       }
-    },
+    }
   }
 };
 </script>

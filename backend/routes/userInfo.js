@@ -87,6 +87,7 @@ router.post('/updateInfo/host', function(req, res, next){
             return res.json({state : -1, msg : "host Information is failed to modify "});
         }
         console.log(editInfo);
+        
         res.json({state : 0, msg : "host Information successfully modified"});
     })
 })

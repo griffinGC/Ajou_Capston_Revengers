@@ -144,6 +144,8 @@ export default {
           return;
         }
         if(localStorage.role === '0'){
+          console.log(this.userName);
+          console.log("바뀐 이름 : " + this.name);
         this.axios
           .post("http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/user/updateInfo/guest",{
             userName : this.userName,

@@ -11,6 +11,7 @@
 
       <!--add board btn-->
       <GuestBoard v-if="role && user"/>
+      
       <Popup v-if="!role && user"/>
 
       <li v-if="user">

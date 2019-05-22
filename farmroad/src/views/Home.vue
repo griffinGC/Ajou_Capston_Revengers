@@ -26,8 +26,7 @@
 
           <v-flex xs6 sm4 md2>
             <div>
-              <v-chip small :class="`white--text green`">View</v-chip>
-            
+              <HomeBoardView :candidateInfo="`${notification.userName}`"/>
             </div>
           </v-flex>
         </v-layout>
@@ -37,44 +36,12 @@
 </template>
 
 <script>
+import HomeBoardView from '../components/HomeBoardView'
+
 export default {
   name: "home",
   data() {
     return {
-      projects: [
-        {
-          title: "Design a new webside",
-          person: "Ninja",
-          due: "20190307",
-          status: "ongoing",
-          content:
-            "尝试Vue.js 最简单的方法是使用JSFiddle 上的Hello World 例子。你可以在浏览器新标签页中打开它，跟着例子学习一些基础用法。或者你也可以创建一个 .html 文件，"
-        },
-        {
-          title: "Code up the sign page",
-          person: "chun li",
-          due: "20190408",
-          status: "complete",
-          content:
-            "尝试Vue.js 最简单的方法是使用JSFiddle 上的Hello World 例子。你可以在浏览器新标签页中打开它，跟着例子学习一些基础用法。或者你也可以创建一个 .html 文件，"
-        },
-        {
-          title: "Design a new webside",
-          person: "Ninja",
-          due: "20190307",
-          status: "ongoing",
-          content:
-            "尝试Vue.js 最简单的方法是使用JSFiddle 上的Hello World 例子。你可以在浏览器新标签页中打开它，跟着例子学习一些基础用法。或者你也可以创建一个 .html 文件，"
-        },
-        {
-          title: "create a community for formu",
-          person: "khalil",
-          due: "20190307",
-          status: "overdue",
-          content:
-            "尝试Vue.js 最简单的方法是使用JSFiddle 上的Hello World 例子。你可以在浏览器新标签页中打开它，跟着例子学习一些基础用法。或者你也可以创建一个 .html 文件，"
-        }
-      ],
       notificationList : ""
     };
   },
@@ -92,7 +59,7 @@ export default {
         this.axios
           .get(`http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/main/guest/getNotification/${userId}`)
           .then(response => {
-            console.log("응답 값 : " + JSON.stringify(response));
+            // console.log("응답 값 : " + JSON.stringify(response));
             // console.log(response.data[0]);
             this.notificationList = response.data;
             // console.log(this.notificationList);
@@ -106,7 +73,7 @@ export default {
         .get(`http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/main/host/getNotification/${userId}`)
         .then(response =>{
           console.log(response);
-            console.log("응답 값 : " + JSON.stringify(response));
+            // console.log("응답 값 : " + JSON.stringify(response));
             // console.log(response.data[0]);
             this.notificationList = response.data;
 
@@ -114,6 +81,8 @@ export default {
       };
     },
   },
-  components: {}
+  components: {
+    HomeBoardView
+  }
 };
 </script>

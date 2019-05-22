@@ -3,7 +3,7 @@ const guestModel = require('./createGuest');
 
 const guestBoardSchema = new mongoose.Schema({
     //db에 저장하는 id 자동적으로 1씩 증가 
-    guestBoardId:{
+    boardId:{
         type : Number,
         unique : true     
     },
@@ -53,7 +53,7 @@ guestBoardSchema.statics.findByUserName = function(name, callBack){
 
 guestBoardSchema.plugin(autoIncrement,{
     model : 'guestBoard',
-    field : 'guestBoardId',
+    field : 'boardId',
     startAt : 1
 })
 

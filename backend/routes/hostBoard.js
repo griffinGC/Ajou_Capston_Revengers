@@ -75,7 +75,7 @@ router.post('/createBoard', upload.single('img'),function(req, res, next){
         return res.json({state : -1, msg : "Content is empty!"});
     }
     if(!req.body.hostId){
-        return res.json({state : -1, msg : "guestID is empty!"});
+        return res.json({state : -1, msg : "hostID is empty!"});
     }
     let writeBoard = new hostBoard();
     hostBoard.findByUserName(req.body.hostId, function(err, userInfo){
@@ -87,7 +87,7 @@ router.post('/createBoard', upload.single('img'),function(req, res, next){
         writeBoard.difficulty = req.body.difficulty;
         writeBoard.workDay = req.body.workDay;
         writeBoard.category = req.body.category;
-        writeBoard.preferLocation = req.body.preferLocation;
+        // writeBoard.preferLocation = req.body.preferLocation;
         writeBoard.candidate = req.body.candidate;
 
         let canNumber = "";

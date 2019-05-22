@@ -27,8 +27,6 @@
 <script>
 export default {
   data: () => ({
-    title: "Image Upload",
-    dialog: false,
     imageName: "",
     imageUrl: "",
     imageFile: ""
@@ -60,27 +58,33 @@ export default {
     },
     uploadImg() {
       var formData = new FormData();
-      formData.append("imgfile", this.imageFile);
-      console.log(formData)
-      this.axios.post("", formData, {
-        method: "post",
-        headers: {
-          "Content-Type": "multipart/form-data"
-        },
-        transformRequest: [
-          function(data) {
-            return data;
+      formData.append("img", this.imageFile);
+      console.log(formData);
+      this.axios
+        .post(
+          "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/imageUpload",
+          formData,
+          {
+            method: "post",
+            headers: {
+              "Content-Type": "multipart/form-data"
+            },
+            transformRequest: [
+              function(data) {
+                return data;
+              }
+            ],
+            onUploadProgress: function(e) {
+              var percentage = Math.round((e.loaded * 100) / e.total) || 0;
+              if (percentage < 100) {
+                console.log(percentage + "%"); // 上传进度
+              }
+            }
           }
-        ],
-        onUploadProgress: function(e) {
-          var percentage = Math.round((e.loaded * 100) / e.total) || 0;
-          if (percentage < 100) {
-            console.log(percentage + "%"); // 上传进度
-          }
-        }
-      }).then(response=>{
-        console.log(response.data)
-      })
+        )
+        .then(response => {
+          console.log(response.data);
+        });
     }
   }
 };

@@ -3,16 +3,15 @@
     <!-- <v-btn @click="viewClicked()" flat slot="activator" class="success">view</v-btn> -->
     <v-btn flat slot="activator" class="success">view</v-btn>
       <v-card>
-        <v-img class="white--text" height="200px" >
-          <v-container fill-height fluid>
-            <v-layout fill-height>
-              <v-flex xs12 align-end flexbox>
-                <!-- <span class="headline">{{board.title}}</span> -->
-                <!-- <span class="headline">{{candidateData.userName}}</span> -->
-              </v-flex>
-            </v-layout>
-          </v-container>
-        </v-img>
+        <v-avatar id="avatar" size="80px">
+          <img
+            v-if="candidateData.profileImg"
+            :src="candidateData.profileImg"
+            alt="Avatar">
+          <v-icon id="altImg" size="80px"
+            v-else
+          >person</v-icon>
+        </v-avatar>
         <v-card-title>
           <!-- <h2 class="center teal-text">{{board.title}}</h2> -->
           <h2 class="center teal-text">{{candidateData.userName}}</h2>
@@ -59,18 +58,13 @@ export default {
     };
   },
   props : ['candidateInfo'],
-  computed: {
-    computedDateFormatted() {
-      return this.formatDate(this.date);
-    }
-  },
   created() {
     // console.log("view is created");
     console.log("props로 받은 값 : " + this.candidateInfo);
     this.viewClicked();
   },
   mounted(){
-
+    this.viewClicked();
   },
 
   methods: {
@@ -127,3 +121,11 @@ export default {
   }
 };
 </script>
+<style>
+.avatar{
+  margin-left: 5%;
+}
+.altImg{
+  margin-left: 30px;
+}
+</style>

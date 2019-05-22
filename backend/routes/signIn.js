@@ -49,7 +49,7 @@ router.post('/',function(req, res, error){
         });
     }
     
-    //0이면 host
+    //1이면 host
     if(req.body.radio){
         console.log("host test");
         hostModel.find({userName : req.body.userName, password : req.body.password}, function(err, hostModel){

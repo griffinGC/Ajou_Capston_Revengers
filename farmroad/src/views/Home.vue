@@ -2,7 +2,8 @@
   <div class="home">
     <h1 class="subheading grey--text">Message</h1>
     <v-container row class="mb-3">
-      <!--卡片内容-->
+      
+      <!--card container-->
       <v-card class="pa-3" v-for="project in projects" :key="project.id">
         <v-layout row wrap :class="`pa-3 project.${project.title}`">
           <v-flex xs12 md6>

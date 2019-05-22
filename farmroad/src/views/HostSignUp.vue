@@ -2,18 +2,42 @@
   <v-card>
     <v-card-title class="headline">Host Sign Up</v-card-title>
     <v-card-text>
-      <!--输入框组-->
+      <!--input from-->
       <v-form class="px-3" ref="form" v-model="valid" lazy-validation>
+        <!--username-->
         <v-text-field
           label="Username"
           v-model="username"
           :rules="usernameRules"
           prepend-icon="person"
         ></v-text-field>
+        <!--username check btn and alert -->
         <v-alert :value="alertSuccess" type="success">This is a success alert.</v-alert>
         <v-alert :value="alertError" type="error">This is a error alert.</v-alert>
         <v-btn left color="success" @click="checkUsername">check</v-btn>
 
+        <!--img upload-->
+        <v-flex xs12 class="text-xs-center text-sm-center text-md-center text-lg-center">
+          <img :src="imageUrl" height="150" v-if="imageUrl">
+          <v-text-field
+            label="Select Image"
+            @click="pickFile"
+            v-model="imageName"
+            prepend-icon="attach_file"
+          ></v-text-field>
+          <input
+            type="file"
+            style="display: none"
+            ref="image"
+            accept="image/*"
+            @change="onFilePicked"
+          >
+        </v-flex>
+
+        <!--name-->
+        <v-text-field label="name" v-model="myName" prepend-icon="account_box"></v-text-field>
+
+        <!--password-->
         <v-text-field
           v-model="password"
           :append-icon="show1 ? 'visibility' : 'visibility_off'"
@@ -27,7 +51,7 @@
           prepend-icon="lock"
           @click:append="show1 = !show1"
         ></v-text-field>
-
+        <!--email-->
         <v-text-field
           v-model="email"
           :rules="emailRules"
@@ -35,7 +59,10 @@
           required
           prepend-icon="email"
         ></v-text-field>
+        <!--phone-->
         <v-text-field v-model="phone" label="phone" required prepend-icon="phone"></v-text-field>
+
+        <!--signup btn-->
         <v-btn :disabled="!valid" left color="success" @click="validate">Sign Up</v-btn>
       </v-form>
     </v-card-text>
@@ -77,13 +104,16 @@ export default {
         required: value => !!value || "Required.",
         min: v => v.length >= 8 || "Min 8 characters"
       },
-
+      myName: "",
       show1: false,
       show2: true,
       show3: false,
       show4: false,
       alertSuccess: false,
-      alertError: false
+      alertError: false,
+      imageName: "",
+      imageUrl: "",
+      imageFile: ""
     };
   },
   methods: {
@@ -92,10 +122,11 @@ export default {
         this.snackbar = true;
         this.axios
           .post(
-            "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/signUp/guest",
+            "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/signUp/host",
             {
               userName: this.username,
               password: this.password,
+              name: this.myName,
               email: this.email,
               phone: this.phone
             }
@@ -129,7 +160,30 @@ export default {
             this.alertError = false;
           }
         });
-    }
+    },
+     pickFile() {
+      this.$refs.image.click();
+    },
+
+    onFilePicked(e) {
+      const files = e.target.files;
+      if (files[0] !== undefined) {
+        this.imageName = files[0].name;
+        if (this.imageName.lastIndexOf(".") <= 0) {
+          return;
+        }
+        const fr = new FileReader();
+        fr.readAsDataURL(files[0]);
+        fr.addEventListener("load", () => {
+          this.imageUrl = fr.result;
+          this.imageFile = files[0]; // this is an image file that can be sent to server...
+        });
+      } else {
+        this.imageName = "";
+        this.imageFile = "";
+        this.imageUrl = "";
+      }
+    },
   }
 };
 </script>

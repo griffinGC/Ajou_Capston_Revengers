@@ -11,8 +11,9 @@ const hostBoard = require('../schemas/hostBoard');
   
 
 //guest게시판 글 삭제하기
+//guestBoardId => boardId
 router.get('/deleteGuestList/:id/:guestBoardId',function(req, res,next){
-    guestBoard.remove({$and:[{guestInfo:{$elemMatch:{userName: req.params.id}},guestBoardId : req.params.guestBoardId}]},function(err,guestBoardContent){
+    guestBoard.remove({$and:[{guestInfo:{$elemMatch:{userName: req.params.id}},boardId : req.params.guestBoardId}]},function(err,guestBoardContent){
         if(err) {
           return res.json(err);
         };
@@ -23,8 +24,9 @@ router.get('/deleteGuestList/:id/:guestBoardId',function(req, res,next){
   });        
 
 //host 게시판 글 삭제하기
+//guestBoardId => boardId
 router.get('/deleteHostList/:id/:hostBoardId',function(req, res,next){
-    hostBoard.remove({$and:[{hostInfo:{$elemMatch:{userName: req.params.id}},hostBoardId : req.params.hostBoardId}]},function(err,guestBoardContent){
+    hostBoard.remove({$and:[{hostInfo:{$elemMatch:{userName: req.params.id}},boardId : req.params.hostBoardId}]},function(err,guestBoardContent){
         if(err) {
           return res.json(err);
         };

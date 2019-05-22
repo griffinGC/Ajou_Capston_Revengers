@@ -3,7 +3,7 @@ const hostModel = require('./createHost');
 
 const hostBoardSchema = new mongoose.Schema({
     //db에 저장하는 id 자동적으로 1씩 증가 
-    hostBoardId:{
+    boardId:{
         type : Number,
         unique : true     
     },
@@ -54,7 +54,7 @@ hostBoardSchema.statics.findByUserName = function(name, callBack){
 
 hostBoardSchema.plugin(autoIncrement,{
     model : 'hostBoard',
-    field : 'hostBoardId',
+    field : 'boardId',
     startAt : 1
 })
 

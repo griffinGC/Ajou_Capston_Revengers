@@ -22,7 +22,7 @@ router.post('/guest/registerNotification',function(req, res,next){
           let applyUser = new notifyGuest();
           // console.log("board정보 : " + boardInfo);
           applyUser.userName = req.body.userName;
-          applyUser.boardInfo = boardInfo;
+          applyUser.boardInfo = boardInfo[0];
           applyUser.writer = req.body.writer;
           applyUser.state = "ongoing"
           console.log("get into guest notification save sentence");
@@ -47,7 +47,7 @@ router.post('/host/registerNotification',function(req, res,next){
           let applyUser = new notifyHost();
           // console.log("board정보 : " + boardInfo);
           applyUser.userName = req.body.userName;
-          applyUser.boardInfo = boardInfo;
+          applyUser.boardInfo = boardInfo[0];
           applyUser.writer = req.body.writer;
           applyUser.state = "ongoing"
           console.log("get into host notification save sentence");

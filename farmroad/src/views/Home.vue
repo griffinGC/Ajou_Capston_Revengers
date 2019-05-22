@@ -2,10 +2,11 @@
   <div class="home">
     <h1 class="subheading grey--text">Message</h1>
     <v-container row class="mb-3">
-      <!--卡片内容-->
+      <!--card container-->
       <!-- <v-card class="pa-3" v-for="project in projects" :key="project.id"> -->
       <v-card class="pa-3" v-for="notification in notificationList" :key="notification.id">
         <v-layout row wrap :class="`pa-3 project.${notification.boardInfo.title}`">
+
           <v-flex xs12 md6>
             <div class="caption grey--text">title</div>
             <!-- <div>{{project.title}}</div> -->

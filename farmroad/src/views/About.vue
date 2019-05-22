@@ -1,12 +1,12 @@
 <template>
   <div class="about">
-    <!--条件选择表格-->
+    <!--search from-->
     <v-form v-if="role">
       <v-flex xs6>
-        <!--难度选择-->
+        <!--difficulty select-->
         <v-select v-if="role" :items="items" v-model="diff" label="difficulty" return-object></v-select>
-        <!--时间选择-->
-        <!--start Date-->
+
+        <!--start Date select-->
         <!-- <v-menu
           ref="menu1"
           v-model="menu1"
@@ -35,6 +35,8 @@
         
         work days
         <v-slider v-model="WorkDays" color="orange" label="work days" min="1" max="30" thumb-label></v-slider>-->
+
+        <!--search btn-->
         <v-btn flat class="success" @click="findByDifficulty(boards)">Search</v-btn>
       </v-flex>
     </v-form>
@@ -80,6 +82,7 @@
                     </div>
                   </v-card-text>
                   <v-card-actions>
+
                     <!--Notification button-->
                     <v-btn
                       :disabled="loading"
@@ -90,6 +93,7 @@
                       <v-icon small left>add</v-icon>
                       <span>register</span>
                     </v-btn>
+                    
                     <!--messager button-->
                     <v-btn flat slot="activator" color="success" @click="messager(board.boardId)">
                       <v-icon small left>message</v-icon>

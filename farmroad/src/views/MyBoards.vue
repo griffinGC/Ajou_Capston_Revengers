@@ -42,14 +42,14 @@
                     </div>
                   </v-card-text>
                   <v-card-actions>
-                    <v-btn
-                      flat
-                      slot="activator"
-                      color="success"
-                      @click="messager(board.boardId)"
-                    >
+                    <v-btn flat slot="activator" color="success" @click="messager(board.boardId)">
                       <v-icon small left>message</v-icon>
                       <span>Comment</span>
+                    </v-btn>
+                    <v-spacer></v-spacer>
+                    <v-btn flat slot="activator" color="red" @click="delBoard(board.boardId)">
+                      <v-icon small left>delete</v-icon>
+                      <span>Delete</span>
                     </v-btn>
                   </v-card-actions>
                 </v-card>
@@ -92,9 +92,9 @@ export default {
         });
     }
   },
-  methods:{
+  methods: {
     messager(id) {
-      this.chatId = id + 'boardsmessager';
+      this.chatId = id + "boardsmessager";
       this.axios
         .post(
           "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/chat",
@@ -108,8 +108,46 @@ export default {
           console.log(response.data);
 
           console.log(this.chatId);
-           this.$router.push({name: 'chat', params: {name: this.chatId} })
+          this.$router.push({ name: "chat", params: { name: this.chatId } });
         });
+    },
+    delBoard(id) {
+      console.log(id);
+      if (localStorage.role == 1) {
+        this.axios
+          .get(
+            "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/deletePost/deleteHostList/" +
+              localStorage.username +
+              "/" +
+              id
+          )
+          .then(response => {
+            console.log(response.data);
+            if (response.data.state == 0) {
+              alert(response.data.msg);
+              this.$router.go(0);
+            } else {
+              alert(response.data.msg);
+            }
+          });
+      } else if (localStorage.role == 0) {
+        this.axios
+          .get(
+            "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/deletePost/deleteGuestList/" +
+              localStorage.username +
+              "/" +
+              id
+          )
+          .then(response => {
+            console.log(response.data);
+            if (response.data.state == 0) {
+              alert(response.data.msg);
+              this.$router.go(0);
+            } else {
+              alert(response.data.msg);
+            }
+          });
+      }
     }
   }
 };

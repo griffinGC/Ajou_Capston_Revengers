@@ -158,7 +158,7 @@ export default {
         .then(response => {
           console.log(response.data);
           if (response.data.state == 0) {
-            this.$router.push({ name: "about" });
+            this.$router.push({ name: "myboards" });
             this.title = "";
             this.content = "";
             this.alert = true;

@@ -40,10 +40,6 @@ router.post('/', function(req, res, next){
 });  
 
 
-router.post('/', upload.single('img'), function(req, res, next){
-    console.log(req.file);
-    res.json({msg : 'uploaded', msg2 : req.file});
-  });  
 var newFile = "";
 
 var storage = multer.diskStorage({

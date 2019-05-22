@@ -41,12 +41,7 @@ router.get('/getMsg/:id', function(req, res, next){
         return res.json(hostIdInfo);
     });
 })
-var upload = multer({ storage : storage})
 
-router.post('/', upload.single('img'), function(req, res, next){
-    console.log(req.file);
-    res.json({msg : 'uploaded', msg2 : req.file});
-  });  
 var newFile = "";
 
 var storage = multer.diskStorage({

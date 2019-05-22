@@ -150,20 +150,25 @@ export default {
   },
   methods: {
     validate() {
+      var formData = new FormData();
+      formData.append("img", this.imageFile);
+      formData.append("userName", this.username);
+      formData.append("password", this.password);
+      formData.append("email", this.email);
+      formData.append("phone", this.phone);
+      formData.append("age", this.age);
+      formData.append("gender", this.select);
+      formData.append("ability", this.ability);
       if (this.$refs.form.validate()) {
         this.snackbar = true;
         this.axios
           .post(
-            "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/signUp/guest",
+            "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/guestSignUp/guest",
+            formData,
             {
-              userName: this.username,
-              password: this.password,
-              email: this.email,
-              phone: this.phone,
-              name: this.myName,
-              age: this.age,
-              gender: this.select,
-              ability: this.ability
+              headers: {
+                "Content-Type": "multipart/form-data"
+              }
             }
           )
           .then(response => {
@@ -182,7 +187,7 @@ export default {
     checkUsername() {
       this.axios
         .get(
-          "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/signUp/guestConfirm/" +
+          "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/guestSignUp/guestConfirm/" +
             this.username
         )
         .then(response => {
@@ -219,7 +224,7 @@ export default {
         this.imageFile = "";
         this.imageUrl = "";
       }
-    },
+    }
   }
 };
 </script>

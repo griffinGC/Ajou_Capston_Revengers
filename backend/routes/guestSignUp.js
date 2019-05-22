@@ -20,7 +20,6 @@ router.get('/guestConfirm/:id',function(req, res,next){
     return res.json({state : -1, msg : "host ID is empty"});
   }
     guestModel.find({userName : req.params.id},function(err,guestModel){
-        console.log(hostModel);
         if(err) {
           return res.json(err);
         };

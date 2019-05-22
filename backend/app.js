@@ -13,9 +13,12 @@ var logoutRouter = require('./routes/logOut');
 var signUpRouter = require('./routes/signUp');
 var guestBoardRouter = require('./routes/guestBoard');
 var hostBoardRouter = require('./routes/hostBoard');
+
 var userinfoRouter = require('./routes/userInfo');
+
 var notifyRegisterRouter = require('./routes/notifyRegister');
 var notifyDeleteRouter = require('./routes/notifyDelete');
+
 var mainRouter = require('./routes/main');
 var chatRouter = require('./routes/chat');
 var searchRouter = require('./routes/searchBoard');

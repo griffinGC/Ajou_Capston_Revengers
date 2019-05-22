@@ -75,7 +75,7 @@ router.post('/updateInfo/host', function(req, res, next){
     editInfo.name = req.body.name;
     editInfo.work = req.body.work;
     editInfo.address = req.body.address;
-    editInfo.loacation = req.body.loacation;
+    editInfo.location = req.body.location;
     editInfo.phone = req.body.phone;
     editInfo.email = req.body.email;    
     

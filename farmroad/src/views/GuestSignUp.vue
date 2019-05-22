@@ -153,6 +153,7 @@ export default {
       var formData = new FormData();
       formData.append("img", this.imageFile);
       formData.append("userName", this.username);
+      formData.append("name", this.myName);
       formData.append("password", this.password);
       formData.append("email", this.email);
       formData.append("phone", this.phone);

@@ -103,7 +103,7 @@ export default {
         .then(response =>{
           console.log(response.data[0]);
             let userData = response.data[0];
-            // userName = userData.userName;
+            this.userName = userData.userName;
             this.name = userData.name;
             this.profileImg = userData.profileImg;
             this.age = userData.age;

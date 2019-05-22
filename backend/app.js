@@ -11,11 +11,20 @@ var indexRouter = require('./routes/index');
 var loginRouter = require('./routes/signIn');
 var logoutRouter = require('./routes/logOut');
 var signUpRouter = require('./routes/signUp');
-var boardRouter = require('./routes/board');
+var guestBoardRouter = require('./routes/guestBoard');
+var hostBoardRouter = require('./routes/hostBoard');
+
 var userinfoRouter = require('./routes/userInfo');
-var notifyRouter = require('./routes/notifyRegister');
+
+var notifyRegisterRouter = require('./routes/notifyRegister');
+var notifyDeleteRouter = require('./routes/notifyDelete');
+
+var mainRouter = require('./routes/main');
+var chatRouter = require('./routes/chat');
 var searchRouter = require('./routes/searchBoard');
 var deleteRouter = require('./routes/deletePost');
+
+var imageRouter = require('./routes/image');
 
 
 // var connect = require('./schemas/index');
@@ -77,20 +86,35 @@ app.use('/signUp', signUpRouter);
 //logout 기능 라우터
 app.use('/logOut',logoutRouter);
 
-//게시판 기능 라우터
-app.use('/board', boardRouter);
+//게스트 게시판 기능 라우터
+app.use('/guestBoard', guestBoardRouter);
+
+//호스트 게시판 기능 라우터
+app.use('/hostBoard', hostBoardRouter);
 
 //개인정보수정 기/능 라우터
 app.use('/user',userinfoRouter);
 
 //신청 알림 기능 라우터
-app.use('/notifyRegister',notifyRouter);
+app.use('/notifyRegister',notifyRegisterRouter);
+
+//신청 삭제 기능 라우터
+app.use('/notifyDelete', notifyDeleteRouter);
+
+//main 화면 기능 라우터
+app.use('/main', mainRouter);
+
+//chat 기능 라우터 
+app.use('/chat', chatRouter);
 
 //특정유저가 작성한 모든 게시글 라우터
 app.use('/searchBoard',searchRouter); 
 
 //특정유저가 작성한 게시글 삭제 라우터
 app.use('/deletePost',deleteRouter); 
+
+// image upload test 라우터
+app.use('/imageUpload', imageRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

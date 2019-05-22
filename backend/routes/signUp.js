@@ -13,6 +13,9 @@ router.get('/:id',function(req, res,next){
 
 router.get('/hostConfirm/:id',function(req, res,next){
   console.log(req.params.id);
+  if(!req.params.id){
+    return res.json({state : -1, msg : "host ID is empty"});
+  }
     hostModel.find({userName : req.params.id},function(err,hostModel){
       // console.log(req.params.id);
 
@@ -58,7 +61,7 @@ router.post('/host',function(req, res,next){
         registerUser.age = req.body.age;
         registerUser.work = req.body.work;
 
-        //gender => number man=0, woman =1
+        
         registerUser.gender = req.body.gender;
         registerUser.role = "host";
       registerUser.save(function (err) {
@@ -73,6 +76,10 @@ router.post('/host',function(req, res,next){
 
 
 router.get('/guestConfirm/:id',function(req, res,next){
+  console.log(req.params.id);
+  if(!req.params.id){
+    return res.json({state : -1, msg : "host ID is empty"});
+  }
     guestModel.find({userName : req.params.id},function(err,guestModel){
         console.log(hostModel);
         if(err) {
@@ -109,7 +116,7 @@ router.post('/guest',function(req, res,next){
         registerUser.phone = req.body.phone;
         registerUser.ability= req.body.abiity;        
         registerUser.age = req.body.age;  
-        //gender => number man=0, woman =1      
+           
         registerUser.gender = req.body.gender;
         registerUser.role = "guest";
         console.log("1");

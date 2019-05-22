@@ -162,7 +162,7 @@ export default {
         .then(resposne => {
           console.log(resposne.data);
           if (resposne.data.state == 0) {
-            this.$router.push({ name: "about" });
+            this.$router.push({ name: "myboards" });
             this.alert = true;
             setTimeout(() => {
               (this.alert = false), (this.dialog = false);

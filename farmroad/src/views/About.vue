@@ -52,7 +52,7 @@
 
             <v-card-actions>
               <v-dialog max-width="600px">
-                <v-btn flat slot="activator" color="grey">
+                <v-btn flat slot="activator" color="grey" @click="viewAction(board.candidate)">
                   <v-icon small left>streetview</v-icon>
                   <span>view</span>
                 </v-btn>
@@ -80,14 +80,17 @@
                     </div>
                   </v-card-text>
                   <v-card-actions>
+                    <!--Notification button-->
                     <v-btn
+                      :disabled="loading"
+                      @click="saveNotification(board.boardId)"
                       slot="activator"
-                      v-on:click.native="saveNotification(board._id, board.guestInfo)"
                       color="success"
                     >
                       <v-icon small left>add</v-icon>
                       <span>register</span>
                     </v-btn>
+                    <!--messager button-->
                     <v-btn flat slot="activator" color="success" @click="messager(board.boardId)">
                       <v-icon small left>message</v-icon>
                       <span>comment</span>
@@ -113,6 +116,7 @@ export default {
       items: [1, 2, 3, 4, 5],
       workDays: "",
       chatId: "",
+      loading: "",
 
       menu1: false,
       date: new Date().toISOString().substr(0, 10),
@@ -190,7 +194,7 @@ export default {
       console.log(this.newBoards);
     },
     messager(id) {
-      this.chatId =  id + 'boardsmessager'
+      this.chatId = id + "boardsmessager";
       this.axios
         .post(
           "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/chat",
@@ -206,8 +210,57 @@ export default {
           this.$router.push({ name: "chat", params: { name: this.chatId } });
         });
     },
-    userContact(){
-      
+    saveNotification(id) {
+      console.log(id);
+      if (localStorage.role == 0) {
+        this.axios
+          .post(
+            "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/notifyRegister/host/registerNotification",
+            {
+              userName: localStorage.username,
+              boardId: id
+            }
+          )
+          .then(response => {
+            console.log(response.data);
+            if (response.data.state == 0) {
+              alert(response.data.msg);
+              this.$router.go()
+            } else {
+              alert(response.data.msg);
+            }
+          });
+      } else if (localStorage.role == 1) {
+        this.axios
+          .post(
+            "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/notifyRegister/guest/registerNotification",
+            {
+              userName: localStorage.username,
+              boardId: id
+            }
+          )
+          .then(response => {
+            console.log(response.data);
+            if (response.data.state == 0) {
+              alert(response.data.msg);
+              this.$router.go()
+            } else {
+              alert(response.data.msg);
+            }
+          });
+      }
+    },
+    viewAction(candidate) {
+      console.log(candidate);
+      this.loading = false;
+      for (let index = 0; index < candidate.length; index++) {
+        console.log(candidate[index]);
+        if (candidate[index] === localStorage.username) {
+          console.log(candidate[index]);
+          this.loading = true;
+          break;
+        }
+      }
     }
   },
   created() {

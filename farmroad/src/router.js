@@ -8,6 +8,7 @@ import Signin from './views/Signin'
 import EditUserInfo from './views/EditUserInfo'
 import Chat from './views/Chat'
 import Welcome from './views/Welcome'
+import FileUpload from './views/FileUpload'
 
 Vue.use(Router)
 
@@ -76,6 +77,11 @@ const router =  new Router({
       path: '/',
       name: 'welcome',
       component: Welcome
+    },
+    {
+      path: '/file',
+      name: 'fileupload',
+      component: FileUpload
     }
   ]
 })

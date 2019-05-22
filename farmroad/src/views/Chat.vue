@@ -1,6 +1,6 @@
 <template>
   <v-layout row>
-    <v-flex>
+    <v-flex xs12 sm6 offset-sm3>
       <v-card>
         <v-list two-line class="messages">
           <template v-for="(msg) in messages">
@@ -36,8 +36,10 @@ export default {
       newMessageRules: [v => !!v || "Message is required"]
     };
   },
+  props: ['name'],
   created() {
-    let ref = db.collection("message").orderBy("timestamp");
+    console.log(this.name)
+    let ref = db.collection(this.name).orderBy("timestamp");
 
     ref.onSnapshot(snapshot => {
       snapshot.docChanges().forEach(change => {
@@ -55,9 +57,9 @@ export default {
   },
   methods: {
     addMessage() {
-      console.log(this.newMessage, this.name, Date.now());
+      console.log(this.newMessage, localStorage.username, Date.now());
       if (this.newMessage) {
-        db.collection("message")
+        db.collection(this.name)
           .add({
             content: this.newMessage,
             name: localStorage.username,
@@ -68,7 +70,6 @@ export default {
           });
         this.newMessage = null;
       } else {
-       
       }
     }
   }

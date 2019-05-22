@@ -9,6 +9,7 @@ import EditUserInfo from './views/EditUserInfo'
 import Chat from './views/Chat'
 import Welcome from './views/Welcome'
 import FileUpload from './views/FileUpload'
+import MyBoards from './views/MyBoards'
 
 Vue.use(Router)
 
@@ -71,6 +72,13 @@ const router =  new Router({
       component: Chat,
       meta:{
         requiresAuth: true
+      },
+      props: true,
+      beforeEnter: (to, from, next) => {
+        console.log('router beforEnter message: '+to.params.name)
+        if(to.params.name){
+          next()
+        }
       }
     },
     {
@@ -82,6 +90,14 @@ const router =  new Router({
       path: '/file',
       name: 'fileupload',
       component: FileUpload
+    },
+    {
+      path: '/myboards',
+      name: 'myboards',
+      component: MyBoards,
+      meta:{
+        requiresAuth: true
+      },
     }
   ]
 })

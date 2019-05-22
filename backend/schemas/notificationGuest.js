@@ -3,7 +3,7 @@ const guestBoard = require('./guestBoard');
 
 const notificationSchema = new mongoose.Schema({
     //db에 저장하는 id 자동적으로 1씩 증가 
-    notificationGuestId :{
+    notificationId :{
         type : Number,
         unique : true
     },
@@ -25,8 +25,8 @@ const notificationSchema = new mongoose.Schema({
     }
 })
 //method생성 userName으로 받아와서 이거와 일치하는 board에 candidate 추가 
-notificationSchema.statics.updateCandidate =function(name, boardId,  callback){
-    this.findBoard(boardId, function(err, boardInfo){
+notificationSchema.statics.updateCandidate =function(name, receiveBoardId,  callback){
+    this.findBoard(receiveBoardId, function(err, boardInfo){
         //boardInfo가 boardId로 찾아온 게시글 정보 
         let updateCandidate = "";
         let receiveBoardInfo = boardInfo[0].candidate;
@@ -42,14 +42,14 @@ notificationSchema.statics.updateCandidate =function(name, boardId,  callback){
         }
         updateCandidateNumber = updateCandidate.length;
         //callback을 넣어서 update한 뒤에 저장되도록 만듬 
-        guestBoard.update({guestBoardId : boardId}, {$set : {candidate : updateCandidate, candidateNumber : updateCandidateNumber}}, callback)
+        guestBoard.update({boardId : receiveBoardId}, {$set : {candidate : updateCandidate, candidateNumber : updateCandidateNumber}}, callback)
         // console.log("guest update success");
     });
 };   
 
 //candidate 삭제 
-notificationSchema.statics.deleteCandidate = function(name, boardId, callback){
-    this.findBoard(boardId, function(err, boardInfo){
+notificationSchema.statics.deleteCandidate = function(name, receiveBoardId, callback){
+    this.findBoard(receiveBoardId, function(err, boardInfo){
         if(err){
             return res.json(err);
         }
@@ -70,23 +70,23 @@ notificationSchema.statics.deleteCandidate = function(name, boardId, callback){
         console.log("남은 원소 : " + deleteCandidate);
         console.log("남은 원소 개수 : " + deleteCandidateNumber);
         //callback을 넣어서 update한 뒤에 저장되도록 만듬 
-        guestBoard.update({guestBoardId : boardId}, {$set : {candidate : deleteCandidate, candidateNumber : deleteCandidateNumber}}, callback)
+        guestBoard.update({boardId : receiveBoardId}, {$set : {candidate : deleteCandidate, candidateNumber : deleteCandidateNumber}}, callback)
         // console.log("guest update success");
     })
 }
 
 //boardId 받아와서 board 찾기
-notificationSchema.statics.findBoard = function(boardId, callback){
-    console.log(boardId);
+notificationSchema.statics.findBoard = function(receiveBoardId, callback){
+    console.log(receiveBoardId);
     //_id는 object라서 받기 힘듬 
     // guestBoard.find({_id : boardId}, callback);
-    guestBoard.find({guestBoardId : boardId}, callback);
+    guestBoard.find({boardId : receiveBoardId}, callback);
 };
 
 
 notificationSchema.plugin(autoIncrement,{
     model : 'notificationGuests',
-    field : 'notificationGuestId',
+    field : 'notificationId',
     startAt : 0
 })
 

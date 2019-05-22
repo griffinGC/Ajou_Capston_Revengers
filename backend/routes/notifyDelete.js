@@ -14,7 +14,7 @@ router.post('/', function(req, res){
 router.get('/guest/deleteNotification/:id',function(req, res,next){ 
       //frontend에서 보낼때는 notificationId를 보낼 예정
       // console.log("notifidationId 정보 : " + boardInfo);
-      notifyGuest.find({notificationGuestId : req.params.id}, function(err, info){
+      notifyGuest.find({notificationId : req.params.id}, function(err, info){
         if(err){
           return res.json(err);
         }
@@ -23,7 +23,7 @@ router.get('/guest/deleteNotification/:id',function(req, res,next){
         {
           return res.json({state : -1, msg : "삭제할 글을 찾을 수 없습니다."})
         }
-        let deleteBoardId = info[0].boardInfo.guestBoardId;
+        let deleteBoardId = info[0].boardInfo.boardId;
         let userName = info[0].userName;
         console.log("삭제할 boardId : " + deleteBoardId);
         console.log("삭제할 userName : " + userName);
@@ -33,7 +33,7 @@ router.get('/guest/deleteNotification/:id',function(req, res,next){
             console.log(err);
             return res.json(err);
           }
-          notifyGuest.deleteOne({notificationGuestId : req.params.id}, function(err){
+          notifyGuest.deleteOne({notificationId : req.params.id}, function(err){
             if(err){
               console.log(err);
               return res.json(err);
@@ -49,9 +49,9 @@ router.get('/guest/deleteNotification/:id',function(req, res,next){
 router.get('/host/deleteNotification/:id',function(req, res,next){ 
   //frontend에서 보낼때는 notificationId를 보낼 예정
   // console.log("notifidationId 정보 : " + boardInfo);
-  notifyHost.find({notificationHostId : req.params.id}, function(err, info){
+  notifyHost.find({notificationId : req.params.id}, function(err, info){
     console.log(info);
-    let deleteBoardId = info[0].boardInfo.hostBoardId;
+    let deleteBoardId = info[0].boardInfo.boardId;
     let userName = info[0].userName;
     console.log("삭제할 boardId : " + deleteBoardId);
     console.log("삭제할 userName : " + userName);
@@ -61,7 +61,7 @@ router.get('/host/deleteNotification/:id',function(req, res,next){
         console.log(err);
         return res.json(err);
       }
-      notifyHost.deleteOne({notificationHostId : req.params.id}, function(err){
+      notifyHost.deleteOne({notificationId : req.params.id}, function(err){
         if(err){
           console.log(err);
           return res.json(err);

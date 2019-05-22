@@ -40,8 +40,6 @@ router.post('/', function(req, res, next){
 });  
 
 
-var upload = multer({ storage : storage})
-
 router.post('/', upload.single('img'), function(req, res, next){
     console.log(req.file);
     res.json({msg : 'uploaded', msg2 : req.file});
@@ -69,15 +67,7 @@ var upload = multer({storage : storage});
 
 //guest게시판 글 작성 
 router.post('/createBoard',upload.single('img'), function(req, res, next){
-    //startDate를 required로 바꾸고 넣는거 생각 
-    // let d = new Date();
-    // let today = d.getDate() +""+ d.getHours(); 
-    // let urlName = req.body.guestId + "" + today;
-    // console.log("img 파일 이름 : " + urlName);
     console.log("파일의 원래 이름 : " + req.file.originalname);
-    // let checkFile = req.file.originalname;
-    // let newFile = "";    
-    // newFile = Date.now() + "" + checkFile;
     console.log("변경된 파일명 : " + newFile);
     console.log("최종 파일명 : " + newFile);
     

@@ -20,23 +20,6 @@ router.post('/', function(req, res, next){
     res.json({state : "testNormal"});
 });  
 
-var storage = multer.diskStorage({
-    //cb는 콜백 
-    destination : function(req, file, cb){
-        cb(null, 'public/images/hostBoard')
-    },
-    filename: function(req, file, cb){
-        cb(null, urlName);
-    }
-})
-var upload = multer({ storage : storage})
-
-// router.post('/', upload.single('img'), function(req, res, next){
-//     console.log(req.file);
-//     res.json({msg : 'uploaded', msg2 : req.file});
-//   });  
-
-
 
 //host게시판 글 가져오기
 router.get('/getList',function(req, res,next){
@@ -58,10 +41,38 @@ router.get('/getMsg/:id', function(req, res, next){
         return res.json(hostIdInfo);
     });
 })
+var upload = multer({ storage : storage})
 
+router.post('/', upload.single('img'), function(req, res, next){
+    console.log(req.file);
+    res.json({msg : 'uploaded', msg2 : req.file});
+  });  
+var newFile = "";
+
+var storage = multer.diskStorage({
+    //cb는 콜백 
+    destination : function(req, file, cb){
+        cb(null, 'public/images/hostBoard')
+    },
+    filename: function(req, file, cb){
+        let checkFile = file.originalname;
+        // var newFile = "";
+        console.log("jpeg 있는곳의 index : " + checkFile.indexOf(".jpeg"));
+        console.log("jpg 있는곳의 index : " + checkFile.indexOf(".jpg"))
+        newFile = Date.now() + "" + checkFile;
+        console.log("저장하는곳에서 변경된 파일명 : " + newFile);
+        cb(null, newFile);
+    }
+})
+
+var upload = multer({storage : storage});
 
 //host게시판 글 작성 
-router.post('/createBoard', function(req, res, next){
+router.post('/createBoard', upload.single('img'),function(req, res, next){
+    console.log("파일의 원래 이름 : " + req.file.originalname);
+    console.log("변경된 파일명 : " + newFile);
+    console.log("최종 파일명 : " + newFile);
+    
     if(!req.body.title){
         return res.json({state : -1, msg : "Title is empty!"});
     }
@@ -91,13 +102,7 @@ router.post('/createBoard', function(req, res, next){
             writeBoard.candidateNumber = canNumber;
         }
 
-
-        //startDate를 required로 바꾸고 넣는거 생각 
-        let d = new Date();
-        let today = d.getDate() +""+ d.getHours(); 
-        let urlName = req.body.hostId + "" + today;
-        console.log(urlName);
-        writeBoard.boardImg = "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/images/hostBoard/"+urlName+".jpeg";
+        writeBoard.boardImg = "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/images/hostBoard/"+newFile;
         // writeBoard.boardImg = "http://localhost:3000/images/hostBoard/"+req.body.hostId+today+".jpeg";
         writeBoard.save(function(err){
             if(err){

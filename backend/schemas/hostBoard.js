@@ -45,6 +45,12 @@ const hostBoardSchema = new mongoose.Schema({
     },
     candidateNumber : {
         type : Number
+    },
+    latitude : {
+        type : Number
+    },
+    longtitude : {
+        type : Number
     }
 })
 

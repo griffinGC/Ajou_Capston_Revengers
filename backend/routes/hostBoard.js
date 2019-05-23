@@ -87,6 +87,8 @@ router.post('/createBoard', upload.single('img'),function(req, res, next){
         writeBoard.difficulty = req.body.difficulty;
         writeBoard.workDay = req.body.workDay;
         writeBoard.category = req.body.category;
+        writeBoard.latitude = req.body.latitude;
+        writeBoard.longtitude = req.body.longtitude;
         // writeBoard.preferLocation = req.body.preferLocation;
         writeBoard.candidate = req.body.candidate;
 

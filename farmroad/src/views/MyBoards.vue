@@ -94,7 +94,12 @@ export default {
   },
   methods: {
     messager(id) {
-      this.chatId = id + "boardsmessager";
+      if(localStorage.role ==1){
+        this.chatId = id + "guestboardsmessager";
+      }else{
+        this.chatId = id+ "hostboardsmessager"
+      }
+      
       this.axios
         .post(
           "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/chat",

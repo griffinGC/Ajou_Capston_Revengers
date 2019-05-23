@@ -197,7 +197,7 @@ export default {
       console.log(this.newBoards);
     },
     messager(id) {
-      if ((localStorage.role = 1)) {
+      if ((localStorage.role == 1)) {
         this.chatId = id + "hostboardsmessager";
       } else {
         this.chatId = id + "guestboardsmessager";

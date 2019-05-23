@@ -89,7 +89,7 @@ const router =  new Router({
     {
       path: '/file',
       name: 'fileupload',
-      component: FileUpload
+      component: FileUpload,
     },
     {
       path: '/myboards',
@@ -111,7 +111,7 @@ router.beforeEach((to, before, next)=>{
       next()
     }else{
       //no user sign in ,redirect to login
-      alert("Do not do this SB!!")
+      alert("Don't do this Dude!!")
       next({name: 'Signin'})
     }
   }else{

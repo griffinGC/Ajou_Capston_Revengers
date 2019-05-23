@@ -82,7 +82,6 @@
                     </div>
                   </v-card-text>
                   <v-card-actions>
-
                     <!--Notification button-->
                     <v-btn
                       :disabled="loading"
@@ -93,7 +92,7 @@
                       <v-icon small left>add</v-icon>
                       <span>register</span>
                     </v-btn>
-                    
+
                     <!--messager button-->
                     <v-btn flat slot="activator" color="success" @click="messager(board.boardId)">
                       <v-icon small left>message</v-icon>
@@ -198,7 +197,11 @@ export default {
       console.log(this.newBoards);
     },
     messager(id) {
-      this.chatId = id + "boardsmessager";
+      if ((localStorage.role = 1)) {
+        this.chatId = id + "hostboardsmessager";
+      } else {
+        this.chatId = id + "guestboardsmessager";
+      }
       this.axios
         .post(
           "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/chat",
@@ -229,7 +232,7 @@ export default {
             console.log(response.data);
             if (response.data.state == 0) {
               alert(response.data.msg);
-              this.$router.go()
+              this.$router.go();
             } else {
               alert(response.data.msg);
             }
@@ -247,7 +250,7 @@ export default {
             console.log(response.data);
             if (response.data.state == 0) {
               alert(response.data.msg);
-              this.$router.go()
+              this.$router.go();
             } else {
               alert(response.data.msg);
             }

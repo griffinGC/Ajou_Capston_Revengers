@@ -29,6 +29,7 @@ var deleteRouter = require('./routes/deletePost');
 
 var imageRouter = require('./routes/image');
 
+var stateRouter = require('./routes/notifyState');
 
 // var connect = require('./schemas/index');
 require('./schemas/index');
@@ -119,6 +120,9 @@ app.use('/deletePost',deleteRouter);
 
 // image upload test 라우터
 app.use('/imageUpload', imageRouter);
+
+//신청자 승인 거부 상태 알림 라우터
+app.use('/notifyState',stateRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

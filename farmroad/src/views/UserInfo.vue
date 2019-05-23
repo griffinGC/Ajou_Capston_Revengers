@@ -77,6 +77,10 @@ export default {
     this.role = localStorage.role
     this.getInfo();
   },
+  mounted(){
+    this.role = localStorage.role;
+    this.getInfo();
+  },
   methods: {
     getInfo() {
       // localStorage.role == 0 이면 guest && 1이면 host

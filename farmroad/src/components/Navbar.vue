@@ -8,9 +8,10 @@
       </v-toolbar-title>
 
       <v-spacer></v-spacer>
-      
+
       <!--add board btn-->
       <GuestBoard v-if="role && user"/>
+      
       <Popup v-if="!role && user"/>
 
       <li v-if="user">
@@ -20,6 +21,10 @@
       <v-btn flat color="white" @click="signOut" v-if="user">
         <span>Sign Out</span>
         <v-icon right>exit_to_app</v-icon>
+      </v-btn>
+      <v-btn flat color="white" router :to="{name: 'Signin'}" v-if="!user">
+        <v-icon left>account_circle</v-icon>
+        <span>Sign In</span>
       </v-btn>
     </v-toolbar>
 
@@ -51,8 +56,9 @@ export default {
       drawer: false,
 
       links: [
-        { icon: "home", text: "Home", route: "/" },
+        { icon: "home", text: "Home", route: "/home" },
         { icon: "dashboard", text: "Boards", route: "/about" },
+        { icon: "dashboard", text: "My Boards", route: "/myboards" },
         { icon: "person", text: "Profile", route: "/userInfo" }
       ],
       user: null,
@@ -64,7 +70,7 @@ export default {
       (localStorage.username = ""),
         (localStorage.role = ""),
         (this.user = ""),
-        (this.drawer=false),
+        (this.drawer = false),
         this.$store.dispatch("UserSignout");
       this.$router.push({ name: "Signin" });
     }
@@ -72,10 +78,10 @@ export default {
   created() {
     if (localStorage.username) {
       this.user = localStorage.username;
-      if(localStorage.role ==1){
-        this.role = false
-      }else{
-        this.role = true
+      if (localStorage.role == 1) {
+        this.role = false;
+      } else {
+        this.role = true;
       }
     } else {
       this.user = false;

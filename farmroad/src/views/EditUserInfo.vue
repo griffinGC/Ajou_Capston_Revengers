@@ -10,7 +10,7 @@
               <img
                 v-if="profileImg"
                 :src="profileImg"
-                alt="Avatar">
+                >
               <v-icon
                 v-else
               >person</v-icon>
@@ -92,6 +92,10 @@ export default {
     this.role = localStorage.role;
     this.getInfo();
   },
+  mounted(){
+    this.role = localStorage.role;
+    this.getInfo();
+  },
   methods: {
     getInfo() {
       // localStorage.role == 0 이면 guest && 1이면 host
@@ -117,7 +121,7 @@ export default {
         .then(response =>{
           console.log(response.data[0]);
             let userData = response.data[0];
-            // userName = userData.userName;
+            this.userName = userData.userName;
             this.name = userData.name;
             this.profileImg = userData.profileImg;
             this.age = userData.age;
@@ -140,6 +144,8 @@ export default {
           return;
         }
         if(localStorage.role === '0'){
+          console.log(this.userName);
+          console.log("바뀐 이름 : " + this.name);
         this.axios
           .post("http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/user/updateInfo/guest",{
             userName : this.userName,
@@ -149,16 +155,20 @@ export default {
             phone : this.phone,
             email : this.email 
 
-          })
-      }else{
+          }).then(console.log("save is success"));
+        }else{
+        console.log("여기서 host 발동 : " + userId);
+        // console.log("여기 userId : " + userName);
         this.axios
-        .post("http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/user/updateInfo/host",{
+          .post("http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/user/updateInfo/host",{
             userName : this.userName,
             password : this.password,
             name : this.name,
             ability :this.ability,
             phone : this.phone,
-            email : this.email 
+            email : this.email,
+            address : this.address,
+            loaction : this.location
         })
         .then(console.log("save is success"));
       };

@@ -1,13 +1,13 @@
 <template>
   <div class="about">
-    <!--条件选择表格-->
-    <v-form>
+    <!--search from-->
+    <v-form v-if="role">
       <v-flex xs6>
-        <!--难度选择-->
-        <v-select :items="items" v-model="diff" label="difficulty" return-object></v-select>
-        <!--时间选择-->
-        <!--start Date-->
-        <v-menu
+        <!--difficulty select-->
+        <v-select v-if="role" :items="items" v-model="diff" label="difficulty" return-object></v-select>
+
+        <!--start Date select-->
+        <!-- <v-menu
           ref="menu1"
           v-model="menu1"
           :close-on-content-click="false"
@@ -33,9 +33,11 @@
           <v-date-picker v-model="date" no-title @input="menu1 = false"></v-date-picker>
         </v-menu>
         
-        <!--work days-->
-        <v-slider v-model="WorkDays" color="orange" label="work days" min="1" max="30" thumb-label></v-slider>
-        <v-btn flat class="success" @click="findBoards(boards)">Search</v-btn>
+        work days
+        <v-slider v-model="WorkDays" color="orange" label="work days" min="1" max="30" thumb-label></v-slider>-->
+
+        <!--search btn-->
+        <v-btn flat class="success" @click="findByDifficulty(boards)">Search</v-btn>
       </v-flex>
     </v-form>
     <v-container class="my-5">
@@ -52,7 +54,7 @@
 
             <v-card-actions>
               <v-dialog max-width="600px">
-                <v-btn flat slot="activator" color="grey">
+                <v-btn flat slot="activator" color="grey" @click="viewAction(board.candidate)">
                   <v-icon small left>streetview</v-icon>
                   <span>view</span>
                 </v-btn>
@@ -80,17 +82,21 @@
                     </div>
                   </v-card-text>
                   <v-card-actions>
+                    <!--Notification button-->
                     <v-btn
+                      :disabled="loading"
+                      @click="saveNotification(board.boardId)"
                       slot="activator"
-                      v-on:click.native="saveNotification(board._id, board.guestInfo)"
                       color="success"
                     >
                       <v-icon small left>add</v-icon>
                       <span>register</span>
                     </v-btn>
-                    <v-btn flat slot="activator" color="success" router :to="{name: 'chat'}">
+
+                    <!--messager button-->
+                    <v-btn flat slot="activator" color="success" @click="messager(board.boardId)">
                       <v-icon small left>message</v-icon>
-                      <span>message</span>
+                      <span>comment</span>
                     </v-btn>
                   </v-card-actions>
                 </v-card>
@@ -112,29 +118,33 @@ export default {
       rating: 3,
       items: [1, 2, 3, 4, 5],
       workDays: "",
+      chatId: "",
+      loading: "",
 
       menu1: false,
       date: new Date().toISOString().substr(0, 10),
       dateFormatted: this.formatDate(new Date().toISOString().substr(0, 10)),
       showCard: false,
-      diff: ""
+      diff: "",
+      chatRoute: "/chat",
+      role: null
     };
   },
   mounted: function() {
     if (localStorage.role == 0) {
       this.axios
         .get(
-          "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/board/getHostList"
+          "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/hostBoard/getList"
         )
         .then(response => {
           console.log(response.data);
           this.boards = response.data;
           this.newBoards = response.data;
         });
-    } else {
+    } else if (localStorage.role == 1) {
       this.axios
         .get(
-          "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/board/getGuestList"
+          "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/guestBoard/getList"
         )
         .then(response => {
           console.log(response.data);
@@ -176,15 +186,100 @@ export default {
       this.newBoards = temBoards;
       console.log(this.newBoards);
     },
-    findBoards(boards){
-      var tempBoards = new Array()
-      boards.forEach(item=>{
-        if(item.workDay == this.workDay && item.difficulty == this.diff){
-          tempBoards.push(item)
+    findBoards(boards) {
+      var tempBoards = new Array();
+      boards.forEach(item => {
+        if (item.workDay == this.workDay && item.difficulty == this.diff) {
+          tempBoards.push(item);
         }
-      })
-      this.newBoards = tempBoards
-      console.log(this.newBoards)
+      });
+      this.newBoards = tempBoards;
+      console.log(this.newBoards);
+    },
+    messager(id) {
+      if ((localStorage.role = 1)) {
+        this.chatId = id + "hostboardsmessager";
+      } else {
+        this.chatId = id + "guestboardsmessager";
+      }
+      this.axios
+        .post(
+          "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/chat",
+          {
+            userName: localStorage.username,
+            boardId: id,
+            chatId: this.chatId
+          }
+        )
+        .then(response => {
+          console.log(response.data);
+          console.log(this.chatId);
+          this.$router.push({ name: "chat", params: { name: this.chatId } });
+        });
+    },
+    saveNotification(id) {
+      console.log(id);
+      if (localStorage.role == 0) {
+        this.axios
+          .post(
+            "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/notifyRegister/host/registerNotification",
+            {
+              userName: localStorage.username,
+              boardId: id
+            }
+          )
+          .then(response => {
+            console.log(response.data);
+            if (response.data.state == 0) {
+              alert(response.data.msg);
+              this.$router.go();
+            } else {
+              alert(response.data.msg);
+            }
+          });
+      } else if (localStorage.role == 1) {
+        this.axios
+          .post(
+            "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/notifyRegister/guest/registerNotification",
+            {
+              userName: localStorage.username,
+              boardId: id
+            }
+          )
+          .then(response => {
+            console.log(response.data);
+            if (response.data.state == 0) {
+              alert(response.data.msg);
+              this.$router.go();
+            } else {
+              alert(response.data.msg);
+            }
+          });
+      }
+    },
+    viewAction(candidate) {
+      console.log(candidate);
+      this.loading = false;
+      for (let index = 0; index < candidate.length; index++) {
+        console.log(candidate[index]);
+        if (candidate[index] === localStorage.username) {
+          console.log(candidate[index]);
+          this.loading = true;
+          break;
+        }
+      }
+    }
+  },
+  created() {
+    if (localStorage.username) {
+      this.user = localStorage.username;
+      if (localStorage.role == 1) {
+        this.role = false;
+      } else {
+        this.role = true;
+      }
+    } else {
+      this.user = false;
     }
   }
 };

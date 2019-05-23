@@ -7,7 +7,9 @@ import UserInfo from './views/UserInfo'
 import Signin from './views/Signin'
 import EditUserInfo from './views/EditUserInfo'
 import Chat from './views/Chat'
-
+import Welcome from './views/Welcome'
+import FileUpload from './views/FileUpload'
+import MyBoards from './views/MyBoards'
 
 Vue.use(Router)
 
@@ -16,13 +18,14 @@ const router =  new Router({
   base: process.env.BASE_URL,
   routes: [
     {
-      path: '/',
+      path: '/home',
       name: 'home',
       component: Home,
       meta:{
         requiresAuth: true
       }
     },
+    
     {
       path: '/about',
       name: 'about',
@@ -69,7 +72,32 @@ const router =  new Router({
       component: Chat,
       meta:{
         requiresAuth: true
+      },
+      props: true,
+      beforeEnter: (to, from, next) => {
+        console.log('router beforEnter message: '+to.params.name)
+        if(to.params.name){
+          next()
+        }
       }
+    },
+    {
+      path: '/',
+      name: 'welcome',
+      component: Welcome
+    },
+    {
+      path: '/file',
+      name: 'fileupload',
+      component: FileUpload
+    },
+    {
+      path: '/myboards',
+      name: 'myboards',
+      component: MyBoards,
+      meta:{
+        requiresAuth: true
+      },
     }
   ]
 })

@@ -75,18 +75,19 @@ router.post('/updateInfo/host', function(req, res, next){
     editInfo.name = req.body.name;
     editInfo.work = req.body.work;
     editInfo.address = req.body.address;
-    editInfo.loacation = req.body.loacation;
+    editInfo.location = req.body.location;
     editInfo.phone = req.body.phone;
     editInfo.email = req.body.email;    
     
     console.log("userInfo Test");
     hostModel.update({userName : req.body.userName},{$set : {password : req.body.password, userName:req.body.userName, name : req.body.name
         ,work : req.body.work, phone : req.body.phone,email : req.body.email,
-        address : req.body.address,loacation : req.body.loacation  }},function(err){
+        address : req.body.address,location : req.body.location  }},function(err){
         if(err){
             return res.json({state : -1, msg : "host Information is failed to modify "});
         }
         console.log(editInfo);
+        
         res.json({state : 0, msg : "host Information successfully modified"});
     })
 })

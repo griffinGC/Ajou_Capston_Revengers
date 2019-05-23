@@ -2,17 +2,43 @@
   <v-card>
     <v-card-title class="headline">Guest Sign Up</v-card-title>
     <v-card-text>
-      <!--输入框组-->
+      <!--input from-->
       <v-form class="px-3" ref="form" v-model="valid" lazy-validation>
+        <!--username-->
         <v-text-field
           label="Username"
           v-model="username"
           :rules="usernameRules"
           prepend-icon="person"
         ></v-text-field>
+
+        <!--username check btn and alert-->
         <v-alert :value="alertSuccess" type="success">This is a success alert.</v-alert>
         <v-alert :value="alertError" type="error">This is a error alert.</v-alert>
         <v-btn left color="success" @click="checkUsername">check</v-btn>
+
+        <!--img upload-->
+        <v-flex xs12 class="text-xs-center text-sm-center text-md-center text-lg-center">
+          <img :src="imageUrl" height="150" v-if="imageUrl">
+          <v-text-field
+            label="Select Image"
+            @click="pickFile"
+            v-model="imageName"
+            prepend-icon="attach_file"
+          ></v-text-field>
+          <input
+            type="file"
+            style="display: none"
+            ref="image"
+            accept="image/*"
+            @change="onFilePicked"
+          >
+        </v-flex>
+
+        <!--name-->
+        <v-text-field label="name" v-model="myName" prepend-icon="account_box"></v-text-field>
+
+        <!--password-->
         <v-text-field
           v-model="password"
           :append-icon="show1 ? 'visibility' : 'visibility_off'"
@@ -26,6 +52,8 @@
           prepend-icon="lock"
           @click:append="show1 = !show1"
         ></v-text-field>
+
+        <!--email-->
         <v-text-field
           v-model="email"
           :rules="emailRules"
@@ -33,6 +61,8 @@
           required
           prepend-icon="email"
         ></v-text-field>
+
+        <!--phone-->
         <v-text-field v-model="phone" label="phone" required prepend-icon="phone"></v-text-field>
         <v-slider
           v-model="age"
@@ -44,6 +74,8 @@
           required
           prepend-icon="accessibility"
         ></v-slider>
+
+        <!--gender select-->
         <v-select
           v-model="select"
           :items="gender"
@@ -52,20 +84,25 @@
           required
           prepend-icon="wc"
         ></v-select>
+
+        <!--ability-->
         <v-text-field v-model="ability" label="ability" required prepend-icon="list_alt"></v-text-field>
+
+        <!--sign up btn-->
         <v-btn :disabled="!valid" left color="success" @click="validate">Sign Up</v-btn>
       </v-form>
     </v-card-text>
     <v-card-actions>
       <!--分界标签-->
       <v-spacer></v-spacer>
+
+      <!--back btn-->
       <v-btn color="green darken-1" flat router :to="{name: 'Signin'}">Back</v-btn>
     </v-card-actions>
   </v-card>
 </template>
 
 <script>
-import { constants } from "crypto";
 export default {
   data() {
     return {
@@ -104,24 +141,35 @@ export default {
       show3: false,
       show4: false,
       alertSuccess: false,
-      alertError: false
+      alertError: false,
+      myName: "",
+      imageName: "",
+      imageUrl: "",
+      imageFile: ""
     };
   },
   methods: {
     validate() {
+      var formData = new FormData();
+      formData.append("img", this.imageFile);
+      formData.append("userName", this.username);
+      formData.append("name", this.myName);
+      formData.append("password", this.password);
+      formData.append("email", this.email);
+      formData.append("phone", this.phone);
+      formData.append("age", this.age);
+      formData.append("gender", this.select);
+      formData.append("ability", this.ability);
       if (this.$refs.form.validate()) {
         this.snackbar = true;
         this.axios
           .post(
-            "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/signUp/guest",
+            "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/guestSignUp/guest",
+            formData,
             {
-              userName: this.username,
-              password: this.password,
-              email: this.email,
-              phone: this.phone,
-              age: this.age,
-              gender: this.select,
-              ability: this.ability
+              headers: {
+                "Content-Type": "multipart/form-data"
+              }
             }
           )
           .then(response => {
@@ -140,20 +188,43 @@ export default {
     checkUsername() {
       this.axios
         .get(
-          "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/signUp/guestConfirm/" +
+          "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/guestSignUp/guestConfirm/" +
             this.username
         )
         .then(response => {
           console.log(response.data);
           if (response.data.state == -1) {
             this.alertSuccess = false;
-            this.alertError = true
+            this.alertError = true;
             this.valid = false;
           } else {
-            this.alertSuccess= true;
-            this.alertError= false
+            this.alertSuccess = true;
+            this.alertError = false;
           }
         });
+    },
+    pickFile() {
+      this.$refs.image.click();
+    },
+
+    onFilePicked(e) {
+      const files = e.target.files;
+      if (files[0] !== undefined) {
+        this.imageName = files[0].name;
+        if (this.imageName.lastIndexOf(".") <= 0) {
+          return;
+        }
+        const fr = new FileReader();
+        fr.readAsDataURL(files[0]);
+        fr.addEventListener("load", () => {
+          this.imageUrl = fr.result;
+          this.imageFile = files[0]; // this is an image file that can be sent to server...
+        });
+      } else {
+        this.imageName = "";
+        this.imageFile = "";
+        this.imageUrl = "";
+      }
     }
   }
 };

@@ -1,8 +1,8 @@
 <template>
   <v-layout row>
-    <v-flex>
+    <v-flex xs12 sm6 offset-sm3>
       <v-card>
-        <v-list two-line class="messages">
+        <v-list two-line class="messages" v-chat-scroll>
           <template v-for="(msg) in messages">
             <v-list-tile :key="msg.id" avatar>
               <!-- <v-list-tile-avatar>
@@ -16,10 +16,14 @@
           </template>
         </v-list>
         <v-divider></v-divider>
-
-        <form @submit.prevent="addMessage">
+        <!--submit-->
+        <form @submit.prevent="addMessage" >
           <v-text-field label="new message" v-model="newMessage" :rules="newMessageRules" required></v-text-field>
         </form>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="success" flat @click="back()">back</v-btn>
+        </v-card-actions>
       </v-card>
     </v-flex>
   </v-layout>
@@ -36,8 +40,10 @@ export default {
       newMessageRules: [v => !!v || "Message is required"]
     };
   },
+  props: ["name"],
   created() {
-    let ref = db.collection("message").orderBy("timestamp");
+    console.log(this.name);
+    let ref = db.collection(this.name).orderBy("timestamp");
 
     ref.onSnapshot(snapshot => {
       snapshot.docChanges().forEach(change => {
@@ -55,9 +61,9 @@ export default {
   },
   methods: {
     addMessage() {
-      console.log(this.newMessage, this.name, Date.now());
+      console.log(this.newMessage, localStorage.username, Date.now());
       if (this.newMessage) {
-        db.collection("message")
+        db.collection(this.name)
           .add({
             content: this.newMessage,
             name: localStorage.username,
@@ -68,8 +74,10 @@ export default {
           });
         this.newMessage = null;
       } else {
-       
       }
+    },
+    back(){
+      this.$router.go(-1)
     }
   }
 };
@@ -77,7 +85,7 @@ export default {
 
 <style>
 .messages {
-  max-height: 300px;
+  max-height: 500px;
   overflow: auto;
 }
 .messages::-webkit-scrollbar {

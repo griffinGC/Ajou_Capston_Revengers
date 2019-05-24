@@ -1,28 +1,31 @@
 <template>
-  <v-dialog v-model="dialog" max-width="600px">
+  <v-dialog v-model="dialog" max-width="600px" max-height="500px">
     <!-- <v-btn @click="viewClicked()" flat slot="activator" class="success">view</v-btn> -->
     <v-btn flat slot="activator" class="success">view</v-btn>
       <v-card>
-        <v-avatar id="avatar" size="80px">
-          <img
-            v-if="candidateData.profileImg"
-            :src="candidateData.profileImg"
-            alt="Avatar">
-          <v-icon id="altImg" size="80px"
-            v-else
-          >person</v-icon>
-        </v-avatar>
-        <v-card-title>
-          <!-- <h2 class="center teal-text">{{board.title}}</h2> -->
-          <h2 class="center teal-text">{{candidateData.userName}}</h2>
-        </v-card-title>
+        <v-layout>
+          <v-flex>
+            <v-avatar class="img" id="avatar" size="170px">
+              <img
+              v-if="candidateData.profileImg"
+              :src="candidateData.profileImg"
+              alt="Avatar">
+              <v-icon id="altImg" size="100px"
+              v-else
+              >person</v-icon>  
+            </v-avatar>
+            <v-flex class="id">
+            <div class="center teal-text">아이디 : {{candidateData.userName}}</div>
+            <div class="grey--text">이름 : {{candidateData.name}}</div>
+            <div class="grey--text">위치 : {{candidateData.location}}</div>
+            <div class="grey--text">업종 : {{candidateData.work}}</div>
+            </v-flex>
+          </v-flex>
+          <v-flex class="desc">
+          <div>blablablablablablablablablablablablablablablablablabla</div>
+          </v-flex>
+         </v-layout>
         <v-card-text>
-          <div>
-            <span class="grey--text">유저 이름 : {{candidateData.name}}</span>
-            <br>
-            <!-- <span>{{board.content}}</span> -->
-            <span>{{candidateData.userName}}</span>
-          </div>
           <div class="text-xs">
             <!-- <v-rating :value="board.difficulty" readonly></v-rating> -->
             <v-rating :value="10" readonly></v-rating>
@@ -43,7 +46,7 @@
             <span>Refuse</span>
           </v-btn>
         </v-card-actions>
-      </v-card>
+    </v-card>
   </v-dialog>
 </template>
 <script>
@@ -122,10 +125,18 @@ export default {
 };
 </script>
 <style>
-.avatar{
-  margin-left: 5%;
+.img{
+  margin-left: 25px;
+  margin-top: 25px;
 }
-.altImg{
-  margin-left: 30px;
+.id{
+  margin-left: 25px;
+  margin-top: 25px;
+}
+.desc{
+  margin-left:25px;
+  background-color:wheat;
+  margin-top:25px;
+  margin-right:25px;
 }
 </style>

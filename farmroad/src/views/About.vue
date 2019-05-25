@@ -53,13 +53,14 @@
             </v-card-text>
 
             <v-card-actions>
+              <!------------------------------view dialog start--------------------------------->
               <v-dialog max-width="600px">
                 <v-btn flat slot="activator" color="grey" @click="viewAction(board.candidate)">
                   <v-icon small left>streetview</v-icon>
                   <span>view</span>
                 </v-btn>
                 <v-card>
-                  <v-img class="white--text" height="200px" :src="board.boardImg">
+                  <v-img class="black--text" height="200px" :src="board.boardImg">
                     <v-container fill-height fluid>
                       <v-layout fill-height>
                         <v-flex xs12 align-end flexbox>
@@ -69,11 +70,24 @@
                     </v-container>
                   </v-img>
                   <v-card-title>
-                    <h2 class="center teal-text">{{board.title}}</h2>
+                    <h2 class="center teal-text">{{board.hostInfo[0].name}}</h2>
                   </v-card-title>
                   <v-card-text>
+                    <!--map-->
+                    <!--show date-->
                     <div>
-                      <span class="grey--text">Number 10</span>
+                      <v-date-picker
+                        width="560px"
+                        v-model="showDate"
+                        :allowed-dates="allowedDates"
+                        class="mt-3"
+                        min="2016-06-15"
+                        max="2018-03-20"
+                      ></v-date-picker>
+                    </div>
+                    <!---date and content--->
+                    <div>
+                      <span class="grey--text">{{board.startDate}}</span>
                       <br>
                       <span>{{board.content}}</span>
                     </div>
@@ -101,6 +115,7 @@
                   </v-card-actions>
                 </v-card>
               </v-dialog>
+              <!------------------------------view dialog end--------------------------------->
             </v-card-actions>
           </v-card>
         </v-flex>
@@ -120,6 +135,7 @@ export default {
       workDays: "",
       chatId: "",
       loading: "",
+      showDate: "2018-03-02",
 
       menu1: false,
       date: new Date().toISOString().substr(0, 10),
@@ -176,6 +192,10 @@ export default {
       const [month, day, year] = date.split("/");
       return `${year}-${month.padStart(2, "0")}-${day.padStart(2, "0")}`;
     },
+
+    //可以选用的时间
+    allowedDates: val => parseInt(val.split("-")[2], 10) % 2 === 0,
+
     findByDifficulty(boards) {
       var temBoards = new Array();
       boards.forEach(item => {
@@ -197,7 +217,7 @@ export default {
       console.log(this.newBoards);
     },
     messager(id) {
-      if ((localStorage.role == 1)) {
+      if (localStorage.role == 1) {
         this.chatId = id + "hostboardsmessager";
       } else {
         this.chatId = id + "guestboardsmessager";

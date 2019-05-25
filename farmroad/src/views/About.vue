@@ -74,6 +74,10 @@
                   </v-card-title>
                   <v-card-text>
                     <!--map-->
+                    <div class="map">
+                      <h2>map</h2>
+                      <div class="google-map" id="map"></div>
+                    </div>
                     <!--show date-->
                     <div>
                       <v-date-picker
@@ -125,6 +129,7 @@
 </template>
 
 <script>
+import firebase from "firebase";
 export default {
   data() {
     return {
@@ -143,8 +148,30 @@ export default {
       showCard: false,
       diff: "",
       chatRoute: "/chat",
-      role: null
+      role: null,
+
+      lat: 53,
+      lng: -2
     };
+  },
+  created: {
+    role() {
+      if (localStorage.username) {
+        this.user = localStorage.username;
+        if (localStorage.role == 1) {
+          this.role = false;
+        } else {
+          this.role = true;
+        }
+      } else {
+        this.user = false;
+      }
+    },
+    map() {
+      let ckeditor = document.createElement("script");
+      ckeditor.setAttribute("src", "https://maps.googleapis.com/maps/api/js?key=AIzaSyASyxjxmpwhG4JJI3D516ecwSA7XT5IWYM");
+      document.head.appendChild(ckeditor);
+    }
   },
   mounted: function() {
     if (localStorage.role == 0) {
@@ -156,6 +183,7 @@ export default {
           console.log(response.data);
           this.boards = response.data;
           this.newBoards = response.data;
+          this.renderMap();
         });
     } else if (localStorage.role == 1) {
       this.axios
@@ -166,6 +194,7 @@ export default {
           console.log(response.data);
           this.boards = response.data;
           this.newBoards = response.data;
+          this.renderMap();
         });
     }
   },
@@ -288,19 +317,29 @@ export default {
           break;
         }
       }
-    }
-  },
-  created() {
-    if (localStorage.username) {
-      this.user = localStorage.username;
-      if (localStorage.role == 1) {
-        this.role = false;
-      } else {
-        this.role = true;
-      }
-    } else {
-      this.user = false;
+    },
+    renderMap() {
+      const map = new google.maps.Map(document.getElementById("map"), {
+        center: { lan: this.lat, lng: this.lng },
+        zoom: 6,
+        maxZoom: 15,
+        minZoom: 3,
+        streetViewControl: false
+      });
     }
   }
 };
 </script>
+
+<style>
+.google-map {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  background-attachment: #fff;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+}
+</style>

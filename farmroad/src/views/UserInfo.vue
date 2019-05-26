@@ -5,9 +5,9 @@
         <v-card-title class="title light-blue--text text--lighten-3 font-weight-bold">개인정보</v-card-title>
         <!-- <v-card-text> -->
           <v-card-title>
-            <v-layout align-top justify-left>
+            <v-layout align-top>
               <v-flex lg3>
-                <v-avatar size="250px">
+                <v-avatar size="225px">
                   <img v-if="profileImg" :src="profileImg" alt="Avatar">
                   <v-icon v-else >person</v-icon>
                 </v-avatar>
@@ -144,10 +144,10 @@ export default {
 </script>
 <style>
 .btn1{
-  margin-left:25px;
+  margin-left:12.5px;
 }
 div{
-  margin-bottom:5px;
+  margin-bottom:7px;
 }
 </style>
 

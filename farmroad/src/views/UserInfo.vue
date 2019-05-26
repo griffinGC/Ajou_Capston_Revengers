@@ -5,18 +5,15 @@
         <v-card-title class="title light-blue--text text--lighten-3 font-weight-bold">개인정보</v-card-title>
         <!-- <v-card-text> -->
           <v-card-title>
-            <v-container grid-list-md>
               <v-layout align-top row wrap>
                 <v-flex lg3>
                   <v-avatar size="225px">
                     <img v-if="profileImg" :src="profileImg" alt="Avatar">
                     <v-icon v-else >person</v-icon>
                   </v-avatar>
-                  <v-layout row wrap class="btns" align-center>
-                  <v-flex sm4 class="btn1">
+                  <v-layout column wrap class="btns">
+                  <v-flex de-flex sm4>
                   <v-btn class="light-blue lighten-2 white--text" v-on:click.native="editInfo">수정하기</v-btn>
-                  </v-flex>
-                  <v-flex sm4 class="btn2">
                   <v-btn class="light-blue lighten-2 white--text" v-on:click.native="saveCancel">취소 </v-btn>
                   </v-flex>
                   </v-layout>
@@ -52,7 +49,6 @@
                   <div>{{reference}}</div>
                 </v-flex>
             </v-layout> 
-            </v-container>
           </v-card-title>          
       </v-card>
     <!-- </v-dialog> -->

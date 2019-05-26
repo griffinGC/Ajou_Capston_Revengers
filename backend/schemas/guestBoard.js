@@ -36,6 +36,9 @@ const guestBoardSchema = new mongoose.Schema({
     category : {
         type : String
     },
+    reward : {
+        type : String
+    },
     preferLocation : {
         type : String
     },

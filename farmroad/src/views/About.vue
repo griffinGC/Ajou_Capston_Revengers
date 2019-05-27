@@ -5,37 +5,6 @@
       <v-flex xs6>
         <!--difficulty select-->
         <v-select v-if="role" :items="items" v-model="diff" label="difficulty" return-object></v-select>
-
-        <!--start Date select-->
-        <!-- <v-menu
-          ref="menu1"
-          v-model="menu1"
-          :close-on-content-click="false"
-          :nudge-right="40"
-          lazy
-          transition="scale-transition"
-          offset-y
-          full-width
-          max-width="290px"
-          min-width="290px"
-        >
-          <template v-slot:activator="{ on }">
-            <v-text-field
-              v-model="dateFormatted"
-              label="Start Date"
-              hint="MM/DD/YYYY format"
-              persistent-hint
-              
-              @blur="date = parseDate(dateFormatted)"
-              v-on="on"
-            ></v-text-field>
-          </template>
-          <v-date-picker v-model="date" no-title @input="menu1 = false"></v-date-picker>
-        </v-menu>
-        
-        work days
-        <v-slider v-model="WorkDays" color="orange" label="work days" min="1" max="30" thumb-label></v-slider>-->
-
         <!--search btn-->
         <v-btn flat class="success" @click="findByDifficulty(boards)">Search</v-btn>
       </v-flex>
@@ -69,15 +38,19 @@
                       </v-layout>
                     </v-container>
                   </v-img>
+
                   <v-card-title>
                     <h2 class="center teal-text">{{board.hostInfo[0].name}}</h2>
                   </v-card-title>
+
                   <v-card-text>
                     <!--map-->
-                    <div class="map">
-                      <h2>map</h2>
-                      <div class="google-map" id="map"></div>
-                    </div>
+                    <v-flex d-flex xs12 sm6 md4>
+                      <v-layout row wrap>
+                        <MyMap/>
+                      </v-layout>
+                    </v-flex>
+
                     <!--show date-->
                     <div>
                       <v-date-picker
@@ -130,7 +103,14 @@
 
 <script>
 import firebase from "firebase";
+import MyMap from "../views/MyMap";
 export default {
+  components: {
+    computedDateFormatted() {
+      return this.formatDate(this.date);
+    },
+    MyMap
+  },
   data() {
     return {
       boards: [],
@@ -154,23 +134,16 @@ export default {
       lng: -2
     };
   },
-  created: {
-    role() {
-      if (localStorage.username) {
-        this.user = localStorage.username;
-        if (localStorage.role == 1) {
-          this.role = false;
-        } else {
-          this.role = true;
-        }
+  created() {
+    if (localStorage.username) {
+      this.user = localStorage.username;
+      if (localStorage.role == 1) {
+        this.role = false;
       } else {
-        this.user = false;
+        this.role = true;
       }
-    },
-    map() {
-      let ckeditor = document.createElement("script");
-      ckeditor.setAttribute("src", "https://maps.googleapis.com/maps/api/js?key=AIzaSyASyxjxmpwhG4JJI3D516ecwSA7XT5IWYM");
-      document.head.appendChild(ckeditor);
+    } else {
+      this.user = false;
     }
   },
   mounted: function() {
@@ -183,7 +156,6 @@ export default {
           console.log(response.data);
           this.boards = response.data;
           this.newBoards = response.data;
-          this.renderMap();
         });
     } else if (localStorage.role == 1) {
       this.axios
@@ -194,13 +166,7 @@ export default {
           console.log(response.data);
           this.boards = response.data;
           this.newBoards = response.data;
-          this.renderMap();
         });
-    }
-  },
-  components: {
-    computedDateFormatted() {
-      return this.formatDate(this.date);
     }
   },
   watch: {
@@ -317,15 +283,6 @@ export default {
           break;
         }
       }
-    },
-    renderMap() {
-      const map = new google.maps.Map(document.getElementById("map"), {
-        center: { lan: this.lat, lng: this.lng },
-        zoom: 6,
-        maxZoom: 15,
-        minZoom: 3,
-        streetViewControl: false
-      });
     }
   }
 };
@@ -333,11 +290,10 @@ export default {
 
 <style>
 .google-map {
-  width: 100%;
-  height: 100%;
+  width: 300px;
+  height: 300px;
   margin: 0;
   background-attachment: #fff;
-  position: absolute;
   top: 0;
   left: 0;
   z-index: -1;

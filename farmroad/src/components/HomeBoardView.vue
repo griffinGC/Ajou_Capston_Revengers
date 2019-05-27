@@ -4,9 +4,9 @@
     <v-btn flat slot="activator" class="success">view</v-btn>
       <v-card>
         <v-container>
-          <v-layout row wrap>
-            <v-flex sm6>
-              <v-avatar id="avatar" size="265px">
+          <v-layout row wrap class="cont">
+            <v-flex sm5>
+              <v-avatar id="avatar" size="220px">
                 <img
                 v-if="candidateData.profileImg"
                 :src="candidateData.profileImg"
@@ -21,21 +21,12 @@
                 <v-rating :value="10" readonly></v-rating>
                 </div>
               </v-card-text>
-              <v-card-actions>
-                <v-btn flat slot="activator" color="success" @click="approve()">
-                  <v-icon small left>favorite</v-icon>
-                  <span>Approve</span>
-                </v-btn>
-                <v-btn flat slot="activator" color="success" @click="refuse()">
-                  <v-icon small left>clear</v-icon>
-                  <span>Refuse</span>
-                </v-btn>
-              </v-card-actions>
             </v-flex>
+            <v-flex>
                 <v-layout column wrap>
-                <v-flex xs8 sm7>
-                  <v-layout row wrap align-top>
-                    <v-flex sm5>
+                <v-flex xs12 sm11>
+                  <v-layout row wrap align-top class="info1">
+                    <v-flex sm4 sm6>
                     <div class="grey--text font-weight-bold">아이디</div>
                     <div class="grey--text font-weight-bold">이름</div>
                     <div class="grey--text font-weight-bold">성별</div>
@@ -43,7 +34,6 @@
                     <div class="grey--text font-weight-bold">전화번호</div>
                     <div class="grey--text font-weight-bold">이메일</div>
                     <div v-if="role === '0'" class="grey--text font-weight-bold">위치</div>
-                    <div v-if="role === '0'" class="grey--text font-weight-bold">업종</div>
                     <div v-if="role === '1'" class="grey--text font-weight-bold">능력</div>
                     </v-flex>
                     <v-flex sm3>
@@ -60,11 +50,20 @@
                    </v-flex>
                  </v-layout>
                </v-flex>
-                <v-flex xs11 sm4>
-                  <div class="grey--text font-weight-bold">Content</div>
-                  <!-- <div>{{board.content}}</div> -->
+               <v-flex sm3>
+                <v-card-actions>
+                <v-btn flat slot="activator" color="success" @click="approve()">
+                  <v-icon small left>favorite</v-icon>
+                  <span>Approve</span>
+                  </v-btn>
+                  <v-btn flat slot="activator" color="success" @click="refuse()">
+                  <v-icon small left>clear</v-icon>
+                  <span>Refuse</span>
+                    </v-btn>
+                  </v-card-actions>
                 </v-flex>
               </v-layout>
+            </v-flex>
             </v-layout>
         </v-container>
     </v-card>
@@ -151,11 +150,16 @@ export default {
 };
 </script>
 <style>
-.info1, .content{
-  margin-left:10px;
+.info1 div{
+  margin-left:12px;
+  margin-bottom:10px;
 }
-.rating{
-  margin-left:20px;
-  margin-top:20px;
+/* .rating{
+  margin-left:5px;
+  margin-top:0px;
+} */
+.cont{
+  margin-left:30px;
+  margin-top:30px;
 }
 </style>

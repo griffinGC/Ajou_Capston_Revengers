@@ -35,6 +35,16 @@ router.get('/getInfo/guest', function(req, res, next){
     });
 })
 
+//금지된 guest정보 가져오기
+router.get('/getBan/guest', function(req, res, next){
+    guestModel.find({report : true}, function(err, getInfo){
+        if(err){
+            return res.json(err);
+        };
+        return res.json(getInfo);
+    });
+})
+
 //guest 계정 금지시키기
 router.get('/updateGuest/ban/:id', function(req, res, next){
     guestModel.update({userName : req.params.id}, {$set : {report : true}}, function(err){
@@ -100,6 +110,18 @@ router.get('/getInfo/host', function(req, res, next){
         return res.json(getInfo);
     });
 })
+
+//모든 host정보 가져오기
+router.get('/getBan/host', function(req, res, next){
+    hostModel.find({report : true}, function(err, getInfo){
+        if(err){
+            return res.json(err);
+        };
+        return res.json(getInfo);
+    });
+})
+
+
 
 //host 계정 금지시키기 
 router.get('/updateHost/ban/:id', function(req, res, next){

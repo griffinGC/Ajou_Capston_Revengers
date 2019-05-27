@@ -1,11 +1,13 @@
 <template>
-  <v-layout row>
-    <div>
-      <span><v-btn color="success">Guest 유저 정보</v-btn></span>
-      <span><v-btn color="info">Host 유저 정보</v-btn></span>
-    </div>
-    <v-flex xs12 sm6 offset-sm3>
-      <v-card>
+  <v-layout column>
+    <v-flex sm12>
+      <div>
+      <v-btn color="success" @click="clickTrue()">Guest 유저 정보</v-btn>
+      <v-btn color="info" @click="clickFalse()">Host 유저 정보</v-btn>
+      </div>
+    </v-flex>
+    <v-flex xs12 sm6>
+      <v-card v-if="guestShow">
         <v-toolbar color="indigo" dark>
           <!-- <v-toolbar-side-icon></v-toolbar-side-icon> -->
           <v-toolbar-title>게스트 유저 정보 </v-toolbar-title>
@@ -47,7 +49,7 @@
         </v-list>
       </v-card>
 
-      <v-card>
+      <v-card v-else>
         <v-toolbar color="indigo" dark>
           <!-- <v-toolbar-side-icon></v-toolbar-side-icon> -->
           <v-toolbar-title>호스트 유저 정보 </v-toolbar-title>
@@ -104,7 +106,8 @@ export default {
       return {
         guestUserList: [],
         hostUserList: [],
-        reportId : ""
+        reportId : "",
+        guestShow : true
       }
     },
   created(){
@@ -118,6 +121,16 @@ export default {
     this.getHostList();
   },
   methods:{
+    clickTrue(){
+      if(this.guestShow === false){
+        this.guestShow = true;
+      }
+    },
+    clickFalse(){
+      if(this.guestShow === true){
+        this.guestShow = false;
+      }
+    },
     getGuestList(){
       this.axios
         .get(`http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/user/getInfo/guest`)

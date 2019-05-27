@@ -82,7 +82,7 @@ router.post('/createBoard', upload.single('img'),function(req, res, next){
         // console.log(userInfo);
         writeBoard.title = req.body.title;
         writeBoard.content = req.body.content;
-        writeBoard.hostInfo = userInfo[0];
+        writeBoard.Info = userInfo[0];
         writeBoard.startDate = req.body.startDate;
         writeBoard.endDate = req.body.endDate;
         writeBoard.difficulty = req.body.difficulty;

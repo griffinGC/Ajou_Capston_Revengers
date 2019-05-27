@@ -20,8 +20,7 @@ const hostSchema = new mongoose.Schema({
         type : String
     },
     profileImg :{
-        type : String,
-        
+        type : String,  
     },
     gender : {
         type : String

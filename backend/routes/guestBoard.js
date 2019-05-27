@@ -81,7 +81,7 @@ router.post('/createBoard',upload.single('img'), function(req, res, next){
     guestBoard.findByUserName(req.body.guestId, function(err, userInfo){
         writeBoard.title = req.body.title;
         writeBoard.content = req.body.content;
-        writeBoard.guestInfo = userInfo[0];
+        writeBoard.Info = userInfo[0];
         console.log(userInfo);
         writeBoard.startDate = req.body.startDate;
         writeBoard.endDate = req.body.endDate;

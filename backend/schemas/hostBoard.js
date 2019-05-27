@@ -15,7 +15,7 @@ const hostBoardSchema = new mongoose.Schema({
         type : String,
         required : true
     },
-    hostInfo : {
+    Info : {
         type : Object,
     },
     boardImg : {

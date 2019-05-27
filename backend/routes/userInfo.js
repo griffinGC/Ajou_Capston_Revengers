@@ -111,7 +111,7 @@ router.get('/getInfo/host', function(req, res, next){
     });
 })
 
-//모든 host정보 가져오기
+//금지된 host정보 가져오기
 router.get('/getBan/host', function(req, res, next){
     hostModel.find({report : true}, function(err, getInfo){
         if(err){

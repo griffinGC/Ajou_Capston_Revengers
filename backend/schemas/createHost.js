@@ -51,6 +51,9 @@ const hostSchema = new mongoose.Schema({
     },
     role :{
         type : String
+    },
+    report : {
+        type : Boolean
     }
 })
 

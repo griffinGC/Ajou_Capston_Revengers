@@ -79,9 +79,10 @@ router.post('/createBoard', upload.single('img'),function(req, res, next){
     }
     let writeBoard = new hostBoard();
     hostBoard.findByUserName(req.body.hostId, function(err, userInfo){
+        // console.log(userInfo);
         writeBoard.title = req.body.title;
         writeBoard.content = req.body.content;
-        writeBoard.hostInfo = userInfo;
+        writeBoard.hostInfo = userInfo[0];
         writeBoard.startDate = req.body.startDate;
         writeBoard.endDate = req.body.endDate;
         writeBoard.difficulty = req.body.difficulty;

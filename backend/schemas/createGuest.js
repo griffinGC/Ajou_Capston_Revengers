@@ -44,6 +44,9 @@ const guestSchema = new mongoose.Schema({
     },
     role : {
         type : String
+    },
+    report : {
+        type : Boolean
     }
 })
 

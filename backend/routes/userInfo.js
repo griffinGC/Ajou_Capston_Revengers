@@ -37,7 +37,7 @@ router.get('/getInfo/guest', function(req, res, next){
 
 //guest 계정 금지시키기
 router.get('/updateGuest/ban/:id', function(req, res, next){
-    guestModel.update({userName : req.params.id}, {$set : {report : false}}, function(err){
+    guestModel.update({userName : req.params.id}, {$set : {report : true}}, function(err){
         if(err){
             return res.json(err);
         };
@@ -93,7 +93,7 @@ router.get('/getInfo/host', function(req, res, next){
 
 //host 계정 금지시키기 
 router.get('/updateHost/ban/:id', function(req, res, next){
-    hostModel.update({userName : req.params.id}, {$set : {report : false}}, function(err){
+    hostModel.update({userName : req.params.id}, {$set : {report : true}}, function(err){
         if(err){
             return res.json(err);
         };

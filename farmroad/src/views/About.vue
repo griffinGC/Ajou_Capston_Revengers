@@ -18,7 +18,7 @@
             </v-responsive>
             <v-card-text>
               <div class="subheading">{{board.title}}</div>
-              <div class="grey--rext">{{board.content}}</div>
+              <div class="grey--text">{{board.content}}</div>
             </v-card-text>
 
             <v-card-actions>
@@ -47,7 +47,7 @@
                     <!--map-->
                     <v-flex d-flex xs12 sm6 md4>
                       <v-layout row wrap>
-                        <MyMap/>
+                       <MyMap/>
                       </v-layout>
                     </v-flex>
 

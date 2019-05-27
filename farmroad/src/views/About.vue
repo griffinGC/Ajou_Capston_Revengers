@@ -40,13 +40,14 @@
                   </v-img>
 
                   <v-card-title>
-                    <h2 class="center teal-text">{{board.hostInfo[0].name}}</h2>
+                    <h2 class="center teal-text">{{board.Info.name}}</h2>
                   </v-card-title>
 
                   <v-card-text>
                     <!--map-->
                     <v-flex d-flex xs12 sm6 md4>
                       <v-layout row wrap>
+                       <!-- <MyMap/> -->
                        <MyMap/>
                       </v-layout>
                     </v-flex>

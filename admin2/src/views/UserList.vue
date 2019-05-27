@@ -1,8 +1,8 @@
 <template>
   <v-layout row>
     <div>
-      <v-btn color="success">Guest 유저 정보</v-btn>
-      <v-btn color="info">Host 유저 정보</v-btn>
+      <span><v-btn color="success">Guest 유저 정보</v-btn></span>
+      <span><v-btn color="info">Host 유저 정보</v-btn></span>
     </div>
     <v-flex xs12 sm6 offset-sm3>
       <v-card>
@@ -28,6 +28,10 @@
             </v-list-tile-action>
 
             <v-list-tile-content>
+              <v-list-tile-title v-text="user.userName"></v-list-tile-title>
+            </v-list-tile-content>
+
+            <v-list-tile-content>
               <v-list-tile-title v-text="user.name"></v-list-tile-title>
             </v-list-tile-content>
 
@@ -35,6 +39,9 @@
               <img  :src="user.profileImg">
             </v-list-tile-avatar>
             <v-icon v-else size="40px">person</v-icon>
+
+            <v-btn color="error" @click="updateToError(user)">계정 정지 </v-btn>
+
           </v-list-tile>
         </v-list>
       </v-card>
@@ -73,6 +80,8 @@
               <img  :src="user.profileImg">
             </v-list-tile-avatar>
             <v-icon v-else size="40px">person</v-icon>
+
+            <v-btn color="error" @click="updateToError(user)">계정 정지 </v-btn>
           </v-list-tile>
         </v-list>
       </v-card>
@@ -91,20 +100,9 @@ export default {
   },
   data () {
       return {
-        guestUserList: [
-          // { icon: true, name: 'Jason Oner', profileImg: 'https://cdn.vuetifyjs.com/images/lists/1.jpg' },
-          // { name: 'Travis Howard', profileImg: 'https://cdn.vuetifyjs.com/images/lists/2.jpg' },
-          // { name: 'Ali Connors', profileImg: 'https://cdn.vuetifyjs.com/images/lists/3.jpg' },
-          // { name: 'Cindy Baker', profileImg: 'https://cdn.vuetifyjs.com/images/lists/4.jpg' },
-          // { name: 'MinYoung' }
-        ],
-        hostUserList: [
-          // { icon: true, name: ' Oner', profileImg: 'https://cdn.vuetifyjs.com/images/lists/1.jpg' },
-          // { name: 'Travis Howard', profileImg: 'https://cdn.vuetifyjs.com/images/lists/2.jpg' },
-          // { name: 'Ali Connors', profileImg: 'https://cdn.vuetifyjs.com/images/lists/3.jpg' },
-          // { name: 'Cindy Baker', profileImg: 'https://cdn.vuetifyjs.com/images/lists/4.jpg' },
-          // { name: 'MinYoung' }
-        ]
+        guestUserList: [],
+        hostUserList: [],
+        reportId : ""
       }
     },
   created(){
@@ -129,6 +127,25 @@ export default {
           console.log(this.hostUserList);
         });
     },
+    updateToError(t){
+      let update = t.userName;
+      let role = t.role;
+      if(role === 'guest'){
+        console.log("role is guest");
+        this.axios
+        .get(`http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/user/updateGuest/ban/${update}`)
+        .then(response =>{
+          console.log(response);
+        })
+      }else{
+        console.log("role is host");
+      this.axios
+      .get(`http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/user/updateHost/ban/${update}`)
+      .then(response =>{
+        console.log(response);
+      })
+      }
+    }
   },
 
 };

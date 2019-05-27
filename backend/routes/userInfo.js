@@ -46,7 +46,7 @@ router.get('/updateGuest/ban/:id', function(req, res, next){
 })
 
 //guest 계정 해제시키기
-router.get('/updateGuest/ban/:id', function(req, res, next){
+router.get('/updateGuest/able/:id', function(req, res, next){
     guestModel.update({userName : req.params.id}, {$set : {report : false}}, function(err){
         if(err){
             return res.json(err);

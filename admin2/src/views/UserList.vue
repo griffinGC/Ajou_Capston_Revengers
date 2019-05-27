@@ -40,7 +40,8 @@
             </v-list-tile-avatar>
             <v-icon v-else size="40px">person</v-icon>
 
-            <v-btn color="error" @click="updateToError(user)">계정 정지 </v-btn>
+            <v-btn v-if="user.report === false" color="error" @click="updateToError(user)">계정 정지 </v-btn>
+            <v-btn v-else color="success" @click="updateToAble(user)">계정 해제 </v-btn>
 
           </v-list-tile>
         </v-list>
@@ -81,7 +82,8 @@
             </v-list-tile-avatar>
             <v-icon v-else size="40px">person</v-icon>
 
-            <v-btn color="error" @click="updateToError(user)">계정 정지 </v-btn>
+            <v-btn v-if="user.report === false" color="error" @click="updateToError(user)">계정 정지 </v-btn>
+            <v-btn v-else color="success" @click="updateToAble(user)">계정 해제 </v-btn>
           </v-list-tile>
         </v-list>
       </v-card>
@@ -107,6 +109,11 @@ export default {
     },
   created(){
     console.log("userList is created!");
+    this.getGuestList();
+    this.getHostList();
+  },
+  mounted(){
+    console.log("userList is mounted!");
     this.getGuestList();
     this.getHostList();
   },
@@ -141,6 +148,25 @@ export default {
         console.log("role is host");
       this.axios
       .get(`http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/user/updateHost/ban/${update}`)
+      .then(response =>{
+        console.log(response);
+      })
+      }
+    },
+    updateToAble(t){
+      let update = t.userName;
+      let role = t.role;
+      if(role === 'guest'){
+        console.log("role is guest");
+        this.axios
+        .get(`http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/user/updateGuest/able/${update}`)
+        .then(response =>{
+          console.log(response);
+        })
+      }else{
+        console.log("role is host");
+      this.axios
+      .get(`http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/user/updateHost/able/${update}`)
       .then(response =>{
         console.log(response);
       })

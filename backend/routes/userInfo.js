@@ -45,6 +45,16 @@ router.get('/updateGuest/ban/:id', function(req, res, next){
     });
 })
 
+//guest 계정 해제시키기
+router.get('/updateGuest/ban/:id', function(req, res, next){
+    guestModel.update({userName : req.params.id}, {$set : {report : false}}, function(err){
+        if(err){
+            return res.json(err);
+        };
+        return res.json({state : 0, msg : "update Guest able is success"});
+    });
+})
+
 //guest회원정보 수정 
 router.post('/updateInfo/guest', function(req, res, next){
     //굳이 만들필요 없을듯 ? test 해볼 것 
@@ -100,6 +110,16 @@ router.get('/updateHost/ban/:id', function(req, res, next){
         return res.json({state : 0, msg : "update Host ban is success"});
     });
 })
+//host 계정 해제 시키기 
+router.get('/updateHost/able/:id', function(req, res, next){
+    hostModel.update({userName : req.params.id}, {$set : {report : false}}, function(err){
+        if(err){
+            return res.json(err);
+        };
+        return res.json({state : 0, msg : "update Host able is success"});
+    });
+})
+
 
 //host회원정보 수정 
 router.post('/updateInfo/host', function(req, res, next){   

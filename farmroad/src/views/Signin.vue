@@ -92,7 +92,7 @@ export default {
               localStorage.username = this.username;
               localStorage.role = parseInt(this.radios);
               this.$store.dispatch("UserSignin");
-              this.$router.push({name: 'home'})
+              this.$router.push({name: 'welcome'})
               location.reload()
               
             }

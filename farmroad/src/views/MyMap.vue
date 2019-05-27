@@ -33,19 +33,18 @@ export default {
 
 <style>
 .map {
-  width: 600px;
-  height: 300px;
+  width: 100%;
+  height: 100%;
   position: fixed;
 }
 .google-map {
-  width: 600px;
-  height: 300px;
+  width: 100%;
+  height: 100%;
   margin: 0;
   background-attachment: #fff;
   top: 0;
   left: 0;
   z-index: -1;
-  position: absolute;
 }
 </style>
 

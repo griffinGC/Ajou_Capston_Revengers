@@ -36,7 +36,7 @@
         </v-flex>
 
         <!--name-->
-        <v-text-field label="name" v-model="myName" prepend-icon="account_box"></v-text-field>
+        <v-text-field label="Name" v-model="myName" prepend-icon="account_box"></v-text-field>
 
         <!--password-->
         <v-text-field
@@ -63,11 +63,11 @@
         ></v-text-field>
 
         <!--phone-->
-        <v-text-field v-model="phone" label="phone" required prepend-icon="phone"></v-text-field>
+        <v-text-field v-model="phone" label="Phone" required prepend-icon="phone"></v-text-field>
         <v-slider
           v-model="age"
           :rules="rules"
-          label="age"
+          label="Age"
           step="1"
           thumb-label="always"
           ticks
@@ -86,8 +86,29 @@
         ></v-select>
 
         <!--ability-->
-        <v-text-field v-model="ability" label="ability" required prepend-icon="list_alt"></v-text-field>
-
+        <!-- <v-text-field v-model="ability" label="ability" required prepend-icon="list_alt"></v-text-field> -->
+        
+        <div class="grey--text text--darken-1">Ability</div>
+        <v-layout>
+          <v-flex xs12 xs1>
+            <v-flex xs12 xs1 d-flex>
+            <v-flex xs2 xs1><v-checkbox v-model="selected" label="요리를 잘해요" value="cook"></v-checkbox></v-flex>
+            <v-flex xs2 xs1><v-checkbox v-model="selected" label="미용 잘해요" value="beauty"></v-checkbox></v-flex>
+            <v-flex xs2 xs1><v-checkbox v-model="selected" label="애를 잘돌봐요" value="baby"></v-checkbox></v-flex>
+            <v-flex xs2 xs1><v-checkbox v-model="selected" label="청소를 잘해요" value="clean"></v-checkbox></v-flex>
+            <v-flex xs2 xs1><v-checkbox v-model="selected" label="운전을 잘해요" value="drive"></v-checkbox></v-flex>
+            <v-flex xs2 xs1><v-checkbox v-model="selected" label="도배를 잘해요" value="paper"></v-checkbox></v-flex>
+            </v-flex>
+            <v-flex xs12 xs1 d-flex>
+            <v-flex xs2 xs1><v-checkbox v-model="selected" label="짐나르는거 잘해요" value="carry"></v-checkbox></v-flex>
+            <v-flex xs2 xs1><v-checkbox v-model="selected" label="노래를 잘해요" value="sing"></v-checkbox></v-flex>
+            <v-flex xs2 xs1><v-checkbox v-model="selected" label="말동부를 잘해요" value="talk"></v-checkbox></v-flex>
+            <v-flex xs2 xs1><v-checkbox v-model="selected" label="컴퓨터를 잘다뤄요" value="comp"></v-checkbox></v-flex>
+            <v-flex xs2 xs1><v-checkbox v-model="selected" label="농기계를 잘다뤄요" value="machine"></v-checkbox></v-flex>
+            <v-flex xs2 xs1><v-checkbox v-model="selected" label="농사경험이 있어요" value="farm"></v-checkbox></v-flex>
+            </v-flex>
+          </v-flex>
+        </v-layout>
         <!--sign up btn-->
         <v-btn :disabled="!valid" left color="success" @click="validate">Sign Up</v-btn>
       </v-form>
@@ -99,6 +120,7 @@
       <!--back btn-->
       <v-btn color="green darken-1" flat router :to="{name: 'Signin'}">Back</v-btn>
     </v-card-actions>
+    
   </v-card>
 </template>
 
@@ -106,6 +128,7 @@
 export default {
   data() {
     return {
+      selected: [],
       username: "",
       usernameRules: [
         v => !!v || "Name is required",

@@ -1,84 +1,133 @@
 <template>
-  <div class="home">
-    <h1 class="subheading grey--text">Message</h1>
-    <v-container row class="mb-3">
-      <!--card container-->
-      <!-- <v-card class="pa-3" v-for="project in projects" :key="project.id"> -->
-      <v-card class="pa-3" v-for="notification in notificationList" :key="notification.id">
-        <v-layout row wrap :class="`pa-3 project.${notification.boardInfo.title}`">
+  <v-layout row>
+    <div>
+      <v-btn color="success">Guest 유저 정보</v-btn>
+      <v-btn color="info">Host 유저 정보</v-btn>
+    </div>
+    <v-flex xs12 sm6 offset-sm3>
+      <v-card>
+        <v-toolbar color="indigo" dark>
+          <!-- <v-toolbar-side-icon></v-toolbar-side-icon> -->
+          <v-toolbar-title>게스트 유저 정보 </v-toolbar-title>
 
-          <v-flex xs12 md6>
-            <div class="caption grey--text">title</div>
-            <!-- <div>{{project.title}}</div> -->
-            <div>{{notification.boardInfo.title}}</div>
-          </v-flex>
+          <v-spacer></v-spacer>
 
-          <v-flex xs6 sm4 md2>
-            <div class="caption grey--text">preson</div>
-            <!-- <div>{{project.guestInfo}}</div> -->
-            <div>{{notification.userName}}</div>
-          </v-flex>
+          <v-btn icon>
+            <v-icon>search</v-icon>
+          </v-btn>
+        </v-toolbar>
 
-          <v-flex xs6 sm4 md2>
-            <div class="caption grey--text">Due</div>
-            <!-- <div>{{project.due}}</div> -->
-            <div></div>
-          </v-flex>
+        <v-list>
+          <v-list-tile
+            v-for="user in guestUserList"
+            :key="user.id"
+            avatar  
+          >
+            <v-list-tile-action>
+              <v-icon v-if="user.icon" color="pink">done</v-icon>
+            </v-list-tile-action>
 
-          <v-flex xs6 sm4 md2>
-          </v-flex>
-        </v-layout>
+            <v-list-tile-content>
+              <v-list-tile-title v-text="user.name"></v-list-tile-title>
+            </v-list-tile-content>
+
+            <v-list-tile-avatar v-if="user.profileImg">
+              <img  :src="user.profileImg">
+            </v-list-tile-avatar>
+            <v-icon v-else size="40px">person</v-icon>
+          </v-list-tile>
+        </v-list>
       </v-card>
-    </v-container>
-  </div>
+
+      <v-card>
+        <v-toolbar color="indigo" dark>
+          <!-- <v-toolbar-side-icon></v-toolbar-side-icon> -->
+          <v-toolbar-title>호스트 유저 정보 </v-toolbar-title>
+
+          <v-spacer></v-spacer>
+
+          <v-btn icon>
+            <v-icon>search</v-icon>
+          </v-btn>
+        </v-toolbar>
+
+        <v-list>
+          <v-list-tile
+            v-for="user in hostUserList"
+            :key="user.userName"
+            avatar  
+          >
+            <v-list-tile-action>
+              <v-icon v-if="user.icon" color="pink">done</v-icon>
+            </v-list-tile-action>
+
+            <v-list-tile-content>
+              <v-list-tile-title v-text="user.userName"></v-list-tile-title>
+            </v-list-tile-content>
+
+            <v-list-tile-content>
+              <v-list-tile-title v-text="user.name"></v-list-tile-title>
+            </v-list-tile-content>
+
+            <v-list-tile-avatar v-if="user.profileImg">
+              <img  :src="user.profileImg">
+            </v-list-tile-avatar>
+            <v-icon v-else size="40px">person</v-icon>
+          </v-list-tile>
+        </v-list>
+      </v-card>
+    </v-flex>
+  </v-layout>
+
 </template>
+
 
 <script>
 
 export default {
-  name: "home",
+  name: "userList",
   components: {
     // HomeBoardView
   },
-  data() {
-    return {
-      notificationList : ""
-    };
-  },
+  data () {
+      return {
+        guestUserList: [
+          // { icon: true, name: 'Jason Oner', profileImg: 'https://cdn.vuetifyjs.com/images/lists/1.jpg' },
+          // { name: 'Travis Howard', profileImg: 'https://cdn.vuetifyjs.com/images/lists/2.jpg' },
+          // { name: 'Ali Connors', profileImg: 'https://cdn.vuetifyjs.com/images/lists/3.jpg' },
+          // { name: 'Cindy Baker', profileImg: 'https://cdn.vuetifyjs.com/images/lists/4.jpg' },
+          // { name: 'MinYoung' }
+        ],
+        hostUserList: [
+          // { icon: true, name: ' Oner', profileImg: 'https://cdn.vuetifyjs.com/images/lists/1.jpg' },
+          // { name: 'Travis Howard', profileImg: 'https://cdn.vuetifyjs.com/images/lists/2.jpg' },
+          // { name: 'Ali Connors', profileImg: 'https://cdn.vuetifyjs.com/images/lists/3.jpg' },
+          // { name: 'Cindy Baker', profileImg: 'https://cdn.vuetifyjs.com/images/lists/4.jpg' },
+          // { name: 'MinYoung' }
+        ]
+      }
+    },
   created(){
-    console.log("home is created!");
-    this.role = localStorage.role;
-    this.getNotification();
+    console.log("userList is created!");
+    this.getGuestList();
+    this.getHostList();
   },
   methods:{
-    getNotification(){
-      let userId = localStorage.username;
-      // localStorage.role == 0 이면 guest && 1이면 host
-      // console.log("로컬 스토리지 역할 정보 : "+localStorage.role);
-        if(localStorage.role === '0'){
-        this.axios
-          .get(`http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/main/guest/getNotification/${userId}`)
-          .then(response => {
-            // console.log("응답 값 : " + JSON.stringify(response));
-            // console.log(response.data[0]);
-            this.notificationList = response.data;
-            // console.log(this.notificationList);
-            // console.log("notification list 값 : " + this.notificationList);
-            // console.log(response.data[0].boardInfo.title);
-            // console.log(response.data[0].boardInfo.content);
-            // console.log(response.data[0].userName);
-          });
-      }else{
-        this.axios
-        .get(`http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/main/host/getNotification/${userId}`)
-        .then(response =>{
-          console.log(response);
-            // console.log("응답 값 : " + JSON.stringify(response));
-            // console.log(response.data[0]);
-            this.notificationList = response.data;
-
+    getGuestList(){
+      this.axios
+        .get(`http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/user/getInfo/guest`)
+        .then(response => {
+          this.guestUserList = response.data;
+          console.log(this.guestUserList);
         });
-      };
+    },
+    getHostList(){
+      this.axios
+        .get(`http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/user/getInfo/host`)
+        .then(response => {
+          this.hostUserList = response.data;
+          console.log(this.hostUserList);
+        });
     },
   },
 

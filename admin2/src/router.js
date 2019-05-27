@@ -1,13 +1,15 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from './views/Home.vue'
 
 import Signin from './views/Signin'
-
-
 import Welcome from './views/Welcome'
-
 import MyBoards from './views/MyBoards'
+
+import UserList from './views/UserList'
+import ReportUser from './views/ReportUser'
+
+import BoardList from './views/BoardList'
+import ReportBoard from './views/ReportBoard'
 
 Vue.use(Router)
 
@@ -16,12 +18,24 @@ const router =  new Router({
   base: process.env.BASE_URL,
   routes: [
     {
-      path: '/home',
-      name: 'home',
-      component: Home,
-      meta:{
-        requiresAuth: true
-      }
+      path : '/userList',
+      name : 'userList',
+      component: UserList
+    },
+    {
+      path : '/reportUser',
+      name : 'reportUser',
+      component: ReportUser
+    },
+    {
+      path : '/boardList',
+      name : 'boardList',
+      component: BoardList
+    },
+    {
+      path : '/reportBoard',
+      name : 'reportBoard',
+      component: ReportBoard
     },
     {
       path: '/signin',

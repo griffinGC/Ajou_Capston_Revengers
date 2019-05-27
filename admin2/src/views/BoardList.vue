@@ -26,9 +26,6 @@
           </v-flex>
 
           <v-flex xs6 sm4 md2>
-            <div>
-              <HomeBoardView :candidateInfo="`${notification.userName}`"/>
-            </div>
           </v-flex>
         </v-layout>
       </v-card>
@@ -37,10 +34,12 @@
 </template>
 
 <script>
-import HomeBoardView from '../components/HomeBoardView'
 
 export default {
   name: "home",
+  components: {
+    // HomeBoardView
+  },
   data() {
     return {
       notificationList : ""
@@ -82,8 +81,6 @@ export default {
       };
     },
   },
-  components: {
-    HomeBoardView
-  }
+
 };
 </script>

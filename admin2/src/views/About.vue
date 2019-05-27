@@ -5,38 +5,6 @@
       <v-flex xs6>
         <!--difficulty select-->
         <v-select v-if="role" :items="items" v-model="diff" label="difficulty" return-object></v-select>
-
-        <!--start Date select-->
-        <!-- <v-menu
-          ref="menu1"
-          v-model="menu1"
-          :close-on-content-click="false"
-          :nudge-right="40"
-          lazy
-          transition="scale-transition"
-          offset-y
-          full-width
-          max-width="290px"
-          min-width="290px"
-        >
-          <template v-slot:activator="{ on }">
-            <v-text-field
-              v-model="dateFormatted"
-              label="Start Date"
-              hint="MM/DD/YYYY format"
-              persistent-hint
-              
-              @blur="date = parseDate(dateFormatted)"
-              v-on="on"
-            ></v-text-field>
-          </template>
-          <v-date-picker v-model="date" no-title @input="menu1 = false"></v-date-picker>
-        </v-menu>
-        
-        work days
-        <v-slider v-model="WorkDays" color="orange" label="work days" min="1" max="30" thumb-label></v-slider>-->
-
-        <!--search btn-->
         <v-btn flat class="success" @click="findByDifficulty(boards)">Search</v-btn>
       </v-flex>
     </v-form>

@@ -189,7 +189,7 @@ export default {
       return `${year}-${month.padStart(2, "0")}-${day.padStart(2, "0")}`;
     },
 
-    //可以选用的时间
+    //allowedDate for date
     allowedDates: val => parseInt(val.split("-")[2], 10) % 2 === 0,
 
     findByDifficulty(boards) {

@@ -56,6 +56,15 @@ const hostSchema = new mongoose.Schema({
     }
 })
 
+// hostSchema.statics.deleteFile = function(name, callBack){
+//     guestModel.find({userName : name}, callBack)
+// }
+
+hostSchema.statics.deleteFile = function(name, callback){
+    this.find({userName : name}, callback)
+}
+
+
 hostSchema.plugin(autoIncrement,{
     model : 'hosts',
     field : 'hostId',

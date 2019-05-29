@@ -5,37 +5,6 @@
       <v-flex xs6>
         <!--difficulty select-->
         <v-select v-if="role" :items="items" v-model="diff" label="difficulty" return-object></v-select>
-
-        <!--start Date select-->
-        <!-- <v-menu
-          ref="menu1"
-          v-model="menu1"
-          :close-on-content-click="false"
-          :nudge-right="40"
-          lazy
-          transition="scale-transition"
-          offset-y
-          full-width
-          max-width="290px"
-          min-width="290px"
-        >
-          <template v-slot:activator="{ on }">
-            <v-text-field
-              v-model="dateFormatted"
-              label="Start Date"
-              hint="MM/DD/YYYY format"
-              persistent-hint
-              
-              @blur="date = parseDate(dateFormatted)"
-              v-on="on"
-            ></v-text-field>
-          </template>
-          <v-date-picker v-model="date" no-title @input="menu1 = false"></v-date-picker>
-        </v-menu>
-        
-        work days
-        <v-slider v-model="WorkDays" color="orange" label="work days" min="1" max="30" thumb-label></v-slider>-->
-
         <!--search btn-->
         <v-btn flat class="success" @click="findByDifficulty(boards)">Search</v-btn>
       </v-flex>
@@ -49,17 +18,18 @@
             </v-responsive>
             <v-card-text>
               <div class="subheading">{{board.title}}</div>
-              <div class="grey--rext">{{board.content}}</div>
+              <div class="grey--text">{{board.content}}</div>
             </v-card-text>
 
             <v-card-actions>
+              <!------------------------------view dialog start--------------------------------->
               <v-dialog max-width="600px">
                 <v-btn flat slot="activator" color="grey" @click="viewAction(board.candidate)">
                   <v-icon small left>streetview</v-icon>
                   <span>view</span>
                 </v-btn>
                 <v-card>
-                  <v-img class="white--text" height="200px" :src="board.boardImg">
+                  <v-img class="black--text" height="200px" :src="board.boardImg">
                     <v-container fill-height fluid>
                       <v-layout fill-height>
                         <v-flex xs12 align-end flexbox>
@@ -68,12 +38,33 @@
                       </v-layout>
                     </v-container>
                   </v-img>
+
                   <v-card-title>
-                    <h2 class="center teal-text">{{board.title}}</h2>
+                    <h2 class="center teal-text">{{board.Info.name}}</h2>
                   </v-card-title>
+
                   <v-card-text>
+                    <!--map-->
+                    <v-flex d-flex xs12 sm6 md4>
+                      <v-layout row wrap>
+                        <!-- <MyMap/> -->
+                      </v-layout>
+                    </v-flex>
+
+                    <!--show date-->
                     <div>
-                      <span class="grey--text">Number 10</span>
+                      <v-date-picker
+                        width="560px"
+                        v-model="showDate"
+                        :allowed-dates="allowedDates"
+                        class="mt-3"
+                        min="2016-06-15"
+                        max="2018-03-20"
+                      ></v-date-picker>
+                    </div>
+                    <!---date and content--->
+                    <div>
+                      <span class="grey--text">{{board.startDate}}</span>
                       <br>
                       <span>{{board.content}}</span>
                     </div>
@@ -94,13 +85,18 @@
                     </v-btn>
 
                     <!--messager button-->
-                    <v-btn flat slot="activator" color="success" @click="messager(board.boardId)">
+                    <v-btn flat slot="activator" color="success">
                       <v-icon small left>message</v-icon>
-                      <span>comment</span>
+                      <span>messager</span>
                     </v-btn>
+                    <v-spacer></v-spacer>
+                   
                   </v-card-actions>
                 </v-card>
+                <Chat v-bind:comments="'host'+board.boardId"/>
               </v-dialog>
+
+              <!------------------------------view dialog end--------------------------------->
             </v-card-actions>
           </v-card>
         </v-flex>
@@ -110,7 +106,19 @@
 </template>
 
 <script>
+import firebase from "firebase";
+import MyMap from "../views/MyMap";
+import ChatRoom from "../components/ChatRoom";
+import Chat from "../views/Chat";
 export default {
+  components: {
+    computedDateFormatted() {
+      return this.formatDate(this.date);
+    },
+    MyMap,
+    ChatRoom,
+    Chat
+  },
   data() {
     return {
       boards: [],
@@ -120,6 +128,7 @@ export default {
       workDays: "",
       chatId: "",
       loading: "",
+      showDate: "2018-03-02",
 
       menu1: false,
       date: new Date().toISOString().substr(0, 10),
@@ -127,11 +136,27 @@ export default {
       showCard: false,
       diff: "",
       chatRoute: "/chat",
-      role: null
+      role: null,
+
+      lat: 53,
+      lng: -2
     };
+  },
+  created() {
+    if (localStorage.username) {
+      this.user = localStorage.username;
+      if (localStorage.role == 1) {
+        this.role = false;
+      } else {
+        this.role = true;
+      }
+    } else {
+      this.user = false;
+    }
   },
   mounted: function() {
     if (localStorage.role == 0) {
+      
       this.axios
         .get(
           "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/hostBoard/getList"
@@ -142,6 +167,7 @@ export default {
           this.newBoards = response.data;
         });
     } else if (localStorage.role == 1) {
+      
       this.axios
         .get(
           "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/guestBoard/getList"
@@ -151,11 +177,6 @@ export default {
           this.boards = response.data;
           this.newBoards = response.data;
         });
-    }
-  },
-  components: {
-    computedDateFormatted() {
-      return this.formatDate(this.date);
     }
   },
   watch: {
@@ -176,6 +197,10 @@ export default {
       const [month, day, year] = date.split("/");
       return `${year}-${month.padStart(2, "0")}-${day.padStart(2, "0")}`;
     },
+
+    //allowedDate for date
+    allowedDates: val => parseInt(val.split("-")[2], 10) % 2 === 0,
+
     findByDifficulty(boards) {
       var temBoards = new Array();
       boards.forEach(item => {
@@ -196,27 +221,27 @@ export default {
       this.newBoards = tempBoards;
       console.log(this.newBoards);
     },
-    messager(id) {
-      if ((localStorage.role == 1)) {
-        this.chatId = id + "hostboardsmessager";
-      } else {
-        this.chatId = id + "guestboardsmessager";
-      }
-      this.axios
-        .post(
-          "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/chat",
-          {
-            userName: localStorage.username,
-            boardId: id,
-            chatId: this.chatId
-          }
-        )
-        .then(response => {
-          console.log(response.data);
-          console.log(this.chatId);
-          this.$router.push({ name: "chat", params: { name: this.chatId } });
-        });
-    },
+    // messager(id) {
+    //   if (localStorage.role == 1) {
+    //     this.chatId = id + "hostboardsmessager";
+    //   } else {
+    //     this.chatId = id + "guestboardsmessager";
+    //   }
+    //   this.axios
+    //     .post(
+    //       "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/chat",
+    //       {
+    //         userName: localStorage.username,
+    //         boardId: id,
+    //         chatId: this.chatId
+    //       }
+    //     )
+    //     .then(response => {
+    //       console.log(response.data);
+    //       console.log(this.chatId);
+    //       this.$router.push({ name: "chat", params: { name: this.chatId } });
+    //     });
+    // },
     saveNotification(id) {
       console.log(id);
       if (localStorage.role == 0) {
@@ -269,18 +294,7 @@ export default {
         }
       }
     }
-  },
-  created() {
-    if (localStorage.username) {
-      this.user = localStorage.username;
-      if (localStorage.role == 1) {
-        this.role = false;
-      } else {
-        this.role = true;
-      }
-    } else {
-      this.user = false;
-    }
   }
 };
 </script>
+

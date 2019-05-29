@@ -10,6 +10,7 @@ import Chat from './views/Chat'
 import Welcome from './views/Welcome'
 import FileUpload from './views/FileUpload'
 import MyBoards from './views/MyBoards'
+import MyMap from './views/MyMap'
 
 Vue.use(Router)
 
@@ -98,6 +99,11 @@ const router =  new Router({
       meta:{
         requiresAuth: true
       },
+    },
+    {
+      path: '/mymap',
+      name: 'mymap',
+      component: MyMap
     }
   ]
 })

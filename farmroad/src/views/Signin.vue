@@ -67,6 +67,7 @@ export default {
       show2: true,
       show3: false,
       show4: false,
+      profile: '',
 
       hostRoute: "/hostsign",
       guestRoute: "/guestsign"
@@ -82,6 +83,7 @@ export default {
             {
               userName: this.username,
               password: this.password,
+              profile: this.profile,
               radio: parseInt(this.radios)
             }
           )
@@ -91,8 +93,9 @@ export default {
             } else {
               localStorage.username = this.username;
               localStorage.role = parseInt(this.radios);
+
               this.$store.dispatch("UserSignin");
-              this.$router.push({name: 'home'})
+              this.$router.push({name: 'welcome'})
               location.reload()
               
             }

@@ -42,6 +42,25 @@ router.get('/getMsg/:id', function(req, res, next){
     });
 })
 
+//hostBoard 게시글 금지시키기 
+router.get('/updateHost/ban/:id', function(req, res, next){
+    hostBoard.update({boardId : req.params.id}, {$set : {report : true}}, function(err){
+        if(err){
+            return res.json(err);
+        };
+        return res.json({state : 0, msg : "update HostBoard ban is success"});
+    });
+})
+//hostBoard 게시글 금지 해제 시키기 
+router.get('/updateHost/able/:id', function(req, res, next){
+    hostBoard.update({boardId : req.params.id}, {$set : {report : false}}, function(err){
+        if(err){
+            return res.json(err);
+        };
+        return res.json({state : 0, msg : "update HostBoard able is success"});
+    });
+})
+
 var newFile = "";
 
 var storage = multer.diskStorage({

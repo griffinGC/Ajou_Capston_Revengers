@@ -1,13 +1,16 @@
 <template>
-  <v-layout row>
-    <v-flex xs12 sm6 offset-sm3>
+  <v-layout>
+    <v-flex>
       <v-card>
+        <v-card-title>
+          comments
+        </v-card-title>
         <v-list two-line class="messages" v-chat-scroll>
           <template v-for="(msg) in messages">
             <v-list-tile :key="msg.id" avatar>
               <!-- <v-list-tile-avatar>
                 <img :src="user.avatar">
-              </v-list-tile-avatar>-->
+              </v-list-tile-avatar> -->
               <v-list-tile-content>
                 <span class="grey--text">{{msg.name}}:</span>
                 <span>{{msg.content}}</span>
@@ -16,13 +19,13 @@
           </template>
         </v-list>
         <v-divider></v-divider>
+
         <!--submit-->
         <form @submit.prevent="addMessage" >
           <v-text-field label="new message" v-model="newMessage" :rules="newMessageRules" required></v-text-field>
         </form>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="success" flat @click="back()">back</v-btn>
         </v-card-actions>
       </v-card>
     </v-flex>
@@ -40,10 +43,12 @@ export default {
       newMessageRules: [v => !!v || "Message is required"]
     };
   },
-  props: ["name"],
+  props:{
+    comments: String
+  },
   created() {
-    console.log(this.name);
-    let ref = db.collection(this.name).orderBy("timestamp");
+    console.log(this.comments);
+    let ref = db.collection(this.comments).orderBy("timestamp");
 
     ref.onSnapshot(snapshot => {
       snapshot.docChanges().forEach(change => {
@@ -63,7 +68,7 @@ export default {
     addMessage() {
       console.log(this.newMessage, localStorage.username, Date.now());
       if (this.newMessage) {
-        db.collection(this.name)
+        db.collection(this.comments)
           .add({
             content: this.newMessage,
             name: localStorage.username,
@@ -76,9 +81,6 @@ export default {
       } else {
       }
     },
-    back(){
-      this.$router.go(-1)
-    }
   }
 };
 </script>

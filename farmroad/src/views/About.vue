@@ -47,8 +47,7 @@
                     <!--map-->
                     <v-flex d-flex xs12 sm6 md4>
                       <v-layout row wrap>
-                       <!-- <MyMap/> -->
-                       <MyMap/>
+                        <!-- <MyMap/> -->
                       </v-layout>
                     </v-flex>
 
@@ -86,13 +85,17 @@
                     </v-btn>
 
                     <!--messager button-->
-                    <v-btn flat slot="activator" color="success" @click="messager(board.boardId)">
+                    <v-btn flat slot="activator" color="success">
                       <v-icon small left>message</v-icon>
-                      <span>comment</span>
+                      <span>messager</span>
                     </v-btn>
+                    <v-spacer></v-spacer>
+                   
                   </v-card-actions>
                 </v-card>
+                <Chat v-bind:comments="'host'+board.boardId"/>
               </v-dialog>
+
               <!------------------------------view dialog end--------------------------------->
             </v-card-actions>
           </v-card>
@@ -105,12 +108,16 @@
 <script>
 import firebase from "firebase";
 import MyMap from "../views/MyMap";
+import ChatRoom from "../components/ChatRoom";
+import Chat from "../views/Chat";
 export default {
   components: {
     computedDateFormatted() {
       return this.formatDate(this.date);
     },
-    MyMap
+    MyMap,
+    ChatRoom,
+    Chat
   },
   data() {
     return {
@@ -149,6 +156,7 @@ export default {
   },
   mounted: function() {
     if (localStorage.role == 0) {
+      
       this.axios
         .get(
           "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/hostBoard/getList"
@@ -159,6 +167,7 @@ export default {
           this.newBoards = response.data;
         });
     } else if (localStorage.role == 1) {
+      
       this.axios
         .get(
           "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/guestBoard/getList"
@@ -212,27 +221,27 @@ export default {
       this.newBoards = tempBoards;
       console.log(this.newBoards);
     },
-    messager(id) {
-      if (localStorage.role == 1) {
-        this.chatId = id + "hostboardsmessager";
-      } else {
-        this.chatId = id + "guestboardsmessager";
-      }
-      this.axios
-        .post(
-          "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/chat",
-          {
-            userName: localStorage.username,
-            boardId: id,
-            chatId: this.chatId
-          }
-        )
-        .then(response => {
-          console.log(response.data);
-          console.log(this.chatId);
-          this.$router.push({ name: "chat", params: { name: this.chatId } });
-        });
-    },
+    // messager(id) {
+    //   if (localStorage.role == 1) {
+    //     this.chatId = id + "hostboardsmessager";
+    //   } else {
+    //     this.chatId = id + "guestboardsmessager";
+    //   }
+    //   this.axios
+    //     .post(
+    //       "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/chat",
+    //       {
+    //         userName: localStorage.username,
+    //         boardId: id,
+    //         chatId: this.chatId
+    //       }
+    //     )
+    //     .then(response => {
+    //       console.log(response.data);
+    //       console.log(this.chatId);
+    //       this.$router.push({ name: "chat", params: { name: this.chatId } });
+    //     });
+    // },
     saveNotification(id) {
       console.log(id);
       if (localStorage.role == 0) {
@@ -289,14 +298,3 @@ export default {
 };
 </script>
 
-<style>
-.google-map {
-  width: 300px;
-  height: 300px;
-  margin: 0;
-  background-attachment: #fff;
-  top: 0;
-  left: 0;
-  z-index: -1;
-}
-</style>

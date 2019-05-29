@@ -51,6 +51,9 @@ const hostBoardSchema = new mongoose.Schema({
     },
     longtitude : {
         type : Number
+    },
+    report : {
+        type : Boolean
     }
 })
 

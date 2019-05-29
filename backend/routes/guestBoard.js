@@ -90,6 +90,7 @@ router.post('/createBoard',upload.single('img'), function(req, res, next){
         writeBoard.category = req.body.category;
         writeBoard.preferLocation = req.body.preferLocation;
         writeBoard.candidate = req.body.candidate;
+        writeBoard.report = false;
 
         let canNumber = "";
         if(req.body.candidate){

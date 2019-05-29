@@ -47,6 +47,9 @@ const guestBoardSchema = new mongoose.Schema({
     },
     candidateNumber : {
         type : Number
+    },
+    report : {
+        type : Boolean
     }
 })
 

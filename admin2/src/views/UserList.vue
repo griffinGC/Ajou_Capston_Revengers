@@ -165,6 +165,7 @@ export default {
         console.log(response);
       })
       }
+      location.reload();
     },
     updateToAble(t){
       let update = t.userName;
@@ -184,6 +185,7 @@ export default {
         console.log(response);
       })
       }
+    location.reload();
     }
   },
 

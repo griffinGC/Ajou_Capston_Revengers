@@ -36,7 +36,7 @@
         </v-flex>
 
         <!--name-->
-        <v-text-field label="name" v-model="myName" prepend-icon="account_box"></v-text-field>
+        <v-text-field label="Name" v-model="myName" prepend-icon="account_box"></v-text-field>
 
         <!--password-->
         <v-text-field
@@ -63,11 +63,11 @@
         ></v-text-field>
 
         <!--phone-->
-        <v-text-field v-model="phone" label="phone" required prepend-icon="phone"></v-text-field>
+        <v-text-field v-model="phone" label="Phone" required prepend-icon="phone"></v-text-field>
         <v-slider
           v-model="age"
           :rules="rules"
-          label="age"
+          label="Age"
           step="1"
           thumb-label="always"
           ticks
@@ -86,8 +86,30 @@
         ></v-select>
 
         <!--ability-->
-        <v-text-field v-model="ability" label="ability" required prepend-icon="list_alt"></v-text-field>
-
+        <!-- <v-text-field v-model="ability" label="ability" required prepend-icon="list_alt"></v-text-field> -->
+        
+        <div class="grey--text text--darken-1">Ability</div>
+        <v-layout>
+          <v-flex xs12 xs1>
+            <v-flex xs12 xs2 d-flex>
+            <v-flex xs2 xs1><v-checkbox v-model="selected" hide-details label="요리를 잘해요" value="cook">console.log(cook)</v-checkbox></v-flex>
+            <v-flex xs2 xs1><v-checkbox v-model="selected" hide-details label="미용 잘해요" value="beauty">console.log(beauty)</v-checkbox></v-flex>
+            <v-flex xs2 xs1><v-checkbox v-model="selected" hide-details label="애를 잘돌봐요" value="baby">console.log(baby)</v-checkbox></v-flex>
+            <v-flex xs2 xs1><v-checkbox v-model="selected" hide-details label="청소를 잘해요" value="clean">console.log(clean)</v-checkbox></v-flex>
+            <v-flex xs2 xs1><v-checkbox v-model="selected" hide-details label="운전을 잘해요" value="drive">console.log(drive)</v-checkbox></v-flex>
+            <v-flex xs2 xs1><v-checkbox v-model="selected" hide-details label="도배를 잘해요" value="paper">console.log(paper)</v-checkbox></v-flex>
+            </v-flex>
+            <v-flex xs12 xs2 d-flex>
+            <v-flex xs2 xs1><v-checkbox v-model="selected" hide-details label="짐나르는거 잘해요" value="carry">console.log(carry)</v-checkbox></v-flex>
+            <v-flex xs2 xs1><v-checkbox v-model="selected" hide-details label="노래를 잘해요" value="sing">console.log(sing)</v-checkbox></v-flex>
+            <v-flex xs2 xs1><v-checkbox v-model="selected" hide-details label="말동부를 잘해요" value="talk">console.log(talk)</v-checkbox></v-flex>
+            <v-flex xs2 xs1><v-checkbox v-model="selected" hide-details label="컴퓨터를 잘다뤄요" value="comp">console.log(comp)</v-checkbox></v-flex>
+            <v-flex xs2 xs1><v-checkbox v-model="selected" hide-details label="농기계를 잘다뤄요" value="machine">console.log(machine)</v-checkbox></v-flex>
+            <v-flex xs2 xs1><v-checkbox v-model="selected" hide-details label="농사경험이 있어요" value="farm">console.log(farm)</v-checkbox></v-flex>
+            </v-flex>
+            <div>Selected: {{selected}}</div>
+          </v-flex>
+        </v-layout>
         <!--sign up btn-->
         <v-btn :disabled="!valid" left color="success" @click="validate">Sign Up</v-btn>
       </v-form>
@@ -99,6 +121,7 @@
       <!--back btn-->
       <v-btn color="green darken-1" flat router :to="{name: 'Signin'}">Back</v-btn>
     </v-card-actions>
+    
   </v-card>
 </template>
 
@@ -106,6 +129,7 @@
 export default {
   data() {
     return {
+      selected: [],
       username: "",
       usernameRules: [
         v => !!v || "Name is required",
@@ -146,7 +170,7 @@ export default {
       imageName: "",
       imageUrl: "",
       imageFile: ""
-    };
+    };  
   },
   methods: {
     validate() {
@@ -225,7 +249,19 @@ export default {
         this.imageFile = "";
         this.imageUrl = "";
       }
-    }
+    },
+    send: function () {
+      var formData = {
+        stuff: {
+          selected: this.selected
+        }
+      }
+      axios.post("http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/selected", formData).then(response => {
+        console.log(response)
+      }).catch(e => {
+        console.log(e)
+      })
+    },
   }
 };
 </script>

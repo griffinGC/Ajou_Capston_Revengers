@@ -131,6 +131,7 @@ app.use('/imageUpload', imageRouter);
 //신청자 승인 거부 상태 알림 라우터
 app.use('/notifyState',stateRouter);
 
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));

@@ -110,6 +110,7 @@ import firebase from "firebase";
 import MyMap from "../views/MyMap";
 import ChatRoom from "../components/ChatRoom";
 import Chat from "../views/Chat";
+import UserInfoVue from './UserInfo.vue';
 export default {
   components: {
     computedDateFormatted() {
@@ -221,27 +222,51 @@ export default {
       this.newBoards = tempBoards;
       console.log(this.newBoards);
     },
-    // messager(id) {
-    //   if (localStorage.role == 1) {
-    //     this.chatId = id + "hostboardsmessager";
-    //   } else {
-    //     this.chatId = id + "guestboardsmessager";
-    //   }
-    //   this.axios
-    //     .post(
-    //       "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/chat",
-    //       {
-    //         userName: localStorage.username,
-    //         boardId: id,
-    //         chatId: this.chatId
-    //       }
-    //     )
-    //     .then(response => {
-    //       console.log(response.data);
-    //       console.log(this.chatId);
-    //       this.$router.push({ name: "chat", params: { name: this.chatId } });
-    //     });
-    // },
+     sortBoard(index) {
+       var tempBoards = new Array();
+       index.forEach(Boards=>{
+         Boards.count = 0;
+         if(Boards.Info.ability==="clean"){
+           ++Boards.count;
+         }else if(Boards.Info.ability==="cook"){
+           ++Boards.count;
+         }else if(Boards.Info.ability==="beauty"){
+           ++Boards.count;
+         }else if(Boards.Info.ability==="baby"){
+           ++Boards.count;
+         }else if(Boards.Info.ability==="drive"){
+           ++Boards.count;
+         }else if(Boards.Info.ability==="paper"){
+           ++Boards.count;
+         }else if(Boards.Info.ability==="carry"){
+           ++Boards.count;
+         }else if(Boards.Info.ability==="sing"){
+           ++Boards.count;
+         }else if(Boards.Info.ability==="talk"){
+           ++Boards.count;
+         }else if(Boards.Info.ability==="comp"){
+           ++Boards.count;
+         }else if(Boards.Info.ability==="machine"){
+           ++Boards.count;
+         }else if(Boards.Info.ability==="farm"){
+           ++Boards.count;
+         }
+         
+
+         if(boards.count !== 0)
+         {
+           tempBoards.push(Boards);
+         }
+
+         Boards.count.sort(function(a,b){
+           return b-a;
+         });
+
+         this.newBoards = tempBoards;
+       })
+
+
+     },
     saveNotification(id) {
       console.log(id);
       if (localStorage.role == 0) {

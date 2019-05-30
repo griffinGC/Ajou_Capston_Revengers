@@ -15,7 +15,7 @@ const hostBoardSchema = new mongoose.Schema({
         type : String,
         required : true
     },
-    hostInfo : {
+    Info : {
         type : Object,
     },
     boardImg : {
@@ -51,6 +51,9 @@ const hostBoardSchema = new mongoose.Schema({
     },
     longtitude : {
         type : Number
+    },
+    report : {
+        type : Boolean
     }
 })
 

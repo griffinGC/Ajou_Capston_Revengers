@@ -50,6 +50,10 @@ const guestSchema = new mongoose.Schema({
     }
 })
 
+guestSchema.statics.deleteFile = function(name, callback){
+    this.find({userName : name}, callback);
+}
+
 guestSchema.plugin(autoIncrement,{
     model : 'guests',
     field : 'guestId',

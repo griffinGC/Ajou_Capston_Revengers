@@ -20,8 +20,7 @@ const hostSchema = new mongoose.Schema({
         type : String
     },
     profileImg :{
-        type : String,
-        
+        type : String,  
     },
     gender : {
         type : String
@@ -56,6 +55,15 @@ const hostSchema = new mongoose.Schema({
         type : Boolean
     }
 })
+
+// hostSchema.statics.deleteFile = function(name, callBack){
+//     guestModel.find({userName : name}, callBack)
+// }
+
+hostSchema.statics.deleteFile = function(name, callback){
+    this.find({userName : name}, callback)
+}
+
 
 hostSchema.plugin(autoIncrement,{
     model : 'hosts',

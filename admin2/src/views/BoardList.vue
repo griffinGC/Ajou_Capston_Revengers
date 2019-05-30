@@ -1,14 +1,16 @@
 <template>
-  <v-layout row>
-    <div>
-      <span><v-btn color="success">Guest 게시판</v-btn></span>
-      <span><v-btn color="info">Host 게시판</v-btn></span>
-    </div>
-    <v-flex xs12 sm6 offset-sm3>
-      <v-card>
+  <v-layout column>
+    <v-flex sm12>
+      <div>
+      <v-btn color="success" @click="clickTrue()">Guest 글 정보</v-btn>
+      <v-btn color="info" @click="clickFalse()">Host 글 정보</v-btn>
+      </div>
+    </v-flex>
+    <v-flex xs12 sm6>
+      <v-card v-if="guestShow">
         <v-toolbar color="indigo" dark>
           <!-- <v-toolbar-side-icon></v-toolbar-side-icon> -->
-          <v-toolbar-title>게스트 게시판 리스트</v-toolbar-title>
+          <v-toolbar-title>게스트 글 정보 </v-toolbar-title>
 
           <v-spacer></v-spacer>
 
@@ -19,38 +21,38 @@
 
         <v-list>
           <v-list-tile
-            v-for="user in guestUserList"
-            :key="user.id"
+            v-for="board in guestBoardList"
+            :key="board.id"
             avatar  
           >
             <v-list-tile-action>
-              <v-icon v-if="user.icon" color="pink">done</v-icon>
+              <v-icon v-if="board.icon" color="pink">done</v-icon>
             </v-list-tile-action>
 
             <v-list-tile-content>
-              <v-list-tile-title v-text="user.userName"></v-list-tile-title>
+              <v-list-tile-title v-text="board.userName"></v-list-tile-title>
             </v-list-tile-content>
 
             <v-list-tile-content>
-              <v-list-tile-title v-text="user.name"></v-list-tile-title>
+              <v-list-tile-title v-text="board.name"></v-list-tile-title>
             </v-list-tile-content>
 
-            <v-list-tile-avatar v-if="user.profileImg">
-              <img  :src="user.profileImg">
+            <v-list-tile-avatar v-if="board.profileImg">
+              <img  :src="board.profileImg">
             </v-list-tile-avatar>
             <v-icon v-else size="40px">person</v-icon>
 
-            <v-btn v-if="user.report === false" color="error" @click="updateToError(user)">게시글 정지 </v-btn>
-            <v-btn v-else color="success" @click="updateToAble(user)">게시글 해제 </v-btn>
+            <v-btn v-if="board.report === false" color="error" @click="updateToError(board)">계정 정지 </v-btn>
+            <v-btn v-else color="success" @click="updateToAble(board)">계정 해제 </v-btn>
 
           </v-list-tile>
         </v-list>
       </v-card>
 
-      <v-card>
+      <v-card v-else>
         <v-toolbar color="indigo" dark>
           <!-- <v-toolbar-side-icon></v-toolbar-side-icon> -->
-          <v-toolbar-title>호스트 게시판 리스트 </v-toolbar-title>
+          <v-toolbar-title>호스트 유저 정보 </v-toolbar-title>
 
           <v-spacer></v-spacer>
 
@@ -61,29 +63,29 @@
 
         <v-list>
           <v-list-tile
-            v-for="user in hostUserList"
-            :key="user.userName"
+            v-for="board in hostBoardList"
+            :key="board._id"
             avatar  
           >
-            <v-list-tile-action>
-              <v-icon v-if="user.icon" color="pink">done</v-icon>
+            <v-list-tile-action >
+              <v-icon v-if="board.icon" color="pink">done</v-icon>
             </v-list-tile-action>
 
             <v-list-tile-content>
-              <v-list-tile-title v-text="user.userName"></v-list-tile-title>
+              <v-list-tile-title v-text="board.userName"></v-list-tile-title>
             </v-list-tile-content>
 
             <v-list-tile-content>
-              <v-list-tile-title v-text="user.name"></v-list-tile-title>
+              <v-list-tile-title v-text="board.name"></v-list-tile-title>
             </v-list-tile-content>
 
-            <v-list-tile-avatar v-if="user.profileImg">
-              <img  :src="user.profileImg">
+            <v-list-tile-avatar v-if="board.profileImg">
+              <img  :src="board.profileImg">
             </v-list-tile-avatar>
             <v-icon v-else size="40px">person</v-icon>
 
-            <v-btn v-if="user.report === false" color="error" @click="updateToError(user)">게시글 정지 </v-btn>
-            <v-btn v-else color="success" @click="updateToAble(user)">게시글 해제 </v-btn>
+            <v-btn v-if="user.report === false" color="error" @click="updateToError(user)">계정 정지 </v-btn>
+            <v-btn color="success" @click="updateToAble(user)">계정 해제 </v-btn>
           </v-list-tile>
         </v-list>
       </v-card>
@@ -96,7 +98,7 @@
 <script>
 
 export default {
-  name: "boardList",
+  name: "reportUser",
   components: {
     // HomeBoardView
   },
@@ -104,7 +106,8 @@ export default {
       return {
         guestBoardList: [],
         hostBoardList: [],
-        reportId : ""
+        reportId : "",
+        guestShow : true
       }
     },
   created(){
@@ -118,9 +121,19 @@ export default {
     this.getHostList();
   },
   methods:{
+    clickTrue(){
+      if(this.guestShow === false){
+        this.guestShow = true;
+      }
+    },
+    clickFalse(){
+      if(this.guestShow === true){
+        this.guestShow = false;
+      }
+    },
     getGuestList(){
       this.axios
-        .get(`http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/user/getInfo/guest`)
+        .get(`http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/guestBoard/getList`)
         .then(response => {
           this.guestBoardList = response.data;
           console.log(this.guestBoardList);
@@ -128,7 +141,7 @@ export default {
     },
     getHostList(){
       this.axios
-        .get(`http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/user/getInfo/host`)
+        .get(`http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/hostBoard/getList`)
         .then(response => {
           this.hostBoardList = response.data;
           console.log(this.hostBoardList);

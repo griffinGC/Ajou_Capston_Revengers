@@ -20,22 +20,34 @@ const router =  new Router({
     {
       path : '/userList',
       name : 'userList',
-      component: UserList
+      component: UserList,
+      meta:{
+        requiresAuth: true
+      },
     },
     {
       path : '/reportUser',
       name : 'reportUser',
-      component: ReportUser
+      component: ReportUser,
+      meta:{
+        requiresAuth: true
+      },
     },
     {
       path : '/boardList',
       name : 'boardList',
-      component: BoardList
+      component: BoardList,
+      meta:{
+        requiresAuth: true
+      },
     },
     {
       path : '/reportBoard',
       name : 'reportBoard',
-      component: ReportBoard
+      component: ReportBoard,
+      meta:{
+        requiresAuth: true
+      },
     },
     {
       path: '/signin',

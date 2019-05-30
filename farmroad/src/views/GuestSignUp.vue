@@ -91,28 +91,28 @@
         <div class="grey--text text--darken-1">Ability</div>
         <v-layout row wrap>
           <v-item-group>
-            <v-checkbox v-model="selected" label="요리를 잘해요" value="cook"></v-checkbox>
-            <v-checkbox v-model="selected" label="미용 잘해요" value="beauty"></v-checkbox>
+            <v-checkbox v-model="ability" label="요리를 잘해요" value="cook"></v-checkbox>
+            <v-checkbox v-model="ability" label="미용 잘해요" value="beauty"></v-checkbox>
           </v-item-group>
            <v-item-group>
-            <v-checkbox v-model="selected" label="애를 잘돌봐요" value="baby"></v-checkbox>
-            <v-checkbox v-model="selected" label="청소를 잘해요" value="clean"></v-checkbox>
+            <v-checkbox v-model="ability" label="애를 잘돌봐요" value="baby"></v-checkbox>
+            <v-checkbox v-model="ability" label="청소를 잘해요" value="clean"></v-checkbox>
           </v-item-group>
             <v-item-group>
-            <v-checkbox v-model="selected" label="운전을 잘해요" value="drive"></v-checkbox>
-            <v-checkbox v-model="selected" label="도배를 잘해요" value="paper"></v-checkbox>
+            <v-checkbox v-model="ability" label="운전을 잘해요" value="drive"></v-checkbox>
+            <v-checkbox v-model="ability" label="도배를 잘해요" value="paper"></v-checkbox>
           </v-item-group>
             <v-item-group>
-            <v-checkbox v-model="selected" label="짐나르는거 잘해요" value="carry"></v-checkbox>
-            <v-checkbox v-model="selected" label="노래를 잘해요" value="sing"></v-checkbox>
+            <v-checkbox v-model="ability" label="짐나르는거 잘해요" value="carry"></v-checkbox>
+            <v-checkbox v-model="ability" label="노래를 잘해요" value="sing"></v-checkbox>
           </v-item-group>
           <v-item-group>
-            <v-checkbox v-model="selected" label="말동부를 잘해요" value="talk"></v-checkbox>
-            <v-checkbox v-model="selected" label="컴퓨터를 잘다뤄요" value="comp"></v-checkbox>
+            <v-checkbox v-model="ability" label="말동부를 잘해요" value="talk"></v-checkbox>
+            <v-checkbox v-model="ability" label="컴퓨터를 잘다뤄요" value="comp"></v-checkbox>
           </v-item-group>
           <v-item-group>
-            <v-checkbox v-model="selected" label="농기계를 잘다뤄요" value="machine"></v-checkbox>
-            <v-checkbox v-model="selected" label="농사경험이 있어요" value="farm"></v-checkbox>
+            <v-checkbox v-model="ability" label="농기계를 잘다뤄요" value="machine"></v-checkbox>
+            <v-checkbox v-model="ability" label="농사경험이 있어요" value="farm"></v-checkbox>
           </v-item-group>
         </v-layout>
         
@@ -135,7 +135,7 @@
 export default {
   data() {
     return {
-      selected: [],
+      ability: [],
       username: "",
       usernameRules: [
         v => !!v || "Name is required",

@@ -87,25 +87,109 @@
 
         <!--ability-->
         <!-- <v-text-field v-model="ability" label="ability" required prepend-icon="list_alt"></v-text-field> -->
-        
+
         <div class="grey--text text--darken-1">Ability</div>
         <v-layout>
           <v-flex xs12 xs1>
             <v-flex xs12 xs2 d-flex>
-            <v-flex xs2 xs1><v-checkbox v-model="selected" hide-details label="요리를 잘해요" value="cook">console.log(cook)</v-checkbox></v-flex>
-            <v-flex xs2 xs1><v-checkbox v-model="selected" hide-details label="미용 잘해요" value="beauty">console.log(beauty)</v-checkbox></v-flex>
-            <v-flex xs2 xs1><v-checkbox v-model="selected" hide-details label="애를 잘돌봐요" value="baby">console.log(baby)</v-checkbox></v-flex>
-            <v-flex xs2 xs1><v-checkbox v-model="selected" hide-details label="청소를 잘해요" value="clean">console.log(clean)</v-checkbox></v-flex>
-            <v-flex xs2 xs1><v-checkbox v-model="selected" hide-details label="운전을 잘해요" value="drive">console.log(drive)</v-checkbox></v-flex>
-            <v-flex xs2 xs1><v-checkbox v-model="selected" hide-details label="도배를 잘해요" value="paper">console.log(paper)</v-checkbox></v-flex>
+              <v-flex xs2 xs1>
+                <v-checkbox
+                  v-model="selected"
+                  hide-details
+                  label="요리를 잘해요"
+                  value="cook"
+                >console.log(cook)</v-checkbox>
+              </v-flex>
+              <v-flex xs2 xs1>
+                <v-checkbox
+                  v-model="selected"
+                  hide-details
+                  label="미용 잘해요"
+                  value="beauty"
+                >console.log(beauty)</v-checkbox>
+              </v-flex>
+              <v-flex xs2 xs1>
+                <v-checkbox
+                  v-model="selected"
+                  hide-details
+                  label="애를 잘돌봐요"
+                  value="baby"
+                >console.log(baby)</v-checkbox>
+              </v-flex>
+              <v-flex xs2 xs1>
+                <v-checkbox
+                  v-model="selected"
+                  hide-details
+                  label="청소를 잘해요"
+                  value="clean"
+                >console.log(clean)</v-checkbox>
+              </v-flex>
+              <v-flex xs2 xs1>
+                <v-checkbox
+                  v-model="selected"
+                  hide-details
+                  label="운전을 잘해요"
+                  value="drive"
+                >console.log(drive)</v-checkbox>
+              </v-flex>
+              <v-flex xs2 xs1>
+                <v-checkbox
+                  v-model="selected"
+                  hide-details
+                  label="도배를 잘해요"
+                  value="paper"
+                >console.log(paper)</v-checkbox>
+              </v-flex>
             </v-flex>
             <v-flex xs12 xs2 d-flex>
-            <v-flex xs2 xs1><v-checkbox v-model="selected" hide-details label="짐나르는거 잘해요" value="carry">console.log(carry)</v-checkbox></v-flex>
-            <v-flex xs2 xs1><v-checkbox v-model="selected" hide-details label="노래를 잘해요" value="sing">console.log(sing)</v-checkbox></v-flex>
-            <v-flex xs2 xs1><v-checkbox v-model="selected" hide-details label="말동부를 잘해요" value="talk">console.log(talk)</v-checkbox></v-flex>
-            <v-flex xs2 xs1><v-checkbox v-model="selected" hide-details label="컴퓨터를 잘다뤄요" value="comp">console.log(comp)</v-checkbox></v-flex>
-            <v-flex xs2 xs1><v-checkbox v-model="selected" hide-details label="농기계를 잘다뤄요" value="machine">console.log(machine)</v-checkbox></v-flex>
-            <v-flex xs2 xs1><v-checkbox v-model="selected" hide-details label="농사경험이 있어요" value="farm">console.log(farm)</v-checkbox></v-flex>
+              <v-flex xs2 xs1>
+                <v-checkbox
+                  v-model="selected"
+                  hide-details
+                  label="짐나르는거 잘해요"
+                  value="carry"
+                >console.log(carry)</v-checkbox>
+              </v-flex>
+              <v-flex xs2 xs1>
+                <v-checkbox
+                  v-model="selected"
+                  hide-details
+                  label="노래를 잘해요"
+                  value="sing"
+                >console.log(sing)</v-checkbox>
+              </v-flex>
+              <v-flex xs2 xs1>
+                <v-checkbox
+                  v-model="selected"
+                  hide-details
+                  label="말동부를 잘해요"
+                  value="talk"
+                >console.log(talk)</v-checkbox>
+              </v-flex>
+              <v-flex xs2 xs1>
+                <v-checkbox
+                  v-model="selected"
+                  hide-details
+                  label="컴퓨터를 잘다뤄요"
+                  value="comp"
+                >console.log(comp)</v-checkbox>
+              </v-flex>
+              <v-flex xs2 xs1>
+                <v-checkbox
+                  v-model="selected"
+                  hide-details
+                  label="농기계를 잘다뤄요"
+                  value="machine"
+                >console.log(machine)</v-checkbox>
+              </v-flex>
+              <v-flex xs2 xs1>
+                <v-checkbox
+                  v-model="selected"
+                  hide-details
+                  label="농사경험이 있어요"
+                  value="farm"
+                >console.log(farm)</v-checkbox>
+              </v-flex>
             </v-flex>
             <div>Selected: {{selected}}</div>
           </v-flex>
@@ -121,7 +205,6 @@
       <!--back btn-->
       <v-btn color="green darken-1" flat router :to="{name: 'Signin'}">Back</v-btn>
     </v-card-actions>
-    
   </v-card>
 </template>
 
@@ -170,7 +253,7 @@ export default {
       imageName: "",
       imageUrl: "",
       imageFile: ""
-    };  
+    };
   },
   methods: {
     validate() {
@@ -183,9 +266,10 @@ export default {
       formData.append("phone", this.phone);
       formData.append("age", this.age);
       formData.append("gender", this.select);
-      formData.append("ability", this.ability);
+      formData.append("ability", JSON.stringify(this.selected));
       if (this.$refs.form.validate()) {
         this.snackbar = true;
+        console.log(this.selected);
         this.axios
           .post(
             "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/guestSignUp/guest",
@@ -201,8 +285,9 @@ export default {
             if (response.data.state == 0) {
               localStorage.username = this.username;
               localStorage.role = 0;
-              this.$router.push("/");
-              location.reload();
+              console.log(formData.forEach);
+              // this.$router.push("/");
+              // location.reload();
             } else {
               console.log(response.data.msg);
             }
@@ -249,19 +334,7 @@ export default {
         this.imageFile = "";
         this.imageUrl = "";
       }
-    },
-    send: function () {
-      var formData = {
-        stuff: {
-          selected: this.selected
-        }
-      }
-      axios.post("http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/selected", formData).then(response => {
-        console.log(response)
-      }).catch(e => {
-        console.log(e)
-      })
-    },
+    }
   }
 };
 </script>

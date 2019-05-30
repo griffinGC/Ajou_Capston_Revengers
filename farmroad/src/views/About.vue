@@ -90,7 +90,6 @@
                       <span>messager</span>
                     </v-btn>
                     <v-spacer></v-spacer>
-                   
                   </v-card-actions>
                 </v-card>
                 <Chat v-bind:comments="'host'+board.boardId"/>
@@ -135,7 +134,7 @@ export default {
       showCard: false,
       diff: "",
       chatRoute: "/chat",
-      role: null,
+      role: null
     };
   },
   created() {
@@ -152,7 +151,6 @@ export default {
   },
   mounted: function() {
     if (localStorage.role == 0) {
-      
       this.axios
         .get(
           "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/hostBoard/getList"
@@ -160,10 +158,16 @@ export default {
         .then(response => {
           console.log(response.data);
           this.boards = response.data;
-          this.newBoards = response.data;
+          //check if the board is baned
+          var tmp = new Array();
+          this.boards.forEach(item => {
+            if (!item.report) {
+              tmp.push(item);
+            }
+          });
+          this.newBoards = tmp;
         });
     } else if (localStorage.role == 1) {
-      
       this.axios
         .get(
           "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/guestBoard/getList"
@@ -171,7 +175,13 @@ export default {
         .then(response => {
           console.log(response.data);
           this.boards = response.data;
-          this.newBoards = response.data;
+          var tmp = new Array();
+          this.boards.forEach(item => {
+            if (!item.report) {
+              tmp.push(item);
+            }
+          });
+          this.newBoards = tmp;
         });
     }
   },

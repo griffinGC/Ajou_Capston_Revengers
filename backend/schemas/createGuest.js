@@ -29,7 +29,7 @@ const guestSchema = new mongoose.Schema({
         type : Number
     },
     ability : {
-        type : String
+        type : Array
     },
     phone : {
         type : String,
@@ -44,6 +44,9 @@ const guestSchema = new mongoose.Schema({
     },
     role : {
         type : String
+    },
+    report : {
+        type : Boolean
     }
 })
 

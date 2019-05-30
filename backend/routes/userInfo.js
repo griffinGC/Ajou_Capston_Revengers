@@ -65,27 +65,6 @@ router.get('/updateGuest/able/:id', function(req, res, next){
     });
 })
 
-//guest회원정보 수정 
-router.post('/updateInfo/guest', function(req, res, next){
-    //굳이 만들필요 없을듯 ? test 해볼 것 
-    let editInfo = new guestModel();
-    editInfo.userName = req.body.userName;
-    editInfo.password = req.body.password;
-    editInfo.name = req.body.name;
-    editInfo.ability = req.body.ability;
-    editInfo.phone = req.body.phone;
-    editInfo.email = req.body.email;    
-    
-    console.log("userInfo Test");
-    guestModel.update({userName : req.body.userName},{$set : {password : req.body.password, userName:req.body.userName, name : req.body.name
-        ,ability : req.body.ability, phone : req.body.phone,email : req.body.email }},function(err){
-        if(err){
-            return res.json({state : -1, msg : "guest Information is failed to modify "});
-        }
-        console.log(editInfo);
-        res.json({state : 0, msg : "guest Information successfully modified"});
-    })
-})
 
 
 
@@ -143,30 +122,6 @@ router.get('/updateHost/able/:id', function(req, res, next){
 })
 
 
-//host회원정보 수정 
-router.post('/updateInfo/host', function(req, res, next){   
-    let editInfo = new hostModel();
-    editInfo.userName = req.body.userName;
-    editInfo.password = req.body.password;
-    editInfo.name = req.body.name;
-    editInfo.work = req.body.work;
-    editInfo.address = req.body.address;
-    editInfo.location = req.body.location;
-    editInfo.phone = req.body.phone;
-    editInfo.email = req.body.email;    
-    
-    console.log("userInfo Test");
-    hostModel.update({userName : req.body.userName},{$set : {password : req.body.password, userName:req.body.userName, name : req.body.name
-        ,work : req.body.work, phone : req.body.phone,email : req.body.email,
-        address : req.body.address,location : req.body.location  }},function(err){
-        if(err){
-            return res.json({state : -1, msg : "host Information is failed to modify "});
-        }
-        console.log(editInfo);
-        
-        res.json({state : 0, msg : "host Information successfully modified"});
-    })
-})
 
 
 

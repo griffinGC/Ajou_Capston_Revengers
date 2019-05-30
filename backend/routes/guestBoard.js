@@ -81,7 +81,7 @@ router.post('/createBoard',upload.single('img'), function(req, res, next){
     guestBoard.findByUserName(req.body.guestId, function(err, userInfo){
         writeBoard.title = req.body.title;
         writeBoard.content = req.body.content;
-        writeBoard.guestInfo = userInfo[0];
+        writeBoard.Info = userInfo[0];
         console.log(userInfo);
         writeBoard.startDate = req.body.startDate;
         writeBoard.endDate = req.body.endDate;
@@ -90,6 +90,7 @@ router.post('/createBoard',upload.single('img'), function(req, res, next){
         writeBoard.category = req.body.category;
         writeBoard.preferLocation = req.body.preferLocation;
         writeBoard.candidate = req.body.candidate;
+        writeBoard.report = false;
 
         let canNumber = "";
         if(req.body.candidate){

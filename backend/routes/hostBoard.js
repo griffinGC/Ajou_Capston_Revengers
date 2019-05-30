@@ -42,6 +42,25 @@ router.get('/getMsg/:id', function(req, res, next){
     });
 })
 
+//hostBoard 게시글 금지시키기 
+router.get('/updateHost/ban/:id', function(req, res, next){
+    hostBoard.update({boardId : req.params.id}, {$set : {report : true}}, function(err){
+        if(err){
+            return res.json(err);
+        };
+        return res.json({state : 0, msg : "update HostBoard ban is success"});
+    });
+})
+//hostBoard 게시글 금지 해제 시키기 
+router.get('/updateHost/able/:id', function(req, res, next){
+    hostBoard.update({boardId : req.params.id}, {$set : {report : false}}, function(err){
+        if(err){
+            return res.json(err);
+        };
+        return res.json({state : 0, msg : "update HostBoard able is success"});
+    });
+})
+
 var newFile = "";
 
 var storage = multer.diskStorage({
@@ -82,7 +101,7 @@ router.post('/createBoard', upload.single('img'),function(req, res, next){
         // console.log(userInfo);
         writeBoard.title = req.body.title;
         writeBoard.content = req.body.content;
-        writeBoard.hostInfo = userInfo[0];
+        writeBoard.Info = userInfo[0];
         writeBoard.startDate = req.body.startDate;
         writeBoard.endDate = req.body.endDate;
         writeBoard.difficulty = req.body.difficulty;
@@ -92,6 +111,7 @@ router.post('/createBoard', upload.single('img'),function(req, res, next){
         writeBoard.longtitude = req.body.longtitude;
         // writeBoard.preferLocation = req.body.preferLocation;
         writeBoard.candidate = req.body.candidate;
+        writeBoard.report = false;
 
         let canNumber = "";
         if(req.body.candidate){

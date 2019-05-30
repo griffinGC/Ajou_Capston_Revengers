@@ -16,7 +16,8 @@ router.get('/',function(req, res,next){
 
 //사용자 게스트  글 가져오기
 router.get('/getUguestBoard/:id',function(req, res,next){
-    guestBoard.find({guestInfo:{$elemMatch:{userName: req.params.id}}},function(err,guestBoard){
+    // guestBoard.find({Info:{$elemMatch:{userName: req.params.id}}},function(err,guestBoard){
+      guestBoard.find({"Info.userName": req.params.id},function(err,guestBoard){
         if(err) {
           return res.json(err);
         };
@@ -29,7 +30,7 @@ router.get('/getUguestBoard/:id',function(req, res,next){
 
 //사용자 호스트  글 가져오기
 router.get('/getUhostBoard/:id',function(req, res,next){
-  hostBoard.find({hostInfo:{$elemMatch:{userName: req.params.id}}},function(err,hostBoard){
+  hostBoard.find({"Info.userName": req.params.id},function(err,hostBoard){
       if(err) {
         return res.json(err);
       };

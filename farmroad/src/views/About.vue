@@ -130,16 +130,12 @@ export default {
       loading: "",
       showDate: "2018-03-02",
 
-      menu1: false,
       date: new Date().toISOString().substr(0, 10),
       dateFormatted: this.formatDate(new Date().toISOString().substr(0, 10)),
       showCard: false,
       diff: "",
       chatRoute: "/chat",
       role: null,
-
-      lat: 53,
-      lng: -2
     };
   },
   created() {

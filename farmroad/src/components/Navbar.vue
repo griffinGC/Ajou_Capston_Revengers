@@ -71,8 +71,8 @@ export default {
         (localStorage.role = ""),
         (this.user = ""),
         (this.drawer = false),
-        this.$store.dispatch("UserSignout");
-      this.$router.push({ name: "Signin" });
+        this.$store.dispatch("UserSignout")
+      this.$router.push({ name: "Signin" })
     }
   },
   created() {

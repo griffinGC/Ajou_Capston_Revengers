@@ -2,15 +2,15 @@
   <v-layout column>
     <v-flex sm12>
       <div>
-      <v-btn color="success" @click="clickTrue()">Guest 유저 정보</v-btn>
-      <v-btn color="info" @click="clickFalse()">Host 유저 정보</v-btn>
+      <v-btn color="success" @click="clickTrue()">Guest 글 정보</v-btn>
+      <v-btn color="info" @click="clickFalse()">Host 글 정보</v-btn>
       </div>
     </v-flex>
     <v-flex xs12 sm6>
       <v-card v-if="guestShow">
         <v-toolbar color="indigo" dark>
           <!-- <v-toolbar-side-icon></v-toolbar-side-icon> -->
-          <v-toolbar-title>게스트 유저 정보 </v-toolbar-title>
+          <v-toolbar-title>게스트 글 정보 </v-toolbar-title>
 
           <v-spacer></v-spacer>
 
@@ -20,30 +20,47 @@
         </v-toolbar>
 
         <v-list>
-          <v-list-tile
-            v-for="user in guestUserList"
-            :key="user.id"
-            avatar  
-          >
+          <v-list-tile>
             <v-list-tile-action>
-              <v-icon v-if="user.icon" color="pink">done</v-icon>
+              <v-icon  color="pink">done</v-icon>
             </v-list-tile-action>
 
             <v-list-tile-content>
-              <v-list-tile-title v-text="user.userName"></v-list-tile-title>
+              <v-list-tile-title >제목</v-list-tile-title>
             </v-list-tile-content>
 
             <v-list-tile-content>
-              <v-list-tile-title v-text="user.name"></v-list-tile-title>
+              <v-list-tile-title >작성자</v-list-tile-title>
             </v-list-tile-content>
 
-            <v-list-tile-avatar v-if="user.profileImg">
-              <img  :src="user.profileImg">
+            <v-icon size="40px">person</v-icon>
+
+            <v-btn  color="info" >상태 버튼 </v-btn>
+          </v-list-tile>
+          <v-list-tile
+            v-for="board in guestBoardList"
+            :key="board.boardId"
+            avatar  
+          >
+            <v-list-tile-action>
+              <v-icon v-if="board.icon" color="pink">done</v-icon>
+            </v-list-tile-action>
+
+            <v-list-tile-content>
+              <v-list-tile-title v-text="board.title"></v-list-tile-title>
+            </v-list-tile-content>
+
+            <v-list-tile-content>
+              <v-list-tile-title v-text="board.Info.userName"></v-list-tile-title>
+            </v-list-tile-content>
+
+            <v-list-tile-avatar v-if="board.Info.profileImg">
+              <img  :src="board.Info.profileImg">
             </v-list-tile-avatar>
             <v-icon v-else size="40px">person</v-icon>
 
-            <v-btn v-if="user.report === false" color="error" @click="updateToError(user)">계정 정지 </v-btn>
-            <v-btn v-else color="success" @click="updateToAble(user)">계정 해제 </v-btn>
+            <v-btn v-if="board.report === false" color="error" @click="updateToError(board)">게시글 금지 </v-btn>
+            <v-btn v-else color="success" @click="updateToAble(board)">게시글 해제 </v-btn>
 
           </v-list-tile>
         </v-list>
@@ -52,7 +69,7 @@
       <v-card v-else>
         <v-toolbar color="indigo" dark>
           <!-- <v-toolbar-side-icon></v-toolbar-side-icon> -->
-          <v-toolbar-title>호스트 유저 정보 </v-toolbar-title>
+          <v-toolbar-title>호스트 글 정보 </v-toolbar-title>
 
           <v-spacer></v-spacer>
 
@@ -62,30 +79,47 @@
         </v-toolbar>
 
         <v-list>
-          <v-list-tile
-            v-for="user in hostUserList"
-            :key="user.userName"
-            avatar  
-          >
+          <v-list-tile>
             <v-list-tile-action>
-              <v-icon v-if="user.icon" color="pink">done</v-icon>
+              <v-icon  color="pink">done</v-icon>
             </v-list-tile-action>
 
             <v-list-tile-content>
-              <v-list-tile-title v-text="user.userName"></v-list-tile-title>
+              <v-list-tile-title >제목</v-list-tile-title>
             </v-list-tile-content>
 
             <v-list-tile-content>
-              <v-list-tile-title v-text="user.name"></v-list-tile-title>
+              <v-list-tile-title >작성자</v-list-tile-title>
             </v-list-tile-content>
 
-            <v-list-tile-avatar v-if="user.profileImg">
-              <img  :src="user.profileImg">
+            <v-icon size="40px">person</v-icon>
+
+            <v-btn  color="info" >상태 버튼 </v-btn>
+          </v-list-tile>
+          <v-list-tile
+            v-for="board in hostBoardList"
+            :key="board.boardId"
+            avatar  
+          >
+            <v-list-tile-action >
+              <v-icon v-if="board.icon" color="pink">done</v-icon>
+            </v-list-tile-action>
+
+            <v-list-tile-content>
+              <v-list-tile-title v-text="board.title"></v-list-tile-title>
+            </v-list-tile-content>
+
+            <v-list-tile-content>
+              <v-list-tile-title v-text="board.Info.userName"></v-list-tile-title>
+            </v-list-tile-content>
+
+            <v-list-tile-avatar v-if="board.Info.profileImg">
+              <img  :src="board.Info.profileImg">
             </v-list-tile-avatar>
             <v-icon v-else size="40px">person</v-icon>
 
-            <!-- <v-btn v-if="user.report === false" color="error" @click="updateToError(user)">계정 정지 </v-btn> -->
-            <v-btn color="success" @click="updateToAble(user)">계정 해제 </v-btn>
+            <v-btn v-if="board.report === false" color="error" @click="updateToError(board)">게시글 금지 </v-btn>
+            <v-btn v-else color="success" @click="updateToAble(board)">게시글 해제 </v-btn>
           </v-list-tile>
         </v-list>
       </v-card>
@@ -104,8 +138,8 @@ export default {
   },
   data () {
       return {
-        guestUserList: [],
-        hostUserList: [],
+        guestBoardList: [],
+        hostBoardList: [],
         reportId : "",
         guestShow : true
       }
@@ -133,57 +167,62 @@ export default {
     },
     getGuestList(){
       this.axios
-        .get(`http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/user/getBan/guest`)
+        .get(`http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/guestBoard/getBan`)
         .then(response => {
-          this.guestUserList = response.data;
-          console.log(this.guestUserList);
+          this.guestBoardList = response.data;
+          console.log(this.guestBoardList);
         });
     },
     getHostList(){
       this.axios
-        .get(`http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/user/getBan/host`)
+        .get(`http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/hostBoard/getBan`)
         .then(response => {
-          this.hostUserList = response.data;
-          console.log(this.hostUserList);
+          this.hostBoardList = response.data;
+          console.log(this.hostBoardList);
         });
     },
     updateToError(t){
-      let update = t.userName;
-      let role = t.role;
+      let update = t.boardId;
+      let role = t.Info.role;
       if(role === 'guest'){
         console.log("role is guest");
         this.axios
-        .get(`http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/user/updateGuest/ban/${update}`)
+        .get(`http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/guestBoard/updateGuest/ban/${update}`)
         .then(response =>{
           console.log(response);
         })
       }else{
         console.log("role is host");
       this.axios
-      .get(`http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/user/updateHost/ban/${update}`)
+      .get(`http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/hostBoard/updateHost/ban/${update}`)
       .then(response =>{
         console.log(response);
       })
       }
+      // location.reload();
     },
     updateToAble(t){
-      let update = t.userName;
-      let role = t.role;
+      console.log("가능 버튼 클릭!");
+      console.log(t);
+      let update = t.boardId;
+      let role = t.Info.role;
+      console.log("역할 : " + role);
       if(role === 'guest'){
         console.log("role is guest");
         this.axios
-        .get(`http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/user/updateGuest/able/${update}`)
+        .get(`http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/guestBoard/updateGuest/able/${update}`)
         .then(response =>{
           console.log(response);
         })
       }else{
         console.log("role is host");
       this.axios
-      .get(`http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/user/updateHost/able/${update}`)
+      .get(`http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/hostBoard/updateHost/able/${update}`)
       .then(response =>{
         console.log(response);
       })
       }
+      // location.reload();
     }
   },
 

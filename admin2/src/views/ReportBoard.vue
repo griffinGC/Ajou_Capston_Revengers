@@ -167,7 +167,7 @@ export default {
     },
     getGuestList(){
       this.axios
-        .get(`http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/guestBoard/getList`)
+        .get(`http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/guestBoard/getBan`)
         .then(response => {
           this.guestBoardList = response.data;
           console.log(this.guestBoardList);
@@ -175,7 +175,7 @@ export default {
     },
     getHostList(){
       this.axios
-        .get(`http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/hostBoard/getList`)
+        .get(`http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/hostBoard/getBan`)
         .then(response => {
           this.hostBoardList = response.data;
           console.log(this.hostBoardList);

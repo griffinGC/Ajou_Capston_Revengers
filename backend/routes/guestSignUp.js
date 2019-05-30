@@ -80,6 +80,7 @@ router.post('/guest', upload.single('img'),function(req, res,next){
            
         registerUser.gender = req.body.gender;
         registerUser.role = "guest";
+        registerUser.report = false;
         console.log("1");
       registerUser.save(function (err) {
           if(err){

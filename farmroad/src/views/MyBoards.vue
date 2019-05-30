@@ -153,7 +153,8 @@ export default {
             }
           });
       }
-    }
+    },
+    
   }
 };
 </script>

@@ -15,7 +15,7 @@ const guestBoardSchema = new mongoose.Schema({
         type : String,
         required : true
     },
-    guestInfo : {
+    Info : {
         type : Object,
     },
     boardImg : {
@@ -36,6 +36,9 @@ const guestBoardSchema = new mongoose.Schema({
     category : {
         type : String
     },
+    reward : {
+        type : String
+    },
     preferLocation : {
         type : String
     },
@@ -44,6 +47,9 @@ const guestBoardSchema = new mongoose.Schema({
     },
     candidateNumber : {
         type : Number
+    },
+    report : {
+        type : Boolean
     }
 })
 

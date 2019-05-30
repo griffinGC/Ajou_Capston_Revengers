@@ -1,51 +1,72 @@
 <template>
-  <v-dialog v-model="dialog" max-width="600px" max-height="500px">
+  <v-dialog v-model="dialog" max-width="650px">
     <!-- <v-btn @click="viewClicked()" flat slot="activator" class="success">view</v-btn> -->
     <v-btn flat slot="activator" class="success">view</v-btn>
       <v-card>
-        <v-layout>
-          <v-flex>
-            <v-avatar class="img" id="avatar" size="170px">
-              <img
-              v-if="candidateData.profileImg"
-              :src="candidateData.profileImg"
-              alt="Avatar">
-              <v-icon id="altImg" size="100px"
-              v-else
-              >person</v-icon>  
-            </v-avatar>
-            <v-flex class="id">
-            <div class="center teal-text">아이디 : {{candidateData.userName}}</div>
-            <div class="grey--text">이름 : {{candidateData.name}}</div>
-            <div class="grey--text">위치 : {{candidateData.location}}</div>
-            <div class="grey--text">업종 : {{candidateData.work}}</div>
+        <v-container>
+          <v-layout row wrap>
+            <v-flex sm6>
+              <v-avatar id="avatar" size="265px">
+                <img
+                v-if="candidateData.profileImg"
+                :src="candidateData.profileImg"
+                alt="Avatar">
+                <v-icon id="altImg" size="100px"
+                v-else
+                >person</v-icon>  
+              </v-avatar>
+              <v-card-text>
+                <div class="rating">
+                <!-- <v-rating :value="board.difficulty" readonly></v-rating> -->
+                <v-rating :value="10" readonly></v-rating>
+                </div>
+              </v-card-text>
+              <v-card-actions>
+                <v-btn flat slot="activator" color="success" @click="approve()">
+                  <v-icon small left>favorite</v-icon>
+                  <span>Approve</span>
+                </v-btn>
+                <v-btn flat slot="activator" color="success" @click="refuse()">
+                  <v-icon small left>clear</v-icon>
+                  <span>Refuse</span>
+                </v-btn>
+              </v-card-actions>
             </v-flex>
-          </v-flex>
-          <v-flex class="desc">
-          <div>blablablablablablablablablablablablablablablablablabla</div>
-          </v-flex>
-         </v-layout>
-        <v-card-text>
-          <div class="text-xs">
-            <!-- <v-rating :value="board.difficulty" readonly></v-rating> -->
-            <v-rating :value="10" readonly></v-rating>
-          </div>
-        </v-card-text>
-        <v-card-actions>
-          <v-btn
-            flat
-            slot="activator"
-            color="success"
-            @click="approve()"
-          >
-            <v-icon small left>favorite</v-icon>
-            <span>Approve</span>
-          </v-btn>
-          <v-btn flat slot="activator" color="success" @click="refuse()">
-            <v-icon small left>clear</v-icon>
-            <span>Refuse</span>
-          </v-btn>
-        </v-card-actions>
+                <v-layout column wrap>
+                <v-flex xs8 sm7>
+                  <v-layout row wrap align-top>
+                    <v-flex sm5>
+                    <div class="grey--text font-weight-bold">아이디</div>
+                    <div class="grey--text font-weight-bold">이름</div>
+                    <div class="grey--text font-weight-bold">성별</div>
+                    <div class="grey--text font-weight-bold">나이</div>
+                    <div class="grey--text font-weight-bold">전화번호</div>
+                    <div class="grey--text font-weight-bold">이메일</div>
+                    <div v-if="role === '0'" class="grey--text font-weight-bold">위치</div>
+                    <div v-if="role === '0'" class="grey--text font-weight-bold">업종</div>
+                    <div v-if="role === '1'" class="grey--text font-weight-bold">능력</div>
+                    </v-flex>
+                    <v-flex sm3>
+                    <div>{{candidateData.userName}}</div>
+                    <div>{{candidateData.name}}</div>
+                    <div>{{candidateData.gender}}</div>
+                    <div>{{candidateData.age}}</div>
+                    <div>{{candidateData.phone}}</div>
+                    <div>{{candidateData.email}}</div>
+                    <div v-if="role === '0'">{{candidateData.location}}</div>
+                    <div v-if="role === '0'">{{candidateData.work}}</div>
+                    <div v-if="role === '1'">{{candidateData.ability}}</div>
+                    <!-- <div>{{candidateData.reference}}</div> -->
+                   </v-flex>
+                 </v-layout>
+               </v-flex>
+                <v-flex xs11 sm4>
+                  <div class="grey--text font-weight-bold">Content</div>
+                  <!-- <div>{{board.content}}</div> -->
+                </v-flex>
+              </v-layout>
+            </v-layout>
+        </v-container>
     </v-card>
   </v-dialog>
 </template>
@@ -54,10 +75,11 @@ export default {
   data() {
     return {
       // candidateInfo : ""
+      boards: [],
       dialog : false,
       candidateData : {
 
-      }
+      },
     };
   },
   props : ['candidateInfo'],
@@ -65,9 +87,11 @@ export default {
     // console.log("view is created");
     console.log("props로 받은 값 : " + this.candidateInfo);
     this.viewClicked();
+    this.role=localStorage.role;
   },
   mounted(){
     this.viewClicked();
+    this.role = localStorage.role;
   },
 
   methods: {
@@ -90,6 +114,7 @@ export default {
             this.candidateData.name = userData.name;
             this.candidateData.profileImg = userData.profileImg;
             this.candidateData.age = userData.age;
+            this.candidateData.gender = userData.gender;
             this.candidateData.work = userData.work;
             this.candidateData.address = userData.address;
             this.candidateData.location = userData.location;
@@ -108,6 +133,7 @@ export default {
             this.candidateData.name = userData.name;
             this.candidateData.profileImg = userData.profileImg;
             this.candidateData.age = userData.age;
+            this.candidateData.gender = userData.gender;
             this.candidateData.ability = userData.ability;
             this.candidateData.phone = userData.phone;
             this.candidateData.email = userData.email;
@@ -125,18 +151,11 @@ export default {
 };
 </script>
 <style>
-.img{
-  margin-left: 25px;
-  margin-top: 25px;
+.info1, .content{
+  margin-left:10px;
 }
-.id{
-  margin-left: 25px;
-  margin-top: 25px;
-}
-.desc{
-  margin-left:25px;
-  background-color:wheat;
-  margin-top:25px;
-  margin-right:25px;
+.rating{
+  margin-left:20px;
+  margin-top:20px;
 }
 </style>

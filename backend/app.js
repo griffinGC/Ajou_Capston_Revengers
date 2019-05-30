@@ -18,6 +18,8 @@ var guestBoardRouter = require('./routes/guestBoard');
 var hostBoardRouter = require('./routes/hostBoard');
 
 var userinfoRouter = require('./routes/userInfo');
+var userUpdateHostRouter = require('./routes/userUpdateHost');
+var userUpdateGuestRouter = require('./routes/userUpdateGuest');
 
 var notifyRegisterRouter = require('./routes/notifyRegister');
 var notifyDeleteRouter = require('./routes/notifyDelete');
@@ -97,8 +99,13 @@ app.use('/guestBoard', guestBoardRouter);
 //호스트 게시판 기능 라우터
 app.use('/hostBoard', hostBoardRouter);
 
-//개인정보수정 기/능 라우터
+//개인정보가져오기 기능 라우터
 app.use('/user',userinfoRouter);
+
+//게스트 개인정보 수정 기능 라우터
+app.use('/userUpdateGuest',userUpdateGuestRouter);
+//호스트 개인정보 수정 기능 라우터
+app.use('/userUpdateHost',userUpdateHostRouter);
 
 //신청 알림 기능 라우터
 app.use('/notifyRegister',notifyRegisterRouter);

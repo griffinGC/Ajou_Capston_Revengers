@@ -183,7 +183,13 @@ export default {
       formData.append("phone", this.phone);
       formData.append("age", this.age);
       formData.append("gender", this.select);
-      formData.append("ability", this.ability);
+      // formData.append("ability", JSON.stringify(this.selected));
+      // for(var i = 0; i<this.select.length; i++){
+      //   formData.append('ability',this.selected[i]);
+      // }
+      
+
+      console.log(this.selected);
       if (this.$refs.form.validate()) {
         this.snackbar = true;
         this.axios
@@ -201,8 +207,8 @@ export default {
             if (response.data.state == 0) {
               localStorage.username = this.username;
               localStorage.role = 0;
-              this.$router.push("/");
-              location.reload();
+              // this.$router.push("/");
+              // location.reload();
             } else {
               console.log(response.data.msg);
             }

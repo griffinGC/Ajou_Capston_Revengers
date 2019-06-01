@@ -38,21 +38,6 @@ require('./schemas/index');
 
 var app = express();
 
-/*var databaes;
-
-function connectDB(){
-  var databaesUrl = 'mongodb://localhost:27017.local';
-
-  MongoClient.connect(databaesUrl, function(err, db){
-    if(err) throw err;
-    console.log('success  '+databaesUrl);
-
-    databaes=db;
-  });
-}*/
-
-
-
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');

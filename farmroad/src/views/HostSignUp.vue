@@ -60,13 +60,16 @@
           prepend-icon="email"
         ></v-text-field>
         <!--phone-->
-        <v-text-field v-model="phone" label="phone" required prepend-icon="phone"></v-text-field>
+        <v-text-field v-model="phone" label="phone" :rules="[phoneRules.required,phoneRules.min]" required prepend-icon="phone"></v-text-field>
+        <v-alert :value="alertPhoneSuccess" type="success">전화번호 전송 성공!</v-alert>
+        <v-alert :value="alertPhoneError" type="error">전화번호 전송 에러!</v-alert>
         <v-btn :disabled="!valid" left color="success" @click="sendPhoneNumber">전화번호 인증</v-btn>
 
-        <v-text-field v-model="confirmNumber" label="인증번호" required prepend-icon="done"></v-text-field>
-        <v-alert :value="alertPhoneSuccess" type="success">This is a success alert.</v-alert>
-        <v-alert :value="alertPhoneError" type="error">This is a error alert.</v-alert>
+        <v-text-field v-model="confirmNumber" label="인증번호" :rules="[confirmRules.required,confirmRules.min,confirmRules.number]" required prepend-icon="done"></v-text-field>
+        <v-alert :value="alertApproveSuccess" type="success">인증번호 확인 성공!</v-alert>
+        <v-alert :value="alertApproveError" type="error">인증번호 확인 에러!</v-alert>
         <v-btn :disabled="!valid" left color="success" @click="checkPhoneNumber">인증번호 확인</v-btn>
+
 
         <!--signup btn-->
         <br>
@@ -111,7 +114,13 @@ export default {
         required: value => !!value || "Required.",
         min: v => v.length >= 8 || "Min 8 characters"
       },
+      
       confirmNumber: "",
+      confirmRules: {
+        required: value => !!value || "Required.",
+        min: v => v.length === 4 || "4자리 숫자!",
+        number: v => isNaN(v) === false || "숫자!"
+      },
       myName: "",
       show1: false,
       show2: true,
@@ -121,6 +130,8 @@ export default {
       alertError: false,
       alertPhoneSuccess: false,
       alertPhoneError: false,
+      alertApproveSuccess: false,
+      alertApproveError: false,
       imageName: "",
       imageUrl: "",
       imageFile: ""
@@ -187,12 +198,12 @@ export default {
       .then(response =>{
         console.log(response);
         if(response.data.state == -1){
-          this.alertPhoneSuccess = false;
-          this.alertPhoneError = true;
+          this.alertApproveSuccess = false;
+          this.alertApproveError = true;
           this.valid = false;
         }else{
-          this.alertPhoneSuccess = true;
-          this.alertPhoneError = false;
+          this.alertApproveSuccess = true;
+          this.alertApproveError = false;
         }
       })
     },

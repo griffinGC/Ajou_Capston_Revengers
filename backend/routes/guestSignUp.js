@@ -66,14 +66,24 @@ router.post('/guest', upload.single('img'),function(req, res,next){
         if(!req.body.email){
             return res.json({state: -1, msg: 'email can not be empty!'})
         }        
-
+        console.log("처음 능력 받았을때 : " +req.body.ability);
+        let ability = req.body.ability;
+        console.log("받은 능력 : " + ability);
+        console.log("배열 길이 : " + ability.length);
         let registerUser = new guestModel();
         registerUser.userName = req.body.userName;
         registerUser.name = req.body.name;
         registerUser.password = req.body.password;
         registerUser.email = req.body.email;
         registerUser.phone = req.body.phone;
-        registerUser.ability= req.body.abiity;        
+        // var newAbility = "";
+        // for(var i = 0; i<ability.length; i++){
+        //   newAbility[i] = ability[i];
+        // }
+        // newAbility = JSON.stringify(ability);
+        // registerUser.ability = newAbility;
+        registerUser.ability = ability;
+                
         registerUser.age = req.body.age;  
         
         registerUser.profileImg = "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/images/guestProfile/"+newFile;

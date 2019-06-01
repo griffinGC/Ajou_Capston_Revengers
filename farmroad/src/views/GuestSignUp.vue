@@ -189,18 +189,17 @@ export default {
       formData.append("phone", this.phone);
       formData.append("age", this.age);
       formData.append("gender", this.select);
-      // formData.append("ability", JSON.stringify(this.selected));
-      // for(var i = 0; i<this.select.length; i++){
-      //   formData.append('ability',this.selected[i]);
-      // }
-      
-
+      let temp = JSON.stringify(this.selected);
+      // 문자열로 보내서 backend에서 데이터 처리
+      formData.append("ability", temp);
+      console.log(temp);
       console.log(this.selected);
       if (this.$refs.form.validate()) {
         this.snackbar = true;
         this.axios
           .post(
             "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/guestSignUp/guest",
+            // "http://localhost:3000/guestSignUp/guest",
             formData,
             {
               headers: {

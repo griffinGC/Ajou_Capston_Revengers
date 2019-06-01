@@ -68,21 +68,21 @@ router.post('/guest', upload.single('img'),function(req, res,next){
         }        
         console.log("처음 능력 받았을때 : " +req.body.ability);
         let ability = req.body.ability;
-        console.log("받은 능력 : " + ability);
-        console.log("배열 길이 : " + ability.length);
+        let deletea = ability.replace("[","");
+        let deleteb = deletea.replace("]","");
+        deleteb = deleteb.replace(/"/gi,'');
+        console.log(deleteb);
+        let abArr = deleteb.split(',');
+        //받은 문자열을 배열로 다시 나눠서 재 저장함 
+
         let registerUser = new guestModel();
         registerUser.userName = req.body.userName;
         registerUser.name = req.body.name;
         registerUser.password = req.body.password;
         registerUser.email = req.body.email;
         registerUser.phone = req.body.phone;
-        // var newAbility = "";
-        // for(var i = 0; i<ability.length; i++){
-        //   newAbility[i] = ability[i];
-        // }
-        // newAbility = JSON.stringify(ability);
-        // registerUser.ability = newAbility;
-        registerUser.ability = ability;
+
+        registerUser.ability = abArr;
                 
         registerUser.age = req.body.age;  
         

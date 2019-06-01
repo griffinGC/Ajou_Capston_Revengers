@@ -190,10 +190,9 @@ export default {
       formData.append("age", this.age);
       formData.append("gender", this.select);
       let temp = JSON.stringify(this.selected);
+      // 문자열로 보내서 backend에서 데이터 처리
       formData.append("ability", temp);
-
-      
-
+      console.log(temp);
       console.log(this.selected);
       if (this.$refs.form.validate()) {
         this.snackbar = true;

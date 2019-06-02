@@ -168,7 +168,9 @@ export default {
       formData.append("difficulty", this.diff);
       formData.append("workDay", this.workDay);
       formData.append("startDate", this.date);
-      // formData.append("ability2", this.selected);
+      let temp = JSON.stringify(this.selected);
+      // 문자열로 보내서 backend에서 데이터 처리
+      formData.append("preferAbility", temp);
       console.log(formData)
       this.axios
         .post(

@@ -162,7 +162,9 @@ export default {
       formData.append("guestId", localStorage.username);
       formData.append("category", this.category);
       formData.append("workDay", this.workDay);
-      // formData.append("location2", this.selected);
+      let temp = JSON.stringify(this.selected);
+      // 문자열로 보내서 backend에서 데이터 처리
+      formData.append("preferLocation", temp);
       console.log(this.title);
       this.axios
         .post(

@@ -109,7 +109,14 @@ const router =  new Router({
     {
       path: '/chatroom',
       name: 'chatroom',
-      component: ChatRoom
+      component: ChatRoom,
+      props: true,
+      beforeEnter: (to, from, next) => {
+        console.log('router beforEnter message: '+to.params.chatRoomId)
+        if(to.params.chatRoomId){
+          next()
+        }
+      }
     }
   ]
 })

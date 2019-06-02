@@ -30,7 +30,17 @@ router.get('/getList',function(req, res,next){
         //json형식으로 응답
         return res.json(hostBoardContent);
         })
-  });        
+  });     
+  
+ //금지된 host정보 가져오기
+router.get('/getBan', function(req, res, next){
+    hostBoard.find({report : true}, function(err, getInfo){
+        if(err){
+            return res.json(err);
+        };
+        return res.json(getInfo);
+    });
+}) 
 
 //host게시판 작성자 정보 가져오기
 router.get('/getMsg/:id', function(req, res, next){

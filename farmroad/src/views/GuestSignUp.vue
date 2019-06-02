@@ -89,111 +89,33 @@
         <!-- <v-text-field v-model="ability" label="ability" required prepend-icon="list_alt"></v-text-field> -->
 
         <div class="grey--text text--darken-1">Ability</div>
-        <v-layout>
-          <v-flex xs12 xs1>
-            <v-flex xs12 xs2 d-flex>
-              <v-flex xs2 xs1>
-                <v-checkbox
-                  v-model="selected"
-                  hide-details
-                  label="요리를 잘해요"
-                  value="cook"
-                >console.log(cook)</v-checkbox>
-              </v-flex>
-              <v-flex xs2 xs1>
-                <v-checkbox
-                  v-model="selected"
-                  hide-details
-                  label="미용 잘해요"
-                  value="beauty"
-                >console.log(beauty)</v-checkbox>
-              </v-flex>
-              <v-flex xs2 xs1>
-                <v-checkbox
-                  v-model="selected"
-                  hide-details
-                  label="애를 잘돌봐요"
-                  value="baby"
-                >console.log(baby)</v-checkbox>
-              </v-flex>
-              <v-flex xs2 xs1>
-                <v-checkbox
-                  v-model="selected"
-                  hide-details
-                  label="청소를 잘해요"
-                  value="clean"
-                >console.log(clean)</v-checkbox>
-              </v-flex>
-              <v-flex xs2 xs1>
-                <v-checkbox
-                  v-model="selected"
-                  hide-details
-                  label="운전을 잘해요"
-                  value="drive"
-                >console.log(drive)</v-checkbox>
-              </v-flex>
-              <v-flex xs2 xs1>
-                <v-checkbox
-                  v-model="selected"
-                  hide-details
-                  label="도배를 잘해요"
-                  value="paper"
-                >console.log(paper)</v-checkbox>
-              </v-flex>
-            </v-flex>
-            <v-flex xs12 xs2 d-flex>
-              <v-flex xs2 xs1>
-                <v-checkbox
-                  v-model="selected"
-                  hide-details
-                  label="짐나르는거 잘해요"
-                  value="carry"
-                >console.log(carry)</v-checkbox>
-              </v-flex>
-              <v-flex xs2 xs1>
-                <v-checkbox
-                  v-model="selected"
-                  hide-details
-                  label="노래를 잘해요"
-                  value="sing"
-                >console.log(sing)</v-checkbox>
-              </v-flex>
-              <v-flex xs2 xs1>
-                <v-checkbox
-                  v-model="selected"
-                  hide-details
-                  label="말동부를 잘해요"
-                  value="talk"
-                >console.log(talk)</v-checkbox>
-              </v-flex>
-              <v-flex xs2 xs1>
-                <v-checkbox
-                  v-model="selected"
-                  hide-details
-                  label="컴퓨터를 잘다뤄요"
-                  value="comp"
-                >console.log(comp)</v-checkbox>
-              </v-flex>
-              <v-flex xs2 xs1>
-                <v-checkbox
-                  v-model="selected"
-                  hide-details
-                  label="농기계를 잘다뤄요"
-                  value="machine"
-                >console.log(machine)</v-checkbox>
-              </v-flex>
-              <v-flex xs2 xs1>
-                <v-checkbox
-                  v-model="selected"
-                  hide-details
-                  label="농사경험이 있어요"
-                  value="farm"
-                >console.log(farm)</v-checkbox>
-              </v-flex>
-            </v-flex>
-            <div>Selected: {{selected}}</div>
-          </v-flex>
+        <v-layout row wrap>
+          <v-item-group><span>
+            <v-checkbox v-model="selected" label="요리를 잘해요" value="cook"></v-checkbox>
+            <v-checkbox v-model="selected" label="미용 잘해요" value="beauty"></v-checkbox></span>
+          </v-item-group>
+           <v-item-group>
+            <v-checkbox v-model="selected" label="애를 잘돌봐요" value="baby"></v-checkbox>
+            <v-checkbox v-model="selected" label="청소를 잘해요" value="clean"></v-checkbox>
+          </v-item-group>
+            <v-item-group>
+            <v-checkbox v-model="selected" label="운전을 잘해요" value="drive"></v-checkbox>
+            <v-checkbox v-model="selected" label="도배를 잘해요" value="paper"></v-checkbox>
+          </v-item-group>
+            <v-item-group>
+            <v-checkbox v-model="selected" label="짐나르는거 잘해요" value="carry"></v-checkbox>
+            <v-checkbox v-model="selected" label="노래를 잘해요" value="sing"></v-checkbox>
+          </v-item-group>
+          <v-item-group>
+            <v-checkbox v-model="selected" label="말동부를 잘해요" value="talk"></v-checkbox>
+            <v-checkbox v-model="selected" label="컴퓨터를 잘다뤄요" value="comp"></v-checkbox>
+          </v-item-group>
+          <v-item-group>
+            <v-checkbox v-model="selected" label="농기계를 잘다뤄요" value="machine"></v-checkbox>
+            <v-checkbox v-model="selected" label="농사경험이 있어요" value="farm"></v-checkbox>
+          </v-item-group>
         </v-layout>
+        
         <!--sign up btn-->
         <v-btn :disabled="!valid" left color="success" @click="validate">Sign Up</v-btn>
       </v-form>
@@ -273,6 +195,7 @@ export default {
         this.axios
           .post(
             "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/guestSignUp/guest",
+            // "http://localhost:3000/guestSignUp/guest",
             formData,
             {
               headers: {

@@ -5,7 +5,7 @@
         <h2>chat room</h2>
       </v-card-title>
       <v-list class="messages" two-line v-chat-scroll>
-        <template v-for="msg in messages" >
+        <template v-for="msg in messages">
           <v-list-tile :key="msg.id">
             <v-list-tile-content>
               <span class="grey--test">{{msg.name}}:</span>
@@ -15,7 +15,7 @@
         </template>
       </v-list>
       <v-card-actions></v-card-actions>
-      <form @submit.prevent='addMessage'>
+      <form @submit.prevent="addMessage">
         <v-text-field label="new message" v-model="newMessage" :rules="newMessageRules" required></v-text-field>
       </form>
     </v-card>
@@ -28,17 +28,17 @@ export default {
   name: "chatroom",
   components: {},
   props: {
-    ChatRoomId: String
+    chatRoomId: String
   },
   data() {
     return {
       messages: [],
-       newMessage: "",
-       newMessageRules: [v => !!v || "Message is required"]
+      newMessage: "",
+      newMessageRules: [v => !!v || "Message is required"]
     };
   },
   created() {
-    console.log("chatroom");
+    console.log(this.chatRoomId);
     let ref = db.collection("chatroom").orderBy("timestamp");
 
     ref.onSnapshot(snapshot => {
@@ -59,7 +59,7 @@ export default {
     addMessage() {
       console.log(this.newMessage, localStorage.username, Date.now());
       if (this.newMessage) {
-        db.collection('chatroom')
+        db.collection("chatroom")
           .add({
             content: this.newMessage,
             name: localStorage.username,

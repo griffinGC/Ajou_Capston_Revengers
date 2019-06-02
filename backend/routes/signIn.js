@@ -44,6 +44,7 @@ router.post('/',function(req, res, error){
                     sess.userPwd = guestModel[0].password;
                     req.session.save(function(){
                         // res.json({state : 0, msg : "session is saved! && guest login is success"});
+
                     });
                     res.send( { ID : guestModel[0].userName, userName : guestModel[0].name, profileImg : guestModel[0].profileImg});
                     
@@ -69,7 +70,8 @@ router.post('/',function(req, res, error){
                     sess.userId = hostModel[0].userName;
                     sess.userPwd = hostModel[0].password;
                     req.session.save(function(){
-                        res.json({state : 0, msg : "session is saved & host login is success"})
+                        // res.json({state : 0, msg : "session is saved & host login is success"})
+                        
                     });
                     res.send( { ID : hostModel[0].userName, userName : hostModel[0].name, profileImg : hostModel[0].profileImg});
                     //비동기이기때문에 저장하는데 시간이 걸려서 json이 두번 전송되기 때문에 오류발생

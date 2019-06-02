@@ -253,20 +253,19 @@ export default {
          }
          
 
-         if(boards.count !== 0)
+         if(Boards.count !== 0)
          {
            tempBoards.push(Boards);
          }
+       })
 
          Boards.count.sort(function(a,b){
            return b-a;
          });
 
-         this.newBoards = tempBoards;
-       })
-
-
+         this.newBoards = tempBoards;    
      },
+     
     saveNotification(id) {
       console.log(id);
       if (localStorage.role == 0) {

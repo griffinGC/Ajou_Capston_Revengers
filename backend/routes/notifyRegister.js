@@ -64,7 +64,7 @@ router.post('/host/registerNotification',function(req, res,next){
                 // return;
             }
           res.json({ state: 0, msg: "Sending notification to host was successful!" });
-   git         });
+            });
           })
         })
 });

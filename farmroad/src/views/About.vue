@@ -9,37 +9,6 @@
         <v-btn flat class="success" @click="findByDifficulty(boards)">Search</v-btn>
       </v-flex>
     </v-form>
-    <v-form v-else>
-        <div class="grey--text text--darken-1">Ability</div>
-        <v-layout row wrap>
-          <v-item-group>
-            <v-checkbox v-model="selected" label="요리를 잘해요" value="cook"></v-checkbox>
-            <v-checkbox v-model="selected" label="미용 잘해요" value="beauty"></v-checkbox>
-          </v-item-group>
-           <v-item-group>
-            <v-checkbox v-model="selected" label="애를 잘돌봐요" value="baby"></v-checkbox>
-            <v-checkbox v-model="selected" label="청소를 잘해요" value="clean"></v-checkbox>
-          </v-item-group>
-            <v-item-group>
-            <v-checkbox v-model="selected" label="운전을 잘해요" value="drive"></v-checkbox>
-            <v-checkbox v-model="selected" label="도배를 잘해요" value="paper"></v-checkbox>
-          </v-item-group>
-            <v-item-group>
-            <v-checkbox v-model="selected" label="짐나르는거 잘해요" value="carry"></v-checkbox>
-            <v-checkbox v-model="selected" label="노래를 잘해요" value="sing"></v-checkbox>
-          </v-item-group>
-          <v-item-group>
-            <v-checkbox v-model="selected" label="말동부를 잘해요" value="talk"></v-checkbox>
-            <v-checkbox v-model="selected" label="컴퓨터를 잘다뤄요" value="comp"></v-checkbox>
-          </v-item-group>
-          <v-item-group>
-            <v-checkbox v-model="selected" label="농기계를 잘다뤄요" value="machine"></v-checkbox>
-            <v-checkbox v-model="selected" label="농사경험이 있어요" value="farm"></v-checkbox>
-          </v-item-group>
-          {{ this.selected}}
-          <v-btn flat class="success" @click="sortBoard(boards)">선택사항 검색</v-btn>
-        </v-layout>
-    </v-form>
     <v-container class="my-5">
       <v-layout row wrap>
         <v-flex xs12 sm6 md4 lg3 v-for="board in newBoards" :key="board._id">
@@ -120,15 +89,17 @@
                       <v-icon small left>message</v-icon>
                       <span>메신저</span>
                     </v-btn>
-                    <v-btn flat slot="activator" color="info">
+                    <!-- <router-link to="/MyMap"> -->
+                    <!-- <v-btn to="/mymap" flat slot="activator" color="info">
                       <v-icon small left>expand_more</v-icon>
                       <span>상세보기</span>
-                    </v-btn>
+                    </v-btn> -->
+                    <!-- </router-link> -->
                     <v-btn flat slot="activator" color="error">
                       <v-icon small left>report</v-icon>
                       <span>신고하기</span>
                     </v-btn>
-                    <v-spacer></v-spacer>
+                   
                   </v-card-actions>
                 </v-card>
                 <Chat v-bind:comments="'host'+board.boardId"/>
@@ -148,8 +119,10 @@ import firebase from "firebase";
 import MyMap from "../views/MyMap";
 import ChatRoom from "../components/ChatRoom";
 import Chat from "../views/Chat";
-import UserInfoVue from './UserInfo.vue';
 export default {
+//   const: routes = [
+//   { path: '/mymap', component: MyMap }
+// ],
   components: {
     computedDateFormatted() {
       return this.formatDate(this.date);
@@ -168,8 +141,6 @@ export default {
       chatId: "",
       loading: "",
       showDate: "2018-03-02",
-
-      selected: [],
 
       menu1: false,
       date: new Date().toISOString().substr(0, 10),
@@ -262,34 +233,27 @@ export default {
       this.newBoards = tempBoards;
       console.log(this.newBoards);
     },
-     sortBoard(boards) {
-       var tempBoards = new Array();
-
-       boards.forEach(index=>{
-         index.count = 0;
-         for(let i = 0; i<index.Info.ability.length; i++){
-           for(let j = 0; j<this.selected.length; j++){
-              if(index.Info.ability[i] === this.selected[j])
-              {
-                ++index.count;
-                // break;  
-              }
-           }
-         }
-         console.log("가지고 있는 개수! " + index.count);
-         if(index.count !== 0)
-         {
-           tempBoards.push(index);
-         }
-       })
-      console.log(tempBoards);
-      console.log("데이터 검색");
-         this.newBoards = tempBoards;    
-         if(this.selected.length === 0){
-           this.newBoards = boards;
-         }
-     },
-     
+    // messager(id) {
+    //   if (localStorage.role == 1) {
+    //     this.chatId = id + "hostboardsmessager";
+    //   } else {
+    //     this.chatId = id + "guestboardsmessager";
+    //   }
+    //   this.axios
+    //     .post(
+    //       "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/chat",
+    //       {
+    //         userName: localStorage.username,
+    //         boardId: id,
+    //         chatId: this.chatId
+    //       }
+    //     )
+    //     .then(response => {
+    //       console.log(response.data);
+    //       console.log(this.chatId);
+    //       this.$router.push({ name: "chat", params: { name: this.chatId } });
+    //     });
+    // },
     saveNotification(id) {
       console.log(id);
       if (localStorage.role == 0) {

@@ -90,9 +90,9 @@
         
         <div class="grey--text text--darken-1">Ability</div>
         <v-layout row wrap>
-          <v-item-group>
+          <v-item-group><span>
             <v-checkbox v-model="selected" label="요리를 잘해요" value="cook"></v-checkbox>
-            <v-checkbox v-model="selected" label="미용 잘해요" value="beauty"></v-checkbox>
+            <v-checkbox v-model="selected" label="미용 잘해요" value="beauty"></v-checkbox></span>
           </v-item-group>
            <v-item-group>
             <v-checkbox v-model="selected" label="애를 잘돌봐요" value="baby"></v-checkbox>
@@ -189,12 +189,17 @@ export default {
       formData.append("phone", this.phone);
       formData.append("age", this.age);
       formData.append("gender", this.select);
-      formData.append("ability", this.selected);
+      let temp = JSON.stringify(this.selected);
+      // 문자열로 보내서 backend에서 데이터 처리
+      formData.append("ability", temp);
+      console.log(temp);
+      console.log(this.selected);
       if (this.$refs.form.validate()) {
         this.snackbar = true;
         this.axios
           .post(
             "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/guestSignUp/guest",
+            // "http://localhost:3000/guestSignUp/guest",
             formData,
             {
               headers: {
@@ -207,8 +212,8 @@ export default {
             if (response.data.state == 0) {
               localStorage.username = this.username;
               localStorage.role = 0;
-              this.$router.push("/");
-              location.reload();
+              // this.$router.push("/");
+              // location.reload();
             } else {
               console.log(response.data.msg);
             }

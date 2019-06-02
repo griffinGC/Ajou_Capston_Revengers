@@ -199,7 +199,7 @@ export default {
         console.log(response);
       })
       }
-      // location.reload();
+      location.reload();
     },
     updateToAble(t){
       console.log("가능 버튼 클릭!");
@@ -222,7 +222,7 @@ export default {
         console.log(response);
       })
       }
-      // location.reload();
+      location.reload();
     }
   },
 

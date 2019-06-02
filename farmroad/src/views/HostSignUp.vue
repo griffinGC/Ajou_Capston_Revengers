@@ -61,7 +61,14 @@
         ></v-text-field>
         <!--phone-->
         <v-text-field v-model="phone" label="phone" required prepend-icon="phone"></v-text-field>
-
+        <div class="grey--text text--darken-1">Ability</div>
+        <v-layout row wrap>
+            <v-flex sm2><v-checkbox v-model="work" label="농업" value="agriculture"></v-checkbox></v-flex>
+            <v-flex sm2><v-checkbox v-model="work" label="임업" value="forestry"></v-checkbox></v-flex>
+            <v-flex sm2><v-checkbox v-model="work" label="수산업" value="fishery"></v-checkbox></v-flex>
+            <v-flex sm2><v-checkbox v-model="work" label="목축업" value="livestock"></v-checkbox></v-flex>
+            <v-flex sm2><v-checkbox v-model="work" label="기타" value="others"></v-checkbox></v-flex>
+        </v-layout>
         <!--signup btn-->
         <v-btn :disabled="!valid" left color="success" @click="validate">Sign Up</v-btn>
       </v-form>
@@ -79,6 +86,7 @@ import { constants } from "crypto";
 export default {
   data() {
     return {
+      work: "",
       username: "",
       usernameRules: [
         v => !!v || "Name is required",
@@ -125,6 +133,7 @@ export default {
       formData.append("name", this.myName);
       formData.append("email", this.email);
       formData.append("phone", this.phone);
+      formData.append("work", this.work);
       if (this.$refs.form.validate()) {
         this.snackbar = true;
         this.axios

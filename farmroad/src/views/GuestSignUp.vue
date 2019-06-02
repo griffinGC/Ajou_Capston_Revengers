@@ -90,9 +90,9 @@
         
         <div class="grey--text text--darken-1">Ability</div>
         <v-layout row wrap>
-          <v-item-group>
+          <v-item-group><span>
             <v-checkbox v-model="selected" label="요리를 잘해요" value="cook"></v-checkbox>
-            <v-checkbox v-model="selected" label="미용 잘해요" value="beauty"></v-checkbox>
+            <v-checkbox v-model="selected" label="미용 잘해요" value="beauty"></v-checkbox></span>
           </v-item-group>
            <v-item-group>
             <v-checkbox v-model="selected" label="애를 잘돌봐요" value="baby"></v-checkbox>

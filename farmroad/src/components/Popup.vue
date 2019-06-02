@@ -168,7 +168,7 @@ export default {
       formData.append("difficulty", this.diff);
       formData.append("workDay", this.workDay);
       formData.append("startDate", this.date);
-      formData.append("ability2", this.selected);
+      // formData.append("ability2", this.selected);
       console.log(formData)
       this.axios
         .post(

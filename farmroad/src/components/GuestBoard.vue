@@ -162,7 +162,7 @@ export default {
       formData.append("guestId", localStorage.username);
       formData.append("category", this.category);
       formData.append("workDay", this.workDay);
-      formData.append("location2", this.selected);
+      // formData.append("location2", this.selected);
       console.log(this.title);
       this.axios
         .post(

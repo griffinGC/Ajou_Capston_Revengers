@@ -60,6 +60,17 @@
           prepend-icon="email"
         ></v-text-field>
         <!--phone-->
+        <v-text-field v-model="phone" label="phone" :rules="[phoneRules.required,phoneRules.min]" required prepend-icon="phone"></v-text-field>
+        <v-alert :value="alertPhoneSuccess" type="success">전화번호 전송 성공!</v-alert>
+        <v-alert :value="alertPhoneError" type="error">전화번호 전송 에러!</v-alert>
+        <v-btn :disabled="!valid" left color="success" @click="sendPhoneNumber">전화번호 인증</v-btn>
+
+        <v-text-field v-model="confirmNumber" label="인증번호" :rules="[confirmRules.required,confirmRules.min,confirmRules.number]" required prepend-icon="done"></v-text-field>
+        <v-alert :value="alertApproveSuccess" type="success">인증번호 확인 성공!</v-alert>
+        <v-alert :value="alertApproveError" type="error">인증번호 확인 에러!</v-alert>
+        <v-btn :disabled="!valid" left color="success" @click="checkPhoneNumber">인증번호 확인</v-btn>
+
+
         <v-text-field v-model="phone" label="phone" required prepend-icon="phone"></v-text-field>
         <div class="grey--text text--darken-1">Ability</div>
         <v-layout row wrap>
@@ -70,6 +81,7 @@
             <v-flex sm2><v-checkbox v-model="work" label="기타" value="others"></v-checkbox></v-flex>
         </v-layout>
         <!--signup btn-->
+        <br>
         <v-btn :disabled="!valid" left color="success" @click="validate">Sign Up</v-btn>
       </v-form>
     </v-card-text>
@@ -112,6 +124,13 @@ export default {
         required: value => !!value || "Required.",
         min: v => v.length >= 8 || "Min 8 characters"
       },
+      
+      confirmNumber: "",
+      confirmRules: {
+        required: value => !!value || "Required.",
+        min: v => v.length === 4 || "4자리 숫자!",
+        number: v => isNaN(v) === false || "숫자!"
+      },
       myName: "",
       show1: false,
       show2: true,
@@ -119,6 +138,10 @@ export default {
       show4: false,
       alertSuccess: false,
       alertError: false,
+      alertPhoneSuccess: false,
+      alertPhoneError: false,
+      alertApproveSuccess: false,
+      alertApproveError: false,
       imageName: "",
       imageUrl: "",
       imageFile: ""
@@ -175,6 +198,44 @@ export default {
             this.alertError = false;
           }
         });
+    },
+    checkPhoneNumber(){
+      this.axios
+      .post("http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/hostSignUp/phoneConfirm",
+      {
+        phoneNumber : this.phone,
+        confirmNumber : this.confirmNumber
+      })
+      .then(response =>{
+        console.log(response);
+        if(response.data.state == -1){
+          this.alertApproveSuccess = false;
+          this.alertApproveError = true;
+          this.valid = false;
+        }else{
+          this.alertApproveSuccess = true;
+          this.alertApproveError = false;
+        }
+      })
+    },
+    sendPhoneNumber(){
+      //phone번호는 string으로 보내야함 
+      this.axios
+      .post("http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/hostSignUp/sendPhoneNumber",
+      {
+        phoneNumber : this.phone
+      })
+      .then(response =>{
+        console.log(response);
+          if(response.data.state == -1){
+          this.alertPhoneSuccess = false;
+          this.alertPhoneError = true;
+          this.valid = false;
+        }else{
+          this.alertPhoneSuccess = true;
+          this.alertPhoneError = false;
+        }
+      })
     },
     pickFile() {
       this.$refs.image.click();

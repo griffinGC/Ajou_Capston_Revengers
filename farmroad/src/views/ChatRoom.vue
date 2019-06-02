@@ -6,7 +6,10 @@
       </v-card-title>
       <v-list class="messages" two-line v-chat-scroll>
         <template v-for="msg in messages">
-          <v-list-tile :key="msg.id">
+          <v-list-tile :key="msg.id" avatar>
+            <v-list-tile-avatar>
+                <img :src="msg.img">
+              </v-list-tile-avatar>
             <v-list-tile-content>
               <span class="grey--test">{{msg.name}}:</span>
               <span>{{msg.content}}</span>
@@ -39,7 +42,7 @@ export default {
   },
   created() {
     console.log(this.chatRoomId);
-    let ref = db.collection("chatroom").orderBy("timestamp");
+    let ref = db.collection(this.chatRoomId).orderBy("timestamp");
 
     ref.onSnapshot(snapshot => {
       snapshot.docChanges().forEach(change => {
@@ -48,7 +51,8 @@ export default {
           this.messages.push({
             id: doc.id,
             name: doc.data().name,
-            content: doc.data().content
+            content: doc.data().content,
+            img: doc.data().img
             //timestamp: moments(doc.data().timestamp).format('lll')
           });
         }
@@ -59,10 +63,11 @@ export default {
     addMessage() {
       console.log(this.newMessage, localStorage.username, Date.now());
       if (this.newMessage) {
-        db.collection("chatroom")
+        db.collection(this.chatRoomId)
           .add({
             content: this.newMessage,
             name: localStorage.username,
+            img: localStorage.img,
             timestamp: Date.now()
           })
           .catch(err => {

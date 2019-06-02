@@ -91,8 +91,10 @@ export default {
               alert(respones.data.msg);
             } else if (respones.data.state == 0) {
               if (!respones.data.report) {
+                console.log('login success!')
                 localStorage.username = this.username;
                 localStorage.role = parseInt(this.radios);
+                localStorage.img = respones.data.profileImg
 
                 this.$store.dispatch("UserSignin");
                 this.$router.push({ name: "welcome" });
@@ -100,7 +102,10 @@ export default {
               }else{
                 alert("Your account has been banned!!")
               }
+            }else{
+              console.log('no state!')
             }
+
           });
       }
     }

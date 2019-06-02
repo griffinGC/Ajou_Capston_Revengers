@@ -171,13 +171,7 @@
                         </v-card-title>
 
                         <v-card-text>
-                          <!--map-->
-                          <v-flex d-flex xs12 sm6 md4>
-                            <v-layout row wrap>
-                            <!-- <MyMap/> -->
-                            <MyMap/>
-                            </v-layout>
-                          </v-flex>
+                         
 
                           <!--show date-->
                           <div>

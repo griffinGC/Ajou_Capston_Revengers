@@ -209,8 +209,8 @@ export default {
               localStorage.username = this.username;
               localStorage.role = 0;
               console.log(formData.forEach);
-              // this.$router.push("/");
-              // location.reload();
+              this.$router.push("/");
+              location.reload();
             } else {
               console.log(response.data.msg);
             }

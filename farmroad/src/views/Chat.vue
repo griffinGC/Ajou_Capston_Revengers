@@ -8,9 +8,9 @@
         <v-list two-line class="messages" v-chat-scroll>
           <template v-for="(msg) in messages">
             <v-list-tile :key="msg.id" avatar>
-              <!-- <v-list-tile-avatar>
-                <img :src="user.avatar">
-              </v-list-tile-avatar> -->
+              <v-list-tile-avatar>
+                <img :src="msg.img">
+              </v-list-tile-avatar>
               <v-list-tile-content>
                 <span class="grey--text">{{msg.name}}:</span>
                 <span>{{msg.content}}</span>
@@ -57,7 +57,8 @@ export default {
           this.messages.push({
             id: doc.id,
             name: doc.data().name,
-            content: doc.data().content
+            content: doc.data().content,
+            img: doc.data().img
             //timestamp: moments(doc.data().timestamp).format('lll')
           });
         }
@@ -72,6 +73,7 @@ export default {
           .add({
             content: this.newMessage,
             name: localStorage.username,
+            img: localStorage.img,
             timestamp: Date.now()
           })
           .catch(err => {

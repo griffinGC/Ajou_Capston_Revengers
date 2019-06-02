@@ -5,7 +5,7 @@ const chatRoomModel = require('../schemas/createChatRoom');
 
 router.get('/host/:hostId',function(req, res,next){ 
     //인자로 hostId 만을 가져옴 
-    chatRoomModel.find({host : req.params.hostId}, function(err, notifyList){
+    chatRoomModel.find({hostUserName : req.params.hostId}, function(err, getInfo){
         if(err){
             console.log(err);
             return res.json(err);

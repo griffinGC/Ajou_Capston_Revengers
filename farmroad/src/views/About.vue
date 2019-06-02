@@ -81,16 +81,23 @@
                       color="success"
                     >
                       <v-icon small left>add</v-icon>
-                      <span>register</span>
+                      <span>신청하기</span>
                     </v-btn>
 
                     <!--messager button-->
                     <v-btn flat slot="activator" color="success">
                       <v-icon small left>message</v-icon>
-                      <span>messager</span>
+                      <span>메신저</span>
+                    </v-btn>
+                    <v-btn flat slot="activator" color="info">
+                      <v-icon small left>expand_more</v-icon>
+                      <span>상세보기</span>
+                    </v-btn>
+                    <v-btn flat slot="activator" color="error">
+                      <v-icon small left>report</v-icon>
+                      <span>신고하기</span>
                     </v-btn>
                     <v-spacer></v-spacer>
-                   
                   </v-card-actions>
                 </v-card>
                 <Chat v-bind:comments="'host'+board.boardId"/>

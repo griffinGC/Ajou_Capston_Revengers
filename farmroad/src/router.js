@@ -11,6 +11,7 @@ import Welcome from './views/Welcome'
 import FileUpload from './views/FileUpload'
 import MyBoards from './views/MyBoards'
 import MyMap from './views/MyMap'
+import ChatRoom from './views/ChatRoom'
 
 Vue.use(Router)
 
@@ -104,6 +105,11 @@ const router =  new Router({
       path: '/mymap',
       name: 'mymap',
       component: MyMap
+    },
+    {
+      path: '/chatroom',
+      name: 'chatroom',
+      component: ChatRoom
     }
   ]
 })

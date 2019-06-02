@@ -85,7 +85,7 @@
                     </v-btn>
 
                     <!--messager button-->
-                    <v-btn flat slot="activator" color="success">
+                    <v-btn flat slot="activator" color="success" >
                       <v-icon small left>message</v-icon>
                       <span>messager</span>
                     </v-btn>
@@ -134,7 +134,8 @@ export default {
       showCard: false,
       diff: "",
       chatRoute: "/chat",
-      role: null
+      role: null,
+      chatRoomId: ''
     };
   },
   created() {
@@ -227,27 +228,13 @@ export default {
       this.newBoards = tempBoards;
       console.log(this.newBoards);
     },
-    // messager(id) {
-    //   if (localStorage.role == 1) {
-    //     this.chatId = id + "hostboardsmessager";
-    //   } else {
-    //     this.chatId = id + "guestboardsmessager";
-    //   }
-    //   this.axios
-    //     .post(
-    //       "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/chat",
-    //       {
-    //         userName: localStorage.username,
-    //         boardId: id,
-    //         chatId: this.chatId
-    //       }
-    //     )
-    //     .then(response => {
-    //       console.log(response.data);
-    //       console.log(this.chatId);
-    //       this.$router.push({ name: "chat", params: { name: this.chatId } });
-    //     });
-    // },
+    messager(id) {
+      this.chatRoomId = localStorage.username + id;
+      this.$router.push({
+        name: "chatroom",
+        params: { chatRoomId: this.chatRoomId }
+      });
+    },
     saveNotification(id) {
       console.log(id);
       if (localStorage.role == 0) {
@@ -303,4 +290,3 @@ export default {
   }
 };
 </script>
-

@@ -60,6 +60,23 @@
             return-object
           ></v-select>
           <v-text-field label="Category" v-model="category" prepend-icon="category"></v-text-field>
+          <v-icon>location_on</v-icon><span class="grey--text text--darken-1"> 선호 지역</span>
+          <v-flex xs12 d-flex>
+            <v-flex xs6>
+            <v-checkbox v-model="selected" hide-details label="경기도" value="경기도"></v-checkbox>
+            <v-checkbox v-model="selected" hide-details label="인천" value="인천"></v-checkbox>
+            <v-checkbox v-model="selected" hide-details label="충청북도" value="충청북도"></v-checkbox>
+            <v-checkbox v-model="selected" hide-details label="충청남도" value="충청남도"></v-checkbox>
+            <v-checkbox v-model="selected" hide-details label="경상북도" value="경상북도"></v-checkbox>
+            </v-flex>
+            <v-flex xs6>
+            <v-checkbox v-model="selected" hide-details label="경상남도" value="경상남도"></v-checkbox>
+            <v-checkbox v-model="selected" hide-details label="전라북도" value="전라북도"></v-checkbox>
+            <v-checkbox v-model="selected" hide-details label="전라남도" value="전라남도"></v-checkbox>
+            <v-checkbox v-model="selected" hide-details label="강원도" value="강원도"></v-checkbox>
+            <v-checkbox v-model="selected" hide-details label="제주도" value="제주도  "></v-checkbox>
+            </v-flex>
+          </v-flex>
           <v-textarea label="Content" v-model="content" prepend-icon="edit"></v-textarea>
           <v-alert v-model="alert" dismissible type="success">create Guest success</v-alert>
           <v-btn flat class="success mx-0 mt-3" @click="createGuestBoard">Add project</v-btn>
@@ -72,6 +89,7 @@
 export default {
   data() {
     return {
+      selected:[],
       date: new Date().toISOString().substr(0, 10),
       dateFormatted: this.formatDate(new Date().toISOString().substr(0, 10)),
       menu1: false,
@@ -144,6 +162,7 @@ export default {
       formData.append("guestId", localStorage.username);
       formData.append("category", this.category);
       formData.append("workDay", this.workDay);
+      formData.append("location2", this.selected);
       console.log(this.title);
       this.axios
         .post(

@@ -75,7 +75,7 @@
             <v-card-actions>
               <!------------------------------view dialog start--------------------------------->
               <v-dialog max-width="600px">
-                <v-btn flat slot="activator" color="grey" @click="viewAction(board.candidate)">
+                <v-btn flat slot="activator" color="grey" @click="viewAction(board)">
                   <v-icon small left>streetview</v-icon>
                   <span>view</span>
                 </v-btn>
@@ -138,7 +138,10 @@
                       <v-icon small left>message</v-icon>
                       <span>메신저</span>
                     </v-btn>
-                
+                    <v-btn to="/mymap" flat slot="activator" color="info">
+                      <v-icon small left>expand_more</v-icon>
+                      <span>상세보기</span>
+                    </v-btn> 
                     <v-btn flat slot="activator" color="error">
                       <v-icon small left>report</v-icon>
                       <span>신고하기</span>
@@ -148,7 +151,6 @@
                 </v-card>
                 <Chat v-bind:comments="'host'+board.boardId"/>
               </v-dialog>
-
               <!------------------------------view dialog end--------------------------------->
             </v-card-actions>
           </v-card>
@@ -383,17 +385,31 @@ export default {
           });
       }
     },
-    viewAction(candidate) {
-      console.log(candidate);
+    viewAction(board) {
+      var can = board.candidate
+      console.log(can);
       this.loading = false;
-      for (let index = 0; index < candidate.length; index++) {
-        console.log(candidate[index]);
-        if (candidate[index] === localStorage.username) {
-          console.log(candidate[index]);
+      for (let index = 0; index < can.length; index++) {
+        console.log(can[index]);
+        if (can[index] === localStorage.username) {
+          console.log(can[index]);
           this.loading = true;
           break;
         }
       }
+    },
+    report(board){
+      this.axios.post('',{
+        boardId: board.boardId,
+        username: localStorage.username,
+      }).then(response=>{
+        if(response.data.state == -1){
+          alert(response.data.msg)
+        }else{
+          console.log(response.data.msg)
+        }
+      })
+      
     }
   }
 };

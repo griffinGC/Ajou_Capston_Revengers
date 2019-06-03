@@ -77,8 +77,6 @@
                           <!--map-->
                           <v-flex d-flex xs12 sm6 md4>
                             <v-layout row wrap>
-                            <!-- <MyMap/> -->
-                            <MyMap/>
                             </v-layout>
                           </v-flex>
 
@@ -136,36 +134,27 @@
     <v-flex xs12>
       <div class="grey--text text--darken-1">Message list</div>
         <v-card color="green lighten-5" height="450" v-chat-scroll>
-          <v-card color="lime lighten-5" height="450" v-chat-scroll>
-          <v-card class="pa-1" v-for="notification in notificationList" :key="notification.id">
-          <v-layout row wrap :class="`pa-1 project.${notification.boardInfo.title}`">
-
-            <v-flex xs12 md6>
+            <v-flex xs12 sm12 md12  ml-2><ChatRoomList></ChatRoomList></v-flex>
+            <!-- <v-flex xs12 md6>
               <div class="caption grey--text">Title</div>
-              <!-- <div>{{project.title}}</div> -->
               <div>{{notification.boardInfo.title}}</div>
             </v-flex>
 
             <v-flex xs6 sm4 md2>
               <div class="caption grey--text">Person</div>
-              <!-- <div>{{project.guestInfo}}</div> -->
               <div>{{notification.userName}}</div>
             </v-flex>
 
             <v-flex xs6 sm4 md2>
               <div class="caption grey--text">Due</div>
-              <!-- <div>{{project.due}}</div> -->
               <div></div>
-            </v-flex>
-
+            </v-flex> -->
+<!-- 
             <v-flex xs6 sm4 md2>
               <div>
                 <HomeBoardView :candidateInfo="`${notification.userName}`"/>
               </div>
-            </v-flex>
-          </v-layout>
-        </v-card>
-      </v-card>
+            </v-flex> -->
         </v-card>
       </v-flex>
     </v-flex>
@@ -175,8 +164,7 @@
 <script>
 import HomeBoardView from '../components/HomeBoardView'
 import firebase from "firebase";
-import MyMap from "../views/MyMap";
-
+import ChatRoomList from '../components/ChatRoomList'
 export default {
   name: "home",
   data() {
@@ -387,12 +375,12 @@ export default {
     }
   },
   components: {
-    HomeBoardView
+    HomeBoardView,
+    ChatRoomList
   },
   computedDateFormatted() {
       return this.formatDate(this.date);
     },
-    MyMap
   }
 </script>
 <style>

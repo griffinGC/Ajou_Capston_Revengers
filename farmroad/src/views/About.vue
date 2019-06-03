@@ -278,7 +278,7 @@ export default {
             "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/chatRoom/createChatRoom",
             {
               chatRoomId: this.chatRoomId,
-              hostUserName: info.id,
+              hostUserName: info.userName,
               guestUserName: localStorage.username
             }
           )

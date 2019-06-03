@@ -5,7 +5,7 @@ const hostModel = require('../schemas/createHost');
 const adminModel = require('../schemas/admin');
 
 router.get('/',function(req, res, error){
-    // console.lo   g(req.headers);
+    // console.log(req.headers);
     if(req.session.userId){
         res.send({state : 0, msg : "already login!"});
     }else{

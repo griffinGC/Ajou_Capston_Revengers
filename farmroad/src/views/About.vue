@@ -95,7 +95,7 @@
                   </v-card-title>
 
                   <v-card-text>
-                    <!--map-->
+              
                     <v-flex d-flex xs12 sm6 md4>
                       <v-layout row wrap></v-layout>
                     </v-flex>
@@ -138,12 +138,7 @@
                       <v-icon small left>message</v-icon>
                       <span>메신저</span>
                     </v-btn>
-                    <!-- <router-link to="/MyMap"> -->
-                    <!-- <v-btn to="/mymap" flat slot="activator" color="info">
-                      <v-icon small left>expand_more</v-icon>
-                      <span>상세보기</span>
-                    </v-btn> -->
-                    <!-- </router-link> -->
+                
                     <v-btn flat slot="activator" color="error">
                       <v-icon small left>report</v-icon>
                       <span>신고하기</span>
@@ -168,9 +163,6 @@ import firebase from "firebase";
 import Chat from "../views/Chat";
 import UserInfoVue from "./UserInfo.vue";
 export default {
-//   const: routes = [
-//   { path: '/mymap', component: MyMap }
-// ],
   components: {
     computedDateFormatted() {
       return this.formatDate(this.date);
@@ -306,7 +298,7 @@ export default {
       }
     },
     messager(info) {
-      this.chatRoomId = localStorage.username + info.id;
+      this.chatRoomId = localStorage.username + info.userName;
       if (localStorage.role == 0) {
         this.axios
           .post(
@@ -335,7 +327,7 @@ export default {
             {
               chatRoomId: this.chatRoomId,
               hostUserName: localStorage.username,
-              guestUserName: info.id
+              guestUserName: info.userName
             }
           )
           .then(response => {

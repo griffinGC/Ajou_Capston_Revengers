@@ -175,7 +175,6 @@
 <script>
 import HomeBoardView from '../components/HomeBoardView'
 import firebase from "firebase";
-import MyMap from "../views/MyMap";
 
 export default {
   name: "home",
@@ -392,7 +391,6 @@ export default {
   computedDateFormatted() {
       return this.formatDate(this.date);
     },
-    MyMap
   }
 </script>
 <style>

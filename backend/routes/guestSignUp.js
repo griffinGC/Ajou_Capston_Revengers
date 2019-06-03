@@ -1,10 +1,11 @@
 var express = require('express');
 var router = express.Router();
 const guestModel = require('../schemas/createGuest');
+const approveModel = require('../schemas/approve');
 
 const multer = require('multer');
 
-
+const axios = require('axios');
 //guestid 확인용, gudstid 가입 => 총 2개의 router 지정해야함 
 router.get('/:id',function(req, res,next){
   console.log("start");

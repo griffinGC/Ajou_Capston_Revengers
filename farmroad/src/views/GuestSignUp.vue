@@ -189,6 +189,10 @@ export default {
       show4: false,
       alertSuccess: false,
       alertError: false,
+      alertPhoneSuccess: false,
+      alertPhoneError: false,
+      alertApproveSuccess: false,
+      alertApproveError: false,
       myName: "",
       imageName: "",
       imageUrl: "",
@@ -253,7 +257,7 @@ export default {
           }
         });
     },
-        checkPhoneNumber(){
+    checkPhoneNumber(){
       this.axios
       .post("http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/guestSignUp/phoneConfirm",
       {

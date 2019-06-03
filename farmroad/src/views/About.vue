@@ -91,7 +91,7 @@
                   </v-img>
 
                   <v-card-title>
-                    <h2 class="center teal-text">{{board.Info.name}}</h2>
+                    <h2 class="center teal-text">{{board.boardId}}</h2>
                   </v-card-title>
 
                   <v-card-text>
@@ -165,7 +165,6 @@
 
 <script>
 import firebase from "firebase";
-import ChatRoom from "../components/ChatRoom";
 import Chat from "../views/Chat";
 import UserInfoVue from "./UserInfo.vue";
 export default {
@@ -177,7 +176,7 @@ export default {
       return this.formatDate(this.date);
     },
 
-    ChatRoom,
+
     Chat
   },
   data() {

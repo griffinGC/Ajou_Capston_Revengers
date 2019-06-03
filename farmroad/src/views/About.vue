@@ -89,12 +89,10 @@
                       <v-icon small left>message</v-icon>
                       <span>메신저</span>
                     </v-btn>
-                    <!-- <router-link to="/MyMap"> -->
-                    <!-- <v-btn to="/mymap" flat slot="activator" color="info">
+                    <v-btn to="/mymap" flat slot="activator" color="info">
                       <v-icon small left>expand_more</v-icon>
                       <span>상세보기</span>
-                    </v-btn> -->
-                    <!-- </router-link> -->
+                    </v-btn> 
                     <v-btn flat slot="activator" color="error">
                       <v-icon small left>report</v-icon>
                       <span>신고하기</span>

@@ -63,15 +63,12 @@
         <v-text-field v-model="phone" label="phone" :rules="[phoneRules.required,phoneRules.min]" required prepend-icon="phone"></v-text-field>
         <v-alert :value="alertPhoneSuccess" type="success">전화번호 전송 성공!</v-alert>
         <v-alert :value="alertPhoneError" type="error">전화번호 전송 에러!</v-alert>
-        <v-btn :disabled="!valid" left color="success" @click="sendPhoneNumber">전화번호 인증</v-btn>
+        <v-btn  left color="success" @click="sendPhoneNumber">전화번호 인증</v-btn>
 
         <v-text-field v-model="confirmNumber" label="인증번호" :rules="[confirmRules.required,confirmRules.min,confirmRules.number]" required prepend-icon="done"></v-text-field>
         <v-alert :value="alertApproveSuccess" type="success">인증번호 확인 성공!</v-alert>
         <v-alert :value="alertApproveError" type="error">인증번호 확인 에러!</v-alert>
-        <v-btn :disabled="!valid" left color="success" @click="checkPhoneNumber">인증번호 확인</v-btn>
-
-
-        <v-text-field v-model="phone" label="phone" required prepend-icon="phone"></v-text-field>
+        <v-btn  left color="success" @click="checkPhoneNumber">인증번호 확인</v-btn>
         <div class="grey--text text--darken-1">Ability</div>
         <v-layout row wrap>
             <v-flex sm2><v-checkbox v-model="work" label="농업" value="agriculture"></v-checkbox></v-flex>

@@ -26,6 +26,8 @@ var notifyDeleteRouter = require('./routes/notifyDelete');
 
 var mainRouter = require('./routes/main');
 var chatRouter = require('./routes/chat');
+var chatRoomRouter = require('./routes/chatRoom');
+
 var searchRouter = require('./routes/searchBoard');
 var deleteRouter = require('./routes/deletePost');
 
@@ -101,8 +103,11 @@ app.use('/notifyDelete', notifyDeleteRouter);
 //main 화면 기능 라우터
 app.use('/main', mainRouter);
 
-//chat 기능 라우터 
+//댓글 기능 라우터 
 app.use('/chat', chatRouter);
+
+//chat 기능 라우터
+app.use('/chatRoom', chatRoomRouter);
 
 //특정유저가 작성한 모든 게시글 라우터
 app.use('/searchBoard',searchRouter); 

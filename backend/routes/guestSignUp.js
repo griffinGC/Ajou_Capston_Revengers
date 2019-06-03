@@ -17,7 +17,7 @@ router.get('/:id',function(req, res,next){
 router.get('/guestConfirm/:id',function(req, res,next){
   console.log(req.params.id);
   if(!req.params.id){
-    return res.json({state : -1, msg : "host ID is empty"});
+    return res.json({state : -1, msg : "guest ID is empty"});
   }
     guestModel.find({userName : req.params.id},function(err,guestModel){
         if(err) {

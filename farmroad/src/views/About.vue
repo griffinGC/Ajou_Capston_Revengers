@@ -2,12 +2,63 @@
   <div class="about">
     <!--search from-->
     <v-form v-if="role">
-      <v-flex xs6>
-        <!--difficulty select-->
-        <v-select v-if="role" :items="items" v-model="diff" label="difficulty" return-object></v-select>
-        <!--search btn-->
-        <v-btn flat class="success" @click="findByDifficulty(boards)">Search</v-btn>
-      </v-flex>
+        <div class="grey--text text--darken-1"></div>
+        <v-layout row wrap>
+          <v-item-group>
+            <v-checkbox v-model="location" label="경기도" value="경기도"></v-checkbox>
+            <v-checkbox v-model="location" label="인천" value="인천"></v-checkbox>
+          </v-item-group>
+           <v-item-group>
+            <v-checkbox v-model="location" label="충청북도" value="충청북도"></v-checkbox>
+            <v-checkbox v-model="location" label="충청남도" value="충청남도"></v-checkbox>
+          </v-item-group>
+            <v-item-group>
+            <v-checkbox v-model="location" label="경상북도" value="경상북도"></v-checkbox>
+            <v-checkbox v-model="location" label="경상남도" value="경상남도"></v-checkbox>
+          </v-item-group>
+            <v-item-group>
+            <v-checkbox v-model="location" label="전라북도" value="전라북도"></v-checkbox>
+            <v-checkbox v-model="location" label="전라남도" value="전라남도"></v-checkbox>
+          </v-item-group>
+          <v-item-group>
+            <v-checkbox v-model="location" label="강원도" value="강원도"></v-checkbox>
+            <v-checkbox v-model="location" label="제주도" value="제주도"></v-checkbox>
+          </v-item-group>
+          {{ this.location}}
+          <v-btn flat class="success" @click="sortLocation(boards)">지역 검색</v-btn>
+        </v-layout>
+    </v-form>
+    <v-form v-else>
+
+        <div class="grey--text text--darken-1"></div>
+        <v-layout row wrap>
+          <v-item-group>
+            <v-checkbox v-model="selected" label="요리를 잘해요" value="cook"></v-checkbox>
+            <v-checkbox v-model="selected" label="미용 잘해요" value="beauty"></v-checkbox>
+          </v-item-group>
+           <v-item-group>
+            <v-checkbox v-model="selected" label="애를 잘돌봐요" value="baby"></v-checkbox>
+            <v-checkbox v-model="selected" label="청소를 잘해요" value="clean"></v-checkbox>
+          </v-item-group>
+            <v-item-group>
+            <v-checkbox v-model="selected" label="운전을 잘해요" value="drive"></v-checkbox>
+            <v-checkbox v-model="selected" label="도배를 잘해요" value="paper"></v-checkbox>
+          </v-item-group>
+            <v-item-group>
+            <v-checkbox v-model="selected" label="짐나르는거 잘해요" value="carry"></v-checkbox>
+            <v-checkbox v-model="selected" label="노래를 잘해요" value="sing"></v-checkbox>
+          </v-item-group>
+          <v-item-group>
+            <v-checkbox v-model="selected" label="말동부를 잘해요" value="talk"></v-checkbox>
+            <v-checkbox v-model="selected" label="컴퓨터를 잘다뤄요" value="comp"></v-checkbox>
+          </v-item-group>
+          <v-item-group>
+            <v-checkbox v-model="selected" label="농기계를 잘다뤄요" value="machine"></v-checkbox>
+            <v-checkbox v-model="selected" label="농사경험이 있어요" value="farm"></v-checkbox>
+          </v-item-group>
+          <!-- {{ this.selected}} -->
+          <v-btn flat class="success" @click="sortBoard(boards)">선택사항 검색</v-btn>
+        </v-layout>
     </v-form>
     <v-container class="my-5">
       <v-layout row wrap>
@@ -40,15 +91,13 @@
                   </v-img>
 
                   <v-card-title>
-                    <h2 class="center teal-text">{{board.Info.name}}</h2>
+                    <h2 class="center teal-text">{{board.boardId}}</h2>
                   </v-card-title>
 
                   <v-card-text>
                     <!--map-->
                     <v-flex d-flex xs12 sm6 md4>
-                      <v-layout row wrap>
-                        <!-- <MyMap/> -->
-                      </v-layout>
+                      <v-layout row wrap></v-layout>
                     </v-flex>
 
                     <!--show date-->
@@ -85,7 +134,7 @@
                     </v-btn>
 
                     <!--messager button-->
-                    <v-btn flat slot="activator" color="success">
+                    <v-btn flat slot="activator" color="success" @click="messager(board.Info)">
                       <v-icon small left>message</v-icon>
                       <span>메신저</span>
                     </v-btn>
@@ -114,9 +163,8 @@
 
 <script>
 import firebase from "firebase";
-import MyMap from "../views/MyMap";
-import ChatRoom from "../components/ChatRoom";
 import Chat from "../views/Chat";
+import UserInfoVue from "./UserInfo.vue";
 export default {
 //   const: routes = [
 //   { path: '/mymap', component: MyMap }
@@ -125,8 +173,8 @@ export default {
     computedDateFormatted() {
       return this.formatDate(this.date);
     },
-    MyMap,
-    ChatRoom,
+
+
     Chat
   },
   data() {
@@ -140,16 +188,19 @@ export default {
       loading: "",
       showDate: "2018-03-02",
 
+
+      selected: [],
+      location: [],
+
       menu1: false,
+
       date: new Date().toISOString().substr(0, 10),
       dateFormatted: this.formatDate(new Date().toISOString().substr(0, 10)),
       showCard: false,
       diff: "",
       chatRoute: "/chat",
       role: null,
-
-      lat: 53,
-      lng: -2
+      chatRoomId: ""
     };
   },
   created() {
@@ -166,7 +217,6 @@ export default {
   },
   mounted: function() {
     if (localStorage.role == 0) {
-      
       this.axios
         .get(
           "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/hostBoard/getList"
@@ -174,10 +224,16 @@ export default {
         .then(response => {
           console.log(response.data);
           this.boards = response.data;
-          this.newBoards = response.data;
+          //check if the board is baned
+          var tmp = new Array();
+          this.boards.forEach(item => {
+            if (!item.report) {
+              tmp.push(item);
+            }
+          });
+          this.newBoards = tmp;
         });
     } else if (localStorage.role == 1) {
-      
       this.axios
         .get(
           "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/guestBoard/getList"
@@ -185,7 +241,13 @@ export default {
         .then(response => {
           console.log(response.data);
           this.boards = response.data;
-          this.newBoards = response.data;
+          var tmp = new Array();
+          this.boards.forEach(item => {
+            if (!item.report) {
+              tmp.push(item);
+            }
+          });
+          this.newBoards = tmp;
         });
     }
   },
@@ -221,37 +283,72 @@ export default {
       this.newBoards = temBoards;
       console.log(this.newBoards);
     },
-    findBoards(boards) {
+    sortLocation(boards) {
       var tempBoards = new Array();
-      boards.forEach(item => {
-        if (item.workDay == this.workDay && item.difficulty == this.diff) {
-          tempBoards.push(item);
-        }
+      boards.forEach(index => {
+         index.count = 0;
+         for(let i = 0; i<this.location.length; i++){
+              if(index.location === this.location[i])
+              {
+                ++index.count;
+              }
+         }
+         if(index.count !== 0)
+         {
+           tempBoards.push(index);
+         }
       });
       this.newBoards = tempBoards;
-      console.log(this.newBoards);
+      if(this.selected.length === 0){
+           this.newBoards = boards;
+      }
     },
-    // messager(id) {
-    //   if (localStorage.role == 1) {
-    //     this.chatId = id + "hostboardsmessager";
-    //   } else {
-    //     this.chatId = id + "guestboardsmessager";
-    //   }
-    //   this.axios
-    //     .post(
-    //       "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/chat",
-    //       {
-    //         userName: localStorage.username,
-    //         boardId: id,
-    //         chatId: this.chatId
-    //       }
-    //     )
-    //     .then(response => {
-    //       console.log(response.data);
-    //       console.log(this.chatId);
-    //       this.$router.push({ name: "chat", params: { name: this.chatId } });
-    //     });
-    // },
+    messager(info) {
+      this.chatRoomId = localStorage.username + info.id;
+      if (localStorage.role == 0) {
+        this.axios
+          .post(
+            "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/chatRoom/createChatRoom",
+            {
+              chatRoomId: this.chatRoomId,
+              hostUserName: info.userName,
+              guestUserName: localStorage.username
+            }
+          )
+          .then(response => {
+            if (response.data.state == -1) {
+              alert(response.data.msg);
+            } else {
+              console.log(response.data.msg);
+              this.$router.push({
+                name: "chatroom",
+                params: { chatRoomId: this.chatRoomId }
+              });
+            }
+          });
+      } else {
+        this.axios
+          .post(
+            "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/chatRoom/createChatRoom",
+            {
+              chatRoomId: this.chatRoomId,
+              hostUserName: localStorage.username,
+              guestUserName: info.id
+            }
+          )
+          .then(response => {
+            if (response.data.state == -1) {
+              alert(response.data.msg);
+            } else {
+              console.log(response.data.msg);
+              this.$router.push({
+                name: "chatroom",
+                params: { chatRoomId: this.chatRoomId }
+              });
+            }
+          });
+      }
+    },
     saveNotification(id) {
       console.log(id);
       if (localStorage.role == 0) {
@@ -307,4 +404,3 @@ export default {
   }
 };
 </script>
-

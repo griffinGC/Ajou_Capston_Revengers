@@ -87,7 +87,7 @@
 
         <!--ability-->
         <!-- <v-text-field v-model="ability" label="ability" required prepend-icon="list_alt"></v-text-field> -->
-        
+
         <div class="grey--text text--darken-1">Ability</div>
         <v-layout row wrap>
           <v-item-group><span>
@@ -127,7 +127,6 @@
       <!--back btn-->
       <v-btn color="green darken-1" flat router :to="{name: 'Signin'}">Back</v-btn>
     </v-card-actions>
-    
   </v-card>
 </template>
 
@@ -176,7 +175,7 @@ export default {
       imageName: "",
       imageUrl: "",
       imageFile: ""
-    };  
+    };
   },
   methods: {
     validate() {
@@ -189,13 +188,10 @@ export default {
       formData.append("phone", this.phone);
       formData.append("age", this.age);
       formData.append("gender", this.select);
-      let temp = JSON.stringify(this.selected);
-      // 문자열로 보내서 backend에서 데이터 처리
-      formData.append("ability", temp);
-      console.log(temp);
-      console.log(this.selected);
+      formData.append("ability", JSON.stringify(this.selected));
       if (this.$refs.form.validate()) {
         this.snackbar = true;
+        console.log(this.selected);
         this.axios
           .post(
             "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/guestSignUp/guest",
@@ -212,8 +208,9 @@ export default {
             if (response.data.state == 0) {
               localStorage.username = this.username;
               localStorage.role = 0;
-              // this.$router.push("/");
-              // location.reload();
+              console.log(formData.forEach);
+              this.$router.push("/");
+              location.reload();
             } else {
               console.log(response.data.msg);
             }
@@ -260,19 +257,7 @@ export default {
         this.imageFile = "";
         this.imageUrl = "";
       }
-    },
-    send: function () {
-      var formData = {
-        stuff: {
-          selected: this.selected
-        }
-      }
-      axios.post("http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/selected", formData).then(response => {
-        console.log(response)
-      }).catch(e => {
-        console.log(e)
-      })
-    },
+    }
   }
 };
 </script>

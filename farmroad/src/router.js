@@ -11,6 +11,8 @@ import Welcome from './views/Welcome'
 import FileUpload from './views/FileUpload'
 import MyBoards from './views/MyBoards'
 import MyMap from './views/MyMap'
+import ChatRoom from './views/ChatRoom'
+import ChatRoomList from './components/ChatRoomList'
 
 Vue.use(Router)
 
@@ -104,6 +106,23 @@ const router =  new Router({
       path: '/mymap',
       name: 'mymap',
       component: MyMap
+    },
+    {
+      path: '/chatroom',
+      name: 'chatroom',
+      component: ChatRoom,
+      props: true,
+      beforeEnter: (to, from, next) => {
+        console.log('router beforEnter message: '+to.params.chatRoomId)
+        if(to.params.chatRoomId){
+          next()
+        }
+      }
+    },
+    {
+      path: '/chatroomlist',
+      name: 'chatroomlist',
+      component: ChatRoomList
     }
   ]
 })

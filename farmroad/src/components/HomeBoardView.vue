@@ -52,11 +52,11 @@
                </v-flex>
                <v-flex sm3>
                 <v-card-actions>
-                <v-btn flat slot="activator" color="success" @click="approve()">
+                <v-btn flat slot="activator" color="success" @click="approveCandidate()">
                   <v-icon small left>favorite</v-icon>
                   <span>Approve</span>
                   </v-btn>
-                  <v-btn flat slot="activator" color="success" @click="refuse()">
+                  <v-btn flat slot="activator" color="success" @click="refuseCandidate()">
                   <v-icon small left>clear</v-icon>
                   <span>Refuse</span>
                     </v-btn>

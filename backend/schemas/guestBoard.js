@@ -40,7 +40,7 @@ const guestBoardSchema = new mongoose.Schema({
         type : String
     },
     preferLocation : {
-        type : String
+        type : Array
     },
     candidate :{
         type : Array

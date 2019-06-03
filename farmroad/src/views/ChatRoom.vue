@@ -21,6 +21,10 @@
       <form @submit.prevent="addMessage">
         <v-text-field label="new message" v-model="newMessage" :rules="newMessageRules" required></v-text-field>
       </form>
+      <v-card-actions>
+         <v-spacer></v-spacer>
+       <v-btn color="green darken-1" flat router :to="{name: 'chatroomlist'}">Back</v-btn>
+      </v-card-actions>
     </v-card>
   </v-flex>
 </template>
@@ -77,7 +81,7 @@ export default {
       } else {
       }
     }
-  }
+  },
 };
 </script>
 

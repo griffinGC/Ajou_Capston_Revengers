@@ -9,10 +9,12 @@ const notifyApproveHost =require('../schemas/notificationHost');
 const notifyRefuseHost =require('../schemas/notificationHost');
 
 router.post('/notifyApproveStateGuest',function(req, res,next){
-  notifyApproveGuest.update({userName : req.body.userName},{$set : {state : "approve"}},function(err){
+  // notifyApproveGuest.update({userName : req.body.userName},{$set : {state : req.body.state}},function(err){
+    notifyApproveGuest.update({userName : req.body.userName},{$set : {state : req.body.state}},function(err){
     if(err) {
       return res.json(err);
     };
+    console.log(userName);
     //json형식으로 응답
     return res.json({state : 0, msg : "Registeration approve"});
     })

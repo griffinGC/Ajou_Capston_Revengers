@@ -14,10 +14,8 @@ router.post('/notifyApproveStateGuest',function(req, res,next){
       return res.json(err);
     };
     //json형식으로 응답
-   
     return res.json({state : 0, msg : "Registeration approve"});
-     
-      })
+    })
 });  
 
 

@@ -65,6 +65,15 @@ router.get('/updateGuest/able/:id', function(req, res, next){
     });
 })
 
+router.post('/isReportGuest/ban', function(req, res, next){
+    guestBoard.update({boardId : req.body.boardId}, {$addToSet : {isReport : req.body.userName}}, function(err){
+        if(err){
+            return res.json(err);
+        };
+        return res.json({state : 0, msg : "isReport GuestBoard is success"});
+    });
+})
+
 var newFile = "";
 
 var storage = multer.diskStorage({

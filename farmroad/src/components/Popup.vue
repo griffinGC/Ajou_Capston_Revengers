@@ -59,6 +59,25 @@
             return-object
           ></v-select>
           <v-select :items="items1" v-model="diff" label="difficulty" return-object></v-select>
+          <v-icon>accessibility</v-icon><span class="grey--text text--darken-1"> 선호 능력</span>
+          <v-flex xs12 d-flex>
+            <v-flex xs6>
+            <v-checkbox v-model="selected" hide-details label="요리" value="cook"></v-checkbox>
+            <v-checkbox v-model="selected" hide-details label="미용" value="beauty"></v-checkbox>
+            <v-checkbox v-model="selected" hide-details label="육아" value="baby"></v-checkbox>
+            <v-checkbox v-model="selected" hide-details label="청소" value="clean"></v-checkbox>
+            <v-checkbox v-model="selected" hide-details label="운전" value="drive"></v-checkbox>
+            <v-checkbox v-model="selected" hide-details label="도배" value="paper"></v-checkbox>
+            </v-flex>
+            <v-flex xs6>
+            <v-checkbox v-model="selected" hide-details label="짐나르기" value="carry"></v-checkbox>
+            <v-checkbox v-model="selected" hide-details label="노래" value="sing"></v-checkbox>
+            <v-checkbox v-model="selected" hide-details label="말동부" value="talk"></v-checkbox>
+            <v-checkbox v-model="selected" hide-details label="컴퓨터" value="comp"></v-checkbox>
+            <v-checkbox v-model="selected" hide-details label="농기계" value="machine"></v-checkbox>
+            <v-checkbox v-model="selected" hide-details label="농사경험" value="farm"></v-checkbox>
+            </v-flex>
+          </v-flex>
           <v-textarea label="Content" v-model="content" prepend-icon="edit" required></v-textarea>
           <v-alert v-model="alert" dismissible type="success">create Board success</v-alert>
 
@@ -73,6 +92,7 @@ import { setTimeout } from "timers";
 export default {
   data() {
     return {
+      selected:[],
       date: new Date().toISOString().substr(0, 10),
       dateFormatted: this.formatDate(new Date().toISOString().substr(0, 10)),
       menu1: false,
@@ -148,6 +168,9 @@ export default {
       formData.append("difficulty", this.diff);
       formData.append("workDay", this.workDay);
       formData.append("startDate", this.date);
+      let temp = JSON.stringify(this.selected);
+      // 문자열로 보내서 backend에서 데이터 처리
+      formData.append("preferAbility", temp);
       console.log(formData)
       this.axios
         .post(

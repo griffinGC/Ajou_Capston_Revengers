@@ -1,41 +1,42 @@
 <template>
-  <v-layout>
-    <v-flex>
-      <v-card>
-        <v-card-title>
-          comments
-        </v-card-title>
-        <v-list two-line class="messages" v-chat-scroll>
-          <template v-for="(msg) in messages">
-            <v-list-tile :key="msg.id" avatar>
-              <v-list-tile-avatar>
+  <v-flex>
+    <v-card>
+      <v-card-title>
+        <h2>chat room</h2>
+      </v-card-title>
+      <v-list class="messages" two-line v-chat-scroll>
+        <template v-for="msg in messages">
+          <v-list-tile :key="msg.id" avatar>
+            <v-list-tile-avatar>
                 <img :src="msg.img">
               </v-list-tile-avatar>
-              <v-list-tile-content>
-                <span class="grey--text">{{msg.name}}:</span>
-                <span>{{msg.content}}</span>
-              </v-list-tile-content>
-            </v-list-tile>
-          </template>
-        </v-list>
-        <v-divider></v-divider>
-
-        <!--submit-->
-        <form @submit.prevent="addMessage" >
-          <v-text-field label="new message" v-model="newMessage" :rules="newMessageRules" required></v-text-field>
-        </form>
-        <v-card-actions>
-          <v-spacer></v-spacer>
-        </v-card-actions>
-      </v-card>
-    </v-flex>
-  </v-layout>
+            <v-list-tile-content>
+              <span class="grey--test">{{msg.name}}:</span>
+              <span>{{msg.content}}</span>
+            </v-list-tile-content>
+          </v-list-tile>
+        </template>
+      </v-list>
+      <v-card-actions></v-card-actions>
+      <form @submit.prevent="addMessage">
+        <v-text-field label="new message" v-model="newMessage" :rules="newMessageRules" required></v-text-field>
+      </form>
+      <v-card-actions>
+         <v-spacer></v-spacer>
+       <v-btn color="green darken-1" flat router :to="{name: 'chatroomlist'}">Back</v-btn>
+      </v-card-actions>
+    </v-card>
+  </v-flex>
 </template>
-
 
 <script>
 import db from "@/firebase/init";
 export default {
+  name: "chatroom",
+  components: {},
+  props: {
+    chatRoomId: String
+  },
   data() {
     return {
       messages: [],
@@ -43,12 +44,9 @@ export default {
       newMessageRules: [v => !!v || "Message is required"]
     };
   },
-  props:{
-    comments: String
-  },
   created() {
-    console.log(this.comments);
-    let ref = db.collection(this.comments).orderBy("timestamp");
+    console.log(this.chatRoomId);
+    let ref = db.collection(this.chatRoomId).orderBy("timestamp");
 
     ref.onSnapshot(snapshot => {
       snapshot.docChanges().forEach(change => {
@@ -69,7 +67,7 @@ export default {
     addMessage() {
       console.log(this.newMessage, localStorage.username, Date.now());
       if (this.newMessage) {
-        db.collection(this.comments)
+        db.collection(this.chatRoomId)
           .add({
             content: this.newMessage,
             name: localStorage.username,
@@ -82,8 +80,8 @@ export default {
         this.newMessage = null;
       } else {
       }
-    },
-  }
+    }
+  },
 };
 </script>
 
@@ -102,4 +100,5 @@ export default {
   background: #aaa;
 }
 </style>
+
 

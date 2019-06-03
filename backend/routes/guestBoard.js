@@ -117,10 +117,12 @@ router.post('/createBoard',upload.single('img'), function(req, res, next){
         let preferLocation = req.body.preferLocation;
         let deleteA = preferLocation.replace("[","");
         let deleteB = deleteA.replace("]","");
+        deleteB = deleteB.replace(/"/gi,'');
         console.log(deleteB);
         let abArr = deleteB.split(',');
 
         writeBoard.preferLocation = abArr;
+        
         writeBoard.candidate = req.body.candidate;
         writeBoard.report = false;
 

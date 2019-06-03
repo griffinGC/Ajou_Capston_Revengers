@@ -124,8 +124,10 @@ router.post('/createBoard', upload.single('img'),function(req, res, next){
         let preferAbility = req.body.preferAbility;
         let deleteA = preferAbility.replace("[","");
         let deleteB = deleteA.replace("]","");
+        deleteB = deleteB.replace(/"/gi,'');
         console.log(deleteB);
         let abArr = deleteB.split(',');
+        
         writeBoard.preferAbility = abArr;
 
         writeBoard.candidate = req.body.candidate;

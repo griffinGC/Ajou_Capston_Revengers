@@ -29,6 +29,7 @@
         </v-layout>
     </v-form>
     <v-form v-else>
+
         <div class="grey--text text--darken-1"></div>
         <v-layout row wrap>
           <v-item-group>
@@ -96,9 +97,7 @@
                   <v-card-text>
                     <!--map-->
                     <v-flex d-flex xs12 sm6 md4>
-                      <v-layout row wrap>
-                        <!-- <MyMap/> -->
-                      </v-layout>
+                      <v-layout row wrap></v-layout>
                     </v-flex>
 
                     <!--show date-->
@@ -131,15 +130,24 @@
                       color="success"
                     >
                       <v-icon small left>add</v-icon>
-                      <span>register</span>
+                      <span>신청하기</span>
                     </v-btn>
 
                     <!--messager button-->
-                    <v-btn flat slot="activator" color="success">
+                    <v-btn flat slot="activator" color="success" @click="messager(board.Info)">
                       <v-icon small left>message</v-icon>
-                      <span>messager</span>
+                      <span>메신저</span>
                     </v-btn>
-                    <v-spacer></v-spacer>
+                    <!-- <router-link to="/MyMap"> -->
+                    <!-- <v-btn to="/mymap" flat slot="activator" color="info">
+                      <v-icon small left>expand_more</v-icon>
+                      <span>상세보기</span>
+                    </v-btn> -->
+                    <!-- </router-link> -->
+                    <v-btn flat slot="activator" color="error">
+                      <v-icon small left>report</v-icon>
+                      <span>신고하기</span>
+                    </v-btn>
                    
                   </v-card-actions>
                 </v-card>
@@ -157,16 +165,18 @@
 
 <script>
 import firebase from "firebase";
-import MyMap from "../views/MyMap";
 import ChatRoom from "../components/ChatRoom";
 import Chat from "../views/Chat";
-import UserInfoVue from './UserInfo.vue';
+import UserInfoVue from "./UserInfo.vue";
 export default {
+//   const: routes = [
+//   { path: '/mymap', component: MyMap }
+// ],
   components: {
     computedDateFormatted() {
       return this.formatDate(this.date);
     },
-    MyMap,
+
     ChatRoom,
     Chat
   },
@@ -181,19 +191,19 @@ export default {
       loading: "",
       showDate: "2018-03-02",
 
+
       selected: [],
       location: [],
 
       menu1: false,
+
       date: new Date().toISOString().substr(0, 10),
       dateFormatted: this.formatDate(new Date().toISOString().substr(0, 10)),
       showCard: false,
       diff: "",
       chatRoute: "/chat",
       role: null,
-
-      lat: 53,
-      lng: -2
+      chatRoomId: ""
     };
   },
   created() {
@@ -210,7 +220,6 @@ export default {
   },
   mounted: function() {
     if (localStorage.role == 0) {
-      
       this.axios
         .get(
           "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/hostBoard/getList"
@@ -218,10 +227,16 @@ export default {
         .then(response => {
           console.log(response.data);
           this.boards = response.data;
-          this.newBoards = response.data;
+          //check if the board is baned
+          var tmp = new Array();
+          this.boards.forEach(item => {
+            if (!item.report) {
+              tmp.push(item);
+            }
+          });
+          this.newBoards = tmp;
         });
     } else if (localStorage.role == 1) {
-      
       this.axios
         .get(
           "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/guestBoard/getList"
@@ -229,7 +244,13 @@ export default {
         .then(response => {
           console.log(response.data);
           this.boards = response.data;
-          this.newBoards = response.data;
+          var tmp = new Array();
+          this.boards.forEach(item => {
+            if (!item.report) {
+              tmp.push(item);
+            }
+          });
+          this.newBoards = tmp;
         });
     }
   },
@@ -285,34 +306,52 @@ export default {
            this.newBoards = boards;
       }
     },
-     sortBoard(boards) {
-       var tempBoards = new Array();
-
-       boards.forEach(index=>{
-         index.count = 0;
-         for(let i = 0; i<index.Info.ability.length; i++){
-           for(let j = 0; j<this.selected.length; j++){
-              if(index.Info.ability[i] === this.selected[j])
-              {
-                ++index.count;
-                // break;  
-              }
-           }
-         }
-         console.log("가지고 있는 개수! " + index.count);
-         if(index.count !== 0)
-         {
-           tempBoards.push(index);
-         }
-       })
-      console.log(tempBoards);
-      console.log("데이터 검색");
-         this.newBoards = tempBoards;    
-         if(this.selected.length === 0){
-           this.newBoards = boards;
-         }
-     },
-     
+    messager(info) {
+      this.chatRoomId = localStorage.username + info.id;
+      if (localStorage.role == 0) {
+        this.axios
+          .post(
+            "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/chatRoom/createChatRoom",
+            {
+              chatRoomId: this.chatRoomId,
+              hostUserName: info.userName,
+              guestUserName: localStorage.username
+            }
+          )
+          .then(response => {
+            if (response.data.state == -1) {
+              alert(response.data.msg);
+            } else {
+              console.log(response.data.msg);
+              this.$router.push({
+                name: "chatroom",
+                params: { chatRoomId: this.chatRoomId }
+              });
+            }
+          });
+      } else {
+        this.axios
+          .post(
+            "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/chatRoom/createChatRoom",
+            {
+              chatRoomId: this.chatRoomId,
+              hostUserName: localStorage.username,
+              guestUserName: info.id
+            }
+          )
+          .then(response => {
+            if (response.data.state == -1) {
+              alert(response.data.msg);
+            } else {
+              console.log(response.data.msg);
+              this.$router.push({
+                name: "chatroom",
+                params: { chatRoomId: this.chatRoomId }
+              });
+            }
+          });
+      }
+    },
     saveNotification(id) {
       console.log(id);
       if (localStorage.role == 0) {
@@ -368,4 +407,3 @@ export default {
   }
 };
 </script>
-

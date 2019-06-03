@@ -134,98 +134,38 @@
     </v-flex>
   <v-flex>
     <v-flex xs12>
-      <div class="grey--text text--darken-1">Boards</div>
-        <v-card color="green lighten-5" height="450" class="scroll">
-          <v-container fluid grid-list-md>
-            <v-layout row wrap>
-              <v-flex xs12 sm6 md4 lg3 v-for="board in newBoards" :key="board._id">
-                <v-card flex class="text-xs-center ma-3">
-                  <v-responsive class="pt-4">
-                    <img height="175px" :src="board.boardImg">
-                  </v-responsive>
-                  <v-card-text>
-                    <div class="subheading">{{board.title}}</div>
-                    <div class="grey--text">{{board.content}}</div>
-                  </v-card-text>
+      <div class="grey--text text--darken-1">Message list</div>
+        <v-card color="green lighten-5" height="450" v-chat-scroll>
+          <v-card color="lime lighten-5" height="450" v-chat-scroll>
+          <v-card class="pa-1" v-for="notification in notificationList" :key="notification.id">
+          <v-layout row wrap :class="`pa-1 project.${notification.boardInfo.title}`">
 
-                  <v-card-actions>
-                    <!------------------------------view dialog start--------------------------------->
-                    <v-dialog max-width="600px">
-                      <v-btn flat slot="activator" color="grey" @click="viewAction(board.candidate)">
-                        <v-icon small left>streetview</v-icon>
-                        <span>view</span>
-                      </v-btn>
-                      <v-card>
-                        <v-img class="black--text" height="200px" :src="board.boardImg">
-                          <v-container fill-height fluid>
-                            <v-layout fill-height>
-                              <v-flex xs12 align-end flexbox>
-                                <span class="headline">{{board.title}}</span>
-                              </v-flex>
-                            </v-layout>
-                          </v-container>
-                        </v-img>
+            <v-flex xs12 md6>
+              <div class="caption grey--text">Title</div>
+              <!-- <div>{{project.title}}</div> -->
+              <div>{{notification.boardInfo.title}}</div>
+            </v-flex>
 
-                        <v-card-title>
-                          <h2 class="center teal-text">{{board.Info.name}}</h2>
-                        </v-card-title>
+            <v-flex xs6 sm4 md2>
+              <div class="caption grey--text">Person</div>
+              <!-- <div>{{project.guestInfo}}</div> -->
+              <div>{{notification.userName}}</div>
+            </v-flex>
 
-                        <v-card-text>
-                          <!--map-->
-                          <v-flex d-flex xs12 sm6 md4>
-                            <v-layout row wrap>
-                            <!-- <MyMap/> -->
-                            <MyMap/>
-                            </v-layout>
-                          </v-flex>
+            <v-flex xs6 sm4 md2>
+              <div class="caption grey--text">Due</div>
+              <!-- <div>{{project.due}}</div> -->
+              <div></div>
+            </v-flex>
 
-                          <!--show date-->
-                          <div>
-                            <v-date-picker
-                              width="560px"
-                              v-model="showDate"
-                              :allowed-dates="allowedDates"
-                              class="mt-3"
-                              min="2016-06-15"
-                              max="2018-03-20"
-                            ></v-date-picker>
-                          </div>
-                          <!---date and content--->
-                          <div>
-                            <span class="grey--text">{{board.startDate}}</span>
-                            <br>
-                            <span>{{board.content}}</span>
-                          </div>
-                          <div class="text-xs">
-                            <v-rating :value="board.difficulty" readonly></v-rating>
-                          </div>
-                        </v-card-text>
-                        <v-card-actions>
-                          <!--Notification button-->
-                          <v-btn
-                            :disabled="loading"
-                            @click="saveNotification(board.boardId)"
-                            slot="activator"
-                            color="success"
-                          >
-                            <v-icon small left>add</v-icon>
-                            <span>register</span>
-                          </v-btn>
-
-                          <!--messager button-->
-                          <v-btn flat slot="activator" color="success" @click="messager(board.boardId)">
-                            <v-icon small left>message</v-icon>
-                            <span>comment</span>
-                          </v-btn>
-                        </v-card-actions>
-                      </v-card>
-                    </v-dialog>
-                    <!------------------------------view dialog end--------------------------------->
-                  </v-card-actions>
-                </v-card>
-              </v-flex>
-            </v-layout>
-          </v-container>
+            <v-flex xs6 sm4 md2>
+              <div>
+                <HomeBoardView :candidateInfo="`${notification.userName}`"/>
+              </div>
+            </v-flex>
+          </v-layout>
+        </v-card>
+      </v-card>
         </v-card>
       </v-flex>
     </v-flex>

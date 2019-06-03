@@ -2,7 +2,7 @@
   <nav>
     <v-toolbar color="cyan" app dark>
       <v-toolbar-side-icon class="white--text" @click="drawer= !drawer" v-if="user"></v-toolbar-side-icon>
-      <v-toolbar-title class="text-uppercase white-text">
+      <v-toolbar-title class="text-uppercase white-text" router>
         <span class="font-weight-light">Farm</span>
         <span>Road</span>
       </v-toolbar-title>
@@ -71,8 +71,8 @@ export default {
         (localStorage.role = ""),
         (this.user = ""),
         (this.drawer = false),
-        this.$store.dispatch("UserSignout");
-      this.$router.push({ name: "Signin" });
+        this.$store.dispatch("UserSignout")
+      this.$router.push({ name: "Signin" })
     }
   },
   created() {

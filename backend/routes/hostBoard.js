@@ -119,6 +119,7 @@ router.post('/createBoard', upload.single('img'),function(req, res, next){
         writeBoard.category = req.body.category;
         writeBoard.latitude = req.body.latitude;
         writeBoard.longtitude = req.body.longtitude;
+        writeBoard.location = req.body.location;
         // writeBoard.preferLocation = req.body.preferLocation;
         writeBoard.candidate = req.body.candidate;
         writeBoard.report = false;

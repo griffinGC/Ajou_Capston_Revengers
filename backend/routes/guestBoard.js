@@ -113,7 +113,14 @@ router.post('/createBoard',upload.single('img'), function(req, res, next){
         // writeBoard.difficulty = req.body.difficulty;
         writeBoard.workDay = req.body.workDay;
         writeBoard.category = req.body.category;
-        writeBoard.preferLocation = req.body.preferLocation;
+
+        let preferLocation = req.body.preferLocation;
+        let deleteA = preferLocation.replace("[","");
+        let deleteB = deleteA.replace("]","");
+        console.log(deleteB);
+        let abArr = deleteB.split(',');
+
+        writeBoard.preferLocation = abArr;
         writeBoard.candidate = req.body.candidate;
         writeBoard.report = false;
 

@@ -118,15 +118,17 @@
                       <v-icon small left>message</v-icon>
                       <span>메신저</span>
                     </v-btn>
-                    <v-btn flat slot="activator" color="info">
+                    <!-- <router-link to="/MyMap"> -->
+                    <!-- <v-btn to="/mymap" flat slot="activator" color="info">
                       <v-icon small left>expand_more</v-icon>
                       <span>상세보기</span>
-                    </v-btn>
+                    </v-btn> -->
+                    <!-- </router-link> -->
                     <v-btn flat slot="activator" color="error">
                       <v-icon small left>report</v-icon>
                       <span>신고하기</span>
                     </v-btn>
-                    <v-spacer></v-spacer>
+                   
                   </v-card-actions>
                 </v-card>
                 <Chat v-bind:comments="'host'+board.boardId"/>
@@ -147,6 +149,9 @@ import ChatRoom from "../components/ChatRoom";
 import Chat from "../views/Chat";
 import UserInfoVue from "./UserInfo.vue";
 export default {
+//   const: routes = [
+//   { path: '/mymap', component: MyMap }
+// ],
   components: {
     computedDateFormatted() {
       return this.formatDate(this.date);

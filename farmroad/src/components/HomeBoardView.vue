@@ -141,10 +141,46 @@ export default {
       };
     },
     approveCandidate(){
+      console.log("notify state ");
+      let userState = localStorage.state; 
+      this.axios
+      .get(`http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/notifyState/${state}`)
+      .then(response =>{
+          console.log(response.data[0]);
+            let userData = response.data[0];
+            this.userState.state = userData.userName;
+                        
+        });
+      
+      
+      if (localStorage.state === "approve") {
+        console.log(this.state);
+        
+       
+        this.axios
+          .post(
+            "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/notifyState",
+            userState
+          )
+          .then(console.log("sneding a candidate to state"));
+      }
 
     },
     refuseCandidate(){
-
+      console.log("notify state "); 
+      let userState = localStorage.state;
+      
+      if (localStorage.state === "refuse") {
+        console.log(this.state);
+        
+       
+        this.axios
+          .post(
+            "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/notifyState",
+            userState
+          )
+          .then(console.log("sneding a candidate to state"));
+      }
     },
   }
 };

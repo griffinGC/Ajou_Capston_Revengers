@@ -49,6 +49,9 @@ const hostBoardSchema = new mongoose.Schema({
     location:{
         type : String
     },
+    preferAbility :{
+        type : Array
+    },
     latitude : {
         type : Number
     },

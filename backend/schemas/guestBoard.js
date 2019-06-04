@@ -50,6 +50,9 @@ const guestBoardSchema = new mongoose.Schema({
     },
     report : {
         type : Boolean
+    },
+    isReport :{
+        type : Array
     }
 })
 

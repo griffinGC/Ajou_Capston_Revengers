@@ -71,6 +71,15 @@ router.get('/updateHost/able/:id', function(req, res, next){
     });
 })
 
+router.post('/isReportHost/ban', function(req, res, next){
+    hostBoard.update({boardId : req.body.boardId}, {$addToSet : {isReport : req.body.userName}}, function(err){
+        if(err){
+            return res.json(err);
+        };
+        return res.json({state : 0, msg : "isReport HostBoard is success"});
+    });
+})
+
 var newFile = "";
 
 var storage = multer.diskStorage({
@@ -124,8 +133,10 @@ router.post('/createBoard', upload.single('img'),function(req, res, next){
         let preferAbility = req.body.preferAbility;
         let deleteA = preferAbility.replace("[","");
         let deleteB = deleteA.replace("]","");
+        deleteB = deleteB.replace(/"/gi,'');
         console.log(deleteB);
         let abArr = deleteB.split(',');
+        
         writeBoard.preferAbility = abArr;
 
         writeBoard.candidate = req.body.candidate;

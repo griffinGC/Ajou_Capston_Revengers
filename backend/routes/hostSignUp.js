@@ -68,7 +68,7 @@ router.get('/hostConfirm/:id',function(req, res,next){
     });
 
   router.post('/phoneConfirm',function(req, res,next){
-      approveModel.find({phoneNumber : req.body.phoneNumber, randomCode : req.body.confirmNumber},function(err, getInfo){
+      approveModel.find({phoneNumber : req.body.phoneNumber, randomCode : req.body.confirmNumber, role : "host"},function(err, getInfo){
           if(err) {
             return res.json(err);
           };

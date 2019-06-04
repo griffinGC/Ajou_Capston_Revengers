@@ -1,4 +1,5 @@
 <template>
+  <v-container fluid grid-list-lg>
   <!-- <v-layout> -->
     <!-- <v-dialog v-model="dialog" persistent fullscreen> -->
       <v-card max-width>
@@ -51,12 +52,49 @@
             </v-layout> 
           </v-card-title>          
       </v-card>
+      <v-flex xs12>
+    <v-flex xl12>
+      <div class="grey--text text--darken-1"></div>
+        <v-card color="lime lighten-5" height="450" v-chat-scroll>
+          <v-title>방문한 목록 </v-title>
+          <v-card class="pa-1" v-for="reference in referenceList" :key="reference.id">
+          <v-layout row wrap :class="`pa-1 project.${reference.title}`">
+
+            <v-flex xs12 md6>
+              <div class="caption grey--text">글 제목</div>
+              <!-- <div>{{project.title}}</div> -->
+              <div>{{reference.title}}</div>
+            </v-flex>
+
+            <v-flex xs6 sm4 md2>
+              <div class="caption grey--text">방문한곳</div>
+              <!-- <div>{{project.guestInfo}}</div> -->
+              <div>{{reference.userName}}</div>
+            </v-flex>
+
+            <v-flex xs6 sm4 md2>
+              <div class="caption grey--text">방문날짜</div>
+              <div></div>
+            </v-flex>
+
+            <v-flex xs6 sm4 md2>
+              <div>
+                <WriteReference :candidateInfo="`${reference.title}`"/>
+              </div>
+            </v-flex>
+          </v-layout>
+        </v-card>
+      </v-card>
+    </v-flex>
+  </v-flex>
+  </v-container>
     <!-- </v-dialog> -->
   <!-- </v-layout> -->
 </template>
 
 <script>
 import { constants } from "crypto";
+import WriteReference from '../components/WriteReference'
 export default {
   data() {
     
@@ -76,9 +114,15 @@ export default {
       work : "dfdf",            
       address : "dfdf",
       location : "zzzz",
-      role :""
+      role :"",
+      referenceList :[
+        {title : "gggg"}
+      ]
 
     };
+  },
+  components: {
+    WriteReference
   },
   created(){
     console.log("userInfo is created");
@@ -89,6 +133,29 @@ export default {
   mounted(){
     this.role = localStorage.role;
     this.getInfo();
+    (function() {
+      if (localStorage.role == 0) {
+      this.axios
+        .get(
+          "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/hostBoard/getList"
+        )
+        .then(response => {
+          console.log(response.data);
+          this.boards = response.data;
+          this.newBoards = response.data;
+        });
+      } else if (localStorage.role == 1) {
+      this.axios
+        .get(
+          "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/guestBoard/getList"
+        )
+        .then(response => {
+          console.log(response.data);
+          this.boards = response.data;
+          this.newBoards = response.data;
+        });
+      }
+    })()
   },
   methods: {
     getInfo() {
@@ -137,8 +204,12 @@ export default {
     saveCancel(){
       console.log("save cancel");
       this.$router.push('/');
+    },
+    writeReference(){
+
     }
-  }
+  },
+  
 };
 </script>
 <style>

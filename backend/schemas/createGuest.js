@@ -50,6 +50,9 @@ const guestSchema = new mongoose.Schema({
     },
     isReport :{
         type : Array
+    },
+    visited:{
+        type : Array
     }
 })
 

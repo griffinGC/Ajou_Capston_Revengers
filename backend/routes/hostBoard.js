@@ -120,7 +120,14 @@ router.post('/createBoard', upload.single('img'),function(req, res, next){
         writeBoard.latitude = req.body.latitude;
         writeBoard.longtitude = req.body.longtitude;
         writeBoard.location = req.body.location;
-        // writeBoard.preferLocation = req.body.preferLocation;
+        
+        let preferAbility = req.body.preferAbility;
+        let deleteA = preferAbility.replace("[","");
+        let deleteB = deleteA.replace("]","");
+        console.log(deleteB);
+        let abArr = deleteB.split(',');
+        writeBoard.preferAbility = abArr;
+
         writeBoard.candidate = req.body.candidate;
         writeBoard.report = false;
 

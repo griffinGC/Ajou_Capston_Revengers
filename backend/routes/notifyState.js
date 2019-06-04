@@ -45,7 +45,7 @@ router.get('/getGuestApprove/:id', function(req, res, next){
 })
 
 router.get('/getHostApprove/:id', function(req, res, next){
-  notifyApproveHost.find({userName : req.params.id, "state" : "approve"}, function(err, getInfo){
+  notifyApproveHost.find({userName : req.params.id, state : "approve"}, function(err, getInfo){
     if(err){
       return res.json(err);
     }

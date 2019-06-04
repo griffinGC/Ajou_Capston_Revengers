@@ -79,7 +79,7 @@
 
             <v-flex xs6 sm4 md2>
               <div>
-                <WriteReference :candidateInfo="`${reference.title}`"/>
+                <WriteReference :candidateInfo="`${reference.boardInfo}`"/>
               </div>
             </v-flex>
           </v-layout>
@@ -133,26 +133,25 @@ export default {
   mounted(){
     this.role = localStorage.role;
     this.getInfo();
+    let userId = localStorage.username;
     (function() {
       if (localStorage.role == 0) {
       this.axios
         .get(
-          "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/hostBoard/getList"
+          `http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/notifyState/getGuestApprove/${userId}`
         )
         .then(response => {
           console.log(response.data);
-          this.boards = response.data;
-          this.newBoards = response.data;
+          this.referenceList = response.data;
         });
       } else if (localStorage.role == 1) {
       this.axios
         .get(
-          "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/guestBoard/getList"
+          `http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/notifyState/getHostApprove/${userId}`
         )
         .then(response => {
           console.log(response.data);
-          this.boards = response.data;
-          this.newBoards = response.data;
+          this.referenceList = response.data;
         });
       }
     })()

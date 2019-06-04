@@ -151,7 +151,7 @@ export default {
          }
 
     },
-    refuseCandidate(){
+    refuseCandidate(name){
         console.log("notify state ");
         console.log(name);
          if(localStorage.role === '1'){

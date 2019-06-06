@@ -68,11 +68,9 @@
                             </v-layout>
                           </v-container>
                         </v-img>
-
                         <v-card-title>
                           <h2 class="center teal-text">{{board.Info.name}}</h2>
                         </v-card-title>
-
                         <v-card-text>
                           <!--map-->
                           <v-flex d-flex xs12 sm6 md4>
@@ -135,26 +133,6 @@
       <div class="grey--text text--darken-1">Message list</div>
         <v-card color="green lighten-5" height="450" v-chat-scroll>
             <v-flex xs12 sm12 md12  ml-2><ChatRoomList></ChatRoomList></v-flex>
-            <!-- <v-flex xs12 md6>
-              <div class="caption grey--text">Title</div>
-              <div>{{notification.boardInfo.title}}</div>
-            </v-flex>
-
-            <v-flex xs6 sm4 md2>
-              <div class="caption grey--text">Person</div>
-              <div>{{notification.userName}}</div>
-            </v-flex>
-
-            <v-flex xs6 sm4 md2>
-              <div class="caption grey--text">Due</div>
-              <div></div>
-            </v-flex> -->
-<!-- 
-            <v-flex xs6 sm4 md2>
-              <div>
-                <HomeBoardView :candidateInfo="`${notification.userName}`"/>
-              </div>
-            </v-flex> -->
         </v-card>
       </v-flex>
     </v-flex>
@@ -243,22 +221,13 @@ export default {
         this.axios
           .get(`http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/main/guest/getNotification/${userId}`)
           .then(response => {
-            // console.log("응답 값 : " + JSON.stringify(response));
-            // console.log(response.data[0]);
             this.notificationList = response.data;
-            // console.log(this.notificationList);
-            // console.log("notification list 값 : " + this.notificationList);
-            // console.log(response.data[0].boardInfo.title);
-            // console.log(response.data[0].boardInfo.content);
-            // console.log(response.data[0].userName);
           });
       }else{
         this.axios
         .get(`http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/main/host/getNotification/${userId}`)
         .then(response =>{
           console.log(response);
-            // console.log("응답 값 : " + JSON.stringify(response));
-            // console.log(response.data[0]);
             this.notificationList = response.data;
 
         });

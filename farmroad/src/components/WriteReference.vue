@@ -48,65 +48,19 @@ export default {
       content : "",
     };
   },
-  props : ['notificationBoardInfo'],
+  props : ['boardId','boardWriter'],
   created() {
-    // console.log("view is created");
-    console.log("props로 받은 값 : " + this.notificationBoardInfo);
-    this.viewClicked();
+    console.log("props로 받은 값 : " + this.boardId);
+    console.log(this.boardId);
+    console.log(this.boardWriter)
+    console.log("출력완료");
     this.role=localStorage.role;
   },
   mounted(){
-    this.viewClicked();
     this.role = localStorage.role;
   },
 
   methods: {
-    viewClicked(){
-      console.log("view is clicked!");
-      // localStorage.role == 0 이면 guest && 1이면 host
-        let userId = this.candidateInfo;
-        // console.log("로컬 스토리지 역할 정보 : "+localStorage.role);
-        //내가 guest일 경우 host의 정보를 가져옴 
-        if(localStorage.role === '0'){
-        this.axios
-          .get(`http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/user/getInfo/host/${userId}`)
-          .then(response => {
-            console.log(response.data[0]);
-            let userData = response.data[0];
-            console.log("받은 data 이름: " + userData.userName);
-            // console.log("받은 data 이름2: " + this.candidateData.userName);
-            this.candidateData.userName = userData.userName;
-            console.log("받은 data 이름2: " + this.candidateData.userName);
-            this.candidateData.name = userData.name;
-            this.candidateData.profileImg = userData.profileImg;
-            this.candidateData.age = userData.age;
-            this.candidateData.gender = userData.gender;
-            this.candidateData.work = userData.work;
-            this.candidateData.address = userData.address;
-            this.candidateData.location = userData.location;
-            this.candidateData.phone = userData.phone;
-            this.candidateData.email = userData.email;
-            this.candidateData.reference = userData.reference;
-          });
-      }else{
-        //내가 host일 경우 guest정보를 가져옴 
-        this.axios
-        .get(`http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/user/getInfo/guest/${userId}`)
-        .then(response =>{
-          console.log(response.data[0]);
-            let userData = response.data[0];
-            this.candidateData.userName = userData.userName;
-            this.candidateData.name = userData.name;
-            this.candidateData.profileImg = userData.profileImg;
-            this.candidateData.age = userData.age;
-            this.candidateData.gender = userData.gender;
-            this.candidateData.ability = userData.ability;
-            this.candidateData.phone = userData.phone;
-            this.candidateData.email = userData.email;
-            this.candidateData.reference = userData.reference;
-        });
-      };
-    },
     saveReference(){
       console.log("save reference ");
       //0 은 본인이 guest 
@@ -115,10 +69,10 @@ export default {
           .post(
             "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/reference/createHostReference",
             {
-              boardId : this.notificationBoardInfo.boardId,
+              boardId : this.boardId,
               title : this.title,
               writer : localStorage.username,
-              userName : this.notificationBoardInfo.Info.userName,
+              userName : this.boardWriter,
               content : this.content,
               star : this.star
             }
@@ -129,15 +83,15 @@ export default {
             }else if(response.data.state == 0){
               console.log("reference save is success");
             }});
-      }else if(localStorage.role === '1'){
+      }else{
         this.axios
           .post(
             "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/reference/createGuestReference",
             {
-              boardId : this.notificationBoardInfo.boardId,
+              boardId : this.boardId,
               title : this.title,
               writer : localStorage.username,
-              userName : this.notificationBoardInfo.Info.userName,
+              userName : this.boardWriter,
               content : this.content,
               star : this.star
             }
@@ -150,21 +104,7 @@ export default {
             }});
       }
     },
-    refuseCandidate(){
-      console.log("notify state "); 
-      let userState = localStorage.state;
-      
-      if (localStorage.state === "refuse") {
-        console.log(this.state);
-        
-       
-        this.axios
-          .post(
-            "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/notifyState",
-            userState
-          )
-          .then(console.log("sneding a candidate to state"));
-      }
+    cancelReference(){
     },
   }
 };

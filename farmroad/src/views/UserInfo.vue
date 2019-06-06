@@ -78,7 +78,11 @@
 
             <v-flex xs6 sm4 md2>
               <div>
-                <WriteReference :notificationBoardInfo="`${reference.boardInfo}`"/>
+                <WriteReference 
+                :boardId="`${reference.boardInfo.boardId}`" 
+                :boardWriter="`${reference.writer}`"
+                />
+                {{reference.boardInfo.Info}}
               </div>
             </v-flex>
           </v-layout>

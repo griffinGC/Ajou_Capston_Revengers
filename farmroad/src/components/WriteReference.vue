@@ -17,7 +17,7 @@
               <v-card-text>
                 <div class="rating">
                 <!-- <v-rating :value="board.difficulty" readonly></v-rating> -->
-                <v-rating :value="10" readonly></v-rating>
+                <v-rating :value="5" readonly></v-rating>
                 </div>
               </v-card-text>
             </v-flex>
@@ -78,6 +78,7 @@ export default {
       candidateData : {
 
       },
+      
     };
   },
   props : ['notificationInfo'],

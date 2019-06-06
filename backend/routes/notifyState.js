@@ -33,6 +33,7 @@ router.post('/notifyApproveStateHost',function(req, res,next){
       })
 });  
 
+//guest가 host를 approve
 router.get('/getGuestApprove/:id', function(req, res, next){
   notifyApproveGuest.find({userName : req.params.id, state : "approve"}, function(err, getInfo){
     if(err){
@@ -44,6 +45,7 @@ router.get('/getGuestApprove/:id', function(req, res, next){
   })
 })
 
+//host가 guest를 approve
 router.get('/getHostApprove/:id', function(req, res, next){
   notifyApproveHost.find({userName : req.params.id, state : "approve"}, function(err, getInfo){
     if(err){

@@ -2,63 +2,62 @@
   <div class="about">
     <!--search from-->
     <v-form v-if="role">
-        <div class="grey--text text--darken-1"></div>
-        <v-layout row wrap>
-          <v-item-group>
-            <v-checkbox v-model="location" label="경기도" value="경기도"></v-checkbox>
-            <v-checkbox v-model="location" label="인천" value="인천"></v-checkbox>
-          </v-item-group>
-           <v-item-group>
-            <v-checkbox v-model="location" label="충청북도" value="충청북도"></v-checkbox>
-            <v-checkbox v-model="location" label="충청남도" value="충청남도"></v-checkbox>
-          </v-item-group>
-            <v-item-group>
-            <v-checkbox v-model="location" label="경상북도" value="경상북도"></v-checkbox>
-            <v-checkbox v-model="location" label="경상남도" value="경상남도"></v-checkbox>
-          </v-item-group>
-            <v-item-group>
-            <v-checkbox v-model="location" label="전라북도" value="전라북도"></v-checkbox>
-            <v-checkbox v-model="location" label="전라남도" value="전라남도"></v-checkbox>
-          </v-item-group>
-          <v-item-group>
-            <v-checkbox v-model="location" label="강원도" value="강원도"></v-checkbox>
-            <v-checkbox v-model="location" label="제주도" value="제주도"></v-checkbox>
-          </v-item-group>
-          {{ this.location}}
-          <v-btn flat class="success" @click="sortLocation(boards)">지역 검색</v-btn>
-        </v-layout>
+      <div class="grey--text text--darken-1"></div>
+      <v-layout row wrap>
+        <v-item-group>
+          <v-checkbox v-model="location" label="경기도" value="경기도"></v-checkbox>
+          <v-checkbox v-model="location" label="인천" value="인천"></v-checkbox>
+        </v-item-group>
+        <v-item-group>
+          <v-checkbox v-model="location" label="충청북도" value="충청북도"></v-checkbox>
+          <v-checkbox v-model="location" label="충청남도" value="충청남도"></v-checkbox>
+        </v-item-group>
+        <v-item-group>
+          <v-checkbox v-model="location" label="경상북도" value="경상북도"></v-checkbox>
+          <v-checkbox v-model="location" label="경상남도" value="경상남도"></v-checkbox>
+        </v-item-group>
+        <v-item-group>
+          <v-checkbox v-model="location" label="전라북도" value="전라북도"></v-checkbox>
+          <v-checkbox v-model="location" label="전라남도" value="전라남도"></v-checkbox>
+        </v-item-group>
+        <v-item-group>
+          <v-checkbox v-model="location" label="강원도" value="강원도"></v-checkbox>
+          <v-checkbox v-model="location" label="제주도" value="제주도"></v-checkbox>
+        </v-item-group>
+        {{ this.location}}
+        <v-btn flat class="success" @click="sortLocation(boards)">지역 검색</v-btn>
+      </v-layout>
     </v-form>
     <v-form v-else>
-
-        <div class="grey--text text--darken-1"></div>
-        <v-layout row wrap>
-          <v-item-group>
-            <v-checkbox v-model="selected" label="요리를 잘해요" value="cook"></v-checkbox>
-            <v-checkbox v-model="selected" label="미용 잘해요" value="beauty"></v-checkbox>
-          </v-item-group>
-           <v-item-group>
-            <v-checkbox v-model="selected" label="애를 잘돌봐요" value="baby"></v-checkbox>
-            <v-checkbox v-model="selected" label="청소를 잘해요" value="clean"></v-checkbox>
-          </v-item-group>
-            <v-item-group>
-            <v-checkbox v-model="selected" label="운전을 잘해요" value="drive"></v-checkbox>
-            <v-checkbox v-model="selected" label="도배를 잘해요" value="paper"></v-checkbox>
-          </v-item-group>
-            <v-item-group>
-            <v-checkbox v-model="selected" label="짐나르는거 잘해요" value="carry"></v-checkbox>
-            <v-checkbox v-model="selected" label="노래를 잘해요" value="sing"></v-checkbox>
-          </v-item-group>
-          <v-item-group>
-            <v-checkbox v-model="selected" label="말동부를 잘해요" value="talk"></v-checkbox>
-            <v-checkbox v-model="selected" label="컴퓨터를 잘다뤄요" value="comp"></v-checkbox>
-          </v-item-group>
-          <v-item-group>
-            <v-checkbox v-model="selected" label="농기계를 잘다뤄요" value="machine"></v-checkbox>
-            <v-checkbox v-model="selected" label="농사경험이 있어요" value="farm"></v-checkbox>
-          </v-item-group>
-          <!-- {{ this.selected}} -->
-          <v-btn flat class="success" @click="sortBoard(boards)">선택사항 검색</v-btn>
-        </v-layout>
+      <div class="grey--text text--darken-1"></div>
+      <v-layout row wrap>
+        <v-item-group>
+          <v-checkbox v-model="selected" label="요리를 잘해요" value="cook"></v-checkbox>
+          <v-checkbox v-model="selected" label="미용 잘해요" value="beauty"></v-checkbox>
+        </v-item-group>
+        <v-item-group>
+          <v-checkbox v-model="selected" label="애를 잘돌봐요" value="baby"></v-checkbox>
+          <v-checkbox v-model="selected" label="청소를 잘해요" value="clean"></v-checkbox>
+        </v-item-group>
+        <v-item-group>
+          <v-checkbox v-model="selected" label="운전을 잘해요" value="drive"></v-checkbox>
+          <v-checkbox v-model="selected" label="도배를 잘해요" value="paper"></v-checkbox>
+        </v-item-group>
+        <v-item-group>
+          <v-checkbox v-model="selected" label="짐나르는거 잘해요" value="carry"></v-checkbox>
+          <v-checkbox v-model="selected" label="노래를 잘해요" value="sing"></v-checkbox>
+        </v-item-group>
+        <v-item-group>
+          <v-checkbox v-model="selected" label="말동부를 잘해요" value="talk"></v-checkbox>
+          <v-checkbox v-model="selected" label="컴퓨터를 잘다뤄요" value="comp"></v-checkbox>
+        </v-item-group>
+        <v-item-group>
+          <v-checkbox v-model="selected" label="농기계를 잘다뤄요" value="machine"></v-checkbox>
+          <v-checkbox v-model="selected" label="농사경험이 있어요" value="farm"></v-checkbox>
+        </v-item-group>
+        <!-- {{ this.selected}} -->
+        <v-btn flat class="success" @click="sortBoard(boards)">선택사항 검색</v-btn>
+      </v-layout>
     </v-form>
     <v-container class="my-5">
       <v-layout row wrap>
@@ -75,7 +74,7 @@
             <v-card-actions>
               <!------------------------------view dialog start--------------------------------->
               <v-dialog max-width="600px">
-                <v-btn flat slot="activator" color="grey" @click="viewAction(board.candidate)">
+                <v-btn flat slot="activator" color="grey" @click="viewAction(board)">
                   <v-icon small left>streetview</v-icon>
                   <span>view</span>
                 </v-btn>
@@ -91,11 +90,11 @@
                   </v-img>
 
                   <v-card-title>
-                    <h2 class="center teal-text">{{board.boardId}}</h2>
+                    <!-- <h2 class="center teal-text">{{board.boardId + "ddddddd"}}</h2> -->
+                    <h2 class="center teal-text">{{board.Info.name}}</h2>
                   </v-card-title>
 
                   <v-card-text>
-                    <!--map-->
                     <v-flex d-flex xs12 sm6 md4>
                       <v-layout row wrap></v-layout>
                     </v-flex>
@@ -145,17 +144,20 @@
                     <v-btn to="/mymap" flat slot="activator" color="info">
                       <v-icon small left>expand_more</v-icon>
                       <span>상세보기</span>
+<<<<<<< HEAD
                     </v-btn>  
                     <v-btn flat slot="activator" color="error">
+=======
+                    </v-btn>
+                    <v-btn flat slot="activator" color="error" @click="report(board)">
+>>>>>>> b02eb50baee5ac26bfae853fddc757e2fba21b12
                       <v-icon small left>report</v-icon>
                       <span>신고하기</span>
                     </v-btn>
-                   
                   </v-card-actions>
                 </v-card>
                 <Chat v-bind:comments="'host'+board.boardId"/>
               </v-dialog>
-
               <!------------------------------view dialog end--------------------------------->
             </v-card-actions>
           </v-card>
@@ -171,15 +173,15 @@ import Chat from "../views/Chat";
 import UserInfoVue from "./UserInfo.vue";
 import Review from "./Review";
 export default {
-//   const: routes = [
-//   { path: '/mymap', component: MyMap }
-// ],
   components: {
     computedDateFormatted() {
       return this.formatDate(this.date);
     },
 
+<<<<<<< HEAD
     Review,
+=======
+>>>>>>> b02eb50baee5ac26bfae853fddc757e2fba21b12
     Chat
   },
   data() {
@@ -192,7 +194,6 @@ export default {
       chatId: "",
       loading: "",
       showDate: "2018-03-02",
-
 
       selected: [],
       location: [],
@@ -291,25 +292,23 @@ export default {
     sortLocation(boards) {
       var tempBoards = new Array();
       boards.forEach(index => {
-         index.count = 0;
-         for(let i = 0; i<this.location.length; i++){
-              if(index.location === this.location[i])
-              {
-                ++index.count;
-              }
-         }
-         if(index.count !== 0)
-         {
-           tempBoards.push(index);
-         }
+        index.count = 0;
+        for (let i = 0; i < this.location.length; i++) {
+          if (index.location === this.location[i]) {
+            ++index.count;
+          }
+        }
+        if (index.count !== 0) {
+          tempBoards.push(index);
+        }
       });
       this.newBoards = tempBoards;
-      if(this.selected.length === 0){
-           this.newBoards = boards;
+      if (this.selected.length === 0) {
+        this.newBoards = boards;
       }
     },
     messager(info) {
-      this.chatRoomId = localStorage.username + info.id;
+      this.chatRoomId = localStorage.username + info.userName;
       if (localStorage.role == 0) {
         this.axios
           .post(
@@ -338,7 +337,7 @@ export default {
             {
               chatRoomId: this.chatRoomId,
               hostUserName: localStorage.username,
-              guestUserName: info.id
+              guestUserName: info.userName
             }
           )
           .then(response => {
@@ -394,16 +393,55 @@ export default {
           });
       }
     },
-    viewAction(candidate) {
-      console.log(candidate);
+    viewAction(board) {
+      var can = board.candidate;
+      console.log(can);
       this.loading = false;
-      for (let index = 0; index < candidate.length; index++) {
-        console.log(candidate[index]);
-        if (candidate[index] === localStorage.username) {
-          console.log(candidate[index]);
+      for (let index = 0; index < can.length; index++) {
+        console.log(can[index]);
+        if (can[index] === localStorage.username) {
+          console.log(can[index]);
           this.loading = true;
           break;
         }
+      }
+    },
+    report(board) {
+      console.log(board.boardId);
+      if (localStorage.role == 0) {
+        this.axios
+          .post(
+            "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/hostBoard/isReportGuest/ban",
+            {
+              boardId: board.boardId,
+              userName: localStorage.username
+            }
+          )
+          .then(response => {
+            if (response.data.state == -1) {
+              alert(response.data.msg);
+            } else {
+              console.log(response.data.msg);
+              location.reload();
+            }
+          });
+      } else {
+        this.axios
+          .post(
+            "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/hostBoard/isReportGuest/ban",
+            {
+              boardId: board.boardId,
+              userName: localStorage.username
+            }
+          )
+          .then(response => {
+            if (response.data.state == -1) {
+              alert(response.data.msg);
+            } else {
+              console.log(response.data.msg);
+              location.reload();
+            }
+          });
       }
     }
   }

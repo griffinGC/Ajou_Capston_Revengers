@@ -14,11 +14,8 @@ router.post('/notifyApproveStateGuest',function(req, res,next){
       return res.json(err);
     };
     //json형식으로 응답
-   
     return res.json({state : 0, msg : "Registeration approve"});
-         
-     
-      })
+    })
 });  
 
 
@@ -36,7 +33,27 @@ router.post('/notifyApproveStateHost',function(req, res,next){
       })
 });  
 
+router.get('/getGuestApprove/:id', function(req, res, next){
+  notifyApproveGuest.find({userName : req.params.id, state : "approve"}, function(err, getInfo){
+    if(err){
+      return res.json(err);
+    }
+    console.log(req.params.id);
+    console.log(getInfo);
+    return res.json(getInfo);
+  })
+})
 
-      
+router.get('/getHostApprove/:id', function(req, res, next){
+  notifyApproveHost.find({userName : req.params.id, state : "approve"}, function(err, getInfo){
+    if(err){
+      return res.json(err);
+    }
+    console.log(req.params.id);
+    console.log(getInfo);
+    return res.json(getInfo);
+  })
+})
+
    
 module.exports = router;

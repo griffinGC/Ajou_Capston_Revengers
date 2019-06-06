@@ -46,7 +46,7 @@ router.post('/',function(req, res, error){
                         // res.json({state : 0, msg : "session is saved! && guest login is success"});
 
                     });
-                    res.send( { state : 0, ID : guestModel[0].userName, userName : guestModel[0].name, profileImg : guestModel[0].profileImg, report : guestModel[0].report});
+                    res.send( { state : 0, ID : guestModel[0].userName, userName : guestModel[0].name, profileImg : guestModel[0].profileImg});
                     
                     
                     //비동기이기때문에 저장하는데 시간이 걸려서 json이 두번 전송되기 때문에 오류발생
@@ -73,7 +73,7 @@ router.post('/',function(req, res, error){
                         // res.json({state : 0, msg : "session is saved & host login is success"})
                         
                     });
-                    res.send( {state : 0, ID : hostModel[0].userName, userName : hostModel[0].name, profileImg : hostModel[0].profileImg, report : hostModel[0].report});
+                    res.send( { state : 0, ID : hostModel[0].userName, userName : hostModel[0].name, profileImg : hostModel[0].profileImg});
                     //비동기이기때문에 저장하는데 시간이 걸려서 json이 두번 전송되기 때문에 오류발생
                 //  res.json({state: 0, msg:" host login success!!"});
             }

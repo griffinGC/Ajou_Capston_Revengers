@@ -60,6 +60,9 @@ const hostBoardSchema = new mongoose.Schema({
     },
     report : {
         type : Boolean
+    },
+    isReport :{
+        type : Array
     }
 })
 

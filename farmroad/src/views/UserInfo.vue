@@ -36,12 +36,50 @@
           <v-btn class="light-blue lighten-2 white--text" v-on:click.native="saveCancel">취소 </v-btn></v-flex>
         </v-layout>
       </v-card>
-    </v-layout>
+      <v-flex xs12>
+    <v-flex xl12>
+      <div class="grey--text text--darken-1"></div>
+        <v-card color="lime lighten-5" height="450" v-chat-scroll>
+          <v-title>방문한 목록 </v-title>
+          <v-card class="pa-1" v-for="reference in referenceList" :key="reference.id">
+          <v-layout row wrap :class="`pa-1 project.${reference.title}`">
+
+            <v-flex xs12 md6>
+              <div class="caption grey--text">글 제목</div>
+              <!-- <div>{{project.title}}</div> -->
+              <div>{{reference.title}}</div>
+            </v-flex>
+
+            <v-flex xs6 sm4 md2>
+              <div class="caption grey--text">방문한곳</div>
+              <!-- <div>{{project.guestInfo}}</div> -->
+              <div>{{reference.userName}}</div>
+            </v-flex>
+
+            <v-flex xs6 sm4 md2>
+              <div class="caption grey--text">방문날짜</div>
+              <div></div>
+            </v-flex>
+
+            <v-flex xs6 sm4 md2>
+              <div>
+                <WriteReference :notificationInfo="`${reference.boardInfo}`"/>
+                {{reference.boardInfo}}
+              </div>
+            </v-flex>
+          </v-layout>
+        </v-card>
+      </v-card>
+    </v-flex>
+  </v-flex>
   </v-container>
+    <!-- </v-dialog> -->
+  <!-- </v-layout> -->
 </template>
 
 <script>
 import { constants } from "crypto";
+import WriteReference from '../components/WriteReference'
 export default {
   data() {
     
@@ -49,6 +87,7 @@ export default {
       dialog: true,
   // userName: localStorage.username,
       userName : "test",
+      userId : "",
       name : "default",
       profileImg : "https://cdn.vuetifyjs.com/images/cards/house.jpg",
       password : "",
@@ -61,19 +100,27 @@ export default {
       work : "dfdf",            
       address : "dfdf",
       location : "zzzz",
-      role :""
+      role :"",
+      referenceList :[
+        // {title : "gggg"}
+      ]
 
     };
   },
+  components: {
+    WriteReference
+  },
   created(){
     console.log("userInfo is created");
-    // console.log("로컬 스토리지! : "+localStorage.role);
     this.role = localStorage.role
     this.getInfo();
+    this.getNotificationInfo();
   },
   mounted(){
     this.role = localStorage.role;
     this.getInfo();
+    this.getNotificationInfo();
+
   },
   methods: {
     getInfo() {
@@ -84,7 +131,7 @@ export default {
         this.axios
           .get(`http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/user/getInfo/guest/${userId}`)
           .then(response => {
-            console.log(response.data[0]);
+            // console.log(response.data[0]);
             let userData = response.data[0];
             this.userName = userData.userName;
             this.name = userData.name;
@@ -99,7 +146,7 @@ export default {
         this.axios
         .get(`http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/user/getInfo/host/${userId}`)
         .then(response =>{
-          console.log(response.data[0]);
+          // console.log(response.data[0]);
             let userData = response.data[0];
             this.userName = userData.userName;
             this.name = userData.name;
@@ -116,14 +163,43 @@ export default {
       };
     },
     editInfo(){
-      console.log("edit clicked!")
+      // console.log("edit clicked!")
       this.$router.push('/editUserInfo');
     },
     saveCancel(){
-      console.log("save cancel");
+      // console.log("save cancel");
       this.$router.push('/');
+    },
+    getNotificationInfo(){
+      let userId = localStorage.username;
+      if (localStorage.role == 0) {
+      this.axios
+        .get(
+          `http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/notifyState/getGuestApprove/${userId}`
+        )
+        .then(response => {
+          console.log(response.data);
+          console.log("받아온 값")
+          this.referenceList = response.data;
+        });
+      } else if (localStorage.role == 1) {
+      this.axios
+        .get(
+          `http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/notifyState/getHostApprove/${userId}`
+        )
+        .then(response => {
+          // console.log(response.data);
+          console.log(response.data);
+          console.log("받아온 값")
+          this.referenceList = response.data;
+        });
+      }
+    },
+    writeReference(){
+
     }
-  }
+  },
+  
 };
 </script>
 <style>

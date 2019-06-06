@@ -1,7 +1,6 @@
 <template>
   <v-dialog v-model="dialog" max-width="650px">
-    <!-- <v-btn @click="viewClicked()" flat slot="activator" class="success">view</v-btn> -->
-    <v-btn flat slot="activator" class="success">view</v-btn>
+    <v-btn flat slot="activator" class="success">후기 남기기</v-btn>
       <v-card>
         <v-container>
           <v-layout row wrap class="cont">
@@ -52,13 +51,13 @@
                </v-flex>
                <v-flex sm3>
                 <v-card-actions>
-                <v-btn flat slot="activator" color="success" @click="approveCandidate(candidateData.userName)">
+                <v-btn flat slot="activator" color="success" @click="approveCandidate()">
                   <v-icon small left>favorite</v-icon>
-                  <span>Approve</span>
+                  <span>후기 작성</span>
                   </v-btn>
-                  <v-btn flat slot="activator" color="success" @click="refuseCandidate(candidateData.userName)">
+                  <v-btn flat slot="activator" color="success" @click="refuseCandidate()">
                   <v-icon small left>clear</v-icon>
-                  <span>Refuse</span>
+                  <span>작성 취소</span>
                     </v-btn>
                   </v-card-actions>
                 </v-flex>
@@ -81,11 +80,10 @@ export default {
       },
     };
   },
-  props : ['candidateInfo', 'boardId'],
+  props : ['notificationInfo'],
   created() {
     // console.log("view is created");
-    console.log("props로 받은 값 : " + this.candidateInfo);
-    console.log("board id : " + this.boardId);
+    console.log("props로 받은 값 : " + this.notificationInfo);
     this.viewClicked();
     this.role=localStorage.role;
   },
@@ -141,41 +139,47 @@ export default {
         });
       };
     },
-    approveCandidate(name){
+    approveCandidate(){
       console.log("notify state ");
-        console.log(name);
-         if(localStorage.role === '0'){
+      let userState = localStorage.state; 
+      this.axios
+      .get(`http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/notifyState/${state}`)
+      .then(response =>{
+          console.log(response.data[0]);
+            let userData = response.data[0];
+            this.userState.state = userData.userName;
+                        
+        });
+      
+      
+      if (localStorage.state === "approve") {
+        console.log(this.state);
+        
+       
         this.axios
           .post(
-            "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/notifyState/notifyApproveStateHost",
-          {userName : name})
-         }
-
-         else if(localStorage.role === '1'){
-        this.axios
-          .post(
-            "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/notifyState/notifyApproveStateGuest",
-          {userName : name})
-         }
+            "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/notifyState",
+            userState
+          )
+          .then(console.log("sneding a candidate to state"));
+      }
 
     },
-    refuseCandidate(name){
-        console.log("notify state ");
-        console.log(name);
-        if(localStorage.role === '0'){
+    refuseCandidate(){
+      console.log("notify state "); 
+      let userState = localStorage.state;
+      
+      if (localStorage.state === "refuse") {
+        console.log(this.state);
+        
+       
         this.axios
           .post(
-            "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/notifyState/notifyRefuseStateHost",
-          {userName : name})
-         }
-
-         else if(localStorage.role === '1'){
-        this.axios
-          .post(
-            "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/notifyState/notifyRefuseStateGuest",
-          {userName : name})
-         }
-
+            "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/notifyState",
+            userState
+          )
+          .then(console.log("sneding a candidate to state"));
+      }
     },
   }
 };

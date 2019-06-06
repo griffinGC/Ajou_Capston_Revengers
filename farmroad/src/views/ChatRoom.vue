@@ -23,7 +23,7 @@
       </form>
       <v-card-actions>
          <v-spacer></v-spacer>
-       <v-btn color="green darken-1" flat router :to="{name: 'chatroomlist'}">Back</v-btn>
+       <v-btn color="green darken-1" flat router :to="{name: 'home'}">Back</v-btn>
       </v-card-actions>
     </v-card>
   </v-flex>

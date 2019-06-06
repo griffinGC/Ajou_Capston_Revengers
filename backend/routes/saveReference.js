@@ -7,11 +7,7 @@ const multer = require('multer');
 
 const guestBoard = require('../schemas/guestBoard');
 
-//board 라우터 테스트
-router.get('/',function(req, res,next){
-  console.log("board Test");
-  return res.json({state : 0, msg : "board router test"});
-  });     
+
 
 //guest게시판 글 가져오기
 router.get('/getList',function(req, res,next){
@@ -46,33 +42,6 @@ router.get('/getMsg/:id', function(req, res, next){
 })
 
 
-//hostBoard 게시글 금지시키기 
-router.get('/updateGuest/ban/:id', function(req, res, next){
-    guestBoard.update({boardId : req.params.id}, {$set : {report : true}}, function(err){
-        if(err){
-            return res.json(err);
-        };
-        return res.json({state : 0, msg : "update guestBoard ban is success"});
-    });
-})
-//hostBoard 게시글 금지 해제 시키기 
-router.get('/updateGuest/able/:id', function(req, res, next){
-    guestBoard.update({boardId : req.params.id}, {$set : {report : false}}, function(err){
-        if(err){
-            return res.json(err);
-        };
-        return res.json({state : 0, msg : "update guestBoard able is success"});
-    });
-})
-//guestBoard 게시글 신고 
-router.post('/isReportGuest/ban', function(req, res, next){
-    guestBoard.update({boardId : req.body.boardId}, {$addToSet : {isReport : req.body.userName}}, function(err){
-        if(err){
-            return res.json(err);
-        };
-        return res.json({state : 0, msg : "isReport GuestBoard is success"});
-    });
-})
 
 var newFile = "";
 
@@ -126,12 +95,10 @@ router.post('/createBoard',upload.single('img'), function(req, res, next){
         let preferLocation = req.body.preferLocation;
         let deleteA = preferLocation.replace("[","");
         let deleteB = deleteA.replace("]","");
-        deleteB = deleteB.replace(/"/gi,'');
         console.log(deleteB);
         let abArr = deleteB.split(',');
 
         writeBoard.preferLocation = abArr;
-        
         writeBoard.candidate = req.body.candidate;
         writeBoard.report = false;
 

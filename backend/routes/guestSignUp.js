@@ -1,10 +1,11 @@
 var express = require('express');
 var router = express.Router();
 const guestModel = require('../schemas/createGuest');
+const approveModel = require('../schemas/approve');
 
 const multer = require('multer');
 
-
+const axios = require('axios');
 //guestid 확인용, gudstid 가입 => 총 2개의 router 지정해야함 
 router.get('/:id',function(req, res,next){
   console.log("start");
@@ -31,6 +32,60 @@ router.get('/guestConfirm/:id',function(req, res,next){
           }
         }); 
 });
+
+router.post('/sendPhoneNumber',function(req, res,next){
+  var confirmNumber = Math.floor(Math.random()*(10000 -1000))+1000;
+  axios.post("https://api-sens.ncloud.com/v1/sms/services/ncp:sms:kr:256041881792:capstone_test/messages",
+  {
+    type:"SMS",
+    contentType:"COMM",
+    countryCode:"82",
+    from:"01079239095",
+    to: [
+      `${req.body.phoneNumber}`
+    ],
+    content: `인증번호는 ${confirmNumber} 입니다.`
+  },
+  {
+    headers : {
+    'x-ncp-auth-key' : 'AkiluHXyo4N1legXt3uA',
+    'x-ncp-service-secret' : 'e1bf019e05d54e63bc4ec3a6700aecd9'
+    }
+  }).then(response =>{
+    if(response.status === 202)
+    {
+      console.log("sending message is success");
+      let newPhone = new approveModel();
+      newPhone.phoneNumber = req.body.phoneNumber;
+      newPhone.randomCode = confirmNumber;
+      newPhone.role = "guest";
+      newPhone.save(function(err){
+        if(err){
+          return res.json({state : -1, msg : "msg sending is success but db save is failed"});
+        }
+        return res.json({state : 0, msg : "msg sending && db save is success"})
+      })
+    }else{
+      return res.json({state : -1, msg : "msg sending is fail"})
+    } 
+  })
+});
+
+router.post('/phoneConfirm',function(req, res,next){
+  approveModel.find({phoneNumber : req.body.phoneNumber, randomCode : req.body.confirmNumber, role : "guest"},function(err, getInfo){
+      if(err) {
+        return res.json(err);
+      };
+      if(getInfo[0]){
+          console.log("얻은 정보 : " +getInfo[0]);
+          return res.json({state : 0, msg : "phoneNumber confirm is success"});
+      } 
+      else {
+          return res.json({state : -1, msg : "phoneNumber confirm is failed"});
+        }
+      })
+});
+
 
 var newFile = "";
 

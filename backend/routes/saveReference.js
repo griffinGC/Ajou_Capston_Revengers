@@ -23,7 +23,7 @@ router.post('/createHostReference',function(req, res, next){
     writeReference.title = req.body.title;
     writeReference.writer = req.body.writer;
     //작성될 host profile
-    writeReference.userName = req.body.uerName;
+    writeReference.userName = req.body.userName;
     let day = new Date();
     let yy = day.getFullYear();
     let mm = day.getMonth()

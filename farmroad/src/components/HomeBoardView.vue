@@ -81,10 +81,11 @@ export default {
       },
     };
   },
-  props : ['candidateInfo'],
+  props : ['candidateInfo', 'boardId'],
   created() {
     // console.log("view is created");
     console.log("props로 받은 값 : " + this.candidateInfo);
+    console.log("board id : " + this.boardId);
     this.viewClicked();
     this.role=localStorage.role;
   },

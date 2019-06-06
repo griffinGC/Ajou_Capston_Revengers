@@ -52,11 +52,11 @@
                </v-flex>
                <v-flex sm3>
                 <v-card-actions>
-                <v-btn flat slot="activator" color="success" @click="approveCandidate(candidateData.userName)">
+                <v-btn flat slot="activator" color="success" @click="approveCandidate(candidateData.userName,candidateData.boardId)">
                   <v-icon small left>favorite</v-icon>
                   <span>Approve</span>
                   </v-btn>
-                  <v-btn flat slot="activator" color="success" @click="refuseCandidate(candidateData.userName)">
+                  <v-btn flat slot="activator" color="success" @click="refuseCandidate(candidateData.userName,candidateData.boardId)">
                   <v-icon small left>clear</v-icon>
                   <span>Refuse</span>
                     </v-btn>
@@ -121,6 +121,7 @@ export default {
             this.candidateData.phone = userData.phone;
             this.candidateData.email = userData.email;
             this.candidateData.reference = userData.reference;
+            this.candidateData.boardId = userData.boardId;
           });
       }else{
         //내가 host일 경우 guest정보를 가져옴 
@@ -138,12 +139,14 @@ export default {
             this.candidateData.phone = userData.phone;
             this.candidateData.email = userData.email;
             this.candidateData.reference = userData.reference;
+            this.candidateData.boardId = userData.boardId;
         });
       };
     },
-    approveCandidate(name){
+    approveCandidate(name,boardId){
       console.log("notify state ");
         console.log(name);
+        console.log(boardId);
          if(localStorage.role === '0'){
         this.axios
           .post(
@@ -159,9 +162,10 @@ export default {
          }
 
     },
-    refuseCandidate(name){
+    refuseCandidate(name,boardId){
         console.log("notify state ");
         console.log(name);
+        console.log(boardId);
         if(localStorage.role === '0'){
         this.axios
           .post(

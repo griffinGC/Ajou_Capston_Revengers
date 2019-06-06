@@ -9,7 +9,7 @@ const notifyApproveHost =require('../schemas/notificationHost');
 const notifyRefuseHost =require('../schemas/notificationHost');
 
 router.post('/notifyApproveStateGuest',function(req, res,next){
-  notifyApproveGuest.update({userName : req.body.userName},{$set : {state : "approve"}},function(err){
+  notifyApproveGuest.update({userName : req.body.userName},{boardID : req.body.boardID},{$set : {state : "approve"}},function(err){
     if(err) {
       return res.json(err);
     };
@@ -21,7 +21,7 @@ router.post('/notifyApproveStateGuest',function(req, res,next){
 
       
 router.post('/notifyApproveStateHost',function(req, res,next){
-  notifyApproveHost.update({userName : req.body.userName},{$set : {state : "approve"}},function(err){
+  notifyApproveHost.update({userName : req.body.userName},{boardID : req.body.boardID},{$set : {state : "approve"}},function(err){
     if(err) {
       return res.json(err);
     };
@@ -57,7 +57,7 @@ router.get('/getHostApprove/:id', function(req, res, next){
 })
 
 router.post('/notifyRefuseStateGuest',function(req, res,next){
-  notifyRefuseGuest.update({userName : req.body.userName},{$set : {state : "refuse"}},function(err){
+  notifyRefuseGuest.update({userName : req.body.userName},{boardID : req.body.boardID},{$set : {state : "refuse"}},function(err){
     if(err) {
       return res.json(err);
     };
@@ -71,7 +71,7 @@ router.post('/notifyRefuseStateGuest',function(req, res,next){
 
       
 router.post('/notifyRefuseStateHost',function(req, res,next){
-  notifyRefuseHost.update({userName : req.body.userName},{$set : {state : "refuse"}},function(err){
+  notifyRefuseHost.update({userName : req.body.userName},{boardID : req.body.boardID},{$set : {state : "refuse"}},function(err){
     if(err) {
       return res.json(err);
     };

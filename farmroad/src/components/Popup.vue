@@ -189,7 +189,7 @@ export default {
       let temp = JSON.stringify(this.selected);
       // 문자열로 보내서 backend에서 데이터 처리
       formData.append("preferAbility", temp);
-      formDate.append("location", this.workLocation);
+      formData.append("location", this.workLocation);
       console.log(formData)
       this.axios
         .post(

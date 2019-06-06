@@ -5,26 +5,26 @@
       <div class="grey--text text--darken-1"></div>
       <v-layout row wrap>
         <v-item-group>
-          <v-checkbox v-model="location" label="경기도" value="경기도"></v-checkbox>
-          <v-checkbox v-model="location" label="인천" value="인천"></v-checkbox>
+          <v-checkbox v-model="workLocation" label="경기도" value="경기도"></v-checkbox>
+          <v-checkbox v-model="workLocation" label="인천" value="인천"></v-checkbox>
         </v-item-group>
         <v-item-group>
-          <v-checkbox v-model="location" label="충청북도" value="충청북도"></v-checkbox>
-          <v-checkbox v-model="location" label="충청남도" value="충청남도"></v-checkbox>
+          <v-checkbox v-model="workLocation" label="충청북도" value="충청북도"></v-checkbox>
+          <v-checkbox v-model="workLocation" label="충청남도" value="충청남도"></v-checkbox>
         </v-item-group>
         <v-item-group>
-          <v-checkbox v-model="location" label="경상북도" value="경상북도"></v-checkbox>
-          <v-checkbox v-model="location" label="경상남도" value="경상남도"></v-checkbox>
+          <v-checkbox v-model="workLocation" label="경상북도" value="경상북도"></v-checkbox>
+          <v-checkbox v-model="workLocation" label="경상남도" value="경상남도"></v-checkbox>
         </v-item-group>
         <v-item-group>
-          <v-checkbox v-model="location" label="전라북도" value="전라북도"></v-checkbox>
-          <v-checkbox v-model="location" label="전라남도" value="전라남도"></v-checkbox>
+          <v-checkbox v-model="workLocation" label="전라북도" value="전라북도"></v-checkbox>
+          <v-checkbox v-model="workLocation" label="전라남도" value="전라남도"></v-checkbox>
         </v-item-group>
         <v-item-group>
-          <v-checkbox v-model="location" label="강원도" value="강원도"></v-checkbox>
-          <v-checkbox v-model="location" label="제주도" value="제주도"></v-checkbox>
+          <v-checkbox v-model="workLocation" label="강원도" value="강원도"></v-checkbox>
+          <v-checkbox v-model="workLocation" label="제주도" value="제주도"></v-checkbox>
         </v-item-group>
-        {{ this.location}}
+        {{ this.workLocation}}
         <v-btn flat class="success" @click="sortLocation(boards)">지역 검색</v-btn>
       </v-layout>
     </v-form>
@@ -116,9 +116,9 @@
                       <br>
                       <span>{{board.content}}</span>
                     </div>
-                    <div class="text-xs">
+                    <!-- <div class="text-xs">
                       <v-rating :value="board.difficulty" readonly></v-rating>
-                    </div>
+                    </div> -->
                   </v-card-text>
                   <v-card-actions>
                     <!--Notification button-->
@@ -188,7 +188,7 @@ export default {
       showDate: "2018-03-02",
 
       selected: [],
-      location: [],
+      workLocation: [],
 
       menu1: false,
 
@@ -271,18 +271,18 @@ export default {
     //allowedDate for date
     allowedDates: val => parseInt(val.split("-")[2], 10) % 2 === 0,
 
-    findByDifficulty(boards) {
-      var temBoards = new Array();
-      boards.forEach(item => {
-        if (item.difficulty == this.diff) {
-          temBoards.push(item);
-        }
-      });
-      this.newBoards = temBoards;
-      console.log(this.newBoards);
-    },
+    // findByDifficulty(boards) {
+    //   var temBoards = new Array();
+    //   boards.forEach(item => {
+    //     if (item.difficulty == this.diff) {
+    //       temBoards.push(item);
+    //     }
+    //   });
+    //   this.newBoards = temBoards;
+    //   console.log(this.newBoards);
+    // },
     sortBoard(boards) {
-       var tempBoards = new Array();
+       let tempBoards = new Array();
        boards.forEach(index=>{
          index.count = 0;
          for(let i = 0; i<index.Info.ability.length; i++){
@@ -308,11 +308,12 @@ export default {
          }
      },
     sortLocation(boards) {
-      var tempBoards = new Array();
+      let tempBoards = new Array();
       boards.forEach(index => {
         index.count = 0;
-        for (let i = 0; i < this.location.length; i++) {
-          if (index.location === this.location[i]) {
+        for (let i = 0; i < this.workLocation.length; i++) {
+          if (index.location === this.workLocation[i]) {
+            console.log("같은 곳의 위치 : " + this.workLocation[i])
             ++index.count;
           }
         }
@@ -321,7 +322,11 @@ export default {
         }
       });
       this.newBoards = tempBoards;
-      if (this.selected.length === 0) {
+      
+      console.log("새로운보드")
+      console.log(this.newBoards);
+      console.log("새로운보드")
+      if (this.workLocation.length === 0) {
         this.newBoards = boards;
       }
     },

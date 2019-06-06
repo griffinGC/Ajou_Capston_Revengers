@@ -13,7 +13,7 @@ router.post('/', function(req, res){
 });
 
 //register등록 및 업데이트 
-//host => guest
+//host => guest 할때 notification guest에 저장
 router.post('/guest/registerNotification',function(req, res,next){ 
       //frontend에서 보낼때는 guest boardId (boardId), userName, 작성자 정보 이렇게 3개를 보낼예정
       notifyGuest.updateCandidate(req.body.userName, req.body.boardId, function(err){
@@ -41,7 +41,7 @@ router.post('/guest/registerNotification',function(req, res,next){
         })
 });
 
-//guest => host
+//guest => host notificationhost에 저장
 router.post('/host/registerNotification',function(req, res,next){ 
       //frontend에서 보낼때는 guest boardId (boardId), userName, 작성자 정보 이렇게 3개를 보낼예정
       notifyHost.updateCandidate(req.body.userName, req.body.boardId, function(err){

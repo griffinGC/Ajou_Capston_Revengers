@@ -14,7 +14,7 @@
               <v-card-text>
                 <div class="rating">
                 <!-- <v-rating :value="board.difficulty" readonly></v-rating> -->
-                <v-rating :value="3" readonly></v-rating>
+                <v-rating :value="star" ></v-rating>
                 </div>
               </v-card-text>
                 <v-card-actions>
@@ -43,6 +43,7 @@ export default {
       candidateData : {
 
       },
+      star : 3
     };
   },
   props : ['notificationInfo'],

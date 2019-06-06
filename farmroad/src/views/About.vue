@@ -90,10 +90,8 @@
                   </v-img>
 
                   <v-card-title>
-
                     <!-- <h2 class="center teal-text">{{board.boardId + "ddddddd"}}</h2> -->
                     <h2 class="center teal-text">{{board.Info.name}}</h2>
-
                   </v-card-title>
 
                   <v-card-text>
@@ -395,13 +393,16 @@ export default {
       }
     },
     report(board) {
-      console.log(board.boardId)
+      console.log(board.boardId);
       if (localStorage.role == 0) {
         this.axios
-          .post("http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/hostBoard/isReportGuest/ban", {
-            boardId: board.boardId,
-            userName: localStorage.username
-          })
+          .post(
+            "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/hostBoard/isReportGuest/ban",
+            {
+              boardId: board.boardId,
+              userName: localStorage.username
+            }
+          )
           .then(response => {
             if (response.data.state == -1) {
               alert(response.data.msg);
@@ -412,10 +413,13 @@ export default {
           });
       } else {
         this.axios
-          .post("http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/hostBoard/isReportHost/ban", {
-            boardId: board.boardId,
-            userName: localStorage.username
-          })
+          .post(
+            "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/hostBoard/isReportGuest/ban",
+            {
+              boardId: board.boardId,
+              userName: localStorage.username
+            }
+          )
           .then(response => {
             if (response.data.state == -1) {
               alert(response.data.msg);

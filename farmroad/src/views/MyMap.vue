@@ -1,13 +1,16 @@
 <template>
-    <v-card>
+  <v-layout column wrap>
+    <v-flex>
   <div class="map">
     <div class="google-map" id="map"></div><br>
   </div>
+  </v-flex>
+    <v-flex>
     <v-layout column wrap>
       <v-flex xs12 sm12 md12>
-        asdfasdf
+        <div height="800" background-color="blue" class="box1"></div>
       </v-flex>
-    <v-flex xs12 sm12 md12 class="red">
+    <v-flex xs12 sm12 md12>
       <v-card height="1000">
         <v-img
           src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg"
@@ -61,7 +64,8 @@
       </v-card>
     </v-flex>
     </v-layout>
-    </v-card>
+    </v-flex>
+  </v-layout>
 </template>
 
 <script>
@@ -94,8 +98,8 @@ export default {
 
 <style>
 .map {
-  width: 50%;
-  height: 70%;
+  width: 96.9%;
+  height: 50%;
   position: fixed;
 }
 .google-map {
@@ -107,6 +111,9 @@ export default {
   left: 0;
   z-index: -1;
   position:absolute;
+}
+.box1{
+  height:350px;
 }
 </style>
 

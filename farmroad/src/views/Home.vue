@@ -133,28 +133,12 @@
   <v-flex>
     <v-flex xs12>
       <div class="grey--text text--darken-1">Message list</div>
-        <v-card color="green lighten-5" height="450" v-chat-scroll>
-            <v-flex xs12 sm12 md12  ml-2><ChatRoomList></ChatRoomList></v-flex>
-            <!-- <v-flex xs12 md6>
-              <div class="caption grey--text">Title</div>
-              <div>{{notification.boardInfo.title}}</div>
-            </v-flex>
-
-            <v-flex xs6 sm4 md2>
-              <div class="caption grey--text">Person</div>
-              <div>{{notification.userName}}</div>
-            </v-flex>
-
-            <v-flex xs6 sm4 md2>
-              <div class="caption grey--text">Due</div>
-              <div></div>
-            </v-flex> -->
-<!-- 
-            <v-flex xs6 sm4 md2>
-              <div>
-                <HomeBoardView :candidateInfo="`${notification.userName}`"/>
-              </div>
-            </v-flex> -->
+        <v-card color="green lighten-5" height="450" class="scroll">
+            <v-card>
+              <v-flex>
+              <ChatRoomList></ChatRoomList>
+             </v-flex>
+            </v-card>
         </v-card>
       </v-flex>
     </v-flex>

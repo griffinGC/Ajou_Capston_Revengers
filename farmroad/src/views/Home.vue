@@ -27,7 +27,8 @@
 
             <v-flex xs6 sm4 md2>
               <div>
-                <HomeBoardView :candidateInfo="`${notification.userName}`"/>
+                <HomeBoardView :candidateInfo="`${notification.userName}`" :boardId="`${notification.boardInfo.boardId}`"/>
+                <!-- {{notification.boardInfo.boardId}} -->
               </div>
             </v-flex>
           </v-layout>
@@ -260,9 +261,6 @@ export default {
             this.notificationList = response.data;
             // console.log(this.notificationList);
             // console.log("notification list 값 : " + this.notificationList);
-            // console.log(response.data[0].boardInfo.title);
-            // console.log(response.data[0].boardInfo.content);
-            // console.log(response.data[0].userName);
           });
       }else{
         this.axios

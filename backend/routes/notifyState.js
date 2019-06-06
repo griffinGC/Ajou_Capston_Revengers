@@ -49,7 +49,7 @@ router.post('/notifyRefuseStateGuest',function(req, res,next){
 
 
 //host가 거절      
-router.post('/notifyRefuseStateHost',function(req, res,next){
+router.post('/notifyRefuseStatsteHo',function(req, res,next){
   notifyRefuseHost.update({userName : req.body.userName},{notificationId : req.body.notificationID},{$set : {state : "refuse"}},function(err){
     if(err) {
       return res.json(err);

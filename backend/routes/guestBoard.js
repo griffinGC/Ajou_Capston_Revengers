@@ -64,7 +64,7 @@ router.get('/updateGuest/able/:id', function(req, res, next){
         return res.json({state : 0, msg : "update guestBoard able is success"});
     });
 })
-
+//guestBoard 게시글 신고 
 router.post('/isReportGuest/ban', function(req, res, next){
     guestBoard.update({boardId : req.body.boardId}, {$addToSet : {isReport : req.body.userName}}, function(err){
         if(err){

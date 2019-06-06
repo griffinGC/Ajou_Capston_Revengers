@@ -27,7 +27,10 @@
 
             <v-flex xs6 sm4 md2>
               <div>
-                <HomeBoardView :candidateInfo="`${notification.userName}`" :notificationId="`${notification.notificationId}`"/>
+                <HomeBoardView 
+                :candidateInfo="`${notification.userName}`" 
+                :notificationId="`${notification.notificationId}`"
+                :state="`${notification.state}`"/>
                 <!-- {{notification.boardInfo.boardId}} -->
               </div>
             </v-flex>
@@ -99,7 +102,7 @@
                             <span>{{board.content}}</span>
                           </div>
                           <div class="text-xs">
-                            <v-rating :value="board.difficulty" readonly></v-rating>
+                            <!-- <v-rating :value="board.difficulty" readonly></v-rating> -->
                           </div>
                         </v-card-text>
                         <v-card-actions>

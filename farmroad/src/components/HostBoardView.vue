@@ -5,18 +5,18 @@
       <span>view</span>
     </v-btn>
     <v-card>
-      <v-img class="black--text" height="200px">
+      <v-img class="black--text" height="200px" :src="board.boardImg">
         <v-container fill-height fluid>
           <v-layout fill-height>
             <v-flex xs12 align-end flexbox>
-              <span class="headline"></span>
+              <span class="headline">{{board.title}}</span>
             </v-flex>
           </v-layout>
         </v-container>
       </v-img>
 
       <v-card-title>
-        <h2 class="center teal-text"></h2>
+        <h2 class="center teal-text">{{board.Info.name}}</h2>
       </v-card-title>
 
       <v-card-text>
@@ -37,12 +37,12 @@
         </div>
         <!---date and content--->
         <div>
-          <span class="grey--text"></span>
+          <span class="grey--text">{{board.startDate}}</span>
           <br>
-          <span></span>
+          <span>{{board.content}}</span>
         </div>
         <div class="text-xs">
-          <v-rating :value="3" readonly></v-rating>
+          <v-rating :value="board.difficulty" readonly></v-rating>
         </div>
       </v-card-text>
       <v-card-actions>
@@ -78,10 +78,10 @@
 
 <script>
 export default {
+  props:['hostBoard'],
   data() {
     return {
-      boards: [],
-      newBoards: [],
+      board: this.hostBoard,
       rating: 3,
       items: [1, 2, 3, 4, 5],
       workDays: "",

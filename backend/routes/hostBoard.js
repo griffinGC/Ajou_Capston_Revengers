@@ -71,6 +71,7 @@ router.get('/updateHost/able/:id', function(req, res, next){
     });
 })
 
+//hostBoard 게시글 신고 
 router.post('/isReportHost/ban', function(req, res, next){
     hostBoard.update({boardId : req.body.boardId}, {$addToSet : {isReport : req.body.userName}}, function(err){
         if(err){

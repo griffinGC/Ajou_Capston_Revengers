@@ -281,6 +281,32 @@ export default {
       this.newBoards = temBoards;
       console.log(this.newBoards);
     },
+    sortBoard(boards) {
+       var tempBoards = new Array();
+       boards.forEach(index=>{
+         index.count = 0;
+         for(let i = 0; i<index.Info.ability.length; i++){
+           for(let j = 0; j<this.selected.length; j++){
+              if(index.Info.ability[i] === this.selected[j])
+              {
+                ++index.count;
+                // break;  
+              }
+           }
+         }
+         console.log("가지고 있는 개수! " + index.count);
+         if(index.count !== 0)
+         {
+           tempBoards.push(index);
+         }
+       })
+      console.log(tempBoards);
+      console.log("데이터 검색");
+         this.newBoards = tempBoards;    
+         if(this.selected.length === 0){
+           this.newBoards = boards;
+         }
+     },
     sortLocation(boards) {
       var tempBoards = new Array();
       boards.forEach(index => {

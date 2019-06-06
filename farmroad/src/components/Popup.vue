@@ -58,7 +58,7 @@
             prepend-icon="work"
             return-object
           ></v-select>
-          <v-select :items="items1" v-model="diff" label="difficulty" return-object></v-select>
+          <v-select :items="items1" v-model="diff" label="일의 종류" return-object></v-select>
           <v-icon>accessibility</v-icon><span class="grey--text text--darken-1"> 선호 능력</span>
           <v-flex xs12 d-flex>
             <v-flex xs6>
@@ -76,6 +76,23 @@
             <v-checkbox v-model="selected" hide-details label="컴퓨터" value="comp"></v-checkbox>
             <v-checkbox v-model="selected" hide-details label="농기계" value="machine"></v-checkbox>
             <v-checkbox v-model="selected" hide-details label="농사경험" value="farm"></v-checkbox>
+            </v-flex>
+          </v-flex>
+          <v-icon>location_on</v-icon><span class="grey--text text--darken-1"> 일하는 지역</span>
+          <v-flex xs12 d-flex>
+            <v-flex xs6>
+            <v-checkbox v-model="workLocation" hide-details label="경기도" value="경기도"></v-checkbox>
+            <v-checkbox v-model="workLocation" hide-details label="인천" value="인천"></v-checkbox>
+            <v-checkbox v-model="workLocation" hide-details label="충청북도" value="충청북도"></v-checkbox>
+            <v-checkbox v-model="workLocation" hide-details label="충청남도" value="충청남도"></v-checkbox>
+            <v-checkbox v-model="workLocation" hide-details label="경상북도" value="경상북도"></v-checkbox>
+            </v-flex>
+            <v-flex xs6>
+            <v-checkbox v-model="workLocation" hide-details label="경상남도" value="경상남도"></v-checkbox>
+            <v-checkbox v-model="workLocation" hide-details label="전라북도" value="전라북도"></v-checkbox>
+            <v-checkbox v-model="workLocation" hide-details label="전라남도" value="전라남도"></v-checkbox>
+            <v-checkbox v-model="workLocation" hide-details label="강원도" value="강원도"></v-checkbox>
+            <v-checkbox v-model="workLocation" hide-details label="제주도" value="제주도  "></v-checkbox>
             </v-flex>
           </v-flex>
           <v-textarea label="Content" v-model="content" prepend-icon="edit" required></v-textarea>
@@ -98,8 +115,8 @@ export default {
       menu1: false,
       title: "",
       content: "",
-      diff: 3,
-      items1: [1, 2, 3, 4, 5],
+      diff: "농업",
+      items1: ["농업", "임업", "수산업", "목축업", "기타"],
       alert: false,
       dialog: false,
       imageName: "",
@@ -107,6 +124,7 @@ export default {
       imageFile: "",
       items: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
       workDay: 3,
+      workLocation: "",
       
     };
   },
@@ -171,6 +189,7 @@ export default {
       let temp = JSON.stringify(this.selected);
       // 문자열로 보내서 backend에서 데이터 처리
       formData.append("preferAbility", temp);
+      formDate.append("location", this.workLocation);
       console.log(formData)
       this.axios
         .post(

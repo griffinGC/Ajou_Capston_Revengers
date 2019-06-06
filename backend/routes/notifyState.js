@@ -10,7 +10,7 @@ const notifyHost =require('../schemas/notificationHost');
 //guest가 승인 여기서 
 // userName은 신청한 사람 => 즉 host
 router.post('/guestApprove',function(req, res,next){
-  notifyGuest.update({userName : req.body.userName, notificationId : req.body.notificationID},{$set : {state : "approve"}},function(err){
+  notifyGuest.update({userName : req.body.userName, notificationId : req.body.notificationId},{$set : {state : "approve"}},function(err){
     if(err) {
       return res.json(err);
     };
@@ -22,7 +22,7 @@ router.post('/guestApprove',function(req, res,next){
 
 //host가 승인      
 router.post('/hostApprove',function(req, res,next){
-  notifyHost.update({userName : req.body.userName, notificationId : req.body.notificationID},{$set : {state : "approve"}},function(err){
+  notifyHost.update({userName : req.body.userName, notificationId : req.body.notificationId},{$set : {state : "approve"}},function(err){
     if(err) {
       return res.json(err);
     };
@@ -36,7 +36,7 @@ router.post('/hostApprove',function(req, res,next){
 
 //guest가 거절 
 router.post('/guestRefuse',function(req, res,next){
-  notifyGuest.update({userName : req.body.userName, notificationId : req.body.notificationID},{$set : {state : "refuse"}},function(err){
+  notifyGuest.update({userName : req.body.userName, notificationId : req.body.notificationId},{$set : {state : "refuse"}},function(err){
     if(err) {
       return res.json(err);
     };
@@ -50,7 +50,7 @@ router.post('/guestRefuse',function(req, res,next){
 
 //host가 거절      
 router.post('/hostRefuse',function(req, res,next){
-  notifyHost.update({userName : req.body.userName, notificationId : req.body.notificationID},{$set : {state : "refuse"}},function(err){
+  notifyHost.update({userName : req.body.userName, notificationId : req.body.notificationId},{$set : {state : "refuse"}},function(err){
     if(err) {
       return res.json(err);
     };

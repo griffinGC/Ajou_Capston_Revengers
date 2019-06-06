@@ -150,16 +150,31 @@ export default {
           {userName : name})
          }
 
+          if(localStorage.role === '1'){
+        this.axios
+          .post(
+            "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/notifyState/notifyApproveStateGuest",
+          {userName : name})
+         }
+
     },
     refuseCandidate(name){
         console.log("notify state ");
         console.log(name);
-         if(localStorage.role === '1'){
+        if(localStorage.role === '0'){
         this.axios
           .post(
-            "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/notifyState/notifyApproveStateHost",
+            "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/notifyState/notifyRefuseStateHost",
           {userName : name})
          }
+
+          if(localStorage.role === '1'){
+        this.axios
+          .post(
+            "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/notifyState/notifyRefuseStateGuest",
+          {userName : name})
+         }
+
     },
   }
 };

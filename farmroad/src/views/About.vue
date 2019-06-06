@@ -190,13 +190,10 @@ export default {
       selected: [],
       location: [],
 
-      menu1: false,
-
       date: new Date().toISOString().substr(0, 10),
       dateFormatted: this.formatDate(new Date().toISOString().substr(0, 10)),
       showCard: false,
       diff: "",
-      chatRoute: "/chat",
       role: null,
       chatRoomId: ""
     };
@@ -403,7 +400,7 @@ export default {
       if (localStorage.role == 0) {
         this.axios
           .post(
-            "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/hostBoard/isReportGuest/ban",
+            "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/hostBoard/isReportHost/ban",
             {
               boardId: board.boardId,
               userName: localStorage.username
@@ -420,7 +417,7 @@ export default {
       } else {
         this.axios
           .post(
-            "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/hostBoard/isReportGuest/ban",
+            "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/guestBoard/isReportGuest/ban",
             {
               boardId: board.boardId,
               userName: localStorage.username

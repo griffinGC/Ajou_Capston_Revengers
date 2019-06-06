@@ -51,76 +51,9 @@
                     <div class="subheading">{{board.title}}</div>
                     <div class="grey--text">{{board.content}}</div>
                   </v-card-text>
-
                   <v-card-actions>
-                    <!------------------------------view dialog start--------------------------------->
-                    <v-dialog max-width="600px">
-                      <v-btn flat slot="activator" color="grey" @click="viewAction(board.candidate)">
-                        <v-icon small left>streetview</v-icon>
-                        <span>view</span>
-                      </v-btn>
-                      <v-card>
-                        <v-img class="black--text" height="200px" :src="board.boardImg">
-                          <v-container fill-height fluid>
-                            <v-layout fill-height>
-                              <v-flex xs12 align-end flexbox>
-                                <span class="headline">{{board.title}}</span>
-                              </v-flex>
-                            </v-layout>
-                          </v-container>
-                        </v-img>
-                        <v-card-title>
-                          <h2 class="center teal-text">{{board.Info.name}}</h2>
-                        </v-card-title>
-                        <v-card-text>
-                          <!--map-->
-                          <v-flex d-flex xs12 sm6 md4>
-                            <v-layout row wrap>
-                            </v-layout>
-                          </v-flex>
-
-                          <!--show date-->
-                          <div>
-                            <v-date-picker
-                              width="560px"
-                              v-model="showDate"
-                              :allowed-dates="allowedDates"
-                              class="mt-3"
-                              min="2016-06-15"
-                              max="2018-03-20"
-                            ></v-date-picker>
-                          </div>
-                          <!---date and content--->
-                          <div>
-                            <span class="grey--text">{{board.startDate}}</span>
-                            <br>
-                            <span>{{board.content}}</span>
-                          </div>
-                          <div class="text-xs">
-                            <v-rating :value="board.difficulty" readonly></v-rating>
-                          </div>
-                        </v-card-text>
-                        <v-card-actions>
-                          <!--Notification button-->
-                          <v-btn
-                            :disabled="loading"
-                            @click="saveNotification(board.boardId)"
-                            slot="activator"
-                            color="success"
-                          >
-                            <v-icon small left>add</v-icon>
-                            <span>register</span>
-                          </v-btn>
-
-                          <!--messager button-->
-                          <v-btn flat slot="activator" color="success" @click="messager(board.boardId)">
-                            <v-icon small left>message</v-icon>
-                            <span>comment</span>
-                          </v-btn>
-                        </v-card-actions>
-                      </v-card>
-                    </v-dialog>
-                    <!------------------------------view dialog end--------------------------------->
+                   <!--Board View-->
+                   <HostBoardView/>
                   </v-card-actions>
                 </v-card>
               </v-flex>
@@ -148,8 +81,14 @@
 import HomeBoardView from '../components/HomeBoardView'
 import firebase from "firebase";
 import ChatRoomList from '../components/ChatRoomList'
+import HostBoardView from '../components/HostBoardView'
 export default {
   name: "home",
+  components: {
+    HomeBoardView,
+    ChatRoomList,
+    HostBoardView,
+  },
   data() {
     return {
       notificationList : "",
@@ -217,6 +156,7 @@ export default {
       this.dateFormatted = this.formatDate(this.date);
     }
   },
+  
   methods:{
     getNotification(){
       let userId = localStorage.username;
@@ -348,10 +288,7 @@ export default {
       }
     }
   },
-  components: {
-    HomeBoardView,
-    ChatRoomList
-  },
+  
   computedDateFormatted() {
       return this.formatDate(this.date);
     },

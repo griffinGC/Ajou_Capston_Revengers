@@ -60,6 +60,7 @@ router.post('/createGuestReference',function(req, res, next){
     writeReference.writer = req.body.writer;
     //작성될 guest profile
     writeReference.userName = req.body.userName;
+    
     let day = new Date();
     let yy = day.getFullYear();
     let mm = day.getMonth()

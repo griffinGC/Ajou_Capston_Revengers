@@ -53,11 +53,11 @@
                 <v-card-actions>
                 <v-btn flat slot="activator" color="success" @click="approveCandidate()">
                   <v-icon small left>favorite</v-icon>
-                  <span>Approve</span>
+                  <span>후기 작성</span>
                   </v-btn>
                   <v-btn flat slot="activator" color="success" @click="refuseCandidate()">
                   <v-icon small left>clear</v-icon>
-                  <span>Refuse</span>
+                  <span>작성 취소</span>
                     </v-btn>
                   </v-card-actions>
                 </v-flex>
@@ -80,10 +80,10 @@ export default {
       },
     };
   },
-  props : ['candidateInfo'],
+  props : ['notificationInfo'],
   created() {
     // console.log("view is created");
-    console.log("props로 받은 값 : " + this.candidateInfo);
+    console.log("props로 받은 값 : " + this.notificationInfo);
     this.viewClicked();
     this.role=localStorage.role;
   },

@@ -121,7 +121,7 @@ export default {
             this.candidateData.phone = userData.phone;
             this.candidateData.email = userData.email;
             this.candidateData.reference = userData.reference;
-            this.candidateData.boardId = userData.boardId;
+            this.candidateData.notificationId = userData.notificationId;
           });
       }else{
         //내가 host일 경우 guest정보를 가져옴 
@@ -139,7 +139,7 @@ export default {
             this.candidateData.phone = userData.phone;
             this.candidateData.email = userData.email;
             this.candidateData.reference = userData.reference;
-            this.candidateData.boardId = userData.boardId;
+            this.candidateData.notificationId = userData.notificationId;
         });
       };
     },

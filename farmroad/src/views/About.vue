@@ -90,7 +90,10 @@
                   </v-img>
 
                   <v-card-title>
-                    <h2 class="center teal-text">{{board.boardId}}</h2>
+
+                    <!-- <h2 class="center teal-text">{{board.boardId + "ddddddd"}}</h2> -->
+                    <h2 class="center teal-text">{{board.Info.name}}</h2>
+
                   </v-card-title>
 
                   <v-card-text>

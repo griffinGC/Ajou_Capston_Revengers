@@ -65,6 +65,15 @@ router.get('/updateGuest/able/:id', function(req, res, next){
     });
 })
 
+router.post('/isReportGuest/ban', function(req, res, next){
+    guestBoard.update({boardId : req.body.boardId}, {$addToSet : {isReport : req.body.userName}}, function(err){
+        if(err){
+            return res.json(err);
+        };
+        return res.json({state : 0, msg : "isReport GuestBoard is success"});
+    });
+})
+
 var newFile = "";
 
 var storage = multer.diskStorage({
@@ -113,7 +122,16 @@ router.post('/createBoard',upload.single('img'), function(req, res, next){
         // writeBoard.difficulty = req.body.difficulty;
         writeBoard.workDay = req.body.workDay;
         writeBoard.category = req.body.category;
-        writeBoard.preferLocation = req.body.preferLocation;
+
+        let preferLocation = req.body.preferLocation;
+        let deleteA = preferLocation.replace("[","");
+        let deleteB = deleteA.replace("]","");
+        deleteB = deleteB.replace(/"/gi,'');
+        console.log(deleteB);
+        let abArr = deleteB.split(',');
+
+        writeBoard.preferLocation = abArr;
+        
         writeBoard.candidate = req.body.candidate;
         writeBoard.report = false;
 

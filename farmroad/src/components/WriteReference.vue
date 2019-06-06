@@ -1,7 +1,6 @@
 <template>
   <v-dialog v-model="dialog" max-width="650px">
-    <!-- <v-btn @click="viewClicked()" flat slot="activator" class="success">view</v-btn> -->
-    <v-btn flat slot="activator" class="success">view</v-btn>
+    <v-btn flat slot="activator" class="success">후기 남기기</v-btn>
       <v-card>
         <v-container>
           <v-layout row wrap class="cont">
@@ -52,7 +51,7 @@
                </v-flex>
                <v-flex sm3>
                 <v-card-actions>
-                <v-btn flat slot="activator" color="success" @click="approveCandidate(candidateData.userName)">
+                <v-btn flat slot="activator" color="success" @click="approveCandidate()">
                   <v-icon small left>favorite</v-icon>
                   <span>Approve</span>
                   </v-btn>
@@ -140,26 +139,47 @@ export default {
         });
       };
     },
-    approveCandidate(name){
+    approveCandidate(){
       console.log("notify state ");
-        console.log(name);
-         if(localStorage.role === '0'){
+      let userState = localStorage.state; 
+      this.axios
+      .get(`http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/notifyState/${state}`)
+      .then(response =>{
+          console.log(response.data[0]);
+            let userData = response.data[0];
+            this.userState.state = userData.userName;
+                        
+        });
+      
+      
+      if (localStorage.state === "approve") {
+        console.log(this.state);
+        
+       
         this.axios
           .post(
-            "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/notifyState/notifyApproveStateHost",
-          {userName : name})
-         }
+            "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/notifyState",
+            userState
+          )
+          .then(console.log("sneding a candidate to state"));
+      }
 
     },
     refuseCandidate(){
-        console.log("notify state ");
-        console.log(name);
-         if(localStorage.role === '1'){
+      console.log("notify state "); 
+      let userState = localStorage.state;
+      
+      if (localStorage.state === "refuse") {
+        console.log(this.state);
+        
+       
         this.axios
           .post(
-            "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/notifyState/notifyApproveStateHost",
-          {userName : name})
-         }
+            "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/notifyState",
+            userState
+          )
+          .then(console.log("sneding a candidate to state"));
+      }
     },
   }
 };

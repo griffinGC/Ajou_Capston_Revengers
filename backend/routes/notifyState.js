@@ -33,7 +33,6 @@ router.post('/notifyApproveStateHost',function(req, res,next){
       })
 });  
 
-
 router.get('/getGuestApprove/:id', function(req, res, next){
   notifyApproveGuest.find({userName : req.params.id, state : "approve"}, function(err, getInfo){
     if(err){

@@ -52,11 +52,11 @@
                </v-flex>
                <v-flex sm3>
                 <v-card-actions>
-                <v-btn flat slot="activator" color="success" @click="approveCandidate(candidateData.userName,candidateData.boardId)">
+                <v-btn flat slot="activator" color="success" @click="approveCandidate(candidateData.userName)">
                   <v-icon small left>favorite</v-icon>
                   <span>Approve</span>
                   </v-btn>
-                  <v-btn flat slot="activator" color="success" @click="refuseCandidate(candidateData.userName,candidateData.boardId)">
+                  <v-btn flat slot="activator" color="success" @click="refuseCandidate(candidateData.userName)">
                   <v-icon small left>clear</v-icon>
                   <span>Refuse</span>
                     </v-btn>
@@ -85,7 +85,7 @@ export default {
   created() {
     // console.log("view is created");
     console.log("props로 받은 값 : " + this.candidateInfo);
-    console.log("board id : " + this.boardId);
+    console.log("board id : " + this.notificationId);
     this.viewClicked();
     this.role=localStorage.role;
   },
@@ -143,25 +143,25 @@ export default {
         });
       };
     },
-    approveCandidate(name,boardId){
+    approveCandidate(name){
       console.log("notify state ");
         console.log(name);
-        console.log(boardId);
+        //guest일때 host 승인
          if(localStorage.role === '0'){
         this.axios
           .post(
-            "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/notifyState/notifyApproveStateHost",
+            "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/notifyState/guestApprove",
           {
             userName : name,
             notificationId : this.notificationId
             }
             )
          }
-
+        //host일때 guest 승인
          else if(localStorage.role === '1'){
         this.axios
           .post(
-            "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/notifyState/notifyApproveStateGuest",
+            "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/notifyState/hostApprove",
           {
             userName : name,
             notificationId : this.notificationId
@@ -170,14 +170,14 @@ export default {
          }
 
     },
-    refuseCandidate(name,boardId){
+    refuseCandidate(name){
         console.log("notify state ");
         console.log(name);
-        console.log(boardId);
+        // console.log(boardId);
         if(localStorage.role === '0'){
         this.axios
           .post(
-            "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/notifyState/notifyRefuseStateHost",
+            "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/notifyState/guestRefuse",
           {
             userName : name,
             notificationId : this.notificationId
@@ -188,7 +188,7 @@ export default {
          else if(localStorage.role === '1'){
         this.axios
           .post(
-            "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/notifyState/notifyRefuseStateGuest",
+            "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/notifyState/hostRefuse",
           {
             userName : name,
             notificationId : this.notificationId

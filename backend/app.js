@@ -31,6 +31,8 @@ var chatRoomRouter = require('./routes/chatRoom');
 var searchRouter = require('./routes/searchBoard');
 var deleteRouter = require('./routes/deletePost');
 
+var referenceRouter = require('./routes/saveReference');
+
 var imageRouter = require('./routes/image');
 
 var stateRouter = require('./routes/notifyState');
@@ -105,6 +107,9 @@ app.use('/main', mainRouter);
 
 //댓글 기능 라우터 
 app.use('/chat', chatRouter);
+
+//후기 기능 라우터
+app.use('/reference', referenceRouter);
 
 //chat 기능 라우터
 app.use('/chatRoom', chatRoomRouter);

@@ -44,27 +44,25 @@
           <v-card class="pa-1" v-for="reference in referenceList" :key="reference.id">
           <v-layout row wrap :class="`pa-1 project.${reference.title}`">
 
-            <v-flex xs12 md6>
+            <v-flex xs6 md6>
               <div class="caption grey--text">글 제목</div>
-              <!-- <div>{{project.title}}</div> -->
-              <div>{{reference.title}}</div>
+              <div>{{reference.boardInfo.title}}</div>
             </v-flex>
 
             <v-flex xs6 sm4 md2>
-              <div class="caption grey--text">방문한곳</div>
+              <div class="caption grey--text">글 작성자</div>
               <!-- <div>{{project.guestInfo}}</div> -->
-              <div>{{reference.userName}}</div>
+              <div>{{reference.writer}}</div>
             </v-flex>
 
             <v-flex xs6 sm4 md2>
               <div class="caption grey--text">방문날짜</div>
-              <div></div>
+              <div>{{reference.boardInfo.startDate}}</div>
             </v-flex>
 
             <v-flex xs6 sm4 md2>
               <div>
                 <WriteReference :notificationInfo="`${reference.boardInfo}`"/>
-                {{reference.boardInfo}}
               </div>
             </v-flex>
           </v-layout>
@@ -175,22 +173,21 @@ export default {
       if (localStorage.role == 0) {
       this.axios
         .get(
-          `http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/notifyState/getGuestApprove/${userId}`
+          `http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/notifyState/getHostApprove/${userId}`
         )
         .then(response => {
           console.log(response.data);
-          console.log("받아온 값")
+          // console.log("받아온 값")
           this.referenceList = response.data;
         });
       } else if (localStorage.role == 1) {
       this.axios
         .get(
-          `http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/notifyState/getHostApprove/${userId}`
+          `http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/notifyState/getGuestApprove/${userId}`
         )
         .then(response => {
           // console.log(response.data);
-          console.log(response.data);
-          console.log("받아온 값")
+          // console.log("받아온 값")
           this.referenceList = response.data;
         });
       }

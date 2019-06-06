@@ -1,69 +1,34 @@
 <template>
-  <v-dialog v-model="dialog" max-width="650px">
+  <v-dialog v-model="dialog" max-width="450px">
     <v-btn flat slot="activator" class="success">후기 남기기</v-btn>
       <v-card>
         <v-container>
           <v-layout row wrap class="cont">
-            <v-flex sm5>
-              <v-avatar id="avatar" size="220px">
-                <img
-                v-if="candidateData.profileImg"
-                :src="candidateData.profileImg"
-                alt="Avatar">
-                <v-icon id="altImg" size="100px"
-                v-else
-                >person</v-icon>  
-              </v-avatar>
+            <v-flex sm11>
+            <v-form class="px-3">
+              <v-text-field label="Title" v-model="title" prepend-icon="folder" required></v-text-field>
+              <!--img upload-->
+              <!--start date select-->
+              <v-textarea label="Content" v-model="content" prepend-icon="edit" required></v-textarea>
+            </v-form>
               <v-card-text>
                 <div class="rating">
                 <!-- <v-rating :value="board.difficulty" readonly></v-rating> -->
-                <v-rating :value="5" readonly></v-rating>
+                <v-rating :value="star" ></v-rating>
                 </div>
               </v-card-text>
-            </v-flex>
-            <v-flex>
-                <v-layout column wrap>
-                <v-flex xs12 sm11>
-                  <v-layout row wrap align-top class="info1">
-                    <v-flex sm4 sm6>
-                    <div class="grey--text font-weight-bold">아이디</div>
-                    <div class="grey--text font-weight-bold">이름</div>
-                    <div class="grey--text font-weight-bold">성별</div>
-                    <div class="grey--text font-weight-bold">나이</div>
-                    <div class="grey--text font-weight-bold">전화번호</div>
-                    <div class="grey--text font-weight-bold">이메일</div>
-                    <div v-if="role === '0'" class="grey--text font-weight-bold">위치</div>
-                    <div v-if="role === '1'" class="grey--text font-weight-bold">능력</div>
-                    </v-flex>
-                    <v-flex sm3>
-                    <div>{{candidateData.userName}}</div>
-                    <div>{{candidateData.name}}</div>
-                    <div>{{candidateData.gender}}</div>
-                    <div>{{candidateData.age}}</div>
-                    <div>{{candidateData.phone}}</div>
-                    <div>{{candidateData.email}}</div>
-                    <div v-if="role === '0'">{{candidateData.location}}</div>
-                    <div v-if="role === '0'">{{candidateData.work}}</div>
-                    <div v-if="role === '1'">{{candidateData.ability}}</div>
-                    <!-- <div>{{candidateData.reference}}</div> -->
-                   </v-flex>
-                 </v-layout>
-               </v-flex>
-               <v-flex sm3>
                 <v-card-actions>
-                <v-btn flat slot="activator" color="success" @click="approveCandidate()">
+                <v-btn flat slot="activator" color="success" @click="saveReference()">
                   <v-icon small left>favorite</v-icon>
                   <span>후기 작성</span>
                   </v-btn>
-                  <v-btn flat slot="activator" color="success" @click="refuseCandidate()">
+                  <v-btn flat slot="activator" color="success" @click="cancelReference()">
                   <v-icon small left>clear</v-icon>
                   <span>작성 취소</span>
-                    </v-btn>
+                  </v-btn>
                   </v-card-actions>
                 </v-flex>
               </v-layout>
-            </v-flex>
-            </v-layout>
         </v-container>
     </v-card>
   </v-dialog>
@@ -78,13 +43,15 @@ export default {
       candidateData : {
 
       },
-      
+      star : 3,
+      title : "",
+      content : "",
     };
   },
-  props : ['notificationInfo'],
+  props : ['notificationBoardInfo'],
   created() {
     // console.log("view is created");
-    console.log("props로 받은 값 : " + this.notificationInfo);
+    console.log("props로 받은 값 : " + this.notificationBoardInfo);
     this.viewClicked();
     this.role=localStorage.role;
   },
@@ -140,31 +107,48 @@ export default {
         });
       };
     },
-    approveCandidate(){
-      console.log("notify state ");
-      let userState = localStorage.state; 
-      this.axios
-      .get(`http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/notifyState/${state}`)
-      .then(response =>{
-          console.log(response.data[0]);
-            let userData = response.data[0];
-            this.userState.state = userData.userName;
-                        
-        });
-      
-      
-      if (localStorage.state === "approve") {
-        console.log(this.state);
-        
-       
+    saveReference(){
+      console.log("save reference ");
+      //0 은 본인이 guest 
+      if(localStorage.role === '0'){
         this.axios
           .post(
-            "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/notifyState",
-            userState
+            "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/reference/createHostReference",
+            {
+              boardId : this.notificationBoardInfo.boardId,
+              title : this.title,
+              writer : localStorage.username,
+              userName : this.notificationBoardInfo.Info.userName,
+              content : this.content,
+              star : this.star
+            }
           )
-          .then(console.log("sneding a candidate to state"));
+          .then(response=>{
+            if (respones.data.state == -1) {
+            console.log("reference save is failed!!");
+            }else if(response.data.state == 0){
+              console.log("reference save is success");
+            }});
+      }else if(localStorage.role === '1'){
+        this.axios
+          .post(
+            "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/reference/createGuestReference",
+            {
+              boardId : this.notificationBoardInfo.boardId,
+              title : this.title,
+              writer : localStorage.username,
+              userName : this.notificationBoardInfo.Info.userName,
+              content : this.content,
+              star : this.star
+            }
+          )
+          .then(response=>{
+            if (respones.data.state == -1) {
+            console.log("reference save is failed!!");
+            }else if(response.data.state == 0){
+              console.log("reference save is success");
+            }});
       }
-
     },
     refuseCandidate(){
       console.log("notify state "); 

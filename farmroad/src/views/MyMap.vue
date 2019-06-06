@@ -1,70 +1,69 @@
 <template>
+    <v-card>
   <div class="map">
     <div class="google-map" id="map"></div><br>
-      <v-flex xs5 sm4 md4>
-        <v-card class="grey--text">
-          <v-layout>
-           <v-flex xs5>
-            <v-img
-            v-if="profileImg" :src="profileImg" alt="Avatar"
-            height="150px"
-            contain
-            ></v-img>
-            <v-icon v-else >person</v-icon>
-          </v-flex>
-            <v-flex xs7>
-              <v-card-title primary-title>
-                <div>
-                <div class="grey--text font-weight-bold">유저 아이디</div>
-                <div  v-if="role === '1'" class="grey--text font-weight-bold">유저정보</div>
-                <div  v-if="role === '0'" class="grey--text font-weight-bold">유저정보</div>
-                <div class="grey--text font-weight-bold">이름</div>
-                <div class="grey--text font-weight-bold">성별</div>
-                <div class="grey--text font-weight-bold">나이</div>
-                <div  v-if="role === '0'" class="grey--text font-weight-bold">능력</div>
-                <div class="grey--text font-weight-bold">전화번호</div>
-                <div class="grey--text font-weight-bold">이메일</div>
-                <div  v-if="role === '1'" class="grey--text font-weight-bold">직업</div>
-                <div  v-if="role === '1'" class="grey--text font-weight-bold">지역</div>
-                <div class="grey--text font-weight-bold">주소</div>
-                <div class="grey--text font-weight-bold">평점</div>
-                </div>
-              </v-card-title>
-            </v-flex>
-            </v-layout>
-            <v-flex xs12 sm5 md12 d-flex ml-5>
-              <v-checkbox v-model="selected" label="요리를 잘해요" value="cook"></v-checkbox>
-              <v-checkbox v-model="selected" label="요리를 잘해요" value="cook"></v-checkbox>
-              <v-checkbox v-model="selected" label="요리를 잘해요" value="cook"></v-checkbox>
-            </v-flex>
-            <v-flex d-flex ml-5>
-              <v-checkbox v-model="selected" label="요리를 잘해요" value="cook"></v-checkbox>
-              <v-checkbox v-model="selected" label="요리를 잘해요" value="cook"></v-checkbox>
-              <v-checkbox v-model="selected" label="요리를 잘해요" value="cook"></v-checkbox>
-            </v-flex>
-              <!-- <v-card-actions class="pa-3">
-                Rate this album
-                <v-spacer></v-spacer>
-                <v-icon>star_border</v-icon>
-                <v-icon>star_border</v-icon>
-                <v-icon>star_border</v-icon>
-                <v-icon>star_border</v-icon>
-                <v-icon>star_border</v-icon>
-              </v-card-actions> -->
-              <v-card>
-                asdf
-              </v-card>
-            </v-card>
-          </v-flex>
-      <v-layout row wrap>
-        <v-flex sm2>
-          
-        </v-flex>
-        <v-flex sm2>
-        </v-flex>
-      </v-layout>
   </div>
+    <v-layout column wrap>
+      <v-flex xs12 sm12 md12>
+        asdfasdf
+      </v-flex>
+    <v-flex xs12 sm12 md12 class="red">
+      <v-card height="1000">
+        <v-img
+          src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg"
+          height="250px"
+        >
+        </v-img>
+
+        <v-card-title primary-title>
+          <v-layout row wrap>
+        <v-flex xs5 sm5 offset-xs1 class="grey--text font-weight-bold">유저 아이디</v-flex>
+        <!-- <v-flex xs6 sm6>{{candidateData.userName}}</v-flex> -->
+        <v-flex xs5 sm5offset-xs1 v-if="role === '1'" class="grey--text font-weight-bold">유저정보</v-flex>
+        <!-- <v-flex xs5 sm5 v-if="role === '1'">Host</v-flex> -->
+        <v-flex xs5 sm5 offset-xs1 v-if="role === '0'" class="grey--text font-weight-bold">유저정보</v-flex>
+        <!-- <v-flex xs6 v-if="role === '0'">Guest</v-flex> -->
+        <v-flex xs5 offset-xs1 class="grey--text font-weight-bold">이름</v-flex>
+        <!-- <v-flex xs6>{{candidateData.name}}</v-flex> -->
+        <v-flex xs5 offset-xs1 class="grey--text font-weight-bold">성별</v-flex>
+        <!-- <v-flex xs6>{{candidateData.gender}}</v-flex> -->
+        <v-flex xs5 offset-xs1 class="grey--text font-weight-bold">나이</v-flex>
+        <!-- <v-flex xs6>{{candidateData.age}}</v-flex> -->
+        <v-flex xs5 offset-xs1 v-if="role === '0'" class="grey--text font-weight-bold">능력</v-flex>
+        <!-- <v-flex xs6 v-if="role === '0'">{{candidateData.ability}}</v-flex> -->
+        <v-flex xs5 offset-xs1 class="grey--text font-weight-bold">전화번호</v-flex>
+        <!-- <v-flex xs6>{{candidateData.phone}}</v-flex> -->
+        <v-flex xs5 offset-xs1 v-if="role === '1'" class="grey--text font-weight-bold">직업</v-flex>
+        <!-- <v-flex xs6 v-if="role === '1'">{{candidateData.work}}</v-flex> -->
+        <v-flex xs5 offset-xs1 v-if="role === '1'" class="grey--text font-weight-bold">지역</v-flex>
+        <!-- <v-flex xs6 v-if="role === '1'">{{candidateData.location}}</v-flex> -->
+        <v-flex xs5 offset-xs1 class="grey--text font-weight-bold">주소</v-flex>
+        <!-- <v-flex xs6>{{candidateData.address}}</v-flex> -->
+        <v-flex xs6></v-flex>
+        </v-layout>
+        
+        </v-card-title>
+
+        <!-- <v-card-actions>
+          <v-btn flat>Share</v-btn>
+          <v-btn flat color="purple">Explore</v-btn>
+          <v-spacer></v-spacer>
+          <v-btn icon @click="show = !show">
+            <v-icon>{{ show ? 'keyboard_arrow_down' : 'keyboard_arrow_up' }}</v-icon>
+          </v-btn>
+        </v-card-actions> -->
+
+        <v-slide-y-transition>
+          <v-card-text v-show="show">
+            I'm a thing. But, like most politicians, he promised more than he could deliver. You won't have time for sleeping, soldier, not with all the bed making you'll be doing. Then we'll go with that data file! Hey, you add a one and two zeros to that or we walk! You're going to do his laundry? I've got to find a way to escape.
+          </v-card-text>
+        </v-slide-y-transition>
+      </v-card>
+    </v-flex>
+    </v-layout>
+    </v-card>
 </template>
+
 <script>
 import firebase from "firebase";
 import { setTimeout } from "timers";
@@ -95,8 +94,8 @@ export default {
 
 <style>
 .map {
-  width: 100%;
-  height: 100%;
+  width: 50%;
+  height: 70%;
   position: fixed;
 }
 .google-map {

@@ -11,6 +11,7 @@ import Welcome from './views/Welcome'
 import FileUpload from './views/FileUpload'
 import MyBoards from './views/MyBoards'
 import MyMap from './views/MyMap'
+import Review from './views/Review'
 import ChatRoom from './views/ChatRoom'
 import ChatRoomList from './components/ChatRoomList'
 
@@ -105,6 +106,11 @@ const router =  new Router({
       path: '/mymap',
       name: 'mymap',
       component: MyMap
+    },
+    {
+      path: '/review',
+      name: 'review',
+      component: Review
     },
     {
       path: '/chatroom',

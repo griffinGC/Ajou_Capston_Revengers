@@ -78,7 +78,7 @@
 
             <v-flex xs6 sm4 md2>
               <div>
-                <WriteReference :notificationInfo="`${reference.boardInfo}`"/>
+                <WriteReference :notificationBoardInfo="`${reference.boardInfo}`"/>
               </div>
             </v-flex>
           </v-layout>
@@ -118,7 +118,6 @@ export default {
       referenceList :[
         // {title : "gggg"}
       ]
-
     };
   },
   components: {
@@ -134,7 +133,6 @@ export default {
     this.role = localStorage.role;
     this.getInfo();
     this.getNotificationInfo();
-
   },
   methods: {
     getInfo() {
@@ -172,7 +170,6 @@ export default {
             this.phone = userData.phone;
             this.email = userData.email;
             this.reference = userData.reference;
-
         });
       };
     },
@@ -209,7 +206,6 @@ export default {
       }
     },
     writeReference(){
-
     }
   },
   
@@ -226,5 +222,3 @@ div{
   margin-bottom:5px;
 }
 </style>
-
-

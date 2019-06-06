@@ -10,7 +10,7 @@ router.post('/', function(req, res){
   return res.json({state : 0, msg : "test okay!"});
 });
 
-//메인화면에서 notification schema 읽어오기 
+//메인화면에서 notification schema 읽어오기  guest가 받은 
 router.get('/guest/getNotification/:id',function(req, res,next){ 
       //인자로 guestId 만을 가져옴 
       notifyGuest.find({writer : req.params.id}, function(err, notifyList){
@@ -23,6 +23,8 @@ router.get('/guest/getNotification/:id',function(req, res,next){
       })
 });
 
+
+//메인화면에서 notification schema 읽어오기  host가 받은 
 router.get('/host/getNotification/:id',function(req, res,next){ 
     //인자로 hostId 만을 가져옴 
     notifyHost.find({writer : req.params.id}, function(err, notifyList){

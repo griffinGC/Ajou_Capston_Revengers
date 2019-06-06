@@ -54,6 +54,6 @@ router.get('/getHostApprove/:id', function(req, res, next){
     return res.json(getInfo);
   })
 })
-      
+
    
 module.exports = router;

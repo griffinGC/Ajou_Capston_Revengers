@@ -56,7 +56,7 @@
                   <v-icon small left>favorite</v-icon>
                   <span>Approve</span>
                   </v-btn>
-                  <v-btn flat slot="activator" color="success" @click="refuseCandidate()">
+                  <v-btn flat slot="activator" color="success" @click="refuseCandidate(candidateData.userName)">
                   <v-icon small left>clear</v-icon>
                   <span>Refuse</span>
                     </v-btn>
@@ -151,16 +151,31 @@ export default {
           {userName : name})
          }
 
-    },
-    refuseCandidate(){
-        console.log("notify state ");
-        console.log(name);
-         if(localStorage.role === '1'){
+         else if(localStorage.role === '1'){
         this.axios
           .post(
-            "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/notifyState/notifyApproveStateHost",
+            "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/notifyState/notifyApproveStateGuest",
           {userName : name})
          }
+
+    },
+    refuseCandidate(name){
+        console.log("notify state ");
+        console.log(name);
+        if(localStorage.role === '0'){
+        this.axios
+          .post(
+            "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/notifyState/notifyRefuseStateHost",
+          {userName : name})
+         }
+
+         else if(localStorage.role === '1'){
+        this.axios
+          .post(
+            "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/notifyState/notifyRefuseStateGuest",
+          {userName : name})
+         }
+
     },
   }
 };

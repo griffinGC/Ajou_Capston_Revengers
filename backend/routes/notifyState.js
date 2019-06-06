@@ -8,8 +8,9 @@ const notifyRefuseGuest =require('../schemas/notificationGuest');
 const notifyApproveHost =require('../schemas/notificationHost');
 const notifyRefuseHost =require('../schemas/notificationHost');
 
+//guest가 승인
 router.post('/notifyApproveStateGuest',function(req, res,next){
-  notifyApproveGuest.update({userName : req.body.userName},{boardID : req.body.boardID},{$set : {state : "approve"}},function(err){
+  notifyApproveGuest.update({userName : req.body.userName},{notificationId : req.body.notificationID},{$set : {state : "approve"}},function(err){
     if(err) {
       return res.json(err);
     };
@@ -19,9 +20,9 @@ router.post('/notifyApproveStateGuest',function(req, res,next){
 });  
 
 
-      
+//host가 승인      
 router.post('/notifyApproveStateHost',function(req, res,next){
-  notifyApproveHost.update({userName : req.body.userName},{boardID : req.body.boardID},{$set : {state : "approve"}},function(err){
+  notifyApproveHost.update({userName : req.body.userName},{notificationId : req.body.notificationID},{$set : {state : "approve"}},function(err){
     if(err) {
       return res.json(err);
     };
@@ -32,6 +33,35 @@ router.post('/notifyApproveStateHost',function(req, res,next){
      
       })
 });  
+
+//guest가 거절 
+router.post('/notifyRefuseStateGuest',function(req, res,next){
+  notifyRefuseGuest.update({userName : req.body.userName},{notificationId : req.body.notificationID},{$set : {state : "refuse"}},function(err){
+    if(err) {
+      return res.json(err);
+    };
+    //json형식으로 응답
+   
+    return res.json({state : 0, msg : "Registeration refuse"});
+     
+      })
+});
+
+
+//host가 거절      
+router.post('/notifyRefuseStateHost',function(req, res,next){
+  notifyRefuseHost.update({userName : req.body.userName},{notificationId : req.body.notificationID},{$set : {state : "refuse"}},function(err){
+    if(err) {
+      return res.json(err);
+    };
+    //json형식으로 응답
+   
+    return res.json({state : 0, msg : "Registeration refuse"});
+         
+     
+      })
+});  
+
 
 router.get('/getGuestApprove/:id', function(req, res, next){
   notifyApproveGuest.find({userName : req.params.id, state : "approve"}, function(err, getInfo){
@@ -55,33 +85,6 @@ router.get('/getHostApprove/:id', function(req, res, next){
     return res.json(getInfo);
   })
 })
-
-router.post('/notifyRefuseStateGuest',function(req, res,next){
-  notifyRefuseGuest.update({userName : req.body.userName},{boardID : req.body.boardID},{$set : {state : "refuse"}},function(err){
-    if(err) {
-      return res.json(err);
-    };
-    //json형식으로 응답
-   
-    return res.json({state : 0, msg : "Registeration refuse"});
-     
-      })
-});
-
-
-      
-router.post('/notifyRefuseStateHost',function(req, res,next){
-  notifyRefuseHost.update({userName : req.body.userName},{boardID : req.body.boardID},{$set : {state : "refuse"}},function(err){
-    if(err) {
-      return res.json(err);
-    };
-    //json형식으로 응답
-   
-    return res.json({state : 0, msg : "Registeration refuse"});
-         
-     
-      })
-});  
 
 
 

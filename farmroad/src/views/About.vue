@@ -137,6 +137,10 @@
                       <v-icon small left>message</v-icon>
                       <span>메신저</span>
                     </v-btn>
+                    <v-btn to="/review" flat slot="activator" color="info">
+                      <v-icon small left>expand_more</v-icon>
+                      <span>후기</span>
+                    </v-btn>
                     <v-btn to="/mymap" flat slot="activator" color="info">
                       <v-icon small left>expand_more</v-icon>
                       <span>상세보기</span>
@@ -162,12 +166,14 @@
 import firebase from "firebase";
 import Chat from "../views/Chat";
 import UserInfoVue from "./UserInfo.vue";
+import Review from "./Review";
 export default {
   components: {
     computedDateFormatted() {
       return this.formatDate(this.date);
     },
 
+    Review,
     Chat
   },
   data() {

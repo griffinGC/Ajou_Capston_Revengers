@@ -13,7 +13,7 @@ const referenceSchema = new mongoose.Schema({
     boardType :{
         type : String
     },
-    boardTitle : {
+    title : {
         type : String
     },
     writer : {
@@ -27,6 +27,9 @@ const referenceSchema = new mongoose.Schema({
     },
     content :{
         type : String        
+    },
+    star : {
+        type : Number
     }
 })
 

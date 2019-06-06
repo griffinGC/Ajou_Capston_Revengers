@@ -1,10 +1,9 @@
 <template>
 <v-container grid-list-md>
-    <v-layout row wrap>
-      <v-card width="350">
-         <v-img v-if="profileImg" :src="profileImg" alt="Avatar">
-         </v-img>
-         <v-icon v-else>person</v-icon>
+  <v-layout row wrap>
+    <v-card width="350">
+      <v-img v-if="profileImg" :src="profileImg" alt="Avatar"></v-img>
+        <v-icon v-else>person</v-icon>
         <v-layout row wrap>
         <v-flex xs5 sm5 offset-xs1 class="grey--text font-weight-bold">유저 아이디</v-flex>
         <v-flex xs6 sm6>{{userName}}</v-flex>
@@ -123,7 +122,6 @@ export default {
     }
   }
 };
-</script>
 </script>
 <style>
 .btns{

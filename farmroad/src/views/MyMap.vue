@@ -11,59 +11,74 @@
         <div height="800" background-color="blue" class="box1"></div>
       </v-flex>
     <v-flex xs12 sm12 md12>
-      <v-card height="1000">
-        <v-img
-          src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg"
-          height="250px"
-        >
-        </v-img>
-
-        <v-card-title primary-title>
-          <v-layout row wrap>
+      <v-card>
+        <div>Host 정보</div>
+        <v-layout row wrap>
+        <v-img v-if="profileImg" :src="profileImg" alt="Avatar" height="275"></v-img>
+        <v-icon v-else>person</v-icon>
+        <v-layout row wrap>
         <v-flex xs5 sm5 offset-xs1 class="grey--text font-weight-bold">유저 아이디</v-flex>
-        <!-- <v-flex xs6 sm6>{{candidateData.userName}}</v-flex> -->
-        <v-flex xs5 sm5offset-xs1 v-if="role === '1'" class="grey--text font-weight-bold">유저정보</v-flex>
-        <!-- <v-flex xs5 sm5 v-if="role === '1'">Host</v-flex> -->
+        <v-flex xs6 sm6>{{userName}}</v-flex>
         <v-flex xs5 sm5 offset-xs1 v-if="role === '0'" class="grey--text font-weight-bold">유저정보</v-flex>
-        <!-- <v-flex xs6 v-if="role === '0'">Guest</v-flex> -->
+        <v-flex xs5 sm5 v-if="role === '0'">Host</v-flex>
+        <v-flex xs5 sm5 offset-xs1 v-if="role === '1'" class="grey--text font-weight-bold">유저정보</v-flex>
+        <v-flex xs6 v-if="role === '1'">Guest</v-flex>
         <v-flex xs5 offset-xs1 class="grey--text font-weight-bold">이름</v-flex>
-        <!-- <v-flex xs6>{{candidateData.name}}</v-flex> -->
+        <v-flex xs6>{{name}}</v-flex>
         <v-flex xs5 offset-xs1 class="grey--text font-weight-bold">성별</v-flex>
-        <!-- <v-flex xs6>{{candidateData.gender}}</v-flex> -->
+        <v-flex xs6>{{gender}}</v-flex>
         <v-flex xs5 offset-xs1 class="grey--text font-weight-bold">나이</v-flex>
-        <!-- <v-flex xs6>{{candidateData.age}}</v-flex> -->
-        <v-flex xs5 offset-xs1 v-if="role === '0'" class="grey--text font-weight-bold">능력</v-flex>
-        <!-- <v-flex xs6 v-if="role === '0'">{{candidateData.ability}}</v-flex> -->
+        <v-flex xs6>{{age}}</v-flex>
         <v-flex xs5 offset-xs1 class="grey--text font-weight-bold">전화번호</v-flex>
-        <!-- <v-flex xs6>{{candidateData.phone}}</v-flex> -->
-        <v-flex xs5 offset-xs1 v-if="role === '1'" class="grey--text font-weight-bold">직업</v-flex>
-        <!-- <v-flex xs6 v-if="role === '1'">{{candidateData.work}}</v-flex> -->
-        <v-flex xs5 offset-xs1 v-if="role === '1'" class="grey--text font-weight-bold">지역</v-flex>
-        <!-- <v-flex xs6 v-if="role === '1'">{{candidateData.location}}</v-flex> -->
+        <v-flex xs6>{{phone}}</v-flex>
+        <v-flex xs5 offset-xs1 v-if="role === '0'" class="grey--text font-weight-bold">직업</v-flex>
+        <v-flex xs6 v-if="role === '0'">{{work}}</v-flex>
+        <v-flex xs5 offset-xs1 v-if="role === '0'" class="grey--text font-weight-bold">지역</v-flex>
+        <v-flex xs6 v-if="role === '0'">{{location}}</v-flex>
         <v-flex xs5 offset-xs1 class="grey--text font-weight-bold">주소</v-flex>
-        <!-- <v-flex xs6>{{candidateData.address}}</v-flex> -->
-        <v-flex xs6></v-flex>
+        <v-flex xs6>{{address}}</v-flex>
+        <v-flex xs5 offset-xs1 class="grey--text font-weight-bold">평점</v-flex>  
+        <v-flex xs6>
+          <v-rating :value="star" readonly size="15"></v-rating>
+        </v-flex>
+        <v-divider></v-divider>
         </v-layout>
-        
-        </v-card-title>
+        </v-layout>
+        <v-flex><div>원하는 능력</div>
+        <v-layout row wrap>
+          <v-item-group><span>
+            <v-checkbox v-model="selected" label="요리를 잘해요" value="요리를 잘해요"></v-checkbox>
+            <v-checkbox v-model="selected" label="미용을 잘해요" value="미용을 잘해요"></v-checkbox></span>
+          </v-item-group>
+           <v-item-group>
+            <v-checkbox v-model="selected" label="애를 잘돌봐요" value="애를 잘돌봐요"></v-checkbox>
+            <v-checkbox v-model="selected" label="청소를 잘해요" value="청소를 잘해요"></v-checkbox>
+          </v-item-group>
+            <v-item-group>
+            <v-checkbox v-model="selected" label="운전을 잘해요" value="운전을 잘해요"></v-checkbox>
+            <v-checkbox v-model="selected" label="도배를 잘해요" value="도배를 잘해요"></v-checkbox>
+          </v-item-group>
+            <v-item-group>
+            <v-checkbox v-model="selected" label="짐나르는거 잘해요" value="짐나르는거 잘해요"></v-checkbox>
+            <v-checkbox v-model="selected" label="노래를 잘해요" value="노래를 잘해요"></v-checkbox>
+          </v-item-group>
+          <v-item-group>
+            <v-checkbox v-model="selected" label="말동부를 잘해요" value="말동부를 잘해요"></v-checkbox>
+            <v-checkbox v-model="selected" label="컴퓨터를 잘다뤄요" value="컴퓨터를 잘다뤄요"></v-checkbox>
+          </v-item-group>
+          <v-item-group>
+            <v-checkbox v-model="selected" label="농기계를 잘다뤄요" value="농기계를 잘다뤄요"></v-checkbox>
+            <v-checkbox v-model="selected" label="농사경험이 있어요" value="농사경험이 있어요"></v-checkbox>
+          </v-item-group>
+        </v-layout>
 
-        <!-- <v-card-actions>
-          <v-btn flat>Share</v-btn>
-          <v-btn flat color="purple">Explore</v-btn>
-          <v-spacer></v-spacer>
-          <v-btn icon @click="show = !show">
-            <v-icon>{{ show ? 'keyboard_arrow_down' : 'keyboard_arrow_up' }}</v-icon>
-          </v-btn>
-        </v-card-actions> -->
+        </v-flex>
 
-        <v-slide-y-transition>
-          <v-card-text v-show="show">
-            I'm a thing. But, like most politicians, he promised more than he could deliver. You won't have time for sleeping, soldier, not with all the bed making you'll be doing. Then we'll go with that data file! Hey, you add a one and two zeros to that or we walk! You're going to do his laundry? I've got to find a way to escape.
-          </v-card-text>
-        </v-slide-y-transition>
       </v-card>
     </v-flex>
     </v-layout>
+    </v-flex>
+    <v-flex>
     </v-flex>
   </v-layout>
 </template>
@@ -71,13 +86,41 @@
 <script>
 import firebase from "firebase";
 import { setTimeout } from "timers";
+import { constants } from "crypto";
 export default {
   name: 'mymap',
   data() {
     return {
       lat: 37.517235,
-      lng: 127.047325
+      lng: 127.047325,
+      dialog: true,
+  // userName: localStorage.username,
+      userName : "test",
+      name : "default",
+      profileImg : "https://cdn.vuetifyjs.com/images/cards/house.jpg",
+      password : "",
+      gender : "man",
+      age : "22",
+      ability : "can do anything",
+      phone : "01011112222",
+      email : "chchch@gggg",
+      reference : "",
+      work : "dfdf",            
+      address : "dfdf",
+      location : "zzzz",
+      role :"",
+      star:3,
     };
+  },
+  created(){
+    console.log("userInfo is created");
+    // console.log("로컬 스토리지! : "+localStorage.role);
+    this.role = localStorage.role
+    this.getInfo();
+  },
+  mounted(){
+    this.role = localStorage.role;
+    this.getInfo();
   },
   methods: {
     renderMap() {
@@ -92,13 +135,52 @@ export default {
   },
   mounted() {
     this.renderMap();
+  },
+  getInfo() {
+      // localStorage.role == 0 이면 guest && 1이면 host
+        let userId = localStorage.username;
+        // console.log("로컬 스토리지 역할 정보 : "+localStorage.role);
+        if(localStorage.role === '1'){
+        this.axios
+          .get(`http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/user/getInfo/guest/${userId}`)
+          .then(response => {
+            console.log(response.data[0]);
+            let userData = response.data[0];
+            this.userName = userData.userName;
+            this.name = userData.name;
+            this.profileImg = userData.profileImg;
+            this.age = userData.age;
+            this.ability = userData.ability;
+            this.phone = userData.phone;
+            this.email = userData.email;
+            this.reference = userData.reference;
+          });
+      }else{
+        this.axios
+        .get(`http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/user/getInfo/host/${userId}`)
+        .then(response =>{
+          console.log(response.data[0]);
+            let userData = response.data[0];
+            this.userName = userData.userName;
+            this.name = userData.name;
+            this.profileImg = userData.profileImg;
+            this.age = userData.age;
+            this.work = userData.work;
+            this.address = userData.address;
+            this.location = userData.location;
+            this.phone = userData.phone;
+            this.email = userData.email;
+            this.reference = userData.reference;
+        
+      });
+    }
   }
 };
 </script>
 
 <style>
 .map {
-  width: 96.9%;
+  width: 96.86%;
   height: 50%;
   position: fixed;
 }

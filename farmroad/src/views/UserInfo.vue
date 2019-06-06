@@ -1,58 +1,79 @@
 <template>
-  <v-container fluid grid-list-lg>
-  <!-- <v-layout> -->
-    <!-- <v-dialog v-model="dialog" persistent fullscreen> -->
-      <v-card max-width>
-        <v-card-title class="title light-blue--text text--lighten-3 font-weight-bold">개인정보</v-card-title>
-        <!-- <v-card-text> -->
-          <v-card-title>
-              <v-layout align-top row wrap>
-                <v-flex lg3>
-                  <v-avatar size="225px">
-                    <img v-if="profileImg" :src="profileImg" alt="Avatar">
-                    <v-icon v-else >person</v-icon>
-                  </v-avatar>
-                  <v-layout column wrap class="btns">
-                  <v-flex de-flex sm4>
-                  <v-btn class="light-blue lighten-2 white--text" v-on:click.native="editInfo">수정하기</v-btn>
-                  <v-btn class="light-blue lighten-2 white--text" v-on:click.native="saveCancel">취소 </v-btn>
-                  </v-flex>
-                  </v-layout>
-                </v-flex>
-                <v-flex lg2>
-                  <div class="grey--text font-weight-bold">유저 아이디</div>
-                  <div  v-if="role === '1'" class="grey--text font-weight-bold">유저정보</div>
-                  <div  v-if="role === '0'" class="grey--text font-weight-bold">유저정보</div>
-                  <div class="grey--text font-weight-bold">이름</div>
-                  <div class="grey--text font-weight-bold">성별</div>
-                  <div class="grey--text font-weight-bold">나이</div>
-                  <div  v-if="role === '0'" class="grey--text font-weight-bold">능력</div>
-                  <div class="grey--text font-weight-bold">전화번호</div>
-                  <div class="grey--text font-weight-bold">이메일</div>
-                  <div  v-if="role === '1'" class="grey--text font-weight-bold">직업</div>
-                  <div  v-if="role === '1'" class="grey--text font-weight-bold">지역</div>
-                  <div class="grey--text font-weight-bold">주소</div>
-                  <div class="grey--text font-weight-bold">평점</div>
-                </v-flex>
-                <v-flex lg1>
-                  <div>&nbsp;{{userName}}</div>
-                  <div v-if="role === '1'">Host</div>
-                  <div v-if="role === '0'">Guest</div>
-                  <div>{{name}}</div>
-                  <div>{{gender}}</div>
-                  <div>{{age}}</div>
-                  <div v-if="role === '0'">{{ability}}</div>
-                  <div>{{phone}}</div>
-                  <div>{{email}}</div>
-                  <div v-if="role === '1'">{{work}}</div>
-                  <div v-if="role === '1'">{{location}}</div>
-                  <div>{{address}}</div>
-                  <div>{{reference}}</div>
-                </v-flex>
-            </v-layout> 
-          </v-card-title>          
+<v-container grid-list-md>
+    <v-layout column wrap>
+      <v-flex xs12 sm12 md4>
+      <v-card >
+        <v-title>개인정보 </v-title>
+         <v-img v-if="profileImg" :src="profileImg" alt="Avatar">
+         </v-img>
+         <v-icon v-else>person</v-icon>
+        <v-layout row wrap>
+        <v-flex xs5 sm5 offset-xs1 class="grey--text font-weight-bold">유저 아이디</v-flex>
+        <v-flex xs6 sm6>{{userName}}</v-flex>
+        <v-flex xs5 sm5 offset-xs1 v-if="role === '1'" class="grey--text font-weight-bold">유저정보</v-flex>
+        <v-flex xs5 sm5 v-if="role === '1'">Host</v-flex>
+        <v-flex xs5 sm5 offset-xs1 v-if="role === '0'" class="grey--text font-weight-bold">유저정보</v-flex>
+        <v-flex xs6 v-if="role === '0'">Guest</v-flex>
+        <v-flex xs5 offset-xs1 class="grey--text font-weight-bold">이름</v-flex>
+        <v-flex xs6>{{name}}</v-flex>
+        <v-flex xs5 offset-xs1 class="grey--text font-weight-bold">성별</v-flex>
+        <v-flex xs6>{{gender}}</v-flex>
+        <v-flex xs5 offset-xs1 class="grey--text font-weight-bold">나이</v-flex>
+        <v-flex xs6>{{age}}</v-flex>
+        <v-flex xs5 offset-xs1 v-if="role === '0'" class="grey--text font-weight-bold">능력</v-flex>
+        <v-flex xs6 v-if="role === '0'">{{ability}}</v-flex>
+        <v-flex xs5 offset-xs1 class="grey--text font-weight-bold">전화번호</v-flex>
+        <v-flex xs6>{{phone}}</v-flex>
+        <v-flex xs5 offset-xs1 v-if="role === '1'" class="grey--text font-weight-bold">직업</v-flex>
+        <v-flex xs6 v-if="role === '1'">{{work}}</v-flex>
+        <v-flex xs5 offset-xs1 v-if="role === '1'" class="grey--text font-weight-bold">지역</v-flex>
+        <v-flex xs6 v-if="role === '1'">{{location}}</v-flex>
+        <v-flex xs5 offset-xs1 class="grey--text font-weight-bold">주소</v-flex>
+        <v-flex xs6>{{address}}</v-flex>
+        <v-flex xs5 offset-xs1 class="grey--text font-weight-bold">평점</v-flex>
+        <v-flex xs6></v-flex>
+        <v-flex xs12 sm8 md8 text-md-right offset-xs3 offset-md7 mb-3>
+          <v-btn class="light-blue lighten-2 white--text" v-on:click.native="editInfo">수정하기</v-btn>
+          <v-btn class="light-blue lighten-2 white--text" v-on:click.native="saveCancel">취소 </v-btn>
+        </v-flex>
+        <v-divider></v-divider>
+        </v-layout>
       </v-card>
-      <v-flex xs12>
+      </v-flex>
+      <v-flex md5>
+      <v-card>
+        <v-title>방문한 목록 </v-title>
+          <v-card class="pa-1" v-for="reference in referenceList" :key="reference.id">
+          <v-layout row wrap :class="`pa-1 project.${reference.title}`">
+
+            <v-flex xs5 md2>
+              <div class="caption grey--text">글 제목</div>
+              <div>{{reference.boardInfo.title}}</div>
+            </v-flex>
+
+            <v-flex xs6 sm4 md2>
+              <div class="caption grey--text">글 작성자</div>
+              <div>{{reference.writer}}</div>
+            </v-flex>
+
+            <v-flex xs4 sm4 md4>
+              <div class="caption grey--text">방문날짜</div>
+              <div>{{reference.boardInfo.startDate}}</div>
+            </v-flex>
+
+            <v-flex xs6 sm4 md2>
+              <div>
+                <WriteReference :notificationInfo="`${reference.boardInfo}`"/>
+              </div>
+            </v-flex>
+          </v-layout>
+        </v-card>
+      </v-card>
+      </v-flex>
+    </v-layout>
+  </v-container>
+     
+      <!-- <v-flex xs12>
     <v-flex xl12>
       <div class="grey--text text--darken-1"></div>
         <v-card color="lime lighten-5" height="450" v-chat-scroll>
@@ -67,7 +88,6 @@
 
             <v-flex xs6 sm4 md2>
               <div class="caption grey--text">글 작성자</div>
-              <!-- <div>{{project.guestInfo}}</div> -->
               <div>{{reference.writer}}</div>
             </v-flex>
 
@@ -78,11 +98,7 @@
 
             <v-flex xs6 sm4 md2>
               <div>
-                <WriteReference 
-                :boardId="`${reference.boardInfo.boardId}`" 
-                :boardWriter="`${reference.writer}`"
-                />
-                {{reference.boardInfo.Info}}
+                <WriteReference :notificationInfo="`${reference.boardInfo}`"/>
               </div>
             </v-flex>
           </v-layout>
@@ -90,9 +106,7 @@
       </v-card>
     </v-flex>
   </v-flex>
-  </v-container>
-    <!-- </v-dialog> -->
-  <!-- </v-layout> -->
+  </v-container> -->
 </template>
 
 <script>

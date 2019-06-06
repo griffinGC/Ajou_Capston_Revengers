@@ -81,7 +81,7 @@ export default {
       },
     };
   },
-  props : ['candidateInfo', 'boardId'],
+  props : ['candidateInfo', 'notificationId'],
   created() {
     // console.log("view is created");
     console.log("props로 받은 값 : " + this.candidateInfo);
@@ -151,14 +151,22 @@ export default {
         this.axios
           .post(
             "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/notifyState/notifyApproveStateHost",
-          {userName : name})
+          {
+            userName : name,
+            notificationId : this.notificationId
+            }
+            )
          }
 
          else if(localStorage.role === '1'){
         this.axios
           .post(
             "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/notifyState/notifyApproveStateGuest",
-          {userName : name})
+          {
+            userName : name,
+            notificationId : this.notificationId
+          }
+          )
          }
 
     },
@@ -170,14 +178,22 @@ export default {
         this.axios
           .post(
             "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/notifyState/notifyRefuseStateHost",
-          {userName : name})
+          {
+            userName : name,
+            notificationId : this.notificationId
+          }
+          )
          }
 
          else if(localStorage.role === '1'){
         this.axios
           .post(
             "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/notifyState/notifyRefuseStateGuest",
-          {userName : name})
+          {
+            userName : name,
+            notificationId : this.notificationId
+            }
+          )
          }
 
     },

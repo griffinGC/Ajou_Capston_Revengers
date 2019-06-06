@@ -144,13 +144,8 @@
                     <v-btn to="/mymap" flat slot="activator" color="info">
                       <v-icon small left>expand_more</v-icon>
                       <span>상세보기</span>
-<<<<<<< HEAD
-                    </v-btn>  
-                    <v-btn flat slot="activator" color="error">
-=======
                     </v-btn>
                     <v-btn flat slot="activator" color="error" @click="report(board)">
->>>>>>> b02eb50baee5ac26bfae853fddc757e2fba21b12
                       <v-icon small left>report</v-icon>
                       <span>신고하기</span>
                     </v-btn>
@@ -178,10 +173,7 @@ export default {
       return this.formatDate(this.date);
     },
 
-<<<<<<< HEAD
     Review,
-=======
->>>>>>> b02eb50baee5ac26bfae853fddc757e2fba21b12
     Chat
   },
   data() {

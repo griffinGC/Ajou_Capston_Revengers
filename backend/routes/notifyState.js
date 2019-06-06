@@ -35,6 +35,33 @@ router.post('/notifyApproveStateHost',function(req, res,next){
       })
 });  
 
+router.post('/notifyRefuseStateGuest',function(req, res,next){
+  notifyRefuseGuest.update({userName : req.body.userName},{$set : {state : "refuse"}},function(err){
+    if(err) {
+      return res.json(err);
+    };
+    //json형식으로 응답
+   
+    return res.json({state : 0, msg : "Registeration refuse"});
+     
+      })
+});  
+
+
+      
+router.post('/notifyRefuseStateHost',function(req, res,next){
+  notifyRefuseHost.update({userName : req.body.userName},{$set : {state : "refuse"}},function(err){
+    if(err) {
+      return res.json(err);
+    };
+    //json형식으로 응답
+   
+    return res.json({state : 0, msg : "Registeration refuse"});
+         
+     
+      })
+});  
+
 
       
    

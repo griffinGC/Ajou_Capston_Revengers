@@ -56,7 +56,7 @@
                   <v-icon small left>favorite</v-icon>
                   <span>Approve</span>
                   </v-btn>
-                  <v-btn flat slot="activator" color="success" @click="refuseCandidate()">
+                  <v-btn flat slot="activator" color="success" @click="refuseCandidate(candidateData.userName)">
                   <v-icon small left>clear</v-icon>
                   <span>Refuse</span>
                     </v-btn>
@@ -150,7 +150,7 @@ export default {
           {userName : name})
          }
 
-          if(localStorage.role === '1'){
+         else if(localStorage.role === '1'){
         this.axios
           .post(
             "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/notifyState/notifyApproveStateGuest",
@@ -168,7 +168,7 @@ export default {
           {userName : name})
          }
 
-          if(localStorage.role === '1'){
+         else if(localStorage.role === '1'){
         this.axios
           .post(
             "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/notifyState/notifyRefuseStateGuest",

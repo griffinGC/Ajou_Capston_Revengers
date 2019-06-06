@@ -7,7 +7,7 @@
          <v-icon v-else>person</v-icon>
         <v-layout row wrap>
         <v-flex xs5 sm5 offset-xs1 class="grey--text font-weight-bold">유저 아이디</v-flex>
-        <v-flex xs6 sm6>&nbsp;{{userName}}</v-flex>
+        <v-flex xs6 sm6>{{userName}}</v-flex>
         <v-flex xs5 sm5 offset-xs1 v-if="role === '0'" class="grey--text font-weight-bold">유저정보</v-flex>
         <v-flex xs5 sm5 v-if="role === '0'">Host</v-flex>
         <v-flex xs5 sm5 offset-xs1 v-if="role === '1'" class="grey--text font-weight-bold">유저정보</v-flex>
@@ -78,7 +78,7 @@ export default {
       // localStorage.role == 0 이면 guest && 1이면 host
         let userId = localStorage.username;
         // console.log("로컬 스토리지 역할 정보 : "+localStorage.role);
-        if(localStorage.role === '0'){
+        if(localStorage.role === '1'){
         this.axios
           .get(`http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/user/getInfo/guest/${userId}`)
           .then(response => {

@@ -52,11 +52,11 @@
                </v-flex>
                <v-flex sm3>
                 <v-card-actions>
-                <v-btn flat slot="activator" color="success" @click="approveCandidate(candidateData.userName)">
+                <v-btn flat slot="activator" color="success" @click="approveCandidate(candidateData.userName,candidateData.boardId)">
                   <v-icon small left>favorite</v-icon>
                   <span>Approve</span>
                   </v-btn>
-                  <v-btn flat slot="activator" color="success" @click="refuseCandidate(candidateData.userName)">
+                  <v-btn flat slot="activator" color="success" @click="refuseCandidate(candidateData.userName,candidateData.boardId)">
                   <v-icon small left>clear</v-icon>
                   <span>Refuse</span>
                     </v-btn>
@@ -81,7 +81,7 @@ export default {
       },
     };
   },
-  props : ['candidateInfo', 'boardId'],
+  props : ['candidateInfo', 'notificationId'],
   created() {
     // console.log("view is created");
     console.log("props로 받은 값 : " + this.candidateInfo);
@@ -121,6 +121,7 @@ export default {
             this.candidateData.phone = userData.phone;
             this.candidateData.email = userData.email;
             this.candidateData.reference = userData.reference;
+            this.candidateData.boardId = userData.boardId;
           });
       }else{
         //내가 host일 경우 guest정보를 가져옴 
@@ -138,42 +139,61 @@ export default {
             this.candidateData.phone = userData.phone;
             this.candidateData.email = userData.email;
             this.candidateData.reference = userData.reference;
+            this.candidateData.boardId = userData.boardId;
         });
       };
     },
-    approveCandidate(name){
+    approveCandidate(name,boardId){
       console.log("notify state ");
         console.log(name);
+        console.log(boardId);
          if(localStorage.role === '0'){
         this.axios
           .post(
             "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/notifyState/notifyApproveStateHost",
-          {userName : name})
+          {
+            userName : name,
+            notificationId : this.notificationId
+            }
+            )
          }
 
          else if(localStorage.role === '1'){
         this.axios
           .post(
             "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/notifyState/notifyApproveStateGuest",
-          {userName : name})
+          {
+            userName : name,
+            notificationId : this.notificationId
+          }
+          )
          }
 
     },
-    refuseCandidate(name){
+    refuseCandidate(name,boardId){
         console.log("notify state ");
         console.log(name);
+        console.log(boardId);
         if(localStorage.role === '0'){
         this.axios
           .post(
             "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/notifyState/notifyRefuseStateHost",
-          {userName : name})
+          {
+            userName : name,
+            notificationId : this.notificationId
+          }
+          )
          }
 
          else if(localStorage.role === '1'){
         this.axios
           .post(
             "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/notifyState/notifyRefuseStateGuest",
-          {userName : name})
+          {
+            userName : name,
+            notificationId : this.notificationId
+            }
+          )
          }
 
     },

@@ -1,23 +1,26 @@
 <template>
   <v-layout>
-    <v-card>
-      <v-list two-line>
-        <template v-for="(chatRoom, index) in chatRooms">
-          <v-list-tile :key="chatRoom._id" avatar ripple @click="toggle(chatRoom)">
-            <v-list-tile-content>
-              <v-list-tile-title>{{ chatRoom.chatRoomId }}</v-list-tile-title>
-              <v-list-tile-sub-title class="text--primary">{{ chatRoom.hostUserName }}</v-list-tile-sub-title>
-              <v-list-tile-sub-title class="text--primary">{{ chatRoom.guestUserName }}</v-list-tile-sub-title>
-            </v-list-tile-content>
+    <v-flex xs12 sm12 d-flex>
+      <v-card width="100%">
+        <v-list two-line>
+          <template v-for="(chatRoom, index) in chatRooms">
+            <v-list-tile :key="chatRoom._id" avatar ripple @click="toggle(chatRoom)">
+              <v-list-tile-content>
+                <v-list-tile-title>{{ chatRoom.chatRoomId }}</v-list-tile-title>
+                <v-list-tile-sub-title class="text--primary">{{ chatRoom.hostUserName }}</v-list-tile-sub-title>
+                <v-list-tile-sub-title class="text--primary">{{ chatRoom.guestUserName }}</v-list-tile-sub-title>
+              </v-list-tile-content>
 
-            <v-list-tile-action>
-              
-            </v-list-tile-action>
-          </v-list-tile>
-          <v-divider v-if="index + 1 < chatRooms.length" :key="index"></v-divider>
-        </template>
-      </v-list>
-    </v-card>
+              <v-list-tile-action>
+                
+              </v-list-tile-action>
+            </v-list-tile>
+            <v-divider v-if="index + 1 < chatRooms.length" :key="index"></v-divider>
+          </template>
+        </v-list>
+      </v-card>
+    
+      </v-flex>
   </v-layout>
 </template>
 

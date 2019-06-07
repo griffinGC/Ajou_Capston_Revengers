@@ -20,7 +20,7 @@
         </v-toolbar>
 
         <v-list>
-          <v-list-tile>
+          <!-- <v-list-tile>
             <v-list-tile-action>
               <v-icon  color="pink">done</v-icon>
             </v-list-tile-action>
@@ -36,7 +36,7 @@
             <v-icon size="40px">person</v-icon>
 
             <v-btn  color="info" >상태 버튼 </v-btn>
-          </v-list-tile>
+          </v-list-tile> -->
           <v-list-tile
             v-for="board in guestBoardList"
             :key="board.boardId"
@@ -48,10 +48,11 @@
 
             <v-list-tile-content>
               <v-list-tile-title v-text="board.title"></v-list-tile-title>
+              <v-list-tile-sub-title>{{ "현재 이 게시물은" + board.isReport.length + "번 신고당했습니다."}}</v-list-tile-sub-title> 
             </v-list-tile-content>
 
             <v-list-tile-content>
-              <!-- <v-list-tile-title v-text="board.Info.userName"></v-list-tile-title> -->
+              <v-list-tile-title v-text="board.Info.userName"></v-list-tile-title>
             </v-list-tile-content>
 
             <v-list-tile-avatar v-if="board.Info.profileImg">
@@ -61,7 +62,6 @@
 
             <v-btn v-if="board.report === false" color="error" @click="updateToError(board)">게시글 금지 </v-btn>
             <v-btn v-else color="success" @click="updateToAble(board)">게시글 해제 </v-btn>
-
           </v-list-tile>
         </v-list>
       </v-card>
@@ -79,7 +79,7 @@
         </v-toolbar>
 
         <v-list>
-          <v-list-tile>
+          <!-- <v-list-tile>
             <v-list-tile-action>
               <v-icon  color="pink">done</v-icon>
             </v-list-tile-action>
@@ -95,7 +95,7 @@
             <v-icon size="40px">person</v-icon>
 
             <v-btn  color="info" >상태 버튼 </v-btn>
-          </v-list-tile>
+          </v-list-tile> -->
           <v-list-tile
             v-for="board in hostBoardList"
             :key="board.boardId"
@@ -107,16 +107,17 @@
 
             <v-list-tile-content>
               <v-list-tile-title v-text="board.title"></v-list-tile-title>
+                <v-list-tile-sub-title>{{ "현재 이 게시물은" + board.isReport.length + "번 신고당했습니다."}}</v-list-tile-sub-title> 
             </v-list-tile-content>
 
             <v-list-tile-content>
-              <!-- <v-list-tile-title v-text="board.Info.userName"></v-list-tile-title> -->
+              <v-list-tile-title v-text="board.Info.userName"></v-list-tile-title>
             </v-list-tile-content>
 
-            <!-- <v-list-tile-avatar v-if="board.Info.profileImg"> -->
-              <!-- <img  :src="board.Info.profileImg"> -->
-            <!-- </v-list-tile-avatar> -->
-            <!-- <v-icon v-else size="40px">person</v-icon> -->
+            <v-list-tile-avatar v-if="board.Info.profileImg">
+              <img  :src="board.Info.profileImg">
+            </v-list-tile-avatar>
+            <v-icon v-else size="40px">person</v-icon>
 
             <v-btn v-if="board.report === false" color="error" @click="updateToError(board)">게시글 금지 </v-btn>
             <v-btn v-else color="success" @click="updateToAble(board)">게시글 해제 </v-btn>

@@ -24,9 +24,9 @@ router.get('/getList',function(req, res,next){
         })
   });        
 
-  //금지된 guest게시판 정보 가져오기
+  //한번이라도 신고당한 guest게시판 정보 가져오기
  router.get('/getBan', function(req, res, next){
-    guestBoard.find({ isReport : true}, function(err, getInfo){
+    guestBoard.find({$where : "this.isReport.length > 0"}, function(err, getInfo){
         if(err){
             return res.json(err);
         };

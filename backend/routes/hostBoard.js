@@ -32,7 +32,7 @@ router.get('/getList',function(req, res,next){
         })
   });     
   
- //금지된 host게시판 가져오기
+ //한번이라도 신고당한 host게시판 가져오기
 router.get('/getBan', function(req, res, next){
     hostBoard.find({$where : "this.isReport.length > 0"}, function(err, getInfo){
         if(err){

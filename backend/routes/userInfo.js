@@ -35,9 +35,9 @@ router.get('/getInfo/guest', function(req, res, next){
     });
 })
 
-//금지된 guest정보 가져오기
+//신고당한 guest정보 가져오기
 router.get('/getBan/guest', function(req, res, next){
-    guestModel.find({report : true}, function(err, getInfo){
+    guestModel.find({$where : "this.isReport.length > 0"}, function(err, getInfo){
         if(err){
             return res.json(err);
         };
@@ -90,9 +90,9 @@ router.get('/getInfo/host', function(req, res, next){
     });
 })
 
-//금지된 host정보 가져오기
+//신고당한 host정보 가져오기
 router.get('/getBan/host', function(req, res, next){
-    hostModel.find({report : true}, function(err, getInfo){
+    hostModel.find({$where : "this.isReport.length > 0"}, function(err, getInfo){
         if(err){
             return res.json(err);
         };

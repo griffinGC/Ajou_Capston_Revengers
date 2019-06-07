@@ -31,6 +31,7 @@
 
             <v-list-tile-content>
               <v-list-tile-title v-text="user.userName"></v-list-tile-title>
+              <v-list-tile-sub-title>{{ "현재 이 사용자는" + user.isReport.length + "번 신고당했습니다."}}</v-list-tile-sub-title> 
             </v-list-tile-content>
 
             <v-list-tile-content>
@@ -73,6 +74,7 @@
 
             <v-list-tile-content>
               <v-list-tile-title v-text="user.userName"></v-list-tile-title>
+              <v-list-tile-sub-title>{{ "현재 이 사용자는" + user.isReport.length + "번 신고당했습니다."}}</v-list-tile-sub-title> 
             </v-list-tile-content>
 
             <v-list-tile-content>

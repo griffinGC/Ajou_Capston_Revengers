@@ -72,6 +72,7 @@ export default {
               boardId : this.boardId,
               title : this.title,
               writer : localStorage.username,
+              writerImg : localStorage.img,
               userName : this.boardWriter,
               content : this.content,
               star : this.star
@@ -91,6 +92,7 @@ export default {
               boardId : this.boardId,
               title : this.title,
               writer : localStorage.username,
+              writerImg : localStorage.img,
               userName : this.boardWriter,
               content : this.content,
               star : this.star
@@ -105,6 +107,7 @@ export default {
       }
     },
     cancelReference(){
+      this.$router.push('/');
     },
   }
 };

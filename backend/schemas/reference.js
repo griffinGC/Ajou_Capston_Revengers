@@ -16,9 +16,14 @@ const referenceSchema = new mongoose.Schema({
     title : {
         type : String
     },
+    // reference 작성자
     writer : {
         type : String
     },
+    writerImg : {
+        type : String
+    },
+    // reference가 작성될 profile
     userName:{
         type : String
     },

@@ -32,9 +32,9 @@ router.get('/getList',function(req, res,next){
         })
   });     
   
- //금지된 host정보 가져오기
+ //금지된 host게시판 가져오기
 router.get('/getBan', function(req, res, next){
-    hostBoard.find({report : true}, function(err, getInfo){
+    hostBoard.find({isReport : {$size : {$gt : 0}}}, function(err, getInfo){
         if(err){
             return res.json(err);
         };

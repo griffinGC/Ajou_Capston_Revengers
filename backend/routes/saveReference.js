@@ -22,6 +22,7 @@ router.post('/createHostReference',function(req, res, next){
     //새로 작성될 title
     writeReference.title = req.body.title;
     writeReference.writer = req.body.writer;
+    writeReference.writerImg = req.body.writerImg;
     //작성될 host profile
     writeReference.userName = req.body.userName;
     let day = new Date();
@@ -58,6 +59,7 @@ router.post('/createGuestReference',function(req, res, next){
     //새로 작성될 title
     writeReference.title = req.body.title;
     writeReference.writer = req.body.writer;
+    writeReference.writerImg = req.body.writerImg;
     //작성될 guest profile
     
     writeReference.userName = req.body.userName;

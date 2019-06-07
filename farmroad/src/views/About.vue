@@ -431,10 +431,17 @@ export default {
     },
     report(board) {
       console.log(board.boardId);
+      let checkPerson = 0;
+      for(let i = 0; i<board.isReport.length; i++){
+        if(localStorage.username === board.isReport[i]){
+            alert("이미 신고했습니다!");
+            return;
+        }
+      }
       if (localStorage.role == 0) {
         this.axios
           .post(
-            "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/hostBoard/isReportGuest/ban",
+            "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/hostBoard/isReportHost/ban",
             {
               boardId: board.boardId,
               userName: localStorage.username
@@ -451,7 +458,7 @@ export default {
       } else {
         this.axios
           .post(
-            "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/hostBoard/isReportGuest/ban",
+            "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/guestBoard/isReportGuest/ban",
             {
               boardId: board.boardId,
               userName: localStorage.username

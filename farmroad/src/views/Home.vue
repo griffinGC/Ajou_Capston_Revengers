@@ -27,7 +27,10 @@
 
             <v-flex xs6 sm4 md2>
               <div>
-                <HomeBoardView :candidateInfo="`${notification.userName}`" :notificationId="`${notification.notificationId}`"/>
+                <HomeBoardView 
+                :candidateInfo="`${notification.userName}`" 
+                :notificationId="`${notification.notificationId}`"
+                :state="`${notification.state}`"/>
                 <!-- {{notification.boardInfo.boardId}} -->
               </div>
             </v-flex>

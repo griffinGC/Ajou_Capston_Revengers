@@ -15,12 +15,12 @@
                 v-else
                 >person</v-icon>  
               </v-avatar>
-              <v-card-text>
-                <div class="rating">
+              <!-- <v-card-text> -->
+                <!-- <div class="rating"> -->
                 <!-- <v-rating :value="board.difficulty" readonly></v-rating> -->
-                <v-rating :value="10" readonly></v-rating>
-                </div>
-              </v-card-text>
+                <!-- <v-rating :value="10" readonly></v-rating> -->
+                <!-- </div> -->
+              <!-- </v-card-text> -->
             </v-flex>
             <v-flex>
                 <v-layout column wrap>
@@ -52,11 +52,11 @@
                </v-flex>
                <v-flex sm3>
                 <v-card-actions>
-                <v-btn flat slot="activator" color="success" @click="approveCandidate(candidateData.userName,candidateData.boardId)">
+                <v-btn flat slot="activator" color="success" :disabled="nowApprove" @click="approveCandidate(candidateData.userName)">
                   <v-icon small left>favorite</v-icon>
                   <span>Approve</span>
                   </v-btn>
-                  <v-btn flat slot="activator" color="success" @click="refuseCandidate(candidateData.userName,candidateData.boardId)">
+                <v-btn flat slot="activator" color="success" :disabled="nowRefuse" @click="refuseCandidate(candidateData.userName)">
                   <v-icon small left>clear</v-icon>
                   <span>Refuse</span>
                     </v-btn>
@@ -79,18 +79,40 @@ export default {
       candidateData : {
 
       },
+      nowApprove : false,
+      nowRefuse : false,
     };
   },
-  props : ['candidateInfo', 'notificationId'],
+  props : ['candidateInfo', 'notificationId', 'state'],
   created() {
     // console.log("view is created");
     console.log("props로 받은 값 : " + this.candidateInfo);
-    console.log("board id : " + this.boardId);
+    console.log("board id : " + this.notificationId);
     this.viewClicked();
+    console.log(this.state);
+    if(this.state === "approve"){
+      this.nowApprove = true;
+    }else if(this.state === "refuse"){
+      this.nowRefuse = true;
+    }else{
+      this.nowApprove = false;
+      this.nowRefuse = false;
+    }
+    console.log("거절 상태 : " +this.nowRefuse);
+    console.log("승인 상태 : " +this.nowApprove);
     this.role=localStorage.role;
   },
   mounted(){
     this.viewClicked();
+    console.log(this.state);
+    if(this.state === "approve"){
+      this.nowApprove = true;
+    }else if(this.state === "refuse"){
+      this.nowRefuse = true;
+    }else{
+      this.nowApprove = false;
+      this.nowRefuse = false;
+    }
     this.role = localStorage.role;
   },
 
@@ -143,57 +165,87 @@ export default {
         });
       };
     },
-    approveCandidate(name,boardId){
+    approveCandidate(name){
       console.log("notify state ");
         console.log(name);
-        console.log(boardId);
+        //guest일때 host 승인
          if(localStorage.role === '0'){
         this.axios
           .post(
-            "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/notifyState/notifyApproveStateHost",
-          {
+            "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/notifyState/guestApprove",
+            {
             userName : name,
             notificationId : this.notificationId
             }
-            )
-         }
-
-         else if(localStorage.role === '1'){
+          )
+          .then(response => {
+            if (response.data.state == -1) {
+              alert("승인에 실패했습니다.");
+            } else {
+              console.log("승인에 성공했습니다.");
+              location.reload();
+            }
+         });
+        //host일때 guest 승인
+         }else if(localStorage.role === '1'){
         this.axios
           .post(
-            "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/notifyState/notifyApproveStateGuest",
-          {
+            "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/notifyState/hostApprove",
+            {
             userName : name,
             notificationId : this.notificationId
-          }
+            }
           )
-         }
+          .then(response => {
+            if (response.data.state == -1) {
+              alert(response.data.msg);
+            } else {
+              console.log(response.data.msg);
+              location.reload();
+            }
+          });
+      }
 
     },
-    refuseCandidate(name,boardId){
+    refuseCandidate(name){
         console.log("notify state ");
         console.log(name);
-        console.log(boardId);
+        // console.log(boardId);
         if(localStorage.role === '0'){
         this.axios
           .post(
-            "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/notifyState/notifyRefuseStateHost",
+            "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/notifyState/guestRefuse",
           {
             userName : name,
             notificationId : this.notificationId
           }
           )
-         }
-
-         else if(localStorage.role === '1'){
+          .then(response => {
+            if (response.data.state == -1) {
+              alert("거절에 실패했습니다.");
+            } else {
+              console.log("거절에 성공했습니다.");
+              location.reload();
+            }
+         });
+         
+         }else if(localStorage.role === '1'){
         this.axios
           .post(
-            "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/notifyState/notifyRefuseStateGuest",
+            "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/notifyState/hostRefuse",
           {
             userName : name,
             notificationId : this.notificationId
             }
           )
+          .then(response => {
+            if (response.data.state == -1) {
+              alert("거절에 실패했습니다.");
+            } else {
+              console.log("거절에 성공했습니다.");
+              location.reload();
+            }
+          });
          }
 
     },

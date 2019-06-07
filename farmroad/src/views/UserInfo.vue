@@ -56,7 +56,6 @@
     <v-flex xl12>
       <div class="grey--text text--darken-1"></div>
         <v-card color="lime lighten-5" height="450" v-chat-scroll>
-          <v-title>방문한 목록 </v-title>
           <v-card class="pa-1" v-for="reference in referenceList" :key="reference.id">
           <v-layout row wrap :class="`pa-1 project.${reference.title}`">
 
@@ -82,7 +81,7 @@
                 :boardId="`${reference.boardInfo.boardId}`" 
                 :boardWriter="`${reference.writer}`"
                 />
-                {{reference.boardInfo.Info}}
+                <!-- {{reference.boardInfo.Info}} -->
               </div>
             </v-flex>
           </v-layout>

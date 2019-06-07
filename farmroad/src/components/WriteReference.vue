@@ -78,7 +78,7 @@ export default {
             }
           )
           .then(response=>{
-            if (respones.data.state == -1) {
+            if (response.data.state == -1) {
             console.log("reference save is failed!!");
             }else if(response.data.state == 0){
               console.log("reference save is success");
@@ -97,7 +97,7 @@ export default {
             }
           )
           .then(response=>{
-            if (respones.data.state == -1) {
+            if (response.data.state == -1) {
             console.log("reference save is failed!!");
             }else if(response.data.state == 0){
               console.log("reference save is success");

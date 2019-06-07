@@ -34,7 +34,7 @@ router.get('/getList',function(req, res,next){
   
  //금지된 host게시판 가져오기
 router.get('/getBan', function(req, res, next){
-    hostBoard.find({isReport : {$size : {$gt : 0}}}, function(err, getInfo){
+    hostBoard.find({$where : "this.isReport.length > 0"}, function(err, getInfo){
         if(err){
             return res.json(err);
         };

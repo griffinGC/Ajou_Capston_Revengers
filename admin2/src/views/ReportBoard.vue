@@ -51,7 +51,7 @@
             </v-list-tile-content>
 
             <v-list-tile-content>
-              <v-list-tile-title v-text="board.Info.userName"></v-list-tile-title>
+              <!-- <v-list-tile-title v-text="board.Info.userName"></v-list-tile-title> -->
             </v-list-tile-content>
 
             <v-list-tile-avatar v-if="board.Info.profileImg">
@@ -110,13 +110,13 @@
             </v-list-tile-content>
 
             <v-list-tile-content>
-              <v-list-tile-title v-text="board.Info.userName"></v-list-tile-title>
+              <!-- <v-list-tile-title v-text="board.Info.userName"></v-list-tile-title> -->
             </v-list-tile-content>
 
-            <v-list-tile-avatar v-if="board.Info.profileImg">
-              <img  :src="board.Info.profileImg">
-            </v-list-tile-avatar>
-            <v-icon v-else size="40px">person</v-icon>
+            <!-- <v-list-tile-avatar v-if="board.Info.profileImg"> -->
+              <!-- <img  :src="board.Info.profileImg"> -->
+            <!-- </v-list-tile-avatar> -->
+            <!-- <v-icon v-else size="40px">person</v-icon> -->
 
             <v-btn v-if="board.report === false" color="error" @click="updateToError(board)">게시글 금지 </v-btn>
             <v-btn v-else color="success" @click="updateToAble(board)">게시글 해제 </v-btn>

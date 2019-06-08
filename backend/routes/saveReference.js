@@ -114,5 +114,36 @@ router.get('/getGuestReference/:id',function(req, res,next){
         }); 
 });
 
-   
+//guest가 자기가 작성한 reference가져오기 
+router.get('/getGuestMyReference/:id',function(req, res,next){
+    console.log(req.params.id);
+    if(!req.params.id){
+      return res.json({state : -1, msg : "guest ID is empty"});
+    }
+      referenceModel.find({writer : req.params.id, boardType : "host"},function(err,getInfo){
+          if(err) {
+            return res.json(err);
+          };
+          if(getInfo){
+              return res.json(getInfo)
+          } 
+        }); 
+});
+
+//host가 자기가 작성한 reference가져오기 
+router.get('/getHostMyReference/:id',function(req, res,next){
+    console.log(req.params.id);
+    if(!req.params.id){
+      return res.json({state : -1, msg : "host ID is empty"});
+    }
+      referenceModel.find({writer : req.params.id, boardType : "guest"},function(err,getInfo){
+          if(err) {
+            return res.json(err);
+          };
+          if(getInfo){
+              return res.json(getInfo)
+          } 
+        }); 
+});
+
 module.exports = router;

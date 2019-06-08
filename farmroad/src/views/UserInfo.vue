@@ -77,7 +77,7 @@
 
             <v-flex xs6 sm4 md2>
               <div>
-                <WriteReference 
+                <WriteReference if="!"
                 :boardId="`${reference.boardInfo.boardId}`" 
                 :boardWriter="`${reference.writer}`"
                 />
@@ -120,7 +120,9 @@ export default {
       role :"",
       referenceList :[
         // {title : "gggg"}
-      ]
+      ],
+      // notificationList:[],
+      alreadyReference :[]
     };
   },
   components: {
@@ -131,22 +133,24 @@ export default {
     this.role = localStorage.role
     this.getInfo();
     this.getNotificationInfo();
+    this.compareReference(this.referenceList, this.alreadyReference);
+    console.log("들어있는 값 : " + this.referenceList);
   },
   mounted(){
     this.role = localStorage.role;
     this.getInfo();
     this.getNotificationInfo();
+    this.compareReference(this.alreadyReference);
+    console.log("들어있는 값 : " + this.referenceList);
   },
   methods: {
     getInfo() {
       // localStorage.role == 0 이면 guest && 1이면 host
         let userId = localStorage.username;
-        // console.log("로컬 스토리지 역할 정보 : "+localStorage.role);
         if(localStorage.role === '0'){
         this.axios
           .get(`http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/user/getInfo/guest/${userId}`)
           .then(response => {
-            // console.log(response.data[0]);
             let userData = response.data[0];
             this.userName = userData.userName;
             this.name = userData.name;
@@ -161,7 +165,6 @@ export default {
         this.axios
         .get(`http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/user/getInfo/host/${userId}`)
         .then(response =>{
-          // console.log(response.data[0]);
             let userData = response.data[0];
             this.userName = userData.userName;
             this.name = userData.name;
@@ -177,23 +180,22 @@ export default {
       };
     },
     editInfo(){
-      // console.log("edit clicked!")
       this.$router.push('/editUserInfo');
     },
     saveCancel(){
-      // console.log("save cancel");
       this.$router.push('/');
     },
     getNotificationInfo(){
       let userId = localStorage.username;
+      //guest일때는 host가 approve한 것 보여줌
       if (localStorage.role == 0) {
       this.axios
         .get(
           `http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/notifyState/getHostApprove/${userId}`
         )
         .then(response => {
-          console.log(response.data);
-          // console.log("받아온 값")
+          // console.log(response.data);
+          // this.notificationList = response.data;
           this.referenceList = response.data;
         });
       } else if (localStorage.role == 1) {
@@ -203,12 +205,46 @@ export default {
         )
         .then(response => {
           // console.log(response.data);
-          // console.log("받아온 값")
+          // this.notificationList = response.data;
           this.referenceList = response.data;
         });
       }
     },
-    writeReference(){
+    getReference(){
+      let userId = localStorage.username;
+            if (localStorage.role == 0) {
+      this.axios
+        .get(
+          `http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/reference/getGuestMyReference/${userId}`
+        )
+        .then(response => {
+          // console.log(response.data);
+          this.alreadyReference = response.data;
+        });
+      } else if (localStorage.role == 1) {
+      this.axios
+        .get(
+          `http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/reference/getHostMyReference/${userId}`
+        )
+        .then(response => {
+          // console.log(response.data);
+          this.alreadyReference = response.data;
+        });
+      }
+    },
+    compareReference(exist){
+      let temp = new Array();
+        console.log("작성한 값 : " +temp);
+        this.referenceList.forEach(item =>{
+          for(let i = 0; i<exist.length; i++){
+            if((exist[i].boardId === item.boardInfo.boardId)&& (exist[i].writer === item.userName)){
+              item = exist[i];
+            }
+          }
+        })
+        console.log("수정된 값1")
+        console.log(this.referenceList);   
+        console.log("수정된 값1")
     }
   },
   

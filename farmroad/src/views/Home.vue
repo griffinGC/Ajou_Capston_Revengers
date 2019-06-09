@@ -1,47 +1,48 @@
 <template>
-<v-container fluid grid-list-lg>
-  <v-flex xs12>
-    <v-flex xl12>
-      <div class="grey--text text--darken-1">Notification</div>
+  <v-container fluid grid-list-lg>
+    <v-flex xs12>
+      <v-flex xl12>
+        <div class="grey--text text--darken-1">Notification</div>
+        <notifications group="foo"/>
         <v-card color="lime lighten-5" height="450" v-chat-scroll>
           <v-card class="pa-1" v-for="notification in notificationList" :key="notification.id">
-          <v-layout row wrap :class="`pa-1 project.${notification.boardInfo.title}`">
+            <v-layout row wrap :class="`pa-1 project.${notification.boardInfo.title}`">
+              <v-flex xs12 md6>
+                <div class="caption grey--text">Title</div>
+                <!-- <div>{{project.title}}</div> -->
+                <div>{{notification.boardInfo.title}}</div>
+              </v-flex>
 
-            <v-flex xs12 md6>
-              <div class="caption grey--text">Title</div>
-              <!-- <div>{{project.title}}</div> -->
-              <div>{{notification.boardInfo.title}}</div>
-            </v-flex>
+              <v-flex xs6 sm4 md2>
+                <div class="caption grey--text">Person</div>
+                <!-- <div>{{project.guestInfo}}</div> -->
+                <div>{{notification.userName}}</div>
+              </v-flex>
 
-            <v-flex xs6 sm4 md2>
-              <div class="caption grey--text">Person</div>
-              <!-- <div>{{project.guestInfo}}</div> -->
-              <div>{{notification.userName}}</div>
-            </v-flex>
+              <v-flex xs6 sm4 md2>
+                <div class="caption grey--text">Due</div>
+                <!-- <div>{{project.due}}</div> -->
+                <div></div>
+              </v-flex>
 
-            <v-flex xs6 sm4 md2>
-              <div class="caption grey--text">Due</div>
-              <!-- <div>{{project.due}}</div> -->
-              <div></div>
-            </v-flex>
-
-            <v-flex xs6 sm4 md2>
-              <div>
-                <HomeBoardView 
-                :candidateInfo="`${notification.userName}`" 
-                :notificationId="`${notification.notificationId}`"
-                :state="`${notification.state}`"/>
-                <!-- {{notification.boardInfo.boardId}} -->
-              </div>
-            </v-flex>
-          </v-layout>
+              <v-flex xs6 sm4 md2>
+                <div>
+                  <HomeBoardView
+                    :candidateInfo="`${notification.userName}`"
+                    :notificationId="`${notification.notificationId}`"
+                    :state="`${notification.state}`"
+                  />
+                  <!-- {{notification.boardInfo.boardId}} -->
+                </div>
+              </v-flex>
+            </v-layout>
+          </v-card>
         </v-card>
-      </v-card>
+      </v-flex>
     </v-flex>
-  </v-flex>
-  <v-flex>
-    <v-flex xs12>
-      <div class="grey--text text--darken-1">Recommended Boards</div>
+    <v-flex>
+      <v-flex xs12>
+        <div class="grey--text text--darken-1">Recommended Boards</div>
         <v-card color="blue lighten-5" height="450" class="scroll">
           <v-container fluid grid-list-md>
             <v-layout row wrap>
@@ -55,8 +56,8 @@
                     <div class="grey--text">{{board.content}}</div>
                   </v-card-text>
                   <v-card-actions>
-                   <!--Board View-->
-                   <!-- <HostBoardView v-bind:hostBoard="board"/> -->
+                    <!--Board View-->
+                    <HostBoardView v-bind:hostBoard="board"/>
                   </v-card-actions>
                 </v-card>
               </v-flex>
@@ -65,15 +66,15 @@
         </v-card>
       </v-flex>
     </v-flex>
-  <v-flex>
-    <v-flex xs12>
-      <div class="grey--text text--darken-1">Message list</div>
+    <v-flex>
+      <v-flex xs12>
+        <div class="grey--text text--darken-1">Message list</div>
         <v-card color="green lighten-5" height="450" class="scroll">
-            <v-card>
-              <v-flex>
+          <v-card>
+            <v-flex>
               <ChatRoomList></ChatRoomList>
-             </v-flex>
-            </v-card>
+            </v-flex>
+          </v-card>
         </v-card>
       </v-flex>
     </v-flex>
@@ -81,20 +82,20 @@
 </template>
 
 <script>
-import HomeBoardView from '../components/HomeBoardView'
+import HomeBoardView from "../components/HomeBoardView";
 import firebase from "firebase";
-import ChatRoomList from '../components/ChatRoomList'
-import HostBoardView from '../components/HostBoardView'
+import ChatRoomList from "../components/ChatRoomList";
+import HostBoardView from "../components/HostBoardView";
 export default {
   name: "home",
   components: {
     HomeBoardView,
     ChatRoomList,
-    HostBoardView,
+    HostBoardView
   },
   data() {
     return {
-      notificationList : "",
+      notificationList: "",
       boards: [],
       newBoards: [],
       rating: 3,
@@ -116,7 +117,7 @@ export default {
       lng: -2
     };
   },
-  created(){
+  created() {
     console.log("home is created!");
     this.role = localStorage.role;
     this.getNotification();
@@ -159,27 +160,30 @@ export default {
       this.dateFormatted = this.formatDate(this.date);
     }
   },
-  
-  methods:{
-    getNotification(){
+
+  methods: {
+    getNotification() {
       let userId = localStorage.username;
       // localStorage.role == 0 이면 guest && 1이면 host
       // console.log("로컬 스토리지 역할 정보 : "+localStorage.role);
-        if(localStorage.role === '0'){
+      if (localStorage.role === "0") {
         this.axios
-          .get(`http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/main/guest/getNotification/${userId}`)
+          .get(
+            `http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/main/guest/getNotification/${userId}`
+          )
           .then(response => {
             this.notificationList = response.data;
           });
-      }else{
+      } else {
         this.axios
-        .get(`http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/main/host/getNotification/${userId}`)
-        .then(response =>{
-          console.log(response);
+          .get(
+            `http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/main/host/getNotification/${userId}`
+          )
+          .then(response => {
+            console.log(response);
             this.notificationList = response.data;
-
-        });
-      };
+          });
+      }
     },
     formatDate(date) {
       if (!date) return null;
@@ -291,11 +295,11 @@ export default {
       }
     }
   },
-  
+
   computedDateFormatted() {
-      return this.formatDate(this.date);
-    },
+    return this.formatDate(this.date);
   }
+};
 </script>
 <style>
 .google-map {
@@ -307,20 +311,20 @@ export default {
   left: 0;
   z-index: -1;
 }
-.scroll{
-  overflow-y:auto;
+.scroll {
+  overflow-y: auto;
 }
-.notificationlist{
+.notificationlist {
   max-height: 500px;
-  overflow: auto; 
+  overflow: auto;
 }
-.notificationlist::-webkit-scrollbar{
-  widows:3px;
+.notificationlist::-webkit-scrollbar {
+  widows: 3px;
 }
-.notificationlist::-webkit-scrollbar-track{
+.notificationlist::-webkit-scrollbar-track {
   background: #ddd;
 }
-.notificationlist::-webkit-scrollbar-thumb{
+.notificationlist::-webkit-scrollbar-thumb {
   background: #aaa;
 }
 </style>

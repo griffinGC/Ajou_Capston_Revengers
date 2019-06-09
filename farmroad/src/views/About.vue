@@ -1,5 +1,6 @@
 <template>
   <div class="about">
+    <notifications group="foo"/>
     <!--search from-->
     <v-form v-if="role">
       <div class="grey--text text--darken-1"></div>
@@ -26,8 +27,6 @@
         </v-item-group>
         {{ this.workLocation}}
         <v-btn flat class="success" @click="sortLocation(boards)">지역 검색</v-btn>
-        <v-btn flat class="success" @click="showNotification">Notification</v-btn>
-        <notifications group="foo" />
       </v-layout>
     </v-form>
     <v-form v-else>
@@ -270,16 +269,6 @@ export default {
     //allowedDate for date
     allowedDates: val => parseInt(val.split("-")[2], 10) % 2 === 0,
 
-    // findByDifficulty(boards) {
-    //   var temBoards = new Array();
-    //   boards.forEach(item => {
-    //     if (item.difficulty == this.diff) {
-    //       temBoards.push(item);
-    //     }
-    //   });
-    //   this.newBoards = temBoards;
-    //   console.log(this.newBoards);
-    // },
     sortBoard(boards) {
       let tempBoards = new Array();
       boards.forEach(index => {
@@ -342,14 +331,13 @@ export default {
           )
           .then(response => {
             if (response.data.state == -1) {
-              alert(response.data.msg);
-            } else {
               console.log(response.data.msg);
-              this.$router.push({
-                name: "chatroom",
-                params: { chatRoomId: this.chatRoomId }
-              });
             }
+            console.log(response.data.msg);
+            this.$router.push({
+              name: "chatroom",
+              params: { chatRoomId: this.chatRoomId }
+            });
           });
       } else {
         this.axios
@@ -464,13 +452,6 @@ export default {
             }
           });
       }
-    },
-    showNotification() {
-      this.$notify({
-        group: "foo",
-        title: "Important message",
-        text: "Hello user! This is a notification!"
-      });
     }
   }
 };

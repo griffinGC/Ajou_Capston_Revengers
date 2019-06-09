@@ -30,7 +30,9 @@
                 <HomeBoardView 
                 :candidateInfo="`${notification.userName}`" 
                 :notificationId="`${notification.notificationId}`"
-                :state="`${notification.state}`"/>
+                :state="`${notification.state}`"
+                :boardId="`${notification.boardInfo.boardId}`"
+                />
                 <!-- {{notification.boardInfo.boardId}} -->
               </div>
             </v-flex>

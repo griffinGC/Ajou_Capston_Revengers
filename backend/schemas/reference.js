@@ -37,6 +37,33 @@ const referenceSchema = new mongoose.Schema({
         type : Number
     }
 })
+//receiveName은 후기가 달릴 사람의 id
+// receiveBoard는 후기가 달릴 boardId
+// writeName은 후기를 남긴 사람
+referenceSchema.statics.saveWithNotification =function(receiveName, receiveBoardId, writeName,  callback){
+    let newReference = new referenceSchema();
+    newReference.boardId = receiveBoardId;
+    newReference.userName = receiveName;
+    newReference.writer = writeName;
+    newReference.save(function(err){
+        if(err){
+            return res.json(err);
+        }else{
+            console.log("approve 했을때 무사히 저장")
+        }
+    })
+};   
+
+//candidate 삭제 
+referenceSchema.statics.deleteWithNotification = function(receiveName, receiveBoardId, writeName, callback){
+    this.deleteOne({userName : receiveName, boardId : receiveBoardId, writer : writeName}, function(err){
+        if(err){
+            return res.json(err);
+        }else{
+            console.log("cancel 했을때 무사히 삭제!")
+        }
+    })
+}
 
 
 

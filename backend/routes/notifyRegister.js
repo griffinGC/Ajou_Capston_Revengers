@@ -4,6 +4,7 @@ const guestModel = require('../schemas/createGuest');
 const hostModel = require('../schemas/createHost');
 const notifyHost =require('../schemas/notificationHost');
 const notifyGuest =require('../schemas/notificationGuest');
+
  
 router.post('/', function(req, res){
   console.log("test updateCandidate");

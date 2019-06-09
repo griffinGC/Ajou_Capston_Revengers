@@ -1,15 +1,17 @@
 var express = require('express');
 var router = express.Router();
 
-
 const notifyGuest =require('../schemas/notificationGuest');
-
 const notifyHost =require('../schemas/notificationHost');
-
+const referenceShema =require('../schemas/reference');
 
 //guest가 승인 여기서 
 // userName은 신청한 사람 => 즉 host
+// boardId, userName, writer
+// userName은 신청한 사람, writer은 글을 기존에 작성했던 사람
+// boardId는 writer가 썼던 글의 번호 
 router.post('/guestApprove',function(req, res,next){
+  referenceShema.saveWithNotificaion(req.body.userName)
   notifyGuest.update({userName : req.body.userName, notificationId : req.body.notificationId},{$set : {state : "approve"}},function(err){
     if(err) {
       return res.json(err);

@@ -106,36 +106,6 @@
       </v-flex>
     </v-layout>
   </v-container>
-     
-      <!-- <v-flex xs12>
-    <v-flex xl12>
-      <div class="grey--text text--darken-1"></div>
-        <v-card color="lime lighten-5" height="450" v-chat-scroll>
-          <v-card class="pa-1" v-for="reference in referenceList" :key="reference.id">
-          <v-layout row wrap :class="`pa-1 project.${reference.title}`">
-
-            <v-flex xs6 md6>
-              <div class="caption grey--text">글 제목</div>
-              <div>{{reference.boardInfo.title}}</div>
-            </v-flex>
-
-            <v-flex xs6 sm4 md2>
-              <div class="caption grey--text">글 작성자</div>
-              <div>{{reference.writer}}</div>
-            </v-flex>
-
-            <v-flex xs6 sm4 md2>
-              <div class="caption grey--text">방문날짜</div>
-              <div>{{reference.boardInfo.startDate}}</div>
-            </v-flex>
-
-            <v-flex xs6 sm4 md2>
-              <div>
-                <WriteReference if="!"
-                :boardId="`${reference.boardInfo.boardId}`" 
-                :boardWriter="`${reference.writer}`"
-                />
- -->
 </template>
 
 <script>

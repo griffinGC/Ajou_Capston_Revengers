@@ -3,8 +3,8 @@
     <v-card>
       <v-card-title>
         <h2>chat room</h2>
+         <notifications group="foo"/>
       </v-card-title>
-      <notifications group="foo"/>
       <v-list class="messages" two-line v-chat-scroll>
         <template v-for="msg in messages">
           <v-list-tile :key="msg.id" avatar>
@@ -62,8 +62,8 @@ export default {
           });
           this.$notify({
             group: "foo",
-            title: "Important message",
-            text: "Hello user! This is a notification!"
+            title: "new message",
+            text: doc.data().content
           });
         }
       });

@@ -1,6 +1,5 @@
 <template>
   <div class="about">
-    <notifications group="foo"/>
     <!--search from-->
     <v-form v-if="role">
       <div class="grey--text text--darken-1"></div>

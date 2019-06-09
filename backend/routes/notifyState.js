@@ -10,8 +10,10 @@ const referenceShema =require('../schemas/reference');
 // boardId, userName, writer
 // userName은 신청한 사람, writer은 글을 기존에 작성했던 사람
 // boardId는 writer가 썼던 글의 번호 
+// guest가 approve 하면 host가 글을 쓸 수 있음 즉, 원래 글은 guest가 쓴 글 
 router.post('/guestApprove',function(req, res,next){
-  referenceShema.saveWithNotification(req.body.writerName, req.body.boardId, req.body.userName, function(err){
+  let type = "guest";
+  referenceShema.saveWithNotification(req.body.writerName, req.body.boardId, req.body.userName, type,function(err){
     if(err){
       console.log(err);
       return res.json({state : -1, msg : err});
@@ -31,7 +33,8 @@ router.post('/guestApprove',function(req, res,next){
 
 //host가 승인      
 router.post('/hostApprove',function(req, res,next){
-  referenceShema.saveWithNotification(req.body.writerName, req.body.boardId, req.body.userName, function(err){
+  let type = "host";
+  referenceShema.saveWithNotification(req.body.writerName, req.body.boardId, req.body.userName, type, function(err){
     if(err){
       console.log(err);
       return res.json({state : -1, msg : err});
@@ -49,7 +52,8 @@ router.post('/hostApprove',function(req, res,next){
 
 //guest가 거절 
 router.post('/guestRefuse',function(req, res,next){
-  referenceShema.deleteWithNotification(req.body.writerName, req.body.boardId, req.body.userName, function(err){
+  let type = "guest";
+  referenceShema.deleteWithNotification(req.body.writerName, req.body.boardId, req.body.userName, type,function(err){
     if(err){
       console.log(err);
       return res.json({state : -1, msg : err});
@@ -70,7 +74,8 @@ router.post('/guestRefuse',function(req, res,next){
 
 //host가 거절      
 router.post('/hostRefuse',function(req, res,next){
-  referenceShema.deleteWithNotification(req.body.writerName, req.body.boardId, req.body.userName, function(err){
+  let type = "host";
+  referenceShema.deleteWithNotification(req.body.writerName, req.body.boardId, req.body.userName, type,function(err){
     if(err){
       console.log(err);
       return res.json({state : -1, msg : err});
@@ -88,7 +93,7 @@ router.post('/hostRefuse',function(req, res,next){
     })
 });  
 
-//guest가 approve한 host정보 보여줌 
+//guest가 approve한 host정보 보여줌 => 삭제 예정
 router.get('/getGuestApprove/:id', function(req, res, next){
   notifyGuest.find({userName : req.params.id, state : "approve"}, function(err, getInfo){
     if(err){
@@ -100,7 +105,7 @@ router.get('/getGuestApprove/:id', function(req, res, next){
   })
 })
 
-//host가 appve한 guest정보를 보여줌 
+//host가 appve한 guest정보를 보여줌 => 삭제 예정
 router.get('/getHostApprove/:id', function(req, res, next){
   notifyHost.find({userName : req.params.id, state : "approve"}, function(err, getInfo){
     if(err){

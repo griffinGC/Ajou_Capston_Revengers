@@ -40,18 +40,19 @@ const referenceSchema = new mongoose.Schema({
 //receiveName은 후기가 달릴 사람의 id
 // receiveBoard는 후기가 달릴 boardId
 // writeName은 후기를 남긴 사람
-referenceSchema.statics.saveWithNotification =function(receiveName, receiveBoardId, writeName,  callback){
+referenceSchema.statics.saveWithNotification =function(receiveName, receiveBoardId, writeName, type, callback){
     // let newReference = new referenceSchema();
     let newReference = new this();
     newReference.userName = receiveName;
     newReference.boardId = receiveBoardId;
     newReference.writer = writeName;
+    newReference.boardType = type;
     newReference.save(callback);
 };   
 
 //candidate 삭제 
-referenceSchema.statics.deleteWithNotification = function(receiveName, receiveBoardId, writeName, callback){
-    this.deleteOne({userName : receiveName, boardId : receiveBoardId, writer : writeName}, callback);
+referenceSchema.statics.deleteWithNotification = function(receiveName, receiveBoardId, writeName,type, callback){
+    this.deleteOne({userName : receiveName, boardId : receiveBoardId, writer : writeName, boardType : type}, callback);
 }
 
 

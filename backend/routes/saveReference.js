@@ -114,7 +114,7 @@ router.get('/getGuestReference/:id',function(req, res,next){
         }); 
 });
 
-//guest가 자기가 작성한 reference가져오기 
+//guest가 자기가 작성할 reference가져오기 
 router.get('/getGuestMyReference/:id',function(req, res,next){
     console.log(req.params.id);
     if(!req.params.id){
@@ -130,7 +130,7 @@ router.get('/getGuestMyReference/:id',function(req, res,next){
         }); 
 });
 
-//host가 자기가 작성한 reference가져오기 
+//host가 자기가 작성할 reference가져오기 
 router.get('/getHostMyReference/:id',function(req, res,next){
     console.log(req.params.id);
     if(!req.params.id){

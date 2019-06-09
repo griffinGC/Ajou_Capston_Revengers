@@ -149,7 +149,6 @@ export default {
     console.log("userInfo is created");
     this.role = localStorage.role
     this.getInfo();
-    this.getWriteReference();
     this.getMyReference();
     this.getNotificationInfo();
     // this.compareReference(this.referenceList, this.alreadyReference);
@@ -159,7 +158,6 @@ export default {
   mounted(){
     this.role = localStorage.role;
     this.getInfo();
-    this.getWriteReference();
     this.getMyReference();
     this.getNotificationInfo();
     console.log("들어있는 값 : " + this.referenceList);
@@ -212,53 +210,26 @@ export default {
       if (localStorage.role == 0) {
       this.axios
         .get(
-          `http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/notifyState/getHostApprove/${userId}`
-        )
-        .then(response => {
-          // console.log("notification 정보 값1")
-          // console.log(response.data);
-          // console.log("notification 정보 값1")
-          // this.notificationList = response.data;
-          this.referenceList = response.data;
-        });
-      } else if (localStorage.role == 1) {
-      this.axios
-        .get(
-          `http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/notifyState/getGuestApprove/${userId}`
-        )
-        .then(response => {
-          // console.log("notification 정보 값2")
-          // console.log(response.data);
-          // console.log("notification 정보 값2")
-          // this.notificationList = response.data;
-          this.referenceList = response.data;
-        });
-      }
-    },
-    getWriteReference(){
-      //자기가 작성한 reference가져오기
-      let userId = localStorage.username;
-            if (localStorage.role == 0) {
-      this.axios
-        .get(
           `http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/reference/getGuestMyReference/${userId}`
         )
         .then(response => {
-          // console.log("reference 정보")
-          // console.log(response.data);
-          // console.log("reference 정보")
-          this.alreadyReference = response.data;
+          console.log("notification 정보 값1")
+          console.log(response.data);
+          console.log("notification 정보 값1")
+          // this.notificationList = response.data;
+          this.referenceList = response.data;
         });
       } else if (localStorage.role == 1) {
       this.axios
         .get(
-          `http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/reference/getHostMyReference/${userId}`
+          `http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/notifyState/getHostMyApprove/${userId}`
         )
         .then(response => {
-          // console.log("reference 정보")
-          // console.log(response.data);
-          // console.log("reference 정보")
-          this.alreadyReference = response.data;
+          console.log("notification 정보 값2")
+          console.log(response.data);
+          console.log("notification 정보 값2")
+          // this.notificationList = response.data;
+          this.referenceList = response.data;
         });
       }
     },
@@ -289,20 +260,6 @@ export default {
         });
       }
     },
-    compareReference(exist){
-      let temp = new Array();
-        console.log("작성한 값 : " +temp);
-        this.referenceList.forEach(item =>{
-          for(let i = 0; i<exist.length; i++){
-            if((exist[i].boardId === item.boardInfo.boardId)&& (exist[i].writer === item.userName)){
-              item = exist[i];
-            }
-          }
-        })
-        console.log("수정된 값1")
-        console.log(this.referenceList);   
-        console.log("수정된 값1")
-    }
   },
   
 };

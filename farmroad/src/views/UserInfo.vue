@@ -50,7 +50,40 @@
                   <div>{{reference}}</div>
                 </v-flex>
             </v-layout> 
-          </v-card-title>          
+          </v-card-title>
+          <v-list>
+          <v-list-tile>
+            <v-list-tile-action>
+              <v-icon  color="pink">done</v-icon>
+            </v-list-tile-action>
+
+            <v-list-tile-content>
+              <v-list-tile-title >후기</v-list-tile-title>
+            </v-list-tile-content>
+          </v-list-tile>
+          <v-list-tile
+            v-for="(reference, index) in getMyReferenceList"
+            :key="reference.boardId"
+            avatar  
+          >
+
+            <v-list-tile-avatar v-if="reference.writerImg">
+              <img  :src="reference.writerImg">
+            </v-list-tile-avatar>
+            <v-icon v-else size="40px">person</v-icon>
+
+            <v-list-tile-content>
+              <v-list-tile-title v-text="reference.title"></v-list-tile-title>
+              <v-list-tile-sub-title v-text="reference.content"></v-list-tile-sub-title>
+            </v-list-tile-content>
+            
+
+
+            <!-- <v-btn v-if="board.report === false" color="error" @click="updateToError(board)">게시글 금지 </v-btn>
+            <v-btn v-else color="success" @click="updateToAble(board)">게시글 해제 </v-btn> -->
+
+          </v-list-tile>
+        </v-list>          
       </v-card>
       <v-flex xs12>
     <v-flex xl12>
@@ -121,6 +154,9 @@ export default {
       referenceList :[
         // {title : "gggg"}
       ],
+      getMyReferenceList :[
+
+      ],
       // notificationList:[],
       alreadyReference :[]
     };
@@ -132,15 +168,19 @@ export default {
     console.log("userInfo is created");
     this.role = localStorage.role
     this.getInfo();
+    this.getWriteReference();
+    this.getMyReference();
     this.getNotificationInfo();
-    this.compareReference(this.referenceList, this.alreadyReference);
+    // this.compareReference(this.referenceList, this.alreadyReference);
     console.log("들어있는 값 : " + this.referenceList);
+    console.log("reference 값 : " + this.getMyReferenceList);
   },
   mounted(){
     this.role = localStorage.role;
     this.getInfo();
+    this.getWriteReference();
+    this.getMyReference();
     this.getNotificationInfo();
-    this.compareReference(this.alreadyReference);
     console.log("들어있는 값 : " + this.referenceList);
   },
   methods: {
@@ -194,7 +234,9 @@ export default {
           `http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/notifyState/getHostApprove/${userId}`
         )
         .then(response => {
+          // console.log("notification 정보 값1")
           // console.log(response.data);
+          // console.log("notification 정보 값1")
           // this.notificationList = response.data;
           this.referenceList = response.data;
         });
@@ -204,13 +246,16 @@ export default {
           `http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/notifyState/getGuestApprove/${userId}`
         )
         .then(response => {
+          // console.log("notification 정보 값2")
           // console.log(response.data);
+          // console.log("notification 정보 값2")
           // this.notificationList = response.data;
           this.referenceList = response.data;
         });
       }
     },
-    getReference(){
+    getWriteReference(){
+      //자기가 작성한 reference가져오기
       let userId = localStorage.username;
             if (localStorage.role == 0) {
       this.axios
@@ -218,7 +263,9 @@ export default {
           `http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/reference/getGuestMyReference/${userId}`
         )
         .then(response => {
+          // console.log("reference 정보")
           // console.log(response.data);
+          // console.log("reference 정보")
           this.alreadyReference = response.data;
         });
       } else if (localStorage.role == 1) {
@@ -227,8 +274,37 @@ export default {
           `http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/reference/getHostMyReference/${userId}`
         )
         .then(response => {
+          // console.log("reference 정보")
           // console.log(response.data);
+          // console.log("reference 정보")
           this.alreadyReference = response.data;
+        });
+      }
+    },
+    getMyReference(){
+      let userId = localStorage.username;
+      //guest일때는 host가 approve한 것 보여줌
+      if (localStorage.role == 0) {
+      this.axios
+        .get(
+          `http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/reference/getGuestReference/${userId}`
+        )
+        .then(response => {
+          console.log("나한테 작성된 reference 정보 값1")
+          console.log(response.data);
+          console.log("나한테 작성된 reference 정보 값1")
+          this.getMyReferenceList = response.data;
+        });
+      } else if (localStorage.role == 1) {
+      this.axios
+        .get(
+          `http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/reference/getHostReference/${userId}`
+        )
+        .then(response => {
+          console.log("나한테 작성된 reference 정보 값1")
+          console.log(response.data);
+          console.log("나한테 작성된 reference 정보 값1")
+          this.getMyReferenceList = response.data;
         });
       }
     },

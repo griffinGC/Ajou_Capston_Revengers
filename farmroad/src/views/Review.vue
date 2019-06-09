@@ -1,13 +1,12 @@
 <template>
 <v-container grid-list-md>
-    <v-layout row wrap>
-      <v-card width="350">
-         <v-img v-if="profileImg" :src="profileImg" alt="Avatar">
-         </v-img>
-         <v-icon v-else>person</v-icon>
+  <v-layout column wrap>
+    <v-card width="350">
+      <v-img v-if="profileImg" :src="profileImg" alt="Avatar"></v-img>
+        <v-icon v-else>person</v-icon>
         <v-layout row wrap>
         <v-flex xs5 sm5 offset-xs1 class="grey--text font-weight-bold">유저 아이디</v-flex>
-        <v-flex xs6 sm6>&nbsp;{{userName}}</v-flex>
+        <v-flex xs6 sm6>{{userName}}</v-flex>
         <v-flex xs5 sm5 offset-xs1 v-if="role === '0'" class="grey--text font-weight-bold">유저정보</v-flex>
         <v-flex xs5 sm5 v-if="role === '0'">Host</v-flex>
         <v-flex xs5 sm5 offset-xs1 v-if="role === '1'" class="grey--text font-weight-bold">유저정보</v-flex>
@@ -31,9 +30,12 @@
         <v-flex xs5 offset-xs1 class="grey--text font-weight-bold">평점</v-flex>
         <v-flex xs6></v-flex>
         <v-divider></v-divider>
-        <v-flex xs5 offset-xs1 class="text-xs-center">asdf</v-flex>
         </v-layout>
       </v-card>
+      <v-card width="350">
+        후기<br><br>
+        여기 뭐가 들어가야했더라..?
+      </v-card> 
     </v-layout>
   </v-container>
 </template>
@@ -78,7 +80,7 @@ export default {
       // localStorage.role == 0 이면 guest && 1이면 host
         let userId = localStorage.username;
         // console.log("로컬 스토리지 역할 정보 : "+localStorage.role);
-        if(localStorage.role === '0'){
+        if(localStorage.role === '1'){
         this.axios
           .get(`http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/user/getInfo/guest/${userId}`)
           .then(response => {
@@ -123,7 +125,6 @@ export default {
     }
   }
 };
-</script>
 </script>
 <style>
 .btns{

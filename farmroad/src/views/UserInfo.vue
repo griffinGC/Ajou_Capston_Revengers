@@ -82,6 +82,7 @@
 
             <v-flex xs5 md2>
               <div class="caption grey--text">글 제목</div>
+              
               <div>{{reference.boardInfo.title}}</div>
             </v-flex>
 
@@ -90,10 +91,10 @@
               <div>{{reference.writer}}</div>
             </v-flex>
 
-            <v-flex xs4 sm4 md4>
+            <!-- <v-flex xs4 sm4 md4>
               <div class="caption grey--text">방문날짜</div>
               <div>{{reference.boardInfo.startDate}}</div>
-            </v-flex>
+            </v-flex> -->
 
             <v-flex xs6 sm4 md2>
               <div>
@@ -222,7 +223,7 @@ export default {
       } else if (localStorage.role == 1) {
       this.axios
         .get(
-          `http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/reference/getHostMyApprove/${userId}`
+          `http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/reference/getHostMyReference/${userId}`
         )
         .then(response => {
           console.log("notification 정보 값2")

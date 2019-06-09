@@ -33,6 +33,7 @@
                 :state="`${notification.state}`"
                 :boardId="`${notification.boardInfo.boardId}`"
                 :writerId="`${notification.writer}`"
+                :boardTitle="`${notification.bordInfo.title}`"
                 />
                 <!-- {{notification.boardInfo.boardId}} -->
               </div>

@@ -13,6 +13,9 @@ const referenceSchema = new mongoose.Schema({
     boardType :{
         type : String
     },
+    boardTitle :{
+        type : String
+    },
     title : {
         type : String
     },

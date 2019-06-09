@@ -141,10 +141,14 @@
                       <v-icon small left>expand_more</v-icon>
                       <span>후기</span>
                     </v-btn>
-                    <v-btn to="/mymap" flat slot="activator" color="info">
+                    <v-btn @click="moveMyMap(board.boardId)" flat slot="activator" color="info">
                       <v-icon small left>expand_more</v-icon>
                       <span>상세보기</span>
                     </v-btn>
+                     <!-- <v-btn to="/mymap" flat slot="activator" color="info">
+                      <v-icon small left>expand_more</v-icon>
+                      <span>상세보기</span>
+                    </v-btn> -->
                     <v-btn flat slot="activator" color="error" @click="report(board)">
                       <v-icon small left>report</v-icon>
                       <span>신고하기</span>
@@ -375,6 +379,13 @@ export default {
             }
           });
       }
+    },
+    moveMyMap(id){
+      console.log(id);
+        this.$router.push({
+        name: "mymap",
+        params: { boardId: id }
+      });
     },
     saveNotification(id) {
       console.log(id);

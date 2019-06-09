@@ -135,15 +135,7 @@
                 :boardId="`${reference.boardInfo.boardId}`" 
                 :boardWriter="`${reference.writer}`"
                 />
-                <!-- {{reference.boardInfo.Info}} -->
-              </div>
-            </v-flex>
-          </v-layout>
-        </v-card>
-      </v-card>
-    </v-flex>
-  </v-flex>
-  </v-container> -->
+ -->
 </template>
 
 <script>

@@ -21,8 +21,8 @@
         <v-flex xs6 sm6>{{userName}}</v-flex>
         <v-flex xs5 sm5 offset-xs1 v-if="role === '0'" class="grey--text font-weight-bold">유저정보</v-flex>
         <v-flex xs5 sm5 v-if="role === '0'">Host</v-flex>
-        <v-flex xs5 sm5 offset-xs1 v-if="role === '1'" class="grey--text font-weight-bold">유저정보</v-flex>
-        <v-flex xs6 v-if="role === '1'">Guest</v-flex>
+        <!-- <v-flex xs5 sm5 offset-xs1 v-if="role === '1'" class="grey--text font-weight-bold">유저정보</v-flex>
+        <v-flex xs6 v-if="role === '1'">Guest</v-flex> -->
         <v-flex xs5 offset-xs1 class="grey--text font-weight-bold">이름</v-flex>
         <v-flex xs6>{{name}}</v-flex>
         <v-flex xs5 offset-xs1 class="grey--text font-weight-bold">성별</v-flex>
@@ -31,6 +31,8 @@
         <v-flex xs6>{{age}}</v-flex>
         <v-flex xs5 offset-xs1 class="grey--text font-weight-bold">전화번호</v-flex>
         <v-flex xs6>{{phone}}</v-flex>
+        <v-flex xs5 offset-xs1 class="grey--text font-weight-bold">이메일</v-flex>
+        <v-flex xs6>{{email}}</v-flex>
         <v-flex xs5 offset-xs1 v-if="role === '0'" class="grey--text font-weight-bold">직업</v-flex>
         <v-flex xs6 v-if="role === '0'">{{work}}</v-flex>
         <v-flex xs5 offset-xs1 v-if="role === '0'" class="grey--text font-weight-bold">지역</v-flex>
@@ -47,55 +49,55 @@
         <v-flex><div>원하는 능력</div>
         <v-layout row wrap>
           <!-- <v-flex v-for="n in 12" :key="n" xs6 sm3 md2>
-            <v-flex v-if="preferAbilities===">
+            <v-flex v-if="preferAbility===">
               <v-checkbox input-value="true" value disabled hide-details label="요리를 잘해요"></v-checkbox>
             </v-flex><v-flex><v-checkbox value disabled hide-details label="요리를 잘해요"></v-checkbox></v-flex>
           </v-flex> -->
-            <v-flex v-if="preferAbilities.includes('요리를 잘해요')" xs6 sm3 md2>
+            <v-flex v-if="preferAbility.includes('요리를 잘해요')" xs6 sm3 md2>
               <v-checkbox input-value="true" value disabled hide-details label="요리를 잘해요"></v-checkbox>
             </v-flex>
             <v-flex v-else xs6 sm3 md2><v-checkbox value disabled hide-details label="요리를 잘해요" xs6 sm3 md2></v-checkbox></v-flex>
-            <v-flex v-if="preferAbilities.includes('미용을 잘해요')" xs6 sm3 md2>
+            <v-flex v-if="preferAbility.includes('미용을 잘해요')" xs6 sm3 md2>
               <v-checkbox input-value="true" value disabled hide-details label="미용을 잘해요"></v-checkbox>
             </v-flex>
             <v-flex v-else xs6 sm3 md2><v-checkbox value disabled hide-details label="미용을 잘해요" xs6 sm3 md2></v-checkbox></v-flex>
-            <v-flex v-if="preferAbilities.includes('애를 잘돌봐요')" xs6 sm3 md2>
+            <v-flex v-if="preferAbility.includes('애를 잘돌봐요')" xs6 sm3 md2>
               <v-checkbox input-value="true" value disabled hide-details label="애를 잘돌봐요"></v-checkbox>
             </v-flex>
             <v-flex v-else xs6 sm3 md2><v-checkbox value disabled hide-details label="애를 잘돌봐요" xs6 sm3 md2></v-checkbox></v-flex>
-            <v-flex v-if="preferAbilities.includes('청소를 잘해요')" xs6 sm3 md2>
+            <v-flex v-if="preferAbility.includes('청소를 잘해요')" xs6 sm3 md2>
               <v-checkbox input-value="true" value disabled hide-details label="청소를 잘해요"></v-checkbox>
             </v-flex>
             <v-flex v-else xs6 sm3 md2><v-checkbox value disabled hide-details label="청소를 잘해요" xs6 sm3 md2></v-checkbox></v-flex>
-            <v-flex v-if="preferAbilities.includes('운전을 잘해요')" xs6 sm3 md2>
+            <v-flex v-if="preferAbility.includes('운전을 잘해요')" xs6 sm3 md2>
               <v-checkbox input-value="true" value disabled hide-details label="운전을 잘해요"></v-checkbox>
             </v-flex>
             <v-flex v-else xs6 sm3 md2><v-checkbox value disabled hide-details label="운전을 잘해요" xs6 sm3 md2></v-checkbox></v-flex>
-            <v-flex v-if="preferAbilities.includes('도배를 잘해요')" xs6 sm3 md2>
+            <v-flex v-if="preferAbility.includes('도배를 잘해요')" xs6 sm3 md2>
               <v-checkbox input-value="true" value disabled hide-details label="도배를 잘해요"></v-checkbox>
             </v-flex>
             <v-flex v-else xs6 sm3 md2><v-checkbox value disabled hide-details label="도배를 잘해요" xs6 sm3 md2></v-checkbox></v-flex>
-            <v-flex v-if="preferAbilities.includes('짐나르는거 잘해요')" xs6 sm3 md2>
+            <v-flex v-if="preferAbility.includes('짐나르는거 잘해요')" xs6 sm3 md2>
               <v-checkbox input-value="true" value disabled hide-details label="짐나르는거 잘해요"></v-checkbox>
             </v-flex>
             <v-flex v-else xs6 sm3 md2><v-checkbox value disabled hide-details label="짐나르는거 잘해요" xs6 sm3 md2></v-checkbox></v-flex>
-            <v-flex v-if="preferAbilities.includes('노래를 잘해요')" xs6 sm3 md2>
+            <v-flex v-if="preferAbility.includes('노래를 잘해요')" xs6 sm3 md2>
               <v-checkbox input-value="true" value disabled hide-details label="노래를 잘해요"></v-checkbox>
             </v-flex>
             <v-flex v-else xs6 sm3 md2><v-checkbox value disabled hide-details label="노래를 잘해요" xs6 sm3 md2></v-checkbox></v-flex>
-            <v-flex v-if="preferAbilities.includes('말동무를 잘해요')" xs6 sm3 md2>
+            <v-flex v-if="preferAbility.includes('말동무를 잘해요')" xs6 sm3 md2>
               <v-checkbox input-value="true" value disabled hide-details label="말동무를 잘해요"></v-checkbox>
             </v-flex>
             <v-flex v-else xs6 sm3 md2><v-checkbox value disabled hide-details label="말동무를 잘해요" xs6 sm3 md2></v-checkbox></v-flex>
-            <v-flex v-if="preferAbilities.includes('컴퓨터를 잘다뤄요')" xs6 sm3 md2>
+            <v-flex v-if="preferAbility.includes('컴퓨터를 잘다뤄요')" xs6 sm3 md2>
               <v-checkbox input-value="true" value disabled hide-details label="컴퓨터를 잘다뤄요"></v-checkbox>
             </v-flex>
             <v-flex v-else xs6 sm3 md2><v-checkbox value disabled hide-details label="컴퓨터를 잘다뤄요" xs6 sm3 md2></v-checkbox></v-flex>
-            <v-flex v-if="preferAbilities.includes('농기계를 잘다뤄요')" xs6 sm3 md2>
+            <v-flex v-if="preferAbility.includes('농기계를 잘다뤄요')" xs6 sm3 md2>
               <v-checkbox input-value="true" value disabled hide-details label="농기계를 잘다뤄요"></v-checkbox>
             </v-flex>
             <v-flex v-else xs6 sm3 md2><v-checkbox value disabled hide-details label="농기계를 잘다뤄요" xs6 sm3 md2></v-checkbox></v-flex>
-            <v-flex v-if="preferAbilities.includes('농사경험이 있어요')" xs6 sm3 md2>
+            <v-flex v-if="preferAbility.includes('농사경험이 있어요')" xs6 sm3 md2>
               <v-checkbox input-value="true" value disabled hide-details label="농사경험이 있어요"></v-checkbox>
             </v-flex>
             <v-flex v-else xs6 sm3 md2><v-checkbox value disabled hide-details label="농사경험이 있어요" xs6 sm3 md2></v-checkbox></v-flex>
@@ -137,9 +139,9 @@ export default {
       address : "dfdf",
       location : "zzzz",
       role :"",
-      abilities:["요리를 잘해요","미용을 잘해요","애를 잘돌봐요","청소를 잘해요","운전을 잘해요","도배를 잘해요","짐나르는거 잘해요",
-      "노래를 잘해요","말동무를 잘해요","컴퓨터를 잘다뤄요","농기계를 잘다뤄요","농사경험이 있어요"],
-      preferAbilities:["요리를 잘해요","운전을 잘해요","컴퓨터를 잘다뤄요","농사경험이 있어요"],
+      // abilities:["요리를 잘해요","미용을 잘해요","애를 잘돌봐요","청소를 잘해요","운전을 잘해요","도배를 잘해요","짐나르는거 잘해요",
+      // "노래를 잘해요","말동무를 잘해요","컴퓨터를 잘다뤄요","농기계를 잘다뤄요","농사경험이 있어요"],
+      preferAbility:["요리를 잘해요","운전을 잘해요","컴퓨터를 잘다뤄요","농사경험이 있어요"],
       star:3,
     };
   },
@@ -180,16 +182,18 @@ export default {
           .then(response => {
             console.log(response.data[0]);
             let userData = response.data[0];
-            this.userName = userData.userName;
-            this.name = userData.name;
-            this.profileImg = userData.profileImg;
-            this.age = userData.age;
-            this.work = userData.work;
-            this.address = userData.address;
+            this.profileImg = userData.Info.profileImg;
+            this.userName = userData.Info.userName;
+            this.name = userData.Info.name;
+            this.age = userData.Info.age;
+            this.work = userData.Info.work;
+            this.address = userData.Info.address;
             this.location = userData.location;
             this.phone = userData.phone;
-            this.email = userData.email;
+            this.email = userData.Info.email;
             this.reference = userData.reference;
+            this.preferAbility = preferAbility;
+            console.log(this.preferAbility)
           });
       }
   }

@@ -5,26 +5,26 @@
       <div class="grey--text text--darken-1"></div>
       <v-layout row wrap>
         <v-item-group>
-          <v-checkbox v-model="location" label="경기도" value="경기도"></v-checkbox>
-          <v-checkbox v-model="location" label="인천" value="인천"></v-checkbox>
+          <v-checkbox v-model="workLocation" label="경기도" value="경기도"></v-checkbox>
+          <v-checkbox v-model="workLocation" label="인천" value="인천"></v-checkbox>
         </v-item-group>
         <v-item-group>
-          <v-checkbox v-model="location" label="충청북도" value="충청북도"></v-checkbox>
-          <v-checkbox v-model="location" label="충청남도" value="충청남도"></v-checkbox>
+          <v-checkbox v-model="workLocation" label="충청북도" value="충청북도"></v-checkbox>
+          <v-checkbox v-model="workLocation" label="충청남도" value="충청남도"></v-checkbox>
         </v-item-group>
         <v-item-group>
-          <v-checkbox v-model="location" label="경상북도" value="경상북도"></v-checkbox>
-          <v-checkbox v-model="location" label="경상남도" value="경상남도"></v-checkbox>
+          <v-checkbox v-model="workLocation" label="경상북도" value="경상북도"></v-checkbox>
+          <v-checkbox v-model="workLocation" label="경상남도" value="경상남도"></v-checkbox>
         </v-item-group>
         <v-item-group>
-          <v-checkbox v-model="location" label="전라북도" value="전라북도"></v-checkbox>
-          <v-checkbox v-model="location" label="전라남도" value="전라남도"></v-checkbox>
+          <v-checkbox v-model="workLocation" label="전라북도" value="전라북도"></v-checkbox>
+          <v-checkbox v-model="workLocation" label="전라남도" value="전라남도"></v-checkbox>
         </v-item-group>
         <v-item-group>
-          <v-checkbox v-model="location" label="강원도" value="강원도"></v-checkbox>
-          <v-checkbox v-model="location" label="제주도" value="제주도"></v-checkbox>
+          <v-checkbox v-model="workLocation" label="강원도" value="강원도"></v-checkbox>
+          <v-checkbox v-model="workLocation" label="제주도" value="제주도"></v-checkbox>
         </v-item-group>
-        {{ this.location}}
+        {{ this.workLocation}}
         <v-btn flat class="success" @click="sortLocation(boards)">지역 검색</v-btn>
       </v-layout>
     </v-form>
@@ -116,9 +116,9 @@
                       <br>
                       <span>{{board.content}}</span>
                     </div>
-                    <div class="text-xs">
+                    <!-- <div class="text-xs">
                       <v-rating :value="board.difficulty" readonly></v-rating>
-                    </div>
+                    </div> -->
                   </v-card-text>
                   <v-card-actions>
                     <!--Notification button-->
@@ -192,7 +192,7 @@ export default {
       showDate: "2018-03-02",
 
       selected: [],
-      location: [],
+      workLocation: [],
 
       menu1: false,
 
@@ -275,22 +275,49 @@ export default {
     //allowedDate for date
     allowedDates: val => parseInt(val.split("-")[2], 10) % 2 === 0,
 
-    findByDifficulty(boards) {
-      var temBoards = new Array();
-      boards.forEach(item => {
-        if (item.difficulty == this.diff) {
-          temBoards.push(item);
-        }
-      });
-      this.newBoards = temBoards;
-      console.log(this.newBoards);
-    },
+    // findByDifficulty(boards) {
+    //   var temBoards = new Array();
+    //   boards.forEach(item => {
+    //     if (item.difficulty == this.diff) {
+    //       temBoards.push(item);
+    //     }
+    //   });
+    //   this.newBoards = temBoards;
+    //   console.log(this.newBoards);
+    // },
+    sortBoard(boards) {
+       let tempBoards = new Array();
+       boards.forEach(index=>{
+         index.count = 0;
+         for(let i = 0; i<index.Info.ability.length; i++){
+           for(let j = 0; j<this.selected.length; j++){
+              if(index.Info.ability[i] === this.selected[j])
+              {
+                ++index.count;
+                // break;  
+              }
+           }
+         }
+         console.log("가지고 있는 개수! " + index.count);
+         if(index.count !== 0)
+         {
+           tempBoards.push(index);
+         }
+       })
+      console.log(tempBoards);
+      console.log("데이터 검색");
+         this.newBoards = tempBoards;    
+         if(this.selected.length === 0){
+           this.newBoards = boards;
+         }
+     },
     sortLocation(boards) {
-      var tempBoards = new Array();
+      let tempBoards = new Array();
       boards.forEach(index => {
         index.count = 0;
-        for (let i = 0; i < this.location.length; i++) {
-          if (index.location === this.location[i]) {
+        for (let i = 0; i < this.workLocation.length; i++) {
+          if (index.location === this.workLocation[i]) {
+            console.log("같은 곳의 위치 : " + this.workLocation[i])
             ++index.count;
           }
         }
@@ -299,7 +326,11 @@ export default {
         }
       });
       this.newBoards = tempBoards;
-      if (this.selected.length === 0) {
+      
+      console.log("새로운보드")
+      console.log(this.newBoards);
+      console.log("새로운보드")
+      if (this.workLocation.length === 0) {
         this.newBoards = boards;
       }
     },
@@ -411,10 +442,17 @@ export default {
     },
     report(board) {
       console.log(board.boardId);
+      let checkPerson = 0;
+      for(let i = 0; i<board.isReport.length; i++){
+        if(localStorage.username === board.isReport[i]){
+            alert("이미 신고했습니다!");
+            return;
+        }
+      }
       if (localStorage.role == 0) {
         this.axios
           .post(
-            "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/hostBoard/isReportGuest/ban",
+            "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/hostBoard/isReportHost/ban",
             {
               boardId: board.boardId,
               userName: localStorage.username
@@ -431,7 +469,7 @@ export default {
       } else {
         this.axios
           .post(
-            "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/hostBoard/isReportGuest/ban",
+            "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/guestBoard/isReportGuest/ban",
             {
               boardId: board.boardId,
               userName: localStorage.username

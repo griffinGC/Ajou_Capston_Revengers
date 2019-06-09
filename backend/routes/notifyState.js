@@ -2,15 +2,15 @@ var express = require('express');
 var router = express.Router();
 
 
-const notifyApproveGuest =require('../schemas/notificationGuest');
-const notifyRefuseGuest =require('../schemas/notificationGuest');
+const notifyGuest =require('../schemas/notificationGuest');
 
-const notifyApproveHost =require('../schemas/notificationHost');
-const notifyRefuseHost =require('../schemas/notificationHost');
+const notifyHost =require('../schemas/notificationHost');
 
-//guest가 승인
-router.post('/notifyApproveStateGuest',function(req, res,next){
-  notifyApproveGuest.update({userName : req.body.userName},{notificationId : req.body.notificationID},{$set : {state : "approve"}},function(err){
+
+//guest가 승인 여기서 
+// userName은 신청한 사람 => 즉 host
+router.post('/guestApprove',function(req, res,next){
+  notifyGuest.update({userName : req.body.userName, notificationId : req.body.notificationId},{$set : {state : "approve"}},function(err){
     if(err) {
       return res.json(err);
     };
@@ -21,8 +21,8 @@ router.post('/notifyApproveStateGuest',function(req, res,next){
 
 
 //host가 승인      
-router.post('/notifyApproveStateHost',function(req, res,next){
-  notifyApproveHost.update({userName : req.body.userName},{notificationId : req.body.notificationID},{$set : {state : "approve"}},function(err){
+router.post('/hostApprove',function(req, res,next){
+  notifyHost.update({userName : req.body.userName, notificationId : req.body.notificationId},{$set : {state : "approve"}},function(err){
     if(err) {
       return res.json(err);
     };
@@ -35,8 +35,8 @@ router.post('/notifyApproveStateHost',function(req, res,next){
 });  
 
 //guest가 거절 
-router.post('/notifyRefuseStateGuest',function(req, res,next){
-  notifyRefuseGuest.update({userName : req.body.userName},{notificationId : req.body.notificationID},{$set : {state : "refuse"}},function(err){
+router.post('/guestRefuse',function(req, res,next){
+  notifyGuest.update({userName : req.body.userName, notificationId : req.body.notificationId},{$set : {state : "refuse"}},function(err){
     if(err) {
       return res.json(err);
     };
@@ -49,8 +49,8 @@ router.post('/notifyRefuseStateGuest',function(req, res,next){
 
 
 //host가 거절      
-router.post('/notifyRefuseStateHost',function(req, res,next){
-  notifyRefuseHost.update({userName : req.body.userName},{notificationId : req.body.notificationID},{$set : {state : "refuse"}},function(err){
+router.post('/hostRefuse',function(req, res,next){
+  notifyHost.update({userName : req.body.userName, notificationId : req.body.notificationId},{$set : {state : "refuse"}},function(err){
     if(err) {
       return res.json(err);
     };
@@ -62,9 +62,9 @@ router.post('/notifyRefuseStateHost',function(req, res,next){
       })
 });  
 
-
+//guest가 approve한 host정보 보여줌 
 router.get('/getGuestApprove/:id', function(req, res, next){
-  notifyApproveGuest.find({userName : req.params.id, state : "approve"}, function(err, getInfo){
+  notifyGuest.find({userName : req.params.id, state : "approve"}, function(err, getInfo){
     if(err){
       return res.json(err);
     }
@@ -74,9 +74,9 @@ router.get('/getGuestApprove/:id', function(req, res, next){
   })
 })
 
-//host가 guest를 approve
+//host가 appve한 guest정보를 보여줌 
 router.get('/getHostApprove/:id', function(req, res, next){
-  notifyApproveHost.find({userName : req.params.id, state : "approve"}, function(err, getInfo){
+  notifyHost.find({userName : req.params.id, state : "approve"}, function(err, getInfo){
     if(err){
       return res.json(err);
     }
@@ -86,8 +86,5 @@ router.get('/getHostApprove/:id', function(req, res, next){
   })
 })
 
-
-
-      
    
 module.exports = router;

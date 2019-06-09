@@ -1,7 +1,7 @@
 <template>
   <v-dialog v-model="dialog" max-width="650px">
     <!-- <v-btn @click="viewClicked()" flat slot="activator" class="success">view</v-btn> -->
-    <v-btn flat slot="activator" class="success">view</v-btn>
+    <v-btn flat slot="activator" class="info">회원 정보 </v-btn>
       <v-card>
         <v-container>
           <v-layout row wrap class="cont">
@@ -33,33 +33,34 @@
                     <div class="grey--text font-weight-bold">나이</div>
                     <div class="grey--text font-weight-bold">전화번호</div>
                     <div class="grey--text font-weight-bold">이메일</div>
-                    <div v-if="role === '0'" class="grey--text font-weight-bold">위치</div>
-                    <div v-if="role === '1'" class="grey--text font-weight-bold">능력</div>
+                    <div v-if="role === 'host'" class="grey--text font-weight-bold">위치</div>
+                    <div v-if="role === 'host'" class="grey--text font-weight-bold">직업</div>
+                    <div v-if="role === 'guest'" class="grey--text font-weight-bold">능력</div>
                     </v-flex>
                     <v-flex sm3>
                     <div>{{candidateData.userName}}</div>
                     <div>{{candidateData.name}}</div>
                     <div>{{candidateData.gender}}</div>
                     <div>{{candidateData.age}}</div>
-                    <div>{{candidateData.phone}}</div>
+                    <div >{{candidateData.phone}}</div>
                     <div>{{candidateData.email}}</div>
-                    <div v-if="role === '0'">{{candidateData.location}}</div>
-                    <div v-if="role === '0'">{{candidateData.work}}</div>
-                    <div v-if="role === '1'">{{candidateData.ability}}</div>
+                    <div v-if="role === 'host'">{{candidateData.location}}</div>
+                    <div v-if="role === 'host'">{{candidateData.work}}</div>
+                    <div v-if="role === 'guest'">{{candidateData.ability}}</div>
                     <!-- <div>{{candidateData.reference}}</div> -->
                    </v-flex>
                  </v-layout>
                </v-flex>
                <v-flex sm3>
                 <v-card-actions>
-                <v-btn flat slot="activator" color="success" :disabled="nowApprove" @click="approveCandidate(candidateData.userName)">
+                <!-- <v-btn flat slot="activator" color="success" :disabled="nowApprove" @click="approveCandidate(candidateData.userName)">
                   <v-icon small left>favorite</v-icon>
                   <span>Approve</span>
                   </v-btn>
                 <v-btn flat slot="activator" color="success" :disabled="nowRefuse" @click="refuseCandidate(candidateData.userName)">
                   <v-icon small left>clear</v-icon>
                   <span>Refuse</span>
-                    </v-btn>
+                    </v-btn> -->
                   </v-card-actions>
                 </v-flex>
               </v-layout>
@@ -83,47 +84,26 @@ export default {
       nowRefuse : false,
     };
   },
-  props : ['candidateInfo', 'notificationId', 'state'],
+  props : ['userName', 'role'],
   created() {
     // console.log("view is created");
-    console.log("props로 받은 값 : " + this.candidateInfo);
-    console.log("board id : " + this.notificationId);
+    console.log("props로 받은 값 : " + this.userName);
+    console.log("props로 받은 값 : " + this.role);
     this.viewClicked();
-    console.log(this.state);
-    if(this.state === "approve"){
-      this.nowApprove = true;
-    }else if(this.state === "refuse"){
-      this.nowRefuse = true;
-    }else{
-      this.nowApprove = false;
-      this.nowRefuse = false;
-    }
-    console.log("거절 상태 : " +this.nowRefuse);
-    console.log("승인 상태 : " +this.nowApprove);
-    this.role=localStorage.role;
+    
   },
   mounted(){
     this.viewClicked();
-    console.log(this.state);
-    if(this.state === "approve"){
-      this.nowApprove = true;
-    }else if(this.state === "refuse"){
-      this.nowRefuse = true;
-    }else{
-      this.nowApprove = false;
-      this.nowRefuse = false;
-    }
-    this.role = localStorage.role;
+    
+
   },
 
   methods: {
     viewClicked(){
       console.log("view is clicked!");
-      // localStorage.role == 0 이면 guest && 1이면 host
-        let userId = this.candidateInfo;
-        // console.log("로컬 스토리지 역할 정보 : "+localStorage.role);
-        //내가 guest일 경우 host의 정보를 가져옴 
-        if(localStorage.role === '0'){
+        let userId = this.userName;
+        //내가 host일 경우 host의 정보를 가져옴 
+        if(this.role === 'host'){
         this.axios
           .get(`http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/user/getInfo/host/${userId}`)
           .then(response => {
@@ -143,7 +123,7 @@ export default {
             this.candidateData.phone = userData.phone;
             this.candidateData.email = userData.email;
             this.candidateData.reference = userData.reference;
-            this.candidateData.boardId = userData.boardId;
+
           });
       }else{
         //내가 host일 경우 guest정보를 가져옴 
@@ -161,7 +141,7 @@ export default {
             this.candidateData.phone = userData.phone;
             this.candidateData.email = userData.email;
             this.candidateData.reference = userData.reference;
-            this.candidateData.boardId = userData.boardId;
+
         });
       };
     },

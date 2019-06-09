@@ -13,6 +13,17 @@ router.get('/',function(req, res,next){
   return res.json({state : 0, msg : "board router test"});
   });     
 
+//guest boardId에 맞는 게시판 글 가져오기
+router.get('/getBoard/:id',function(req, res,next){
+guestBoard.find({boardId : req.params.id},function(err,guestBoardContent){
+    if(err) {
+        return res.json(err);
+    };
+    //json형식으로 응답
+    return res.json(guestBoardContent);
+    })
+});        
+
 //guest게시판 글 가져오기
 router.get('/getList',function(req, res,next){
     guestBoard.find({},function(err,guestBoardContent){

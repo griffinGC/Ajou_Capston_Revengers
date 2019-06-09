@@ -20,6 +20,17 @@ router.post('/', function(req, res, next){
     res.json({state : "testNormal"});
 });  
 
+//host boardId에 맞는 게시판 글 가져오기
+router.get('/getBoard/:id',function(req, res,next){
+    hostBoard.find({boardId : req.params.id},function(err,hostBoardContent){
+        if(err) {
+          return res.json(err);
+        };
+        //json형식으로 응답
+        return res.json(hostBoardContent);
+        })
+  });     
+
 
 //host게시판 글 가져오기
 router.get('/getList',function(req, res,next){

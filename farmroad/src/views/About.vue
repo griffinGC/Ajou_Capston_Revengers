@@ -26,6 +26,8 @@
         </v-item-group>
         {{ this.workLocation}}
         <v-btn flat class="success" @click="sortLocation(boards)">지역 검색</v-btn>
+        <v-btn flat class="success" @click="showNotification">Notification</v-btn>
+        <notifications group="foo" />
       </v-layout>
     </v-form>
     <v-form v-else>
@@ -118,7 +120,7 @@
                     </div>
                     <!-- <div class="text-xs">
                       <v-rating :value="board.difficulty" readonly></v-rating>
-                    </div> -->
+                    </div>-->
                   </v-card-text>
                   <v-card-actions>
                     <!--Notification button-->
@@ -279,38 +281,36 @@ export default {
     //   console.log(this.newBoards);
     // },
     sortBoard(boards) {
-       let tempBoards = new Array();
-       boards.forEach(index=>{
-         index.count = 0;
-         for(let i = 0; i<index.Info.ability.length; i++){
-           for(let j = 0; j<this.selected.length; j++){
-              if(index.Info.ability[i] === this.selected[j])
-              {
-                ++index.count;
-                // break;  
-              }
-           }
-         }
-         console.log("가지고 있는 개수! " + index.count);
-         if(index.count !== 0)
-         {
-           tempBoards.push(index);
-         }
-       })
+      let tempBoards = new Array();
+      boards.forEach(index => {
+        index.count = 0;
+        for (let i = 0; i < index.Info.ability.length; i++) {
+          for (let j = 0; j < this.selected.length; j++) {
+            if (index.Info.ability[i] === this.selected[j]) {
+              ++index.count;
+              // break;
+            }
+          }
+        }
+        console.log("가지고 있는 개수! " + index.count);
+        if (index.count !== 0) {
+          tempBoards.push(index);
+        }
+      });
       console.log(tempBoards);
       console.log("데이터 검색");
-         this.newBoards = tempBoards;    
-         if(this.selected.length === 0){
-           this.newBoards = boards;
-         }
-     },
+      this.newBoards = tempBoards;
+      if (this.selected.length === 0) {
+        this.newBoards = boards;
+      }
+    },
     sortLocation(boards) {
       let tempBoards = new Array();
       boards.forEach(index => {
         index.count = 0;
         for (let i = 0; i < this.workLocation.length; i++) {
           if (index.location === this.workLocation[i]) {
-            console.log("같은 곳의 위치 : " + this.workLocation[i])
+            console.log("같은 곳의 위치 : " + this.workLocation[i]);
             ++index.count;
           }
         }
@@ -319,16 +319,17 @@ export default {
         }
       });
       this.newBoards = tempBoards;
-      
-      console.log("새로운보드")
+
+      console.log("새로운보드");
       console.log(this.newBoards);
-      console.log("새로운보드")
+      console.log("새로운보드");
       if (this.workLocation.length === 0) {
         this.newBoards = boards;
       }
     },
     messager(info) {
       this.chatRoomId = localStorage.username + info.userName;
+
       if (localStorage.role == 0) {
         this.axios
           .post(
@@ -463,6 +464,13 @@ export default {
             }
           });
       }
+    },
+    showNotification() {
+      this.$notify({
+        group: "foo",
+        title: "Important message",
+        text: "Hello user! This is a notification!"
+      });
     }
   }
 };

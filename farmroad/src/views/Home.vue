@@ -56,7 +56,7 @@
                   </v-card-text>
                   <v-card-actions>
                    <!--Board View-->
-                   <HostBoardView v-bind:hostBoard="board"/>
+                   <!-- <HostBoardView v-bind:hostBoard="board"/> -->
                   </v-card-actions>
                 </v-card>
               </v-flex>

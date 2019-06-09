@@ -8,12 +8,14 @@ import axios from 'axios'
 import VueAxios from 'vue-axios'
 import VueLocalStorage from 'vue-localstorage'
 import VueChatScroll from 'vue-chat-scroll'
+import Notifications from 'vue-notification'
 
 
 Vue.use(VueChatScroll)
 Vue.use(VueAxios, axios)
 Vue.use(VueLocalStorage)
 Vue.config.productionTip = false
+Vue.use(Notifications)
 
 new Vue({
   router,

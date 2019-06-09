@@ -30,5 +30,5 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 
 ### deploy hosting
 ```
-http://farmroad.s3-website-us-east-1.amazonaws.com
+https://farmroad-admin.firebaseapp.com/
 ```

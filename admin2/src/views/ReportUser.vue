@@ -31,6 +31,7 @@
 
             <v-list-tile-content>
               <v-list-tile-title v-text="user.userName"></v-list-tile-title>
+              <v-list-tile-sub-title>{{ "현재 이 사용자는" + user.isReport.length + "번 신고당했습니다."}}</v-list-tile-sub-title> 
             </v-list-tile-content>
 
             <v-list-tile-content>
@@ -41,6 +42,14 @@
               <img  :src="user.profileImg">
             </v-list-tile-avatar>
             <v-icon v-else size="40px">person</v-icon>
+            <v-flex xs6 sm4 md2>
+              <div>
+                <UserInfo 
+                :userName="`${user.userName}`" 
+                :role="`${user.role}`"
+                />
+              </div>
+            </v-flex>
 
             <v-btn v-if="user.report === false" color="error" @click="updateToError(user)">계정 정지 </v-btn>
             <v-btn v-else color="success" @click="updateToAble(user)">계정 해제 </v-btn>
@@ -73,6 +82,7 @@
 
             <v-list-tile-content>
               <v-list-tile-title v-text="user.userName"></v-list-tile-title>
+              <v-list-tile-sub-title>{{ "현재 이 사용자는" + user.isReport.length + "번 신고당했습니다."}}</v-list-tile-sub-title> 
             </v-list-tile-content>
 
             <v-list-tile-content>
@@ -83,9 +93,16 @@
               <img  :src="user.profileImg">
             </v-list-tile-avatar>
             <v-icon v-else size="40px">person</v-icon>
-
-            <!-- <v-btn v-if="user.report === false" color="error" @click="updateToError(user)">계정 정지 </v-btn> -->
-            <v-btn color="success" @click="updateToAble(user)">계정 해제 </v-btn>
+            <v-flex xs6 sm4 md2>
+              <div>
+                <UserInfo 
+                :userName="`${user.userName}`" 
+                :role="`${user.role}`"
+                />
+              </div>
+            </v-flex>
+            <v-btn v-if="user.report === false" color="error" @click="updateToError(user)">계정 정지 </v-btn>
+            <v-btn v-else color="success" @click="updateToAble(user)">계정 해제 </v-btn>
           </v-list-tile>
         </v-list>
       </v-card>
@@ -96,11 +113,12 @@
 
 
 <script>
+import UserInfo from '../components/UserInfo'
 
 export default {
   name: "reportUser",
   components: {
-    // HomeBoardView
+    UserInfo
   },
   data () {
       return {

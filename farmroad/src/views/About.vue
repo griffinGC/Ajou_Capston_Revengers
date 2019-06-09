@@ -141,10 +141,14 @@
                       <v-icon small left>expand_more</v-icon>
                       <span>후기</span>
                     </v-btn>
-                    <v-btn to="/mymap" flat slot="activator" color="info">
+                    <v-btn @click="moveMyMap(board.boardId)" flat slot="activator" color="info">
                       <v-icon small left>expand_more</v-icon>
                       <span>상세보기</span>
                     </v-btn>
+                     <!-- <v-btn to="/mymap" flat slot="activator" color="info">
+                      <v-icon small left>expand_more</v-icon>
+                      <span>상세보기</span>
+                    </v-btn> -->
                     <v-btn flat slot="activator" color="error" @click="report(board)">
                       <v-icon small left>report</v-icon>
                       <span>신고하기</span>
@@ -361,6 +365,13 @@ export default {
           });
       }
     },
+    moveMyMap(id){
+      console.log(id);
+        this.$router.push({
+        name: "mymap",
+        params: { boardId: id }
+      });
+    },
     saveNotification(id) {
       console.log(id);
       if (localStorage.role == 0) {
@@ -416,6 +427,13 @@ export default {
     },
     report(board) {
       console.log(board.boardId);
+      let checkPerson = 0;
+      for(let i = 0; i<board.isReport.length; i++){
+        if(localStorage.username === board.isReport[i]){
+            alert("이미 신고했습니다!");
+            return;
+        }
+      }
       if (localStorage.role == 0) {
         this.axios
           .post(

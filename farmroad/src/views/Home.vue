@@ -57,7 +57,8 @@
                   </v-card-text>
                   <v-card-actions>
                     <!--Board View-->
-                    <HostBoardView v-bind:hostBoard="board"/>
+                    <GuestBoardView v-if="role===false" v-bind:guestBoad="board"/>
+                    <HostBoardView v-if="role===true" v-bind:hostBoard="board"/>
                   </v-card-actions>
                 </v-card>
               </v-flex>
@@ -86,12 +87,14 @@ import HomeBoardView from "../components/HomeBoardView";
 import firebase from "firebase";
 import ChatRoomList from "../components/ChatRoomList";
 import HostBoardView from "../components/HostBoardView";
+import GuestBoardView from "../components/GuestBoardView";
 export default {
   name: "home",
   components: {
     HomeBoardView,
     ChatRoomList,
-    HostBoardView
+    HostBoardView,
+    GuestBoardView,
   },
   data() {
     return {

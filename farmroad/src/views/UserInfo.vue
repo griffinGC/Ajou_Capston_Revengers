@@ -66,10 +66,6 @@
             </v-list-tile-content>
             
 
-
-            <!-- <v-btn v-if="board.report === false" color="error" @click="updateToError(board)">게시글 금지 </v-btn>
-            <v-btn v-else color="success" @click="updateToAble(board)">게시글 해제 </v-btn> -->
-
           </v-list-tile>
         </v-list>          
       </v-card>
@@ -78,23 +74,19 @@
       <v-card>
         
           <v-card class="pa-1" v-for="reference in referenceList" :key="reference.id">
-          <v-layout row wrap :class="`pa-1 project.${reference.title}`">
+          <v-layout row wrap :class="`pa-1 project.${reference._id}`">
 
-            <v-flex xs5 md2>
+            <v-flex xs5 md3>
               <div class="caption grey--text">글 제목</div>
               
-              <div>{{reference.boardInfo.title}}</div>
+              <div>{{reference.boardTitle}}</div>
             </v-flex>
 
-            <v-flex xs6 sm4 md2>
+            <v-flex xs6 sm4 md5>
               <div class="caption grey--text">글 작성자</div>
               <div>{{reference.writer}}</div>
             </v-flex>
 
-            <!-- <v-flex xs4 sm4 md4>
-              <div class="caption grey--text">방문날짜</div>
-              <div>{{reference.boardInfo.startDate}}</div>
-            </v-flex> -->
 
             <v-flex xs6 sm4 md2>
               <div>
@@ -247,6 +239,15 @@ export default {
           console.log(response.data);
           console.log("나한테 작성된 reference 정보 값1")
           this.getMyReferenceList = response.data;
+          let result = response.data;
+          for(let i = 0; i<result.length; i++){
+            if(result[i].title === undefined)
+            {
+              result.splice(i, 1);
+            }
+          }
+          this.getMyReferenceList = result;
+          
         });
       } else if (localStorage.role == 1) {
       this.axios
@@ -258,6 +259,14 @@ export default {
           console.log(response.data);
           console.log("나한테 작성된 reference 정보 값1")
           this.getMyReferenceList = response.data;
+          let result = response.data;
+          for(let i = 0; i<result.length; i++){
+            if(result[i].title === undefined)
+            {
+              result.splice(i, 1);
+            }
+          }
+          this.getMyReferenceList = result;
         });
       }
     },

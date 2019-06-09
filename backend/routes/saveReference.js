@@ -14,26 +14,37 @@ router.post('/createHostReference',function(req, res, next){
         return res.json({state : -1, msg : "reference Content is empty!"});
     }
 
-    let writeReference = new referenceModel();
+    // let writeReference = new referenceModel();
 
-    writeReference.boardId = req.body.boardId;
+    // writeReference.boardId = req.body.boardId;
     //작성되는곳 host profile
-    writeReference.boardType = "host";
+    // writeReference.boardType = "host";
     //새로 작성될 title
-    writeReference.title = req.body.title;
-    writeReference.writer = req.body.writer;
-    writeReference.writerImg = req.body.writerImg;
+    // writeReference.title = req.body.title;
+    // writeReference.writer = req.body.writer;
+    // writeReference.writerImg = req.body.writerImg;
     //작성될 host profile
-    writeReference.userName = req.body.userName;
+    // writeReference.userName = req.body.userName;
     let day = new Date();
     let yy = day.getFullYear();
     let mm = day.getMonth()
     let dd = day.getDate();
-    writeReference.writeDay = yy + '-' + mm + '-'+ dd;
-    writeReference.content = req.body.content;
-    writeReference.star = req.body.star;
+    let resultDay = yy  + '-' + mm+"-"+dd;
+    // writeReference.writeDay = yy + '-' + mm + '-'+ dd;
+    // writeReference.content = req.body.content;
+    // writeReference.star = req.body.star;
 
-    writeReference.save(function(err){
+    // writeReference.save(function(err){
+    //     if(err){
+    //         console.log(err);
+    //         return res.json({state : -1, msg : "write reference for host is failed"});
+    //     }
+    //     res.json({state : 0, msg : "write reference for host is success"});
+    // })
+    referenceModel.update({userName : req.body.userName, boardType : "host", boardId : req.body.boardId},
+    {
+     $set : {title : req.body.title, writerImg : req.body.writerImg, writeDay : resultDay, content : req.body.content, star: req.body.star} 
+    }, function(err){
         if(err){
             console.log(err);
             return res.json({state : -1, msg : "write reference for host is failed"});
@@ -51,29 +62,41 @@ router.post('/createGuestReference',function(req, res, next){
         return res.json({state : -1, msg : "reference Content is empty!"});
     }
 
-    let writeReference = new referenceModel();
+    // let writeReference = new referenceModel();
 
-    writeReference.boardId = req.body.boardId;
+    // writeReference.boardId = req.body.boardId;
+    
     //작성되는곳 host profile
-    writeReference.boardType = "guest";
+    // writeReference.boardType = "guest";
     //새로 작성될 title
-    writeReference.title = req.body.title;
-    writeReference.writer = req.body.writer;
-    writeReference.writerImg = req.body.writerImg;
+    // writeReference.title = req.body.title;
+    // writeReference.writer = req.body.writer;
+    // writeReference.writerImg = req.body.writerImg;
     //작성될 guest profile
     
-    writeReference.userName = req.body.userName;
+    // writeReference.userName = req.body.userName;
 
 
     let day = new Date();
     let yy = day.getFullYear();
     let mm = day.getMonth()
     let dd = day.getDate();
-    writeReference.writeDay = yy + '-' + mm + '-'+ dd;
-    writeReference.content = req.body.content;
-    writeReference.star = req.body.star;
+    let resultDay = yy  + '-' + mm+"-"+dd;
+    // writeReference.writeDay = yy + '-' + mm + '-'+ dd;
+    // writeReference.content = req.body.content;
+    // writeReference.star = req.body.star;
 
-    writeReference.save(function(err){
+    // writeReference.save(function(err){
+    //     if(err){
+    //         console.log(err);
+    //         return res.json({state : -1, msg : "write reference for host is failed"});
+    //     }
+    //     res.json({state : 0, msg : "write reference for host is success"});
+    // })
+    referenceModel.update({userName : req.body.userName, boardType : "guest", boardId : req.body.boardId},
+    {
+     $set : {title : req.body.title, writerImg : req.body.writerImg, writeDay : resultDay, content : req.body.content, star: req.body.star} 
+    }, function(err){
         if(err){
             console.log(err);
             return res.json({state : -1, msg : "write reference for host is failed"});

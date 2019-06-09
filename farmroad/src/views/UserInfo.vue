@@ -90,7 +90,10 @@
 
             <v-flex xs6 sm4 md2>
               <div>
-                <WriteReference :notificationInfo="`${reference.boardInfo}`"/>
+                <WriteReference
+                :boardId="`${reference.boardId}`" 
+                :boardWriter="`${reference.writer}`"
+                />
               </div>
             </v-flex>
           </v-layout>

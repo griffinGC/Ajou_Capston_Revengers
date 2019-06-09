@@ -11,11 +11,12 @@ const referenceShema =require('../schemas/reference');
 // userName은 신청한 사람, writer은 글을 기존에 작성했던 사람
 // boardId는 writer가 썼던 글의 번호 
 router.post('/guestApprove',function(req, res,next){
-  referenceShema.saveWithNotificaion(req.body.writerName, req.body.boardId, req.body.userName, function(err){
+  referenceShema.saveWithNotification(req.body.writerName, req.body.boardId, req.body.userName, function(err){
     notifyGuest.update({userName : req.body.userName, notificationId : req.body.notificationId},{$set : {state : "approve"}},function(err){
       if(err) {
         return res.json(err);
       };
+      console.log("approve 완료")
       //json형식으로 응답
       return res.json({state : 0, msg : "Registeration approve"});
       })
@@ -26,13 +27,13 @@ router.post('/guestApprove',function(req, res,next){
 
 //host가 승인      
 router.post('/hostApprove',function(req, res,next){
-  referenceShema.saveWithNotificaion(req.body.writerName, req.body.boardId, req.body.userName, function(err){
+  referenceShema.saveWithNotification(req.body.writerName, req.body.boardId, req.body.userName, function(err){
     notifyHost.update({userName : req.body.userName, notificationId : req.body.notificationId},{$set : {state : "approve"}},function(err){
       if(err) {
         return res.json(err);
       };
       //json형식으로 응답
-   
+      console.log("approve 완료")
       return res.json({state : 0, msg : "Registeration approve"});
     })
   })
@@ -46,7 +47,7 @@ router.post('/guestRefuse',function(req, res,next){
         return res.json(err);
       };
       //json형식으로 응답
-     
+     console.log("refuse 완료");
       return res.json({state : 0, msg : "Registeration refuse"});
        
         })
@@ -63,7 +64,7 @@ router.post('/hostRefuse',function(req, res,next){
       return res.json(err);
     };
     //json형식으로 응답
-   
+    console.log("refuse 완료");
     return res.json({state : 0, msg : "Registeration refuse"});
          
      

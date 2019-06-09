@@ -167,7 +167,9 @@ export default {
     },
     approveCandidate(name){
       console.log("notify state ");
-        console.log(name);
+      console.log("보낼 보드 id : " + this.boardId);
+      console.log("보낼 writer id : " + this.writerId);
+        // console.log(name);
         //guest일때 host 승인
          if(localStorage.role === '0'){
         this.axios
@@ -213,7 +215,9 @@ export default {
     },
     refuseCandidate(name){
         console.log("notify state ");
-        console.log(name);
+        // console.log(name);
+        console.log("보낼 보드 id : " + this.boardId);
+      console.log("보낼 writer id : " + this.writerId);
         // console.log(boardId);
         if(localStorage.role === '0'){
         this.axios

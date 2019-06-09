@@ -84,7 +84,7 @@
 
             <v-flex xs6 sm4 md5>
               <div class="caption grey--text">글 작성자</div>
-              <div>{{reference.writer}}</div>
+              <div>{{reference.userName}}</div>
             </v-flex>
 
 
@@ -92,7 +92,7 @@
               <div>
                 <WriteReference
                 :boardId="`${reference.boardId}`" 
-                :boardWriter="`${reference.writer}`"
+                :boardWriter="`${reference.userName}`"
                 />
               </div>
             </v-flex>

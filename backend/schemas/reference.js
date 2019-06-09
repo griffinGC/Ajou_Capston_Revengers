@@ -52,6 +52,7 @@ referenceSchema.statics.saveWithNotification =function(receiveName, receiveBoard
             return res.json(err);
         }else{
             console.log("approve 했을때 무사히 저장")
+            callback;
         }
     })
 };   
@@ -63,6 +64,7 @@ referenceSchema.statics.deleteWithNotification = function(receiveName, receiveBo
             return res.json(err);
         }else{
             console.log("cancel 했을때 무사히 삭제!")
+            callback;
         }
     })
 }

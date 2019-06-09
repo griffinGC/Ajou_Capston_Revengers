@@ -43,13 +43,14 @@ const referenceSchema = new mongoose.Schema({
 //receiveName은 후기가 달릴 사람의 id
 // receiveBoard는 후기가 달릴 boardId
 // writeName은 후기를 남긴 사람
-referenceSchema.statics.saveWithNotification =function(receiveName, receiveBoardId, writeName, type, callback){
+referenceSchema.statics.saveWithNotification =function(receiveName, receiveBoardId, writeName, boardTitle, type, callback){
     // let newReference = new referenceSchema();
     let newReference = new this();
     newReference.userName = receiveName;
     newReference.boardId = receiveBoardId;
     newReference.writer = writeName;
     newReference.boardType = type;
+    newReference.boardTitle = boardTitle;
     newReference.save(callback);
 };   
 

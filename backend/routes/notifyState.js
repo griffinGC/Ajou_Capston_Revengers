@@ -13,7 +13,7 @@ const referenceShema =require('../schemas/reference');
 // guest가 approve 하면 host가 글을 쓸 수 있음 즉, 원래 글은 guest가 쓴 글 
 router.post('/guestApprove',function(req, res,next){
   let type = "guest";
-  referenceShema.saveWithNotification(req.body.writerName, req.body.boardId, req.body.userName, type,function(err){
+  referenceShema.saveWithNotification(req.body.writerName, req.body.boardId, req.body.userName, req.body.boardTitle,type,function(err){
     if(err){
       console.log(err);
       return res.json({state : -1, msg : err});
@@ -34,7 +34,7 @@ router.post('/guestApprove',function(req, res,next){
 //host가 승인      
 router.post('/hostApprove',function(req, res,next){
   let type = "host";
-  referenceShema.saveWithNotification(req.body.writerName, req.body.boardId, req.body.userName, type, function(err){
+  referenceShema.saveWithNotification(req.body.writerName, req.body.boardId, req.body.userName, req.body.boardTitle,type, function(err){
     if(err){
       console.log(err);
       return res.json({state : -1, msg : err});

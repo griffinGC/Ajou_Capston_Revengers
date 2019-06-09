@@ -48,6 +48,7 @@ referenceSchema.statics.saveWithNotification =function(receiveName, receiveBoard
     newReference.writer = writeName;
     newReference.save(function(err){
         if(err){
+            console.log(err);
             return res.json(err);
         }else{
             console.log("approve 했을때 무사히 저장")

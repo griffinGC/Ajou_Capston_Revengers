@@ -13,35 +13,15 @@ router.post('/createHostReference',function(req, res, next){
     if(!req.body.content){
         return res.json({state : -1, msg : "reference Content is empty!"});
     }
-
-    // let writeReference = new referenceModel();
-
-    // writeReference.boardId = req.body.boardId;
-    //작성되는곳 host profile
-    // writeReference.boardType = "host";
-    //새로 작성될 title
-    // writeReference.title = req.body.title;
-    // writeReference.writer = req.body.writer;
-    // writeReference.writerImg = req.body.writerImg;
-    //작성될 host profile
-    // writeReference.userName = req.body.userName;
+    // userName은 작성될 곳의 이름
+    // writer는 작성하는 사람의 이름 
     let day = new Date();
     let yy = day.getFullYear();
     let mm = day.getMonth()
     let dd = day.getDate();
     let resultDay = yy  + '-' + mm+"-"+dd;
-    // writeReference.writeDay = yy + '-' + mm + '-'+ dd;
-    // writeReference.content = req.body.content;
-    // writeReference.star = req.body.star;
-
-    // writeReference.save(function(err){
-    //     if(err){
-    //         console.log(err);
-    //         return res.json({state : -1, msg : "write reference for host is failed"});
-    //     }
-    //     res.json({state : 0, msg : "write reference for host is success"});
-    // })
-    referenceModel.update({userName : req.body.userName, boardType : "host", boardId : req.body.boardId},
+    let type = "host"
+    referenceModel.update({userName : req.body.userName, boardType : type, boardId : req.body.boardId, writer : req.body.writer},
     {
      $set : {title : req.body.title, writerImg : req.body.writerImg, writeDay : resultDay, content : req.body.content, star: req.body.star} 
     }, function(err){
@@ -62,38 +42,14 @@ router.post('/createGuestReference',function(req, res, next){
         return res.json({state : -1, msg : "reference Content is empty!"});
     }
 
-    // let writeReference = new referenceModel();
-
-    // writeReference.boardId = req.body.boardId;
-    
-    //작성되는곳 host profile
-    // writeReference.boardType = "guest";
-    //새로 작성될 title
-    // writeReference.title = req.body.title;
-    // writeReference.writer = req.body.writer;
-    // writeReference.writerImg = req.body.writerImg;
-    //작성될 guest profile
-    
-    // writeReference.userName = req.body.userName;
-
 
     let day = new Date();
     let yy = day.getFullYear();
     let mm = day.getMonth()
     let dd = day.getDate();
     let resultDay = yy  + '-' + mm+"-"+dd;
-    // writeReference.writeDay = yy + '-' + mm + '-'+ dd;
-    // writeReference.content = req.body.content;
-    // writeReference.star = req.body.star;
-
-    // writeReference.save(function(err){
-    //     if(err){
-    //         console.log(err);
-    //         return res.json({state : -1, msg : "write reference for host is failed"});
-    //     }
-    //     res.json({state : 0, msg : "write reference for host is success"});
-    // })
-    referenceModel.update({userName : req.body.userName, boardType : "guest", boardId : req.body.boardId},
+    let type = "guest";
+    referenceModel.update({userName : req.body.userName, boardType : type, boardId : req.body.boardId, writer : req.body.writer},
     {
      $set : {title : req.body.title, writerImg : req.body.writerImg, writeDay : resultDay, content : req.body.content, star: req.body.star} 
     }, function(err){

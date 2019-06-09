@@ -3,7 +3,7 @@
     <v-layout row wrap>
       <v-flex xs6 sm7 md4>
       <v-card >
-        <v-title>개인정보 </v-title>
+        
          <v-img v-if="profileImg" :src="profileImg" alt="Avatar">
          </v-img>
          <v-icon v-else>person</v-icon>
@@ -76,7 +76,7 @@
       </v-flex>
       <v-flex md5>
       <v-card>
-        <v-title>방문한 목록 </v-title>
+        
           <v-card class="pa-1" v-for="reference in referenceList" :key="reference.id">
           <v-layout row wrap :class="`pa-1 project.${reference.title}`">
 
@@ -222,7 +222,7 @@ export default {
       } else if (localStorage.role == 1) {
       this.axios
         .get(
-          `http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/notifyState/getHostMyApprove/${userId}`
+          `http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/reference/getHostMyApprove/${userId}`
         )
         .then(response => {
           console.log("notification 정보 값2")

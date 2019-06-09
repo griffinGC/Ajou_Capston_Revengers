@@ -62,7 +62,7 @@ router.post('/hostRefuse',function(req, res,next){
       })
 });  
 
-
+//guest가 approve한 host정보 보여줌 
 router.get('/getGuestApprove/:id', function(req, res, next){
   notifyGuest.find({userName : req.params.id, state : "approve"}, function(err, getInfo){
     if(err){

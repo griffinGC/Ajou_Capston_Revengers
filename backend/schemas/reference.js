@@ -46,16 +46,7 @@ referenceSchema.statics.saveWithNotification =function(receiveName, receiveBoard
     newReference.userName = receiveName;
     newReference.boardId = receiveBoardId;
     newReference.writer = writeName;
-    // newReference.save(function(err){
     newReference.save(callback);
-    //     if(err){
-    //         console.log(err);
-    //         return res.json(err);
-    //     }else{
-    //         console.log("approve 했을때 무사히 저장")
-    //         // callback;
-    //     }
-    // })
 };   
 
 //candidate 삭제 

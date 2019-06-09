@@ -179,7 +179,7 @@ export default {
             userName : name,
             notificationId : this.notificationId,
             boardId : this.boardId,
-            wrtierName : this.writerId
+            writerName : this.writerId
             }
           )
           .then(response => {
@@ -199,7 +199,7 @@ export default {
             userName : name,
             notificationId : this.notificationId,
             boardId : this.boardId,
-            wrtierName : this.writerId
+            writerName : this.writerId
             }
           )
           .then(response => {
@@ -227,7 +227,7 @@ export default {
             userName : name,
             notificationId : this.notificationId,
             boardId : this.boardId,
-            wrtierName : this.writerId
+            writerName : this.writerId
           }
           )
           .then(response => {
@@ -247,7 +247,7 @@ export default {
             userName : name,
             notificationId : this.notificationId,
             boardId : this.boardId,
-            wrtierName : this.writerId
+            writerName : this.writerId
             }
           )
           .then(response => {

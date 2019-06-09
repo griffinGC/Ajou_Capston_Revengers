@@ -12,6 +12,10 @@ const referenceShema =require('../schemas/reference');
 // boardId는 writer가 썼던 글의 번호 
 router.post('/guestApprove',function(req, res,next){
   referenceShema.saveWithNotification(req.body.writerName, req.body.boardId, req.body.userName, function(err){
+    if(err){
+      console.log(err);
+      return res.json({state : -1, msg : err});
+    }
     notifyGuest.update({userName : req.body.userName, notificationId : req.body.notificationId},{$set : {state : "approve"}},function(err){
       if(err) {
         return res.json(err);
@@ -28,6 +32,10 @@ router.post('/guestApprove',function(req, res,next){
 //host가 승인      
 router.post('/hostApprove',function(req, res,next){
   referenceShema.saveWithNotification(req.body.writerName, req.body.boardId, req.body.userName, function(err){
+    if(err){
+      console.log(err);
+      return res.json({state : -1, msg : err});
+    }
     notifyHost.update({userName : req.body.userName, notificationId : req.body.notificationId},{$set : {state : "approve"}},function(err){
       if(err) {
         return res.json(err);
@@ -42,6 +50,10 @@ router.post('/hostApprove',function(req, res,next){
 //guest가 거절 
 router.post('/guestRefuse',function(req, res,next){
   referenceShema.deleteWithNotification(req.body.writerName, req.body.boardId, req.body.userName, function(err){
+    if(err){
+      console.log(err);
+      return res.json({state : -1, msg : err});
+    }
     notifyGuest.update({userName : req.body.userName, notificationId : req.body.notificationId},{$set : {state : "refuse"}},function(err){
       if(err) {
         return res.json(err);
@@ -59,6 +71,10 @@ router.post('/guestRefuse',function(req, res,next){
 //host가 거절      
 router.post('/hostRefuse',function(req, res,next){
   referenceShema.deleteWithNotification(req.body.writerName, req.body.boardId, req.body.userName, function(err){
+    if(err){
+      console.log(err);
+      return res.json({state : -1, msg : err});
+    }
     notifyHost.update({userName : req.body.userName, notificationId : req.body.notificationId},{$set : {state : "refuse"}},function(err){
     if(err) {
       return res.json(err);

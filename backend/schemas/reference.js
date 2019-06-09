@@ -46,27 +46,21 @@ referenceSchema.statics.saveWithNotification =function(receiveName, receiveBoard
     newReference.userName = receiveName;
     newReference.boardId = receiveBoardId;
     newReference.writer = writeName;
-    newReference.save(function(err){
-        if(err){
-            console.log(err);
-            return res.json(err);
-        }else{
-            console.log("approve 했을때 무사히 저장")
-            callback;
-        }
-    })
+    // newReference.save(function(err){
+    newReference.save(callback);
+    //     if(err){
+    //         console.log(err);
+    //         return res.json(err);
+    //     }else{
+    //         console.log("approve 했을때 무사히 저장")
+    //         // callback;
+    //     }
+    // })
 };   
 
 //candidate 삭제 
 referenceSchema.statics.deleteWithNotification = function(receiveName, receiveBoardId, writeName, callback){
-    this.deleteOne({userName : receiveName, boardId : receiveBoardId, writer : writeName}, function(err){
-        if(err){
-            return res.json(err);
-        }else{
-            console.log("cancel 했을때 무사히 삭제!")
-            callback;
-        }
-    })
+    this.deleteOne({userName : receiveName, boardId : receiveBoardId, writer : writeName}, callback);
 }
 
 

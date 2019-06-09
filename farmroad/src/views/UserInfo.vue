@@ -1,7 +1,7 @@
 <template>
 <v-container grid-list-md>
-    <v-layout column wrap>
-      <v-flex xs12 sm12 md4>
+    <v-layout row wrap>
+      <v-flex xs6 sm7 md4>
       <v-card >
         <v-title>개인정보 </v-title>
          <v-img v-if="profileImg" :src="profileImg" alt="Avatar">
@@ -32,7 +32,7 @@
         <v-flex xs6>{{address}}</v-flex>
         <v-flex xs5 offset-xs1 class="grey--text font-weight-bold">평점</v-flex>
         <v-flex xs6></v-flex>
-        <v-flex xs12 sm8 md8 text-md-right offset-xs3 offset-md7 mb-3>
+        <v-flex xs8 sm8 md8 text-md-right offset-xs4 offset-md3 mb-3>
           <v-btn class="light-blue lighten-2 white--text" v-on:click.native="editInfo">수정하기</v-btn>
           <v-btn class="light-blue lighten-2 white--text" v-on:click.native="saveCancel">취소 </v-btn>
         </v-flex>

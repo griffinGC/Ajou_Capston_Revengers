@@ -1,6 +1,6 @@
 <template>
 <v-container grid-list-md>
-  <v-layout row wrap>
+  <v-layout column wrap>
     <v-card width="350">
       <v-img v-if="profileImg" :src="profileImg" alt="Avatar"></v-img>
         <v-icon v-else>person</v-icon>
@@ -30,9 +30,12 @@
         <v-flex xs5 offset-xs1 class="grey--text font-weight-bold">평점</v-flex>
         <v-flex xs6></v-flex>
         <v-divider></v-divider>
-        <v-flex xs5 offset-xs1 class="text-xs-center">asdf</v-flex>
         </v-layout>
       </v-card>
+      <v-card width="350">
+        후기<br><br>
+        여기 뭐가 들어가야했더라..?
+      </v-card> 
     </v-layout>
   </v-container>
 </template>

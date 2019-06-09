@@ -46,32 +46,60 @@
         </v-layout>
         <v-flex><div>원하는 능력</div>
         <v-layout row wrap>
-          <v-item-group><span>
-            <v-checkbox v-model="selected" label="요리를 잘해요" value="요리를 잘해요"></v-checkbox>
-            <v-checkbox v-model="selected" label="미용을 잘해요" value="미용을 잘해요"></v-checkbox></span>
-          </v-item-group>
-           <v-item-group>
-            <v-checkbox v-model="selected" label="애를 잘돌봐요" value="애를 잘돌봐요"></v-checkbox>
-            <v-checkbox v-model="selected" label="청소를 잘해요" value="청소를 잘해요"></v-checkbox>
-          </v-item-group>
-            <v-item-group>
-            <v-checkbox v-model="selected" label="운전을 잘해요" value="운전을 잘해요"></v-checkbox>
-            <v-checkbox v-model="selected" label="도배를 잘해요" value="도배를 잘해요"></v-checkbox>
-          </v-item-group>
-            <v-item-group>
-            <v-checkbox v-model="selected" label="짐나르는거 잘해요" value="짐나르는거 잘해요"></v-checkbox>
-            <v-checkbox v-model="selected" label="노래를 잘해요" value="노래를 잘해요"></v-checkbox>
-          </v-item-group>
-          <v-item-group>
-            <v-checkbox v-model="selected" label="말동부를 잘해요" value="말동부를 잘해요"></v-checkbox>
-            <v-checkbox v-model="selected" label="컴퓨터를 잘다뤄요" value="컴퓨터를 잘다뤄요"></v-checkbox>
-          </v-item-group>
-          <v-item-group>
-            <v-checkbox v-model="selected" label="농기계를 잘다뤄요" value="농기계를 잘다뤄요"></v-checkbox>
-            <v-checkbox v-model="selected" label="농사경험이 있어요" value="농사경험이 있어요"></v-checkbox>
-          </v-item-group>
+          <!-- <v-flex v-for="n in 12" :key="n" xs6 sm3 md2>
+            <v-flex v-if="preferAbilities===">
+              <v-checkbox input-value="true" value disabled hide-details label="요리를 잘해요"></v-checkbox>
+            </v-flex><v-flex><v-checkbox value disabled hide-details label="요리를 잘해요"></v-checkbox></v-flex>
+          </v-flex> -->
+            <v-flex v-if="preferAbilities.includes('요리를 잘해요')" xs6 sm3 md2>
+              <v-checkbox input-value="true" value disabled hide-details label="요리를 잘해요"></v-checkbox>
+            </v-flex>
+            <v-flex v-else xs6 sm3 md2><v-checkbox value disabled hide-details label="요리를 잘해요" xs6 sm3 md2></v-checkbox></v-flex>
+            <v-flex v-if="preferAbilities.includes('미용을 잘해요')" xs6 sm3 md2>
+              <v-checkbox input-value="true" value disabled hide-details label="미용을 잘해요"></v-checkbox>
+            </v-flex>
+            <v-flex v-else xs6 sm3 md2><v-checkbox value disabled hide-details label="미용을 잘해요" xs6 sm3 md2></v-checkbox></v-flex>
+            <v-flex v-if="preferAbilities.includes('애를 잘돌봐요')" xs6 sm3 md2>
+              <v-checkbox input-value="true" value disabled hide-details label="애를 잘돌봐요"></v-checkbox>
+            </v-flex>
+            <v-flex v-else xs6 sm3 md2><v-checkbox value disabled hide-details label="애를 잘돌봐요" xs6 sm3 md2></v-checkbox></v-flex>
+            <v-flex v-if="preferAbilities.includes('청소를 잘해요')" xs6 sm3 md2>
+              <v-checkbox input-value="true" value disabled hide-details label="청소를 잘해요"></v-checkbox>
+            </v-flex>
+            <v-flex v-else xs6 sm3 md2><v-checkbox value disabled hide-details label="청소를 잘해요" xs6 sm3 md2></v-checkbox></v-flex>
+            <v-flex v-if="preferAbilities.includes('운전을 잘해요')" xs6 sm3 md2>
+              <v-checkbox input-value="true" value disabled hide-details label="운전을 잘해요"></v-checkbox>
+            </v-flex>
+            <v-flex v-else xs6 sm3 md2><v-checkbox value disabled hide-details label="운전을 잘해요" xs6 sm3 md2></v-checkbox></v-flex>
+            <v-flex v-if="preferAbilities.includes('도배를 잘해요')" xs6 sm3 md2>
+              <v-checkbox input-value="true" value disabled hide-details label="도배를 잘해요"></v-checkbox>
+            </v-flex>
+            <v-flex v-else xs6 sm3 md2><v-checkbox value disabled hide-details label="도배를 잘해요" xs6 sm3 md2></v-checkbox></v-flex>
+            <v-flex v-if="preferAbilities.includes('짐나르는거 잘해요')" xs6 sm3 md2>
+              <v-checkbox input-value="true" value disabled hide-details label="짐나르는거 잘해요"></v-checkbox>
+            </v-flex>
+            <v-flex v-else xs6 sm3 md2><v-checkbox value disabled hide-details label="짐나르는거 잘해요" xs6 sm3 md2></v-checkbox></v-flex>
+            <v-flex v-if="preferAbilities.includes('노래를 잘해요')" xs6 sm3 md2>
+              <v-checkbox input-value="true" value disabled hide-details label="노래를 잘해요"></v-checkbox>
+            </v-flex>
+            <v-flex v-else xs6 sm3 md2><v-checkbox value disabled hide-details label="노래를 잘해요" xs6 sm3 md2></v-checkbox></v-flex>
+            <v-flex v-if="preferAbilities.includes('말동무를 잘해요')" xs6 sm3 md2>
+              <v-checkbox input-value="true" value disabled hide-details label="말동무를 잘해요"></v-checkbox>
+            </v-flex>
+            <v-flex v-else xs6 sm3 md2><v-checkbox value disabled hide-details label="말동무를 잘해요" xs6 sm3 md2></v-checkbox></v-flex>
+            <v-flex v-if="preferAbilities.includes('컴퓨터를 잘다뤄요')" xs6 sm3 md2>
+              <v-checkbox input-value="true" value disabled hide-details label="컴퓨터를 잘다뤄요"></v-checkbox>
+            </v-flex>
+            <v-flex v-else xs6 sm3 md2><v-checkbox value disabled hide-details label="컴퓨터를 잘다뤄요" xs6 sm3 md2></v-checkbox></v-flex>
+            <v-flex v-if="preferAbilities.includes('농기계를 잘다뤄요')" xs6 sm3 md2>
+              <v-checkbox input-value="true" value disabled hide-details label="농기계를 잘다뤄요"></v-checkbox>
+            </v-flex>
+            <v-flex v-else xs6 sm3 md2><v-checkbox value disabled hide-details label="농기계를 잘다뤄요" xs6 sm3 md2></v-checkbox></v-flex>
+            <v-flex v-if="preferAbilities.includes('농사경험이 있어요')" xs6 sm3 md2>
+              <v-checkbox input-value="true" value disabled hide-details label="농사경험이 있어요"></v-checkbox>
+            </v-flex>
+            <v-flex v-else xs6 sm3 md2><v-checkbox value disabled hide-details label="농사경험이 있어요" xs6 sm3 md2></v-checkbox></v-flex>
         </v-layout>
-
         </v-flex>
 
       </v-card>
@@ -109,11 +137,18 @@ export default {
       address : "dfdf",
       location : "zzzz",
       role :"",
+      abilities:["요리를 잘해요","미용을 잘해요","애를 잘돌봐요","청소를 잘해요","운전을 잘해요","도배를 잘해요","짐나르는거 잘해요",
+      "노래를 잘해요","말동무를 잘해요","컴퓨터를 잘다뤄요","농기계를 잘다뤄요","농사경험이 있어요"],
+      preferAbilities:["요리를 잘해요","운전을 잘해요","컴퓨터를 잘다뤄요","농사경험이 있어요"],
       star:3,
     };
   },
+  props: {
+    boardId: String
+  },
   created(){
     console.log("userInfo is created");
+    console.log("boardid : " + this.boardId);
     // console.log("로컬 스토리지! : "+localStorage.role);
     this.role = localStorage.role
     this.getInfo();
@@ -131,35 +166,19 @@ export default {
         minZoom: 3,
         streetViewControl: false
       });
-    }
-  },
-  mounted() {
-    this.renderMap();
-  },
-  getInfo() {
+    },
+    getInfo() {
       // localStorage.role == 0 이면 guest && 1이면 host
         let userId = localStorage.username;
+        let getBoardId = this.boardId
         // console.log("로컬 스토리지 역할 정보 : "+localStorage.role);
-        if(localStorage.role === '1'){
+        // HostBoard를 가져올 예정
+        if(localStorage.role === '0')
+        {
         this.axios
-          .get(`http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/user/getInfo/guest/${userId}`)
+          .get(`http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/hostBoard/getBoard/${getBoardId}`)
           .then(response => {
             console.log(response.data[0]);
-            let userData = response.data[0];
-            this.userName = userData.userName;
-            this.name = userData.name;
-            this.profileImg = userData.profileImg;
-            this.age = userData.age;
-            this.ability = userData.ability;
-            this.phone = userData.phone;
-            this.email = userData.email;
-            this.reference = userData.reference;
-          });
-      }else{
-        this.axios
-        .get(`http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/user/getInfo/host/${userId}`)
-        .then(response =>{
-          console.log(response.data[0]);
             let userData = response.data[0];
             this.userName = userData.userName;
             this.name = userData.name;
@@ -171,10 +190,17 @@ export default {
             this.phone = userData.phone;
             this.email = userData.email;
             this.reference = userData.reference;
-        
-      });
-    }
+          });
+      }
   }
+      
+  },
+  mounted() {
+    this.renderMap();
+    this.role = localStorage.role;
+    this.getInfo();
+  },
+  
 };
 </script>
 

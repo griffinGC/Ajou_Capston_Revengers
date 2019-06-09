@@ -83,7 +83,7 @@ export default {
       nowRefuse : false,
     };
   },
-  props : ['candidateInfo', 'notificationId', 'state', 'boardId'],
+  props : ['candidateInfo', 'notificationId', 'state', 'boardId','writerId'],
   created() {
     // console.log("view is created");
     console.log("props로 받은 값 : " + this.candidateInfo);
@@ -176,7 +176,8 @@ export default {
             {
             userName : name,
             notificationId : this.notificationId,
-            boardId : this.boardId
+            boardId : this.boardId,
+            wrtierName : this.writerId
             }
           )
           .then(response => {
@@ -195,7 +196,8 @@ export default {
             {
             userName : name,
             notificationId : this.notificationId,
-            boardId : this.boardId
+            boardId : this.boardId,
+            wrtierName : this.writerId
             }
           )
           .then(response => {
@@ -220,7 +222,8 @@ export default {
           {
             userName : name,
             notificationId : this.notificationId,
-            boardId : this.boardId
+            boardId : this.boardId,
+            wrtierName : this.writerId
           }
           )
           .then(response => {
@@ -239,7 +242,8 @@ export default {
           {
             userName : name,
             notificationId : this.notificationId,
-            boardId : this.boardId
+            boardId : this.boardId,
+            wrtierName : this.writerId
             }
           )
           .then(response => {

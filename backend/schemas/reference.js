@@ -42,8 +42,8 @@ const referenceSchema = new mongoose.Schema({
 // writeName은 후기를 남긴 사람
 referenceSchema.statics.saveWithNotification =function(receiveName, receiveBoardId, writeName,  callback){
     let newReference = new referenceSchema();
-    newReference.boardId = receiveBoardId;
     newReference.userName = receiveName;
+    newReference.boardId = receiveBoardId;
     newReference.writer = writeName;
     newReference.save(function(err){
         if(err){

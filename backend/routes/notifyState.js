@@ -11,48 +11,54 @@ const referenceShema =require('../schemas/reference');
 // userName은 신청한 사람, writer은 글을 기존에 작성했던 사람
 // boardId는 writer가 썼던 글의 번호 
 router.post('/guestApprove',function(req, res,next){
-  referenceShema.saveWithNotificaion(req.body.userName)
-  notifyGuest.update({userName : req.body.userName, notificationId : req.body.notificationId},{$set : {state : "approve"}},function(err){
-    if(err) {
-      return res.json(err);
-    };
-    //json형식으로 응답
-    return res.json({state : 0, msg : "Registeration approve"});
-    })
+  referenceShema.saveWithNotificaion(req.body.writerName, req.body.boardId, req.body.userName, function(err){
+    notifyGuest.update({userName : req.body.userName, notificationId : req.body.notificationId},{$set : {state : "approve"}},function(err){
+      if(err) {
+        return res.json(err);
+      };
+      //json형식으로 응답
+      return res.json({state : 0, msg : "Registeration approve"});
+      })
+  })
+
 });  
 
 
 //host가 승인      
 router.post('/hostApprove',function(req, res,next){
-  notifyHost.update({userName : req.body.userName, notificationId : req.body.notificationId},{$set : {state : "approve"}},function(err){
-    if(err) {
-      return res.json(err);
-    };
-    //json형식으로 응답
+  referenceShema.saveWithNotificaion(req.body.writerName, req.body.boardId, req.body.userName, function(err){
+    notifyHost.update({userName : req.body.userName, notificationId : req.body.notificationId},{$set : {state : "approve"}},function(err){
+      if(err) {
+        return res.json(err);
+      };
+      //json형식으로 응답
    
-    return res.json({state : 0, msg : "Registeration approve"});
-         
-     
-      })
+      return res.json({state : 0, msg : "Registeration approve"});
+    })
+  })
 });  
 
 //guest가 거절 
 router.post('/guestRefuse',function(req, res,next){
-  notifyGuest.update({userName : req.body.userName, notificationId : req.body.notificationId},{$set : {state : "refuse"}},function(err){
-    if(err) {
-      return res.json(err);
-    };
-    //json형식으로 응답
-   
-    return res.json({state : 0, msg : "Registeration refuse"});
+  referenceShema.deleteWithNotification(req.body.writerName, req.body.boardId, req.body.userName, function(err){
+    notifyGuest.update({userName : req.body.userName, notificationId : req.body.notificationId},{$set : {state : "refuse"}},function(err){
+      if(err) {
+        return res.json(err);
+      };
+      //json형식으로 응답
      
-      })
+      return res.json({state : 0, msg : "Registeration refuse"});
+       
+        })
+  
+  })
 });
 
 
 //host가 거절      
 router.post('/hostRefuse',function(req, res,next){
-  notifyHost.update({userName : req.body.userName, notificationId : req.body.notificationId},{$set : {state : "refuse"}},function(err){
+  referenceShema.deleteWithNotification(req.body.writerName, req.body.boardId, req.body.userName, function(err){
+    notifyHost.update({userName : req.body.userName, notificationId : req.body.notificationId},{$set : {state : "refuse"}},function(err){
     if(err) {
       return res.json(err);
     };
@@ -62,6 +68,7 @@ router.post('/hostRefuse',function(req, res,next){
          
      
       })
+    })
 });  
 
 //guest가 approve한 host정보 보여줌 

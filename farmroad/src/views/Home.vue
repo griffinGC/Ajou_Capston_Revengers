@@ -32,6 +32,7 @@
                 :notificationId="`${notification.notificationId}`"
                 :state="`${notification.state}`"
                 :boardId="`${notification.boardInfo.boardId}`"
+                :writerId="`${notification.writer}`"
                 />
                 <!-- {{notification.boardInfo.boardId}} -->
               </div>

@@ -192,8 +192,11 @@ export default {
             this.phone = userData.phone;
             this.email = userData.Info.email;
             this.reference = userData.reference;
-            this.preferAbility = preferAbility;
-            console.log(this.preferAbility)
+            // let temp = 
+            this.preferAbility = userData.preferAbility;
+
+            console.log(this.preferAbility);
+            console.log("ability legnth : " + this.preferAbility.length);
           });
       }
   }

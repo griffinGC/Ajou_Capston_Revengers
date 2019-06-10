@@ -105,7 +105,14 @@ const router =  new Router({
     {
       path: '/mymap',
       name: 'mymap',
-      component: MyMap
+      component: MyMap,
+      props: true,
+      beforeEnter: (to, from, next) => {
+        console.log('router beforEnter message: '+to.params.boardId)
+        if(to.params.boardId){
+          next()
+        }
+      }
     },
     {
       path: '/review',

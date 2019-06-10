@@ -13,6 +13,17 @@ router.get('/',function(req, res,next){
   return res.json({state : 0, msg : "board router test"});
   });     
 
+//guest boardId에 맞는 게시판 글 가져오기
+router.get('/getBoard/:id',function(req, res,next){
+guestBoard.find({boardId : req.params.id},function(err,guestBoardContent){
+    if(err) {
+        return res.json(err);
+    };
+    //json형식으로 응답
+    return res.json(guestBoardContent);
+    })
+});        
+
 //guest게시판 글 가져오기
 router.get('/getList',function(req, res,next){
     guestBoard.find({},function(err,guestBoardContent){
@@ -24,9 +35,9 @@ router.get('/getList',function(req, res,next){
         })
   });        
 
-  //금지된 host정보 가져오기
+  //한번이라도 신고당한 guest게시판 정보 가져오기
  router.get('/getBan', function(req, res, next){
-    guestBoard.find({report : true}, function(err, getInfo){
+    guestBoard.find({$where : "this.isReport.length > 0"}, function(err, getInfo){
         if(err){
             return res.json(err);
         };

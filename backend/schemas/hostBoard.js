@@ -28,8 +28,7 @@ const hostBoardSchema = new mongoose.Schema({
         type : Date,
     },
     difficulty :{
-        type : Number,
-        required : true
+        type : String
     },
     workDay : {
         type : Number

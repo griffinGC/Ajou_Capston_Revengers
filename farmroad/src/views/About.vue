@@ -5,26 +5,26 @@
       <div class="grey--text text--darken-1"></div>
       <v-layout row wrap>
         <v-item-group>
-          <v-checkbox v-model="location" label="경기도" value="경기도"></v-checkbox>
-          <v-checkbox v-model="location" label="인천" value="인천"></v-checkbox>
+          <v-checkbox v-model="workLocation" label="경기도" value="경기도"></v-checkbox>
+          <v-checkbox v-model="workLocation" label="인천" value="인천"></v-checkbox>
         </v-item-group>
         <v-item-group>
-          <v-checkbox v-model="location" label="충청북도" value="충청북도"></v-checkbox>
-          <v-checkbox v-model="location" label="충청남도" value="충청남도"></v-checkbox>
+          <v-checkbox v-model="workLocation" label="충청북도" value="충청북도"></v-checkbox>
+          <v-checkbox v-model="workLocation" label="충청남도" value="충청남도"></v-checkbox>
         </v-item-group>
         <v-item-group>
-          <v-checkbox v-model="location" label="경상북도" value="경상북도"></v-checkbox>
-          <v-checkbox v-model="location" label="경상남도" value="경상남도"></v-checkbox>
+          <v-checkbox v-model="workLocation" label="경상북도" value="경상북도"></v-checkbox>
+          <v-checkbox v-model="workLocation" label="경상남도" value="경상남도"></v-checkbox>
         </v-item-group>
         <v-item-group>
-          <v-checkbox v-model="location" label="전라북도" value="전라북도"></v-checkbox>
-          <v-checkbox v-model="location" label="전라남도" value="전라남도"></v-checkbox>
+          <v-checkbox v-model="workLocation" label="전라북도" value="전라북도"></v-checkbox>
+          <v-checkbox v-model="workLocation" label="전라남도" value="전라남도"></v-checkbox>
         </v-item-group>
         <v-item-group>
-          <v-checkbox v-model="location" label="강원도" value="강원도"></v-checkbox>
-          <v-checkbox v-model="location" label="제주도" value="제주도"></v-checkbox>
+          <v-checkbox v-model="workLocation" label="강원도" value="강원도"></v-checkbox>
+          <v-checkbox v-model="workLocation" label="제주도" value="제주도"></v-checkbox>
         </v-item-group>
-        {{ this.location}}
+        {{ this.workLocation}}
         <v-btn flat class="success" @click="sortLocation(boards)">지역 검색</v-btn>
       </v-layout>
     </v-form>
@@ -73,86 +73,7 @@
 
             <v-card-actions>
               <!------------------------------view dialog start--------------------------------->
-              <v-dialog max-width="600px">
-                <v-btn flat slot="activator" color="grey" @click="viewAction(board)">
-                  <v-icon small left>streetview</v-icon>
-                  <span>view</span>
-                </v-btn>
-                <v-card>
-                  <v-img class="black--text" height="200px" :src="board.boardImg">
-                    <v-container fill-height fluid>
-                      <v-layout fill-height>
-                        <v-flex xs12 align-end flexbox>
-                          <span class="headline">{{board.title}}</span>
-                        </v-flex>
-                      </v-layout>
-                    </v-container>
-                  </v-img>
-
-                  <v-card-title>
-                    <!-- <h2 class="center teal-text">{{board.boardId + "ddddddd"}}</h2> -->
-                    <h2 class="center teal-text">{{board.Info.name}}</h2>
-                  </v-card-title>
-
-                  <v-card-text>
-                    <v-flex d-flex xs12 sm6 md4>
-                      <v-layout row wrap></v-layout>
-                    </v-flex>
-
-                    <!--show date-->
-                    <div>
-                      <v-date-picker
-                        width="560px"
-                        v-model="showDate"
-                        :allowed-dates="allowedDates"
-                        class="mt-3"
-                        min="2016-06-15"
-                        max="2018-03-20"
-                      ></v-date-picker>
-                    </div>
-                    <!---date and content--->
-                    <div>
-                      <span class="grey--text">{{board.startDate}}</span>
-                      <br>
-                      <span>{{board.content}}</span>
-                    </div>
-                    <div class="text-xs">
-                      <v-rating :value="board.difficulty" readonly></v-rating>
-                    </div>
-                  </v-card-text>
-                  <v-card-actions>
-                    <!--Notification button-->
-                    <v-btn
-                      :disabled="loading"
-                      @click="saveNotification(board.boardId)"
-                      slot="activator"
-                      color="success"
-                    >
-                      <v-icon small left>add</v-icon>
-                      <span>신청하기</span>
-                    </v-btn>
-
-                    <!--messager button-->
-                    <v-btn flat slot="activator" color="success" @click="messager(board.Info)">
-                      <v-icon small left>message</v-icon>
-                      <span>메신저</span>
-                    </v-btn>
-                    <v-btn to="/review" flat slot="activator" color="info">
-                      <v-icon small left>expand_more</v-icon>
-                      <span>후기</span>
-                    </v-btn>
-                    <v-btn to="/mymap" flat slot="activator" color="info">
-                      <v-icon small left>expand_more</v-icon>
-                      <span>상세보기</span>
-                    </v-btn>
-                    <v-btn flat slot="activator" color="error" @click="report(board)">
-                      <v-icon small left>report</v-icon>
-                      <span>신고하기</span>
-                    </v-btn>
-                  </v-card-actions>
-                </v-card>
-                <Chat v-bind:comments="'host'+board.boardId"/>
-              </v-dialog>
+            <HostBoardView v-bind:hostBoard="board"/>
               <!------------------------------view dialog end--------------------------------->
             </v-card-actions>
           </v-card>
@@ -167,6 +88,7 @@ import firebase from "firebase";
 import Chat from "../views/Chat";
 import UserInfoVue from "./UserInfo.vue";
 import Review from "./Review";
+import HostBoardView from '../components/HostBoardView'
 export default {
   components: {
     computedDateFormatted() {
@@ -174,7 +96,8 @@ export default {
     },
 
     Review,
-    Chat
+    Chat,
+    HostBoardView
   },
   data() {
     return {
@@ -188,15 +111,12 @@ export default {
       showDate: "2018-03-02",
 
       selected: [],
-      location: [],
-
-      menu1: false,
+      workLocation: [],
 
       date: new Date().toISOString().substr(0, 10),
       dateFormatted: this.formatDate(new Date().toISOString().substr(0, 10)),
       showCard: false,
       diff: "",
-      chatRoute: "/chat",
       role: null,
       chatRoomId: ""
     };
@@ -271,22 +191,37 @@ export default {
     //allowedDate for date
     allowedDates: val => parseInt(val.split("-")[2], 10) % 2 === 0,
 
-    findByDifficulty(boards) {
-      var temBoards = new Array();
-      boards.forEach(item => {
-        if (item.difficulty == this.diff) {
-          temBoards.push(item);
-        }
-      });
-      this.newBoards = temBoards;
-      console.log(this.newBoards);
-    },
-    sortLocation(boards) {
-      var tempBoards = new Array();
+    sortBoard(boards) {
+      let tempBoards = new Array();
       boards.forEach(index => {
         index.count = 0;
-        for (let i = 0; i < this.location.length; i++) {
-          if (index.location === this.location[i]) {
+        for (let i = 0; i < index.Info.ability.length; i++) {
+          for (let j = 0; j < this.selected.length; j++) {
+            if (index.Info.ability[i] === this.selected[j]) {
+              ++index.count;
+              // break;
+            }
+          }
+        }
+        console.log("가지고 있는 개수! " + index.count);
+        if (index.count !== 0) {
+          tempBoards.push(index);
+        }
+      });
+      console.log(tempBoards);
+      console.log("데이터 검색");
+      this.newBoards = tempBoards;
+      if (this.selected.length === 0) {
+        this.newBoards = boards;
+      }
+    },
+    sortLocation(boards) {
+      let tempBoards = new Array();
+      boards.forEach(index => {
+        index.count = 0;
+        for (let i = 0; i < this.workLocation.length; i++) {
+          if (index.location === this.workLocation[i]) {
+            console.log("같은 곳의 위치 : " + this.workLocation[i]);
             ++index.count;
           }
         }
@@ -295,12 +230,17 @@ export default {
         }
       });
       this.newBoards = tempBoards;
-      if (this.selected.length === 0) {
+
+      console.log("새로운보드");
+      console.log(this.newBoards);
+      console.log("새로운보드");
+      if (this.workLocation.length === 0) {
         this.newBoards = boards;
       }
     },
     messager(info) {
       this.chatRoomId = localStorage.username + info.userName;
+
       if (localStorage.role == 0) {
         this.axios
           .post(
@@ -313,14 +253,13 @@ export default {
           )
           .then(response => {
             if (response.data.state == -1) {
-              alert(response.data.msg);
-            } else {
               console.log(response.data.msg);
-              this.$router.push({
-                name: "chatroom",
-                params: { chatRoomId: this.chatRoomId }
-              });
             }
+            console.log(response.data.msg);
+            this.$router.push({
+              name: "chatroom",
+              params: { chatRoomId: this.chatRoomId }
+            });
           });
       } else {
         this.axios
@@ -344,6 +283,13 @@ export default {
             }
           });
       }
+    },
+    moveMyMap(id){
+      console.log(id);
+        this.$router.push({
+        name: "mymap",
+        params: { boardId: id }
+      });
     },
     saveNotification(id) {
       console.log(id);
@@ -400,10 +346,17 @@ export default {
     },
     report(board) {
       console.log(board.boardId);
+      let checkPerson = 0;
+      for(let i = 0; i<board.isReport.length; i++){
+        if(localStorage.username === board.isReport[i]){
+            alert("이미 신고했습니다!");
+            return;
+        }
+      }
       if (localStorage.role == 0) {
         this.axios
           .post(
-            "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/hostBoard/isReportGuest/ban",
+            "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/hostBoard/isReportHost/ban",
             {
               boardId: board.boardId,
               userName: localStorage.username
@@ -420,7 +373,7 @@ export default {
       } else {
         this.axios
           .post(
-            "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/hostBoard/isReportGuest/ban",
+            "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/guestBoard/isReportGuest/ban",
             {
               boardId: board.boardId,
               userName: localStorage.username

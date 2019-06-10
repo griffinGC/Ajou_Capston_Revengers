@@ -11,21 +11,19 @@
                 <v-list-tile-sub-title class="text--primary">{{ chatRoom.guestUserName }}</v-list-tile-sub-title>
               </v-list-tile-content>
 
-              <v-list-tile-action>
-                
-              </v-list-tile-action>
+              <v-list-tile-action></v-list-tile-action>
             </v-list-tile>
             <v-divider v-if="index + 1 < chatRooms.length" :key="index"></v-divider>
           </template>
         </v-list>
       </v-card>
-    
-      </v-flex>
+    </v-flex>
   </v-layout>
 </template>
 
 
 <script>
+import db from "@/firebase/init";
 export default {
   name: "chatroomlist",
   data() {
@@ -45,7 +43,7 @@ export default {
       });
     },
     getChatRoom() {
-      if ((localStorage.role == 0)) {
+      if (localStorage.role == 0) {
         this.axios
           .get(
             "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/chatRoom/guest/" +
@@ -54,6 +52,13 @@ export default {
           .then(response => {
             console.log(response.data);
             this.chatRooms = response.data;
+            for (let index = 0; index < this.chatRooms.length; index++) {
+              var chatRoom = this.chatRooms[index];
+              let ref = db.collection(chatRoom.chatRoomId).orderBy("timestamp");
+              ref.onSnapshot(snapshot => {
+                console.log("doc has changed!!");
+              });
+            }
           });
       } else {
         this.axios
@@ -64,9 +69,22 @@ export default {
           .then(response => {
             console.log(response.data);
             this.chatRooms = response.data;
+            for (let index = 0; index < this.chatRooms.length; index++) {
+              var chatRoom = this.chatRooms[index];
+              let ref = db.collection(chatRoom.chatRoomId).orderBy("timestamp");
+              ref.onSnapshot(snapshot => {
+                console.log("doc has changed");
+                console.log(chatRoom)
+                this.$notify({
+                  group: "foo",
+                  title: "new message",
+                  text: "new message has comming"
+                });
+              });
+            }
           });
       }
-    },
+    }
   }
 };
 </script>

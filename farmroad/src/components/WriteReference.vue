@@ -72,6 +72,7 @@ export default {
               boardId : this.boardId,
               title : this.title,
               writer : localStorage.username,
+              writerImg : localStorage.img,
               userName : this.boardWriter,
               content : this.content,
               star : this.star
@@ -80,8 +81,14 @@ export default {
           .then(response=>{
             if (response.data.state == -1) {
             console.log("reference save is failed!!");
+              alert("후기 작성에 실패햐였습니다.");
+              location.reload();
+              return;            
             }else if(response.data.state == 0){
               console.log("reference save is success");
+              alert("후기 작성이 완료 되었습니다!");
+              location.reload();
+              return;
             }});
       }else{
         this.axios
@@ -91,6 +98,7 @@ export default {
               boardId : this.boardId,
               title : this.title,
               writer : localStorage.username,
+              writerImg : localStorage.img,
               userName : this.boardWriter,
               content : this.content,
               star : this.star
@@ -99,12 +107,19 @@ export default {
           .then(response=>{
             if (response.data.state == -1) {
             console.log("reference save is failed!!");
+              alert("후기 작성에 실패햐였습니다.");
+              location.reload();
+              return;            
             }else if(response.data.state == 0){
               console.log("reference save is success");
+              alert("후기 작성이 완료 되었습니다!");
+              location.reload();
+              return;
             }});
       }
     },
     cancelReference(){
+      location.reload();
     },
   }
 };

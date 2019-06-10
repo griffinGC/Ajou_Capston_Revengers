@@ -3,7 +3,7 @@
     <v-layout row wrap>
       <v-flex xs6 sm7 md4>
       <v-card >
-        <v-title>개인정보 </v-title>
+        
          <v-img v-if="profileImg" :src="profileImg" alt="Avatar">
          </v-img>
          <v-icon v-else>person</v-icon>
@@ -66,38 +66,34 @@
             </v-list-tile-content>
             
 
-
-            <!-- <v-btn v-if="board.report === false" color="error" @click="updateToError(board)">게시글 금지 </v-btn>
-            <v-btn v-else color="success" @click="updateToAble(board)">게시글 해제 </v-btn> -->
-
           </v-list-tile>
         </v-list>          
       </v-card>
       </v-flex>
       <v-flex md5>
       <v-card>
-        <v-title>방문한 목록 </v-title>
+        
           <v-card class="pa-1" v-for="reference in referenceList" :key="reference.id">
-          <v-layout row wrap :class="`pa-1 project.${reference.title}`">
+          <v-layout row wrap :class="`pa-1 project.${reference._id}`">
 
-            <v-flex xs5 md2>
+            <v-flex xs5 md3>
               <div class="caption grey--text">글 제목</div>
-              <div>{{reference.boardInfo.title}}</div>
+              
+              <div>{{reference.boardTitle}}</div>
             </v-flex>
 
-            <v-flex xs6 sm4 md2>
+            <v-flex xs6 sm4 md5>
               <div class="caption grey--text">글 작성자</div>
-              <div>{{reference.writer}}</div>
+              <div>{{reference.userName}}</div>
             </v-flex>
 
-            <v-flex xs4 sm4 md4>
-              <div class="caption grey--text">방문날짜</div>
-              <div>{{reference.boardInfo.startDate}}</div>
-            </v-flex>
 
             <v-flex xs6 sm4 md2>
               <div>
-                <WriteReference :notificationInfo="`${reference.boardInfo}`"/>
+                <WriteReference
+                :boardId="`${reference.boardId}`" 
+                :boardWriter="`${reference.userName}`"
+                />
               </div>
             </v-flex>
           </v-layout>
@@ -106,36 +102,6 @@
       </v-flex>
     </v-layout>
   </v-container>
-     
-      <!-- <v-flex xs12>
-    <v-flex xl12>
-      <div class="grey--text text--darken-1"></div>
-        <v-card color="lime lighten-5" height="450" v-chat-scroll>
-          <v-card class="pa-1" v-for="reference in referenceList" :key="reference.id">
-          <v-layout row wrap :class="`pa-1 project.${reference.title}`">
-
-            <v-flex xs6 md6>
-              <div class="caption grey--text">글 제목</div>
-              <div>{{reference.boardInfo.title}}</div>
-            </v-flex>
-
-            <v-flex xs6 sm4 md2>
-              <div class="caption grey--text">글 작성자</div>
-              <div>{{reference.writer}}</div>
-            </v-flex>
-
-            <v-flex xs6 sm4 md2>
-              <div class="caption grey--text">방문날짜</div>
-              <div>{{reference.boardInfo.startDate}}</div>
-            </v-flex>
-
-            <v-flex xs6 sm4 md2>
-              <div>
-                <WriteReference if="!"
-                :boardId="`${reference.boardInfo.boardId}`" 
-                :boardWriter="`${reference.writer}`"
-                />
- -->
 </template>
 
 <script>
@@ -179,7 +145,6 @@ export default {
     console.log("userInfo is created");
     this.role = localStorage.role
     this.getInfo();
-    this.getWriteReference();
     this.getMyReference();
     this.getNotificationInfo();
     // this.compareReference(this.referenceList, this.alreadyReference);
@@ -189,7 +154,6 @@ export default {
   mounted(){
     this.role = localStorage.role;
     this.getInfo();
-    this.getWriteReference();
     this.getMyReference();
     this.getNotificationInfo();
     console.log("들어있는 값 : " + this.referenceList);
@@ -242,42 +206,14 @@ export default {
       if (localStorage.role == 0) {
       this.axios
         .get(
-          `http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/notifyState/getHostApprove/${userId}`
-        )
-        .then(response => {
-          // console.log("notification 정보 값1")
-          // console.log(response.data);
-          // console.log("notification 정보 값1")
-          // this.notificationList = response.data;
-          this.referenceList = response.data;
-        });
-      } else if (localStorage.role == 1) {
-      this.axios
-        .get(
-          `http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/notifyState/getGuestApprove/${userId}`
-        )
-        .then(response => {
-          // console.log("notification 정보 값2")
-          // console.log(response.data);
-          // console.log("notification 정보 값2")
-          // this.notificationList = response.data;
-          this.referenceList = response.data;
-        });
-      }
-    },
-    getWriteReference(){
-      //자기가 작성한 reference가져오기
-      let userId = localStorage.username;
-            if (localStorage.role == 0) {
-      this.axios
-        .get(
           `http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/reference/getGuestMyReference/${userId}`
         )
         .then(response => {
-          // console.log("reference 정보")
-          // console.log(response.data);
-          // console.log("reference 정보")
-          this.alreadyReference = response.data;
+          console.log("notification 정보 값1")
+          console.log(response.data);
+          console.log("notification 정보 값1")
+          // this.notificationList = response.data;
+          this.referenceList = response.data;
         });
       } else if (localStorage.role == 1) {
       this.axios
@@ -285,10 +221,11 @@ export default {
           `http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/reference/getHostMyReference/${userId}`
         )
         .then(response => {
-          // console.log("reference 정보")
-          // console.log(response.data);
-          // console.log("reference 정보")
-          this.alreadyReference = response.data;
+          console.log("notification 정보 값2")
+          console.log(response.data);
+          console.log("notification 정보 값2")
+          // this.notificationList = response.data;
+          this.referenceList = response.data;
         });
       }
     },
@@ -305,6 +242,15 @@ export default {
           console.log(response.data);
           console.log("나한테 작성된 reference 정보 값1")
           this.getMyReferenceList = response.data;
+          let result = response.data;
+          for(let i = 0; i<result.length; i++){
+            if(result[i].title === undefined)
+            {
+              result.splice(i, 1);
+            }
+          }
+          this.getMyReferenceList = result;
+          
         });
       } else if (localStorage.role == 1) {
       this.axios
@@ -316,23 +262,17 @@ export default {
           console.log(response.data);
           console.log("나한테 작성된 reference 정보 값1")
           this.getMyReferenceList = response.data;
+          let result = response.data;
+          for(let i = 0; i<result.length; i++){
+            if(result[i].title === undefined)
+            {
+              result.splice(i, 1);
+            }
+          }
+          this.getMyReferenceList = result;
         });
       }
     },
-    compareReference(exist){
-      let temp = new Array();
-        console.log("작성한 값 : " +temp);
-        this.referenceList.forEach(item =>{
-          for(let i = 0; i<exist.length; i++){
-            if((exist[i].boardId === item.boardInfo.boardId)&& (exist[i].writer === item.userName)){
-              item = exist[i];
-            }
-          }
-        })
-        console.log("수정된 값1")
-        console.log(this.referenceList);   
-        console.log("수정된 값1")
-    }
   },
   
 };

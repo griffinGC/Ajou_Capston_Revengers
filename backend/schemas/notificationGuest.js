@@ -7,6 +7,7 @@ const notificationSchema = new mongoose.Schema({
         type : Number,
         unique : true
     },
+    // 신청한 사람이 userName
     userName:{
         type : String,
         required : true

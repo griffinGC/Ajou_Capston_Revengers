@@ -69,13 +69,34 @@
         <v-alert :value="alertApproveSuccess" type="success">인증번호 확인 성공!</v-alert>
         <v-alert :value="alertApproveError" type="error">인증번호 확인 에러!</v-alert>
         <v-btn  left color="success" @click="checkPhoneNumber">인증번호 확인</v-btn>
+        
+        <v-slider
+          v-model="age"
+          :rules="rules"
+          label="Age"
+          step="1"
+          thumb-label="always"
+          ticks
+          required
+          prepend-icon="accessibility"
+        ></v-slider>
+        
+        <v-select
+          v-model="select"
+          :items="gender"
+          :rules="[v => !!v || 'Item is required']"
+          label="gender"
+          required
+          prepend-icon="wc"
+        ></v-select>
+
         <div class="grey--text text--darken-1">Ability</div>
         <v-layout row wrap>
-            <v-flex sm2><v-checkbox v-model="work" label="농업" value="agriculture"></v-checkbox></v-flex>
-            <v-flex sm2><v-checkbox v-model="work" label="임업" value="forestry"></v-checkbox></v-flex>
-            <v-flex sm2><v-checkbox v-model="work" label="수산업" value="fishery"></v-checkbox></v-flex>
-            <v-flex sm2><v-checkbox v-model="work" label="목축업" value="livestock"></v-checkbox></v-flex>
-            <v-flex sm2><v-checkbox v-model="work" label="기타" value="others"></v-checkbox></v-flex>
+            <v-flex sm2><v-checkbox v-model="work" label="농업" value="농업"></v-checkbox></v-flex>
+            <v-flex sm2><v-checkbox v-model="work" label="임업" value="임업"></v-checkbox></v-flex>
+            <v-flex sm2><v-checkbox v-model="work" label="수산업" value="수산업"></v-checkbox></v-flex>
+            <v-flex sm2><v-checkbox v-model="work" label="목축업" value="목축업"></v-checkbox></v-flex>
+            <v-flex sm2><v-checkbox v-model="work" label="기타" value="기타"></v-checkbox></v-flex>
         </v-layout>
         <!--signup btn-->
         <br>
@@ -128,6 +149,12 @@ export default {
         min: v => v.length === 4 || "4자리 숫자!",
         number: v => isNaN(v) === false || "숫자!"
       },
+
+      select: null,
+      gender: ["Male", "Female"],
+      age: 30,
+      rules: [v => v <= 100 || "Really?!"],
+
       myName: "",
       show1: false,
       show2: true,
@@ -153,6 +180,8 @@ export default {
       formData.append("name", this.myName);
       formData.append("email", this.email);
       formData.append("phone", this.phone);
+      formData.append("age", this.age);
+      formData.append("gender", this.select);
       formData.append("work", this.work);
       if (this.$refs.form.validate()) {
         this.snackbar = true;

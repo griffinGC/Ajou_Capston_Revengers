@@ -5,7 +5,7 @@
       <v-card>
         <v-container>
           <v-layout row wrap class="cont">
-            <v-flex sm5>
+            <v-flex sm6>
               <v-avatar id="avatar" size="220px">
                 <img
                 v-if="candidateData.profileImg"
@@ -22,34 +22,28 @@
                 <!-- </div> -->
               <!-- </v-card-text> -->
             </v-flex>
-            <v-flex>
-                <v-layout column wrap>
-                <v-flex xs12 sm11>
-                  <v-layout row wrap align-top class="info1">
-                    <v-flex sm4 sm6>
-                    <div class="grey--text font-weight-bold">아이디</div>
-                    <div class="grey--text font-weight-bold">이름</div>
-                    <div class="grey--text font-weight-bold">성별</div>
-                    <div class="grey--text font-weight-bold">나이</div>
-                    <div class="grey--text font-weight-bold">전화번호</div>
-                    <div class="grey--text font-weight-bold">이메일</div>
-                    <div v-if="role === '0'" class="grey--text font-weight-bold">위치</div>
-                    <div v-if="role === '1'" class="grey--text font-weight-bold">능력</div>
-                    </v-flex>
-                    <v-flex sm3>
-                    <div>{{candidateData.userName}}</div>
-                    <div>{{candidateData.name}}</div>
-                    <div>{{candidateData.gender}}</div>
-                    <div>{{candidateData.age}}</div>
-                    <div>{{candidateData.phone}}</div>
-                    <div>{{candidateData.email}}</div>
-                    <div v-if="role === '0'">{{candidateData.location}}</div>
-                    <div v-if="role === '0'">{{candidateData.work}}</div>
-                    <div v-if="role === '1'">{{candidateData.ability}}</div>
-                    <!-- <div>{{candidateData.reference}}</div> -->
-                   </v-flex>
-                 </v-layout>
-               </v-flex>
+            <v-flex sm6>
+            <v-layout row wrap>
+            <v-flex sm5 class="grey--text font-weight-bold">아이디</v-flex>
+            <v-flex sm6>{{candidateData.userName}}</v-flex>
+            <v-flex sm5 class="grey--text font-weight-bold">이름</v-flex>
+            <v-flex sm6>{{candidateData.name}}</v-flex>
+            <v-flex sm5 class="grey--text font-weight-bold">성별</v-flex>
+            <v-flex sm6>{{candidateData.gender}}</v-flex>
+            <v-flex sm5 class="grey--text font-weight-bold">나이</v-flex>
+            <v-flex sm6>{{candidateData.age}}</v-flex>
+            <v-flex sm5 class="grey--text font-weight-bold">전화번호</v-flex>
+            <v-flex sm6>{{candidateData.phone}}</v-flex>
+            <v-flex sm5 class="grey--text font-weight-bold">이메일</v-flex>
+            <v-flex sm6>{{candidateData.email}}</v-flex>
+            <v-flex sm5 v-if="role==='0'" class="grey--text font-weight-bold" >위치</v-flex>
+            <v-flex sm6 v-if="role==='0'">{{candidateData.location}}</v-flex>
+            <v-flex sm5 v-if="role==='1'" class="grey--text font-weight-bold" >능력</v-flex>
+            <v-flex sm6 v-if="role==='1'">{{candidateData.ability}}</v-flex>
+            </v-layout>
+            </v-flex>
+            <v-flex sm12 offset-sm5>
+              <v-layout column wrap>
                <v-flex sm3>
                 <v-card-actions>
                 <v-btn flat slot="activator" color="success" :disabled="nowApprove" @click="approveCandidate(candidateData.userName)">

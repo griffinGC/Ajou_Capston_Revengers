@@ -95,7 +95,13 @@ export default {
   watch: {
     date(val) {
       this.dateFormatted = this.formatDate(this.date);
-    }
+    },
+    
+      
+    
+  },
+  created(){
+    console.log(this.board)
   },
   methods: {
     formatDate(date) {

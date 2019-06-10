@@ -42,10 +42,10 @@
                     </div>
                   </v-card-text>
                   <v-card-actions>
-                    <v-btn flat slot="activator" color="success" @click="messager(board.boardId)">
+                    <!-- <v-btn flat slot="activator" color="success" @click="messager(board.boardId)">
                       <v-icon small left>message</v-icon>
                       <span>Comment</span>
-                    </v-btn>
+                    </v-btn> -->
                     <v-spacer></v-spacer>
                     <v-btn flat slot="activator" color="red" @click="delBoard(board.boardId)">
                       <v-icon small left>delete</v-icon>

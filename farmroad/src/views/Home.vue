@@ -30,6 +30,9 @@
                     :candidateInfo="`${notification.userName}`"
                     :notificationId="`${notification.notificationId}`"
                     :state="`${notification.state}`"
+                    :boardId="`${notification.boardInfo.boardId}`"
+                    :writerId="`${notification.writer}`"
+                    :boardTitle="`${notification.boardInfo.title}`"
                   />
                   <!-- {{notification.boardInfo.boardId}} -->
                 </div>
@@ -133,11 +136,9 @@ export default {
     } else {
       this.user = false;
     }
-
-    
   },
   mounted: function() {
-    console.log('mounted is on!!')
+    console.log("mounted is on!!");
     if (localStorage.role == 0) {
       this.axios
         .get(

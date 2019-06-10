@@ -1,6 +1,6 @@
 <template>
   <v-dialog v-model="dialog" max-width="650px">
-    <v-btn flat slot="activator" color="grey">
+    <v-btn flat slot="activator" color="grey" @click="viewAction(board)">
       <v-icon small left>streetview</v-icon>
       <span>view</span>
     </v-btn>
@@ -25,16 +25,7 @@
         </v-flex>
 
         <!--show date-->
-        <div>
-          <v-date-picker
-            width="560px"
-            v-model="showDate"
-            :allowed-dates="allowedDates"
-            class="mt-3"
-            min="2016-06-15"
-            max="2018-03-20"
-          ></v-date-picker>
-        </div>
+       
         <!---date and content--->
         <div>
           <span class="grey--text">{{board.startDate}}</span>
@@ -47,7 +38,7 @@
       </v-card-text>
       <v-card-actions>
         <!--Notification button-->
-        <v-btn :disabled="loading" slot="activator" color="success">
+        <v-btn :disabled="loading" slot="activator" color="success" @click="saveNotification(board.boardId)">
           <v-icon small left>add</v-icon>
           <span>신청하기</span>
         </v-btn>
@@ -90,6 +81,7 @@ export default {
       chatId: "",
       loading: "",
       showDate: "2018-03-02",
+
 
       date: new Date().toISOString().substr(0, 10),
       dateFormatted: this.formatDate(new Date().toISOString().substr(0, 10)),

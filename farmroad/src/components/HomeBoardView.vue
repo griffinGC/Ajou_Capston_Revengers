@@ -77,7 +77,7 @@ export default {
       nowRefuse : false,
     };
   },
-  props : ['candidateInfo', 'notificationId', 'state'],
+  props : ['candidateInfo', 'notificationId', 'state', 'boardId','writerId', 'boardTitle'],
   created() {
     // console.log("view is created");
     console.log("props로 받은 값 : " + this.candidateInfo);
@@ -137,7 +137,7 @@ export default {
             this.candidateData.phone = userData.phone;
             this.candidateData.email = userData.email;
             this.candidateData.reference = userData.reference;
-            this.candidateData.boardId = userData.boardId;
+            // this.candidateData.boardId = userData.boardId;
           });
       }else{
         //내가 host일 경우 guest정보를 가져옴 
@@ -155,13 +155,15 @@ export default {
             this.candidateData.phone = userData.phone;
             this.candidateData.email = userData.email;
             this.candidateData.reference = userData.reference;
-            this.candidateData.boardId = userData.boardId;
+            // this.candidateData.boardId = userData.boardId;
         });
       };
     },
     approveCandidate(name){
       console.log("notify state ");
-        console.log(name);
+      console.log("보낼 보드 id : " + this.boardId);
+      console.log("보낼 writer id : " + this.writerId);
+        // console.log(name);
         //guest일때 host 승인
          if(localStorage.role === '0'){
         this.axios
@@ -169,7 +171,10 @@ export default {
             "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/notifyState/guestApprove",
             {
             userName : name,
-            notificationId : this.notificationId
+            notificationId : this.notificationId,
+            boardId : this.boardId,
+            writerName : this.writerId,
+            boardTitle : this.boardTitle
             }
           )
           .then(response => {
@@ -187,7 +192,10 @@ export default {
             "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/notifyState/hostApprove",
             {
             userName : name,
-            notificationId : this.notificationId
+            notificationId : this.notificationId,
+            boardId : this.boardId,
+            writerName : this.writerId,
+            boardTitle : this.boardTitle
             }
           )
           .then(response => {
@@ -203,7 +211,9 @@ export default {
     },
     refuseCandidate(name){
         console.log("notify state ");
-        console.log(name);
+        // console.log(name);
+        console.log("보낼 보드 id : " + this.boardId);
+      console.log("보낼 writer id : " + this.writerId);
         // console.log(boardId);
         if(localStorage.role === '0'){
         this.axios
@@ -211,7 +221,9 @@ export default {
             "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/notifyState/guestRefuse",
           {
             userName : name,
-            notificationId : this.notificationId
+            notificationId : this.notificationId,
+            boardId : this.boardId,
+            writerName : this.writerId
           }
           )
           .then(response => {
@@ -229,7 +241,9 @@ export default {
             "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/notifyState/hostRefuse",
           {
             userName : name,
-            notificationId : this.notificationId
+            notificationId : this.notificationId,
+            boardId : this.boardId,
+            writerName : this.writerId
             }
           )
           .then(response => {

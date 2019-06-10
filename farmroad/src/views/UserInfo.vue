@@ -51,7 +51,7 @@
           </v-list-tile>
           <v-list-tile
             v-for="reference in getMyReferenceList"
-            :key="reference.boardId"
+            :key="reference._Id"
             avatar  
           >
 

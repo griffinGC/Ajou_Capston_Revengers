@@ -5,12 +5,12 @@ const referenceModel = require('../schemas/reference');
 
 
 //guest가 자기가 작성한 reference가져오기 
-router.get('/getGuestWrited/:boardId',function(req, res,next){
+router.get('/getGuestWrited/:id',function(req, res,next){
   let type = "host"
   if(!req.params.id){
     return res.json({state : -1, msg : "board ID is empty"});
   }
-    referenceModel.find({boardId : req.params.boardId, boardType : type},function(err,getInfo){
+    referenceModel.find({id : req.params.id, boardType : type},function(err,getInfo){
         if(err) {
           return res.json({state : -1 , msg : err});
         };
@@ -22,12 +22,12 @@ router.get('/getGuestWrited/:boardId',function(req, res,next){
 
 
 //host가 자기가 작성할 reference가져오기 
-router.get('/getHostWrited/:boardId',function(req, res,next){
+router.get('/getHostWrited/:id',function(req, res,next){
   let type = "guest"
   if(!req.params.id){
     return res.json({state : -1, msg : "board ID is empty"});
   }
-    referenceModel.find({boardId : req.params.boardId, boardType : type},function(err,getInfo){
+    referenceModel.find({id : req.params.id, boardType : type},function(err,getInfo){
         if(err) {
           return res.json({state : -1 , msg : err});
         };

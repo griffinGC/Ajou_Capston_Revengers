@@ -74,8 +74,8 @@
 
             <v-card-actions>
               <!--Board View-->
-              <GuestBoardView v-if="role===false" v-bind:guestBoad="board"/>
-              <HostBoardView v-if="role===true" v-bind:hostBoard="board"/>
+              <!-- <GuestBoardView v-if="role===false" v-bind:guestBoad="board"/> -->
+              <HostBoardView v-bind:hostBoard="board"/>
             </v-card-actions>
           </v-card>
         </v-flex>

@@ -5,18 +5,18 @@
       <span>view</span>
     </v-btn>
     <v-card>
-      <v-img class="black--text" height="200px">
+      <v-img class="black--text" height="200px" :src="board.boardImg">
         <v-container fill-height fluid>
           <v-layout fill-height>
             <v-flex xs12 align-end flexbox>
-              <span class="headline"></span>
+              <span class="headline">{{board.title}}</span>
             </v-flex>
           </v-layout>
         </v-container>
       </v-img>
 
       <v-card-title>
-        <h2 class="center teal-text"></h2>
+        <h2 class="center teal-text">{{board.Info.name}}</h2>
       </v-card-title>
 
       <v-card-text>
@@ -36,7 +36,7 @@
         </div>
         <!---date and content--->
         <div>
-          <span class="grey--text"></span>
+          <span class="grey--text">{{board.startDate}}</span>
           <br>
           <span></span>
         </div>
@@ -52,21 +52,21 @@
         </v-btn>
 
         <!--messager button-->
-        <v-btn flat slot="activator" color="success" >
+        <v-btn flat slot="activator" color="success" @click="messager(board.Info)">
           <v-icon small left>message</v-icon>
           <span>메신저</span>
         </v-btn>
-        <v-btn to="/mymap" flat slot="activator" color="info">
+        <!-- <v-btn to="/mymap" flat slot="activator" color="info">
           <v-icon small left>expand_more</v-icon>
           <span>상세보기</span>
-        </v-btn>
+        </v-btn> -->
         <v-btn flat slot="activator" color="error">
           <v-icon small left>report</v-icon>
           <span>신고하기</span>
         </v-btn>
       </v-card-actions>
     </v-card>
-    <!-- <Chat v-bind:comments="'guest'+board.boardId"/> -->
+    <Chat v-bind:comments="'guest'+board.boardId"/>
   </v-dialog>
 </template>
 
@@ -103,6 +103,9 @@ export default {
     date(val) {
       this.dateFormatted = this.formatDate(this.date);
     }
+  },
+   created(){
+    console.log("on create board message"+this.board.boardId)
   },
   methods: {
     formatDate(date) {

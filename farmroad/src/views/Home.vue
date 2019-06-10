@@ -57,7 +57,7 @@
                   </v-card-text>
                   <v-card-actions>
                     <!--Board View-->
-                    <GuestBoardView v-if="role===false" v-bind:guestBoad="board"/>
+                    <GuestBoardView v-if="role===false" v-bind:guestBoard="board"/>
                     <HostBoardView v-if="role===true" v-bind:hostBoard="board"/>
                   </v-card-actions>
                 </v-card>

@@ -3,7 +3,6 @@
     <v-flex xs12>
       <v-flex xl12>
         <div class="grey--text text--darken-1">Notification</div>
-        <notifications group="foo"/>
         <v-card color="lime lighten-5" height="450" v-chat-scroll>
           <v-card class="pa-1" v-for="notification in notificationList" :key="notification.id">
             <v-layout row wrap :class="`pa-1 project.${notification.boardInfo.title}`">
@@ -131,8 +130,11 @@ export default {
     } else {
       this.user = false;
     }
+
+    
   },
   mounted: function() {
+    console.log('mounted is on!!')
     if (localStorage.role == 0) {
       this.axios
         .get(

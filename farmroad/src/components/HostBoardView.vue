@@ -57,11 +57,11 @@
           <v-icon small left>message</v-icon>
           <span>메신저</span>
         </v-btn>
-        <v-btn to="/mymap" flat slot="activator" color="info">
+        <v-btn @click="moveMyMap(board.boardId)" flat slot="activator" color="info">
           <v-icon small left>expand_more</v-icon>
           <span>상세보기</span>
         </v-btn>
-        <v-btn flat slot="activator" color="error">
+        <v-btn flat slot="activator" color="error" @click="report(board)">
           <v-icon small left>report</v-icon>
           <span>신고하기</span>
         </v-btn>
@@ -221,6 +221,7 @@ export default {
             if (response.data.state == -1) {
               alert(response.data.msg);
             } else {
+              alert('report success !!')
               console.log(response.data.msg);
               location.reload();
             }
@@ -256,7 +257,14 @@ export default {
           break;
         }
       }
-    }
+    },
+      moveMyMap(id){
+      console.log(id);
+        this.$router.push({
+        name: "mymap",
+        params: { boardId: id }
+      });
+    },
   }
 };
 </script>

@@ -2,9 +2,7 @@
   <v-layout>
     <v-flex>
       <v-card>
-        <v-card-title>
-          comments
-        </v-card-title>
+        <v-card-title>comments</v-card-title>
         <v-list two-line class="messages" v-chat-scroll>
           <template v-for="(msg) in messages">
             <v-list-tile :key="msg.id" avatar>
@@ -21,7 +19,7 @@
         <v-divider></v-divider>
 
         <!--submit-->
-        <form @submit.prevent="addMessage" >
+        <form @submit.prevent="addMessage">
           <v-text-field label="new message" v-model="newMessage" :rules="newMessageRules" required></v-text-field>
         </form>
         <v-card-actions>
@@ -43,7 +41,7 @@ export default {
       newMessageRules: [v => !!v || "Message is required"]
     };
   },
-  props:{
+  props: {
     comments: String
   },
   created() {
@@ -61,6 +59,7 @@ export default {
             img: doc.data().img
             //timestamp: moments(doc.data().timestamp).format('lll')
           });
+          
         }
       });
     });
@@ -82,7 +81,7 @@ export default {
         this.newMessage = null;
       } else {
       }
-    },
+    }
   }
 };
 </script>

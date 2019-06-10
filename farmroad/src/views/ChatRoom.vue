@@ -8,8 +8,8 @@
         <template v-for="msg in messages">
           <v-list-tile :key="msg.id" avatar>
             <v-list-tile-avatar>
-                <img :src="msg.img">
-              </v-list-tile-avatar>
+              <img :src="msg.img">
+            </v-list-tile-avatar>
             <v-list-tile-content>
               <span class="grey--test">{{msg.name}}:</span>
               <span>{{msg.content}}</span>
@@ -22,8 +22,8 @@
         <v-text-field label="new message" v-model="newMessage" :rules="newMessageRules" required></v-text-field>
       </form>
       <v-card-actions>
-         <v-spacer></v-spacer>
-       <v-btn color="green darken-1" flat router :to="{name: 'home'}">Back</v-btn>
+        <v-spacer></v-spacer>
+        <v-btn color="green darken-1" flat router :to="{name: 'home'}">Back</v-btn>
       </v-card-actions>
     </v-card>
   </v-flex>
@@ -44,10 +44,15 @@ export default {
       newMessageRules: [v => !!v || "Message is required"]
     };
   },
-  created() {
+  mounted() {
     console.log(this.chatRoomId);
     let ref = db.collection(this.chatRoomId).orderBy("timestamp");
 
+    this.$notify({
+            group: "foo",
+            title: "new message",
+            text: "newwwwww"
+          });
     ref.onSnapshot(snapshot => {
       snapshot.docChanges().forEach(change => {
         if (change.type == "added") {
@@ -59,6 +64,7 @@ export default {
             img: doc.data().img
             //timestamp: moments(doc.data().timestamp).format('lll')
           });
+          
         }
       });
     });
@@ -81,7 +87,7 @@ export default {
       } else {
       }
     }
-  },
+  }
 };
 </script>
 

@@ -1,6 +1,5 @@
 <template>
   <div class="about">
-    <notifications group="foo"/>
     <!--search from-->
     <v-form v-if="role">
       <div class="grey--text text--darken-1"></div>
@@ -99,28 +98,17 @@ export default {
     HostBoardView,
     GuestBoardView,
     Review,
-    Chat
+    Chat,
+    HostBoardView
   },
   data() {
     return {
       boards: [],
       newBoards: [],
-      rating: 3,
-      items: [1, 2, 3, 4, 5],
-      workDays: "",
-      chatId: "",
-      loading: "",
-      showDate: "2018-03-02",
 
       selected: [],
       workLocation: [],
-
-      date: new Date().toISOString().substr(0, 10),
-      dateFormatted: this.formatDate(new Date().toISOString().substr(0, 10)),
-      showCard: false,
-      diff: "",
       role: null,
-      chatRoomId: ""
     };
   },
   created() {
@@ -171,28 +159,7 @@ export default {
         });
     }
   },
-  watch: {
-    date(val) {
-      this.dateFormatted = this.formatDate(this.date);
-    }
-  },
   methods: {
-    formatDate(date) {
-      if (!date) return null;
-
-      const [year, month, day] = date.split("-");
-      return `${month}/${day}/${year}`;
-    },
-    parseDate(date) {
-      if (!date) return null;
-
-      const [month, day, year] = date.split("/");
-      return `${year}-${month.padStart(2, "0")}-${day.padStart(2, "0")}`;
-    },
-
-    //allowedDate for date
-    allowedDates: val => parseInt(val.split("-")[2], 10) % 2 === 0,
-
     sortBoard(boards) {
       let tempBoards = new Array();
       boards.forEach(index => {
@@ -240,157 +207,6 @@ export default {
         this.newBoards = boards;
       }
     },
-    messager(info) {
-      this.chatRoomId = localStorage.username + info.userName;
-
-      if (localStorage.role == 0) {
-        this.axios
-          .post(
-            "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/chatRoom/createChatRoom",
-            {
-              chatRoomId: this.chatRoomId,
-              hostUserName: info.userName,
-              guestUserName: localStorage.username
-            }
-          )
-          .then(response => {
-            if (response.data.state == -1) {
-              console.log(response.data.msg);
-            }
-            console.log(response.data.msg);
-            this.$router.push({
-              name: "chatroom",
-              params: { chatRoomId: this.chatRoomId }
-            });
-          });
-      } else {
-        this.axios
-          .post(
-            "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/chatRoom/createChatRoom",
-            {
-              chatRoomId: this.chatRoomId,
-              hostUserName: localStorage.username,
-              guestUserName: info.userName
-            }
-          )
-          .then(response => {
-            if (response.data.state == -1) {
-              alert(response.data.msg);
-            } else {
-              console.log(response.data.msg);
-              this.$router.push({
-                name: "chatroom",
-                params: { chatRoomId: this.chatRoomId }
-              });
-            }
-          });
-      }
-    },
-    moveMyMap(id){
-      console.log(id);
-        this.$router.push({
-        name: "mymap",
-        params: { boardId: id }
-      });
-    },
-    saveNotification(id) {
-      console.log(id);
-      if (localStorage.role == 0) {
-        this.axios
-          .post(
-            "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/notifyRegister/host/registerNotification",
-            {
-              userName: localStorage.username,
-              boardId: id
-            }
-          )
-          .then(response => {
-            console.log(response.data);
-            if (response.data.state == 0) {
-              alert(response.data.msg);
-              this.$router.go();
-            } else {
-              alert(response.data.msg);
-            }
-          });
-      } else if (localStorage.role == 1) {
-        this.axios
-          .post(
-            "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/notifyRegister/guest/registerNotification",
-            {
-              userName: localStorage.username,
-              boardId: id
-            }
-          )
-          .then(response => {
-            console.log(response.data);
-            if (response.data.state == 0) {
-              alert(response.data.msg);
-              this.$router.go();
-            } else {
-              alert(response.data.msg);
-            }
-          });
-      }
-    },
-    viewAction(board) {
-      var can = board.candidate;
-      console.log(can);
-      this.loading = false;
-      for (let index = 0; index < can.length; index++) {
-        console.log(can[index]);
-        if (can[index] === localStorage.username) {
-          console.log(can[index]);
-          this.loading = true;
-          break;
-        }
-      }
-    },
-    report(board) {
-      console.log(board.boardId);
-      let checkPerson = 0;
-      for(let i = 0; i<board.isReport.length; i++){
-        if(localStorage.username === board.isReport[i]){
-            alert("이미 신고했습니다!");
-            return;
-        }
-      }
-      if (localStorage.role == 0) {
-        this.axios
-          .post(
-            "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/hostBoard/isReportHost/ban",
-            {
-              boardId: board.boardId,
-              userName: localStorage.username
-            }
-          )
-          .then(response => {
-            if (response.data.state == -1) {
-              alert(response.data.msg);
-            } else {
-              console.log(response.data.msg);
-              location.reload();
-            }
-          });
-      } else {
-        this.axios
-          .post(
-            "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/guestBoard/isReportGuest/ban",
-            {
-              boardId: board.boardId,
-              userName: localStorage.username
-            }
-          )
-          .then(response => {
-            if (response.data.state == -1) {
-              alert(response.data.msg);
-            } else {
-              console.log(response.data.msg);
-              location.reload();
-            }
-          });
-      }
-    }
   }
 };
 </script>

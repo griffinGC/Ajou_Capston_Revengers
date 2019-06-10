@@ -4,7 +4,6 @@
       <v-card-title>
         <h2>chat room</h2>
       </v-card-title>
-      <notifications group="foo"/>
       <v-list class="messages" two-line v-chat-scroll>
         <template v-for="msg in messages">
           <v-list-tile :key="msg.id" avatar>
@@ -45,10 +44,15 @@ export default {
       newMessageRules: [v => !!v || "Message is required"]
     };
   },
-  created() {
+  mounted() {
     console.log(this.chatRoomId);
     let ref = db.collection(this.chatRoomId).orderBy("timestamp");
 
+    this.$notify({
+            group: "foo",
+            title: "new message",
+            text: "newwwwww"
+          });
     ref.onSnapshot(snapshot => {
       snapshot.docChanges().forEach(change => {
         if (change.type == "added") {
@@ -60,11 +64,7 @@ export default {
             img: doc.data().img
             //timestamp: moments(doc.data().timestamp).format('lll')
           });
-          this.$notify({
-            group: "foo",
-            title: "Important message",
-            text: "Hello user! This is a notification!"
-          });
+          
         }
       });
     });

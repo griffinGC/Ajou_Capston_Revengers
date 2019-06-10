@@ -6,7 +6,7 @@ const referenceModel = require('../schemas/reference');
 
 //guest가 자기가 작성한 reference가져오기 
 router.get('/getGuestWrited/:boardId',function(req, res,next){
-  let type = "guest"
+  let type = "host"
   if(!req.params.id){
     return res.json({state : -1, msg : "board ID is empty"});
   }
@@ -23,7 +23,7 @@ router.get('/getGuestWrited/:boardId',function(req, res,next){
 
 //host가 자기가 작성할 reference가져오기 
 router.get('/getHostWrited/:boardId',function(req, res,next){
-  let type = "host"
+  let type = "guest"
   if(!req.params.id){
     return res.json({state : -1, msg : "board ID is empty"});
   }

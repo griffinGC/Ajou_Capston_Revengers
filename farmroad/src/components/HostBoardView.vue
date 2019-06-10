@@ -25,16 +25,7 @@
         </v-flex>
 
         <!--show date-->
-        <div>
-          <v-date-picker
-            width="560px"
-            v-model="showDate"
-            :allowed-dates="allowedDates"
-            class="mt-3"
-            min="2016-06-15"
-            max="2018-03-20"
-          ></v-date-picker>
-        </div>
+       
         <!---date and content--->
         <div>
           <span class="grey--text">{{board.startDate}}</span>

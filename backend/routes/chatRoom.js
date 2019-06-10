@@ -9,7 +9,7 @@ router.post('/createChatRoom', function(req, res, next){
     newChatRoom.guestUserName = req.body.guestUserName;
     newChatRoom.save(function(err){
         if(err){
-            return res.json(err);
+            return res.json({state : -1, msg : err});
         }else{
             return res.json({state : 0, msg : "create new chatRoom is success"});
         }
@@ -22,7 +22,7 @@ router.get('/host/:hostId',function(req, res,next){
     chatRoomModel.find({hostUserName : req.params.hostId}, function(err, getInfo){
         if(err){
             console.log(err);
-            return res.json(err);
+            return res.json({state : -1, msg : err});
         }else{
             return res.json(getInfo);
         }
@@ -34,7 +34,7 @@ router.get('/guest/:guestId',function(req, res,next){
     chatRoomModel.find({guestUserName : req.params.guestId}, function(err, getInfo){
         if(err){
             console.log(err);
-            return res.json(err);
+            return res.json({state : -1, msg : err});
         }else{
             return res.json(getInfo);
         }

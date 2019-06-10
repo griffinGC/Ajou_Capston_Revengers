@@ -24,18 +24,21 @@
                 <div></div>
               </v-flex>
 
-              <v-flex xs6 sm4 md2>
-                <div>
-                  <HomeBoardView
-                    :candidateInfo="`${notification.userName}`"
-                    :notificationId="`${notification.notificationId}`"
-                    :state="`${notification.state}`"
-                  />
-                  <!-- {{notification.boardInfo.boardId}} -->
-                </div>
-              </v-flex>
-            </v-layout>
-          </v-card>
+
+            <v-flex xs6 sm4 md2>
+              <div>
+                <HomeBoardView 
+                :candidateInfo="`${notification.userName}`" 
+                :notificationId="`${notification.notificationId}`"
+                :state="`${notification.state}`"
+                :boardId="`${notification.boardInfo.boardId}`"
+                :writerId="`${notification.writer}`"
+                :boardTitle="`${notification.boardInfo.title}`"
+                />
+                <!-- {{notification.boardInfo.boardId}} -->
+              </div>
+            </v-flex>
+          </v-layout>
         </v-card>
       </v-flex>
     </v-flex>

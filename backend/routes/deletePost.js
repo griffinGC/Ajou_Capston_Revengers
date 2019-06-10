@@ -13,7 +13,8 @@ const hostBoard = require('../schemas/hostBoard');
 //guest게시판 글 삭제하기
 //guestBoardId => boardId
 router.get('/deleteGuestList/:id/:guestBoardId',function(req, res,next){
-    guestBoard.remove({$and:[{Info:{$elemMatch:{userName: req.params.id}},boardId : req.params.guestBoardId}]},function(err,guestBoardContent){
+    // guestBoard.remove({$and:[{Info:{$elemMatch:{userName: req.params.id}},boardId : req.params.guestBoardId}]},function(err,guestBoardContent){
+    guestBoard.remove({$and:[{"Info.userName": req.params.id}, {boardId : req.params.guestBoardId}]},function(err,guestBoardContent){
         if(err) {
           return res.json(err);
         };

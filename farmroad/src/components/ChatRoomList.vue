@@ -1,6 +1,7 @@
 <template>
   <v-layout>
     <v-flex xs12 sm12 d-flex>
+       <notifications group="foo"/>
       <v-card width="100%">
         <v-list two-line>
           <template v-for="(chatRoom, index) in chatRooms">
@@ -57,6 +58,12 @@ export default {
               let ref = db.collection(chatRoom.chatRoomId).orderBy("timestamp");
               ref.onSnapshot(snapshot => {
                 console.log("doc has changed!!");
+                this.$notify({
+                  group: "foo",
+                  title: "new message",
+                  text: "new message has comming"
+                });
+                
               });
             }
           });
@@ -73,7 +80,7 @@ export default {
               var chatRoom = this.chatRooms[index];
               let ref = db.collection(chatRoom.chatRoomId).orderBy("timestamp");
               ref.onSnapshot(snapshot => {
-                console.log("doc has changed");
+                console.log("doc has changed in chatroom list");
                 console.log(chatRoom)
                 this.$notify({
                   group: "foo",

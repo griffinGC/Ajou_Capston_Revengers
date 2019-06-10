@@ -3,7 +3,6 @@
     <v-card>
       <v-card-title>
         <h2>chat room</h2>
-         <notifications group="foo"/>
       </v-card-title>
       <v-list class="messages" two-line v-chat-scroll>
         <template v-for="msg in messages">
@@ -45,7 +44,7 @@ export default {
       newMessageRules: [v => !!v || "Message is required"]
     };
   },
-  created() {
+  mounted() {
     console.log(this.chatRoomId);
     let ref = db.collection(this.chatRoomId).orderBy("timestamp");
 

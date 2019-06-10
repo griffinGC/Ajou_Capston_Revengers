@@ -76,7 +76,10 @@ import Chat from "../views/Chat";
 export default {
   props: ["hostBoard"],
   components: {
-    Chat
+    Chat,
+     computedDateFormatted() {
+      return this.formatDate(this.date);
+    },
   },
   data() {
     return {
@@ -87,9 +90,6 @@ export default {
       chatId: "",
       loading: "",
       showDate: "2018-03-02",
-
-      selected: [],
-      location: [],
 
       date: new Date().toISOString().substr(0, 10),
       dateFormatted: this.formatDate(new Date().toISOString().substr(0, 10)),

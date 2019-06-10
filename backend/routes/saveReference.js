@@ -15,7 +15,7 @@ router.get('/getGuestWrited/:id',function(req, res,next){
           return res.json({state : -1 , msg : err});
         };
         if(getInfo){
-            return res.json(getInfo)
+            return res.json(getInfo[0])
         } 
       }); 
 });
@@ -32,7 +32,7 @@ router.get('/getHostWrited/:id',function(req, res,next){
           return res.json({state : -1 , msg : err});
         };
         if(getInfo){
-            return res.json(getInfo)
+            return res.json(getInfo[0])
         } 
       }); 
 });

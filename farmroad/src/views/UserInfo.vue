@@ -93,7 +93,10 @@
                 <WriteReference
                 :boardId="`${reference.boardId}`" 
                 :boardWriter="`${reference.userName}`"
+                v-if="!reference.title"
                 />
+                <!--show reference-->
+              <ShowReference v-bind:referenceId="reference.id" v-else/>
               </div>
             </v-flex>
           </v-layout>
@@ -105,8 +108,8 @@
 </template>
 
 <script>
-import { constants } from "crypto";
 import WriteReference from '../components/WriteReference'
+import ShowReference from '../components/ShowReference'
 export default {
   data() {
     
@@ -139,7 +142,8 @@ export default {
     };
   },
   components: {
-    WriteReference
+    WriteReference,
+    ShowReference
   },
   created(){
     console.log("userInfo is created");
@@ -273,6 +277,13 @@ export default {
         });
       }
     },
+    checkWriter(){
+      for (let index = 0; index < reference.length; index++) {
+       console.log(reference[index])
+
+        
+      }
+    }
   },
   
 };

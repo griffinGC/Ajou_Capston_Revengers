@@ -116,7 +116,7 @@
             <v-checkbox v-model="selected" label="노래를 잘해요" value="노래를 잘해요"></v-checkbox>
           </v-item-group>
           <v-item-group>
-            <v-checkbox v-model="selected" label="말동부를 잘해요" value="말동부를 잘해요"></v-checkbox>
+            <v-checkbox v-model="selected" label="말동무를 잘해요" value="말동무를 잘해요"></v-checkbox>
             <v-checkbox v-model="selected" label="컴퓨터를 잘다뤄요" value="컴퓨터를 잘다뤄요"></v-checkbox>
           </v-item-group>
           <v-item-group>

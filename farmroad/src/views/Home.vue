@@ -130,8 +130,11 @@ export default {
     } else {
       this.user = false;
     }
+
+    
   },
   mounted: function() {
+    console.log('mounted is on!!')
     if (localStorage.role == 0) {
       this.axios
         .get(

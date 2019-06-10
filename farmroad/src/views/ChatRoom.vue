@@ -49,6 +49,11 @@ export default {
     console.log(this.chatRoomId);
     let ref = db.collection(this.chatRoomId).orderBy("timestamp");
 
+    this.$notify({
+            group: "foo",
+            title: "new message",
+            text: "newwwwww"
+          });
     ref.onSnapshot(snapshot => {
       snapshot.docChanges().forEach(change => {
         if (change.type == "added") {
@@ -60,11 +65,7 @@ export default {
             img: doc.data().img
             //timestamp: moments(doc.data().timestamp).format('lll')
           });
-          this.$notify({
-            group: "foo",
-            title: "new message",
-            text: doc.data().content
-          });
+          
         }
       });
     });

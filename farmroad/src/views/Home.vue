@@ -40,6 +40,7 @@
             </v-flex>
           </v-layout>
         </v-card>
+      </v-card>
       </v-flex>
     </v-flex>
     <v-flex>

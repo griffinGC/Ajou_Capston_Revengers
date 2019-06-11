@@ -28,6 +28,7 @@
        
         <!---date and content--->
         <div>
+          <span>{{board.location}}</span><br>
           <span class="grey--text">{{board.startDate}}</span>
           <br>
           <span>{{board.content}}</span>

@@ -55,7 +55,6 @@
           <v-checkbox v-model="selected" label="농기계를 잘다뤄요" value="농기계를 잘다뤄요"></v-checkbox>
           <v-checkbox v-model="selected" label="농사경험이 있어요" value="농사경험이 있어요"></v-checkbox>
         </v-item-group>
-        <!-- {{ this.selected}} -->
         <v-btn flat class="success" @click="sortBoard(boards)">선택사항 검색</v-btn>
       </v-layout>
     </v-form>
@@ -72,8 +71,6 @@
             </v-card-text>
 
             <v-card-actions>
-              <!--Board View-->
-              <!-- <GuestBoardView v-if="role===false" v-bind:guestBoad="board"/> -->
               <HostBoardView v-if="role===true" v-bind:hostBoard="board"/>
               <GuestBoardView v-if="role===false" v-bind:guestBoard="board"/>
             </v-card-actions>

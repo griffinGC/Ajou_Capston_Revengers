@@ -78,8 +78,8 @@ const router =  new Router({
       },
       props: true,
       beforeEnter: (to, from, next) => {
-        console.log('router beforEnter message: '+to.params.name)
-        if(to.params.name){
+        console.log('router beforEnter message: '+to.params.comments)
+        if(to.params.comments){
           next()
         }
       }

@@ -58,6 +58,7 @@ router.get('/filterBoard/:id',function(req, res,next){
                     result.push(board[i]);
                 }    
             }
+            console.log("중간값 : " +result);
             for(let i = 0; i< result.length -1; i++){
                 for(let j = 1; j<result.length; j++){
                     if(result[i].preferCount > result[j].preferCount){

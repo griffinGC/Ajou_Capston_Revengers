@@ -43,23 +43,23 @@ router.get('/filterBoard/:id',function(req, res,next){
             if(err){
                 return res.json({state : -1, msg : err});
             }
-            console.log(board);
+            // console.log(board);
             let result = "";    
             for(let i = 0; i<board.length; i++){
                 for(let j = 0 ; j < ability.length; j++){
                     for(let k = 0; k<board[i].preferAbility.length; k++){
                         if(ability[j] === board[i].preferAbility[k]){
                             ++board[i].preferCount;
-                            console.log(board[i]);
+                            // console.log(board[i]);
                         }
                     }
                 }
                 if(board[i].preferCount > 0){
                     result.push(board[i]);
-                    console.log(board[i]);
+                    console.log("넣을 값 : " +board[i]);
                 }    
             }
-            console.log("중간값 : " +result);
+            console.log("중간값 : " + result);
             for(let i = 0; i< result.length -1; i++){
                 for(let j = 1; j<result.length; j++){
                     if(result[i].preferCount > result[j].preferCount){

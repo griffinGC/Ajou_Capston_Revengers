@@ -46,10 +46,9 @@ router.get('/filterBoard/:id',function(req, res,next){
             console.log(board);
             let result = "";    
             for(let i = 0; i<board.length; i++){
-                let boardPrefer = board[i].preferAbility;
                 for(let j = 0 ; j < ability.length; j++){
-                    for(let k = 0; k<boardPrefer.length; k++){
-                        if(ability[j] === boardPrefer[k]){
+                    for(let k = 0; k<board[i].preferAbility.length; k++){
+                        if(ability[j] === board[i].preferAbility.boardPrefer[k]){
                             ++board[i].preferCount;
                             console.log(board[i]);
                         }
@@ -57,6 +56,7 @@ router.get('/filterBoard/:id',function(req, res,next){
                 }
                 if(board[i].preferCount > 0){
                     result.push(board[i]);
+                    console.log(board[i]);
                 }    
             }
             console.log("중간값 : " +result);

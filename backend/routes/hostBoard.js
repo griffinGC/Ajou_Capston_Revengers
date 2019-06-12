@@ -43,7 +43,6 @@ router.get('/filterBoard/:id',function(req, res,next){
             if(err){
                 return res.json({state : -1, msg : err});
             }
-            // console.log(board);
             var result = new Array();    
             for(let i = 0; i<board.length; i++){
                 board[i].preferCount = 0;
@@ -52,16 +51,14 @@ router.get('/filterBoard/:id',function(req, res,next){
                         if(ability[j] === board[i].preferAbility[k]){
                             ++board[i].preferCount;
                             console.log("보드의 카운트 값 : " + board[i].preferCount);
-                            // console.log(board[i]);
                         }
                     }
                 }
                 if(board[i].preferCount > 0){
                     result.push(board[i]);
-                    console.log("넣을 값 : " +board[i]);
                 }    
             }
-            console.log("중간값 : " + result);
+            console.log("중간값 : " + result[0].preferCount);
             for(let i = 0; i< result.length -1; i++){
                 for(let j = 1; j<result.length; j++){
                     if(result[i].preferCount > result[j].preferCount){

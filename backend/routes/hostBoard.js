@@ -51,6 +51,7 @@ router.get('/filterBoard/:id',function(req, res,next){
                     for(let k = 0; k<boardPrefer.length; k++){
                         if(ability[j] === boardPrefer[k]){
                             ++board[i].preferCount;
+                            console.log(board[i]);
                         }
                     }
                 }

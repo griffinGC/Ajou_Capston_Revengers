@@ -46,6 +46,7 @@ router.get('/filterBoard/:id',function(req, res,next){
             // console.log(board);
             let result = "";    
             for(let i = 0; i<board.length; i++){
+                board[i].preferCount = 0;
                 for(let j = 0 ; j < ability.length; j++){
                     for(let k = 0; k<board[i].preferAbility.length; k++){
                         if(ability[j] === board[i].preferAbility[k]){
@@ -55,7 +56,6 @@ router.get('/filterBoard/:id',function(req, res,next){
                         }
                     }
                 }
-                console.log(board[0]);
                 if(board[i].preferCount > 0){
                     result.push(board[i]);
                     console.log("넣을 값 : " +board[i]);

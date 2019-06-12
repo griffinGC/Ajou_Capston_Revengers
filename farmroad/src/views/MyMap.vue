@@ -158,6 +158,7 @@ export default {
   mounted(){
     this.role = localStorage.role;
     this.getInfo();
+    this.renderMap()
   },
   methods: {
     renderMap() {

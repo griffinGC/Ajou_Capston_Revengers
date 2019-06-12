@@ -59,17 +59,45 @@
           required
           prepend-icon="email"
         ></v-text-field>
+        <!--location-->
+        <v-flex xs12 sm6 md6>
+          <h3>location:</h3>
+          <v-radio-group v-model="location" row>
+            <v-radio label="경기도" color="indigo" value="경기도"></v-radio>
+            <v-radio label="인천" color="indigo" value="인천"></v-radio>
+            <v-radio label="충청북도" color="indigo" value="충청북도"></v-radio>
+            <v-radio label="충청남도" color="indigo" value="충청남도"></v-radio>
+            <v-radio label="경상북도" color="indigo" value="경상북도"></v-radio>
+            <v-radio label="경상남도" color="indigo" value="경상남도"></v-radio>
+            <v-radio label="전라북도" color="indigo" value="전라북도"></v-radio>
+            <v-radio label="전라남도" color="indigo" value="전라남도"></v-radio>
+            <v-radio label="강원도" color="indigo" value="강원도"></v-radio>
+            <v-radio label="제주도" color="indigo" value="제주도"></v-radio>
+          </v-radio-group>
+        </v-flex>
         <!--phone-->
-        <v-text-field v-model="phone" label="phone" :rules="[phoneRules.required,phoneRules.min]" required prepend-icon="phone"></v-text-field>
+        <v-text-field
+          v-model="phone"
+          label="phone"
+          :rules="[phoneRules.required,phoneRules.min]"
+          required
+          prepend-icon="phone"
+        ></v-text-field>
         <v-alert :value="alertPhoneSuccess" type="success">전화번호 전송 성공!</v-alert>
         <v-alert :value="alertPhoneError" type="error">전화번호 전송 에러!</v-alert>
-        <v-btn  left color="success" @click="sendPhoneNumber">전화번호 인증</v-btn>
+        <v-btn left color="success" @click="sendPhoneNumber">전화번호 인증</v-btn>
 
-        <v-text-field v-model="confirmNumber" label="인증번호" :rules="[confirmRules.required,confirmRules.min,confirmRules.number]" required prepend-icon="done"></v-text-field>
+        <v-text-field
+          v-model="confirmNumber"
+          label="인증번호"
+          :rules="[confirmRules.required,confirmRules.min,confirmRules.number]"
+          required
+          prepend-icon="done"
+        ></v-text-field>
         <v-alert :value="alertApproveSuccess" type="success">인증번호 확인 성공!</v-alert>
         <v-alert :value="alertApproveError" type="error">인증번호 확인 에러!</v-alert>
-        <v-btn  left color="success" @click="checkPhoneNumber">인증번호 확인</v-btn>
-        
+        <v-btn left color="success" @click="checkPhoneNumber">인증번호 확인</v-btn>
+
         <v-slider
           v-model="age"
           :rules="rules"
@@ -80,7 +108,7 @@
           required
           prepend-icon="accessibility"
         ></v-slider>
-        
+
         <v-select
           v-model="select"
           :items="gender"
@@ -92,11 +120,21 @@
 
         <div class="grey--text text--darken-1">Ability</div>
         <v-layout row wrap>
-            <v-flex sm2><v-checkbox v-model="work" label="농업" value="농업"></v-checkbox></v-flex>
-            <v-flex sm2><v-checkbox v-model="work" label="임업" value="임업"></v-checkbox></v-flex>
-            <v-flex sm2><v-checkbox v-model="work" label="수산업" value="수산업"></v-checkbox></v-flex>
-            <v-flex sm2><v-checkbox v-model="work" label="목축업" value="목축업"></v-checkbox></v-flex>
-            <v-flex sm2><v-checkbox v-model="work" label="기타" value="기타"></v-checkbox></v-flex>
+          <v-flex sm2>
+            <v-checkbox v-model="work" label="농업" value="농업"></v-checkbox>
+          </v-flex>
+          <v-flex sm2>
+            <v-checkbox v-model="work" label="임업" value="임업"></v-checkbox>
+          </v-flex>
+          <v-flex sm2>
+            <v-checkbox v-model="work" label="수산업" value="수산업"></v-checkbox>
+          </v-flex>
+          <v-flex sm2>
+            <v-checkbox v-model="work" label="목축업" value="목축업"></v-checkbox>
+          </v-flex>
+          <v-flex sm2>
+            <v-checkbox v-model="work" label="기타" value="기타"></v-checkbox>
+          </v-flex>
         </v-layout>
         <!--signup btn-->
         <br>
@@ -142,7 +180,7 @@ export default {
         required: value => !!value || "Required.",
         min: v => v.length >= 8 || "Min 8 characters"
       },
-      
+
       confirmNumber: "",
       confirmRules: {
         required: value => !!value || "Required.",
@@ -168,7 +206,8 @@ export default {
       alertApproveError: false,
       imageName: "",
       imageUrl: "",
-      imageFile: ""
+      imageFile: "",
+      location: "경기도"
     };
   },
   methods: {
@@ -183,6 +222,7 @@ export default {
       formData.append("age", this.age);
       formData.append("gender", this.select);
       formData.append("work", this.work);
+      formData.append("location", this.location)
       if (this.$refs.form.validate()) {
         this.snackbar = true;
         this.axios
@@ -225,43 +265,47 @@ export default {
           }
         });
     },
-    checkPhoneNumber(){
+    checkPhoneNumber() {
       this.axios
-      .post("http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/hostSignUp/phoneConfirm",
-      {
-        phoneNumber : this.phone,
-        confirmNumber : this.confirmNumber
-      })
-      .then(response =>{
-        console.log(response);
-        if(response.data.state == -1){
-          this.alertApproveSuccess = false;
-          this.alertApproveError = true;
-          this.valid = false;
-        }else{
-          this.alertApproveSuccess = true;
-          this.alertApproveError = false;
-        }
-      })
+        .post(
+          "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/hostSignUp/phoneConfirm",
+          {
+            phoneNumber: this.phone,
+            confirmNumber: this.confirmNumber
+          }
+        )
+        .then(response => {
+          console.log(response);
+          if (response.data.state == -1) {
+            this.alertApproveSuccess = false;
+            this.alertApproveError = true;
+            this.valid = false;
+          } else {
+            this.alertApproveSuccess = true;
+            this.alertApproveError = false;
+          }
+        });
     },
-    sendPhoneNumber(){
-      //phone번호는 string으로 보내야함 
+    sendPhoneNumber() {
+      //phone번호는 string으로 보내야함
       this.axios
-      .post("http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/hostSignUp/sendPhoneNumber",
-      {
-        phoneNumber : this.phone
-      })
-      .then(response =>{
-        console.log(response);
-          if(response.data.state == -1){
-          this.alertPhoneSuccess = false;
-          this.alertPhoneError = true;
-          this.valid = false;
-        }else{
-          this.alertPhoneSuccess = true;
-          this.alertPhoneError = false;
-        }
-      })
+        .post(
+          "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/hostSignUp/sendPhoneNumber",
+          {
+            phoneNumber: this.phone
+          }
+        )
+        .then(response => {
+          console.log(response);
+          if (response.data.state == -1) {
+            this.alertPhoneSuccess = false;
+            this.alertPhoneError = true;
+            this.valid = false;
+          } else {
+            this.alertPhoneSuccess = true;
+            this.alertPhoneError = false;
+          }
+        });
     },
     pickFile() {
       this.$refs.image.click();

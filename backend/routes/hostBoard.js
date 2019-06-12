@@ -50,6 +50,7 @@ router.get('/filterBoard/:id',function(req, res,next){
                     for(let k = 0; k<board[i].preferAbility.length; k++){
                         if(ability[j] === board[i].preferAbility[k]){
                             ++board[i].preferCount;
+                            console.log("보드의 카운트 값 : " + board[i].preferCount);
                             // console.log(board[i]);
                         }
                     }

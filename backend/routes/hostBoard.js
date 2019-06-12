@@ -44,7 +44,7 @@ router.get('/filterBoard/:id',function(req, res,next){
                 return res.json({state : -1, msg : err});
             }
             // console.log(board);
-            var result = "";    
+            var result = new Array();    
             for(let i = 0; i<board.length; i++){
                 board[i].preferCount = 0;
                 for(let j = 0 ; j < ability.length; j++){

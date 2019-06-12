@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 const hostModel = require('../schemas/createHost');
+const guestModel = require('../schemas/createGuest');
 
 const multer = require('multer');
 
@@ -31,6 +32,46 @@ router.get('/getBoard/:id',function(req, res,next){
         })
   });     
 
+//guest의 요구사항에 맞는 host board 게시판 글 가져오기
+router.get('/filterBoard/:id',function(req, res,next){
+    // id로 guest의 id를 받아옴 
+    guestModel.findAbility(req.params.id, function(err, guestInfo){
+        // console.log(guestInfo);
+        let ability = guestInfo[0].ability;
+        console.log(ability);
+        hostBoard.find({}, function(err, board){
+            if(err){
+                return res.json({state : -1, msg : err});
+            }
+            console.log(board);
+            let result = "";    
+            for(let i = 0; i<board.length; i++){
+                let boardPrefer = board[i].preferAbility;
+                for(let j = 0 ; j < ability.length; j++){
+                    for(let k = 0; k<boardPrefer.length; k++){
+                        if(ability[j] === boardPrefer[k]){
+                            ++board[i].preferCount;
+                        }
+                    }
+                }
+                if(board[i].preferCount > 0){
+                    result.push(board[i]);
+                }    
+            }
+            for(let i = 0; i< result.length -1; i++){
+                for(let j = 1; j<result.length; j++){
+                    if(result[i].preferCount > result[j].preferCount){
+                        let temp = result[i].preferCount;
+                        result[i].preferCount = result[j].preferCount;
+                        result[j].preferCount = temp;
+                    }
+                }
+            }
+            console.log(result);
+            return res.json(result);
+        })
+    })
+  });     
 
 //host게시판 글 가져오기
 router.get('/getList',function(req, res,next){

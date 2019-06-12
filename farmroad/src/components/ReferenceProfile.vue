@@ -1,268 +1,221 @@
 <template>
-  <v-dialog v-model="dialog" max-width="650px">
-    <!-- <v-btn @click="viewClicked()" flat slot="activator" class="success">view</v-btn> -->
-    <v-btn flat slot="activator" class="success">view</v-btn>
-      <v-card>
-        <v-container>
-          <v-layout row wrap class="cont">
-            <v-flex sm5>
-              <v-avatar id="avatar" size="220px">
-                <img
-                v-if="candidateData.profileImg"
-                :src="candidateData.profileImg"
-                alt="Avatar">
-                <v-icon id="altImg" size="100px"
-                v-else
-                >person</v-icon>  
-              </v-avatar>
-              <!-- <v-card-text> -->
-                <!-- <div class="rating"> -->
-                <!-- <v-rating :value="board.difficulty" readonly></v-rating> -->
-                <!-- <v-rating :value="10" readonly></v-rating> -->
-                <!-- </div> -->
-              <!-- </v-card-text> -->
-            </v-flex>
-            <v-flex>
-                <v-layout column wrap>
-                <v-flex xs12 sm11>
-                  <v-layout row wrap align-top class="info1">
-                    <v-flex sm4 sm6>
-                    <div class="grey--text font-weight-bold">아이디</div>
-                    <div class="grey--text font-weight-bold">이름</div>
-                    <div class="grey--text font-weight-bold">성별</div>
-                    <div class="grey--text font-weight-bold">나이</div>
-                    <div class="grey--text font-weight-bold">전화번호</div>
-                    <div class="grey--text font-weight-bold">이메일</div>
-                    <div v-if="role === '0'" class="grey--text font-weight-bold">위치</div>
-                    <div v-if="role === '1'" class="grey--text font-weight-bold">능력</div>
-                    </v-flex>
-                    <v-flex sm3>
-                    <div>{{candidateData.userName}}</div>
-                    <div>{{candidateData.name}}</div>
-                    <div>{{candidateData.gender}}</div>
-                    <div>{{candidateData.age}}</div>
-                    <div>{{candidateData.phone}}</div>
-                    <div>{{candidateData.email}}</div>
-                    <div v-if="role === '0'">{{candidateData.location}}</div>
-                    <div v-if="role === '0'">{{candidateData.work}}</div>
-                    <div v-if="role === '1'">{{candidateData.ability}}</div>
-                    <!-- <div>{{candidateData.reference}}</div> -->
-                   </v-flex>
-                 </v-layout>
-               </v-flex>
-               <v-flex sm3>
-                <v-card-actions>
-                <v-btn flat slot="activator" color="success" >
-                  <v-icon small left>닫기</v-icon>
-                  <span>Refuse</span>
-                    </v-btn>
-                  </v-card-actions>
-                </v-flex>
-              </v-layout>
-            </v-flex>
-            </v-layout>
-        </v-container>
-    </v-card>
-  </v-dialog>
+<v-container grid-list-md>
+    <v-layout row wrap>
+      <v-flex xs6 sm7 md10>
+      <v-card >
+        
+         <v-img v-if="profileImg" :src="profileImg" alt="Avatar">
+         </v-img>
+         <v-icon v-else>person</v-icon>
+        <v-layout row wrap>
+        <v-flex xs5 sm5 offset-xs1 class="grey--text font-weight-bold">유저 아이디</v-flex>
+        <v-flex xs6 sm6>{{userName}}</v-flex>
+        <v-flex xs5 sm5 offset-xs1 v-if="role === '1'" class="grey--text font-weight-bold">유저정보</v-flex>
+        <v-flex xs5 sm5 v-if="role === '1'">Host</v-flex>
+        <v-flex xs5 sm5 offset-xs1 v-if="role === '0'" class="grey--text font-weight-bold">유저정보</v-flex>
+        <v-flex xs6 v-if="role === '0'">Guest</v-flex>
+        <v-flex xs5 offset-xs1 class="grey--text font-weight-bold">이름</v-flex>
+        <v-flex xs6>{{name}}</v-flex>
+        <v-flex xs5 offset-xs1 class="grey--text font-weight-bold">성별</v-flex>
+        <v-flex xs6>{{gender}}</v-flex>
+        <v-flex xs5 offset-xs1 class="grey--text font-weight-bold">나이</v-flex>
+        <v-flex xs6>{{age}}</v-flex>
+        <v-flex xs5 offset-xs1 v-if="role === '0'" class="grey--text font-weight-bold">능력</v-flex>
+        <v-flex xs6 v-if="role === '0'">{{ability}}</v-flex>
+        <v-flex xs5 offset-xs1 class="grey--text font-weight-bold">전화번호</v-flex>
+        <v-flex xs6>{{phone}}</v-flex>
+        <v-flex xs5 offset-xs1 v-if="role === '1'" class="grey--text font-weight-bold">직업</v-flex>
+        <v-flex xs6 v-if="role === '1'">{{work}}</v-flex>
+        <v-flex xs5 offset-xs1 v-if="role === '1'" class="grey--text font-weight-bold">지역</v-flex>
+        <v-flex xs6 v-if="role === '1'">{{location}}</v-flex>
+        <v-flex xs5 offset-xs1 class="grey--text font-weight-bold">주소</v-flex>
+        <v-flex xs6>{{address}}</v-flex>
+        <v-flex xs5 offset-xs1 class="grey--text font-weight-bold">평점</v-flex>
+        <v-flex xs6></v-flex>
+        <v-flex xs8 sm8 md8 text-md-right offset-xs4 offset-md3 mb-3>
+        </v-flex>
+        <v-divider></v-divider>
+        </v-layout>
+          
+          <v-list>
+          <v-list-tile >
+            <v-list-tile-action>
+              <v-icon  color="pink">done</v-icon>
+            </v-list-tile-action>
+
+            <v-list-tile-content>
+              <v-list-tile-title >후기</v-list-tile-title>
+            </v-list-tile-content>
+          </v-list-tile>
+          <v-list-tile
+            v-for="reference in getMyReferenceList"
+            :key="reference._Id"
+            avatar
+            @click="dialog === true"
+            router :to="{ name : 'ReferenceProfile', params:{sendName : reference.writer}}"  
+          >
+
+            <v-list-tile-avatar v-if="reference.writerImg">
+              <img  :src="reference.writerImg">
+            </v-list-tile-avatar>
+            <v-icon v-else size="40px">person</v-icon>
+
+            <v-list-tile-content>
+              <v-list-tile-title v-text="reference.title"></v-list-tile-title>
+              <v-list-tile-sub-title v-text="reference.content"></v-list-tile-sub-title>
+            </v-list-tile-content>
+            
+          </v-list-tile>
+        </v-list>          
+      </v-card>
+      </v-flex>
+      <v-flex md5>
+      </v-flex>
+    </v-layout>
+  </v-container>
 </template>
+
 <script>
+import { constants } from "crypto";
+import WriteReference from '../components/WriteReference'
 export default {
   data() {
+    
     return {
-      // candidateInfo : ""
-      boards: [],
-      dialog : false,
-      candidateData : {
+      dialog: true,
+  // userName: localStorage.username,
+      userName : "test",
+      userId : "",
+      name : "default",
+      profileImg : "https://cdn.vuetifyjs.com/images/cards/house.jpg",
+      password : "",
+      gender : "man",
+      age : "22",
+      ability : "can do anything",
+      phone : "01011112222",
+      email : "chchch@gggg",
+      reference : "",
+      work : "dfdf",            
+      address : "dfdf",
+      location : "zzzz",
+      role :"",
+      referenceList :[
+        // {title : "gggg"}
+      ],
+      getMyReferenceList :[
 
-      },
+      ],
+      // notificationList:[],
+      alreadyReference :[]
     };
   },
-  props : ['userName'],
-  created() {
-    // console.log("view is created");
-    console.log("props로 받은 값 : " + this.candidateInfo);
-    console.log("board id : " + this.notificationId);
-    this.viewClicked();
-    console.log(this.state);
-    console.log("거절 상태 : " +this.nowRefuse);
-    console.log("승인 상태 : " +this.nowApprove);
-    this.role=localStorage.role;
+  components: {
+    WriteReference
+  },
+  created(){
+    console.log("userInfo is created");
+    this.role = localStorage.role
+    this.getInfo();
+    this.getMyReference();
+
   },
   mounted(){
-    this.viewClicked();
-    console.log(this.state);
-    if(this.state === "approve"){
-      this.nowApprove = true;
-    }else if(this.state === "refuse"){
-      this.nowRefuse = true;
-    }else{
-      this.nowApprove = false;
-      this.nowRefuse = false;
-    }
     this.role = localStorage.role;
+    this.getInfo();
+    this.getMyReference();
   },
-
   methods: {
-    viewClicked(){
-      console.log("view is clicked!");
+    getInfo() {
       // localStorage.role == 0 이면 guest && 1이면 host
-        let userId = this.candidateInfo;
-        // console.log("로컬 스토리지 역할 정보 : "+localStorage.role);
-        //내가 guest일 경우 host의 정보를 가져옴 
+        let userId = localStorage.username;
         if(localStorage.role === '0'){
         this.axios
-          .get(`http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/user/getInfo/host/${userId}`)
+          .get(`http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/user/getInfo/guest/${userId}`)
           .then(response => {
-            console.log(response.data[0]);
             let userData = response.data[0];
-            console.log("받은 data 이름: " + userData.userName);
-            // console.log("받은 data 이름2: " + this.candidateData.userName);
-            this.candidateData.userName = userData.userName;
-            console.log("받은 data 이름2: " + this.candidateData.userName);
-            this.candidateData.name = userData.name;
-            this.candidateData.profileImg = userData.profileImg;
-            this.candidateData.age = userData.age;
-            this.candidateData.gender = userData.gender;
-            this.candidateData.work = userData.work;
-            this.candidateData.address = userData.address;
-            this.candidateData.location = userData.location;
-            this.candidateData.phone = userData.phone;
-            this.candidateData.email = userData.email;
-            this.candidateData.reference = userData.reference;
-            // this.candidateData.boardId = userData.boardId;
+            this.userName = userData.userName;
+            this.name = userData.name;
+            this.profileImg = userData.profileImg;
+            this.age = userData.age;
+            this.ability = userData.ability;
+            this.phone = userData.phone;
+            this.email = userData.email;
+            this.reference = userData.reference;
           });
       }else{
-        //내가 host일 경우 guest정보를 가져옴 
         this.axios
-        .get(`http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/user/getInfo/guest/${userId}`)
+        .get(`http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/user/getInfo/host/${userId}`)
         .then(response =>{
-          console.log(response.data[0]);
             let userData = response.data[0];
-            this.candidateData.userName = userData.userName;
-            this.candidateData.name = userData.name;
-            this.candidateData.profileImg = userData.profileImg;
-            this.candidateData.age = userData.age;
-            this.candidateData.gender = userData.gender;
-            this.candidateData.ability = userData.ability;
-            this.candidateData.phone = userData.phone;
-            this.candidateData.email = userData.email;
-            this.candidateData.reference = userData.reference;
-            // this.candidateData.boardId = userData.boardId;
+            this.userName = userData.userName;
+            this.name = userData.name;
+            this.profileImg = userData.profileImg;
+            this.age = userData.age;
+            this.work = userData.work;
+            this.address = userData.address;
+            this.location = userData.location;
+            this.phone = userData.phone;
+            this.email = userData.email;
+            this.reference = userData.reference;
         });
       };
     },
-    approveCandidate(name){
-      console.log("notify state ");
-      console.log("보낼 보드 id : " + this.boardId);
-      console.log("보낼 writer id : " + this.writerId);
-        // console.log(name);
-        //guest일때 host 승인
-         if(localStorage.role === '0'){
-        this.axios
-          .post(
-            "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/notifyState/guestApprove",
+    getMyReference(){
+      let userId = localStorage.username;
+      //guest일때는 host가 approve한 것 보여줌
+      if (localStorage.role == 0) {
+      this.axios
+        .get(
+          `http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/reference/getGuestReference/${userId}`
+        )
+        .then(response => {
+          // console.log("나한테 작성된 reference 정보 값1")
+          // console.log(response.data);
+          // console.log("나한테 작성된 reference 정보 값1")
+          this.getMyReferenceList = response.data;
+          let result = response.data;
+          for(let i = 0; i<result.length; i++){
+            if(result[i].title === undefined)
             {
-            userName : name,
-            notificationId : this.notificationId,
-            boardId : this.boardId,
-            writerName : this.writerId,
-            boardTitle : this.boardTitle
+              result.splice(i, 1);
             }
-          )
-          .then(response => {
-            if (response.data.state == -1) {
-              alert("승인에 실패했습니다.");
-            } else {
-              console.log("승인에 성공했습니다.");
-              location.reload();
-            }
-         });
-        //host일때 guest 승인
-         }else if(localStorage.role === '1'){
-        this.axios
-          .post(
-            "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/notifyState/hostApprove",
-            {
-            userName : name,
-            notificationId : this.notificationId,
-            boardId : this.boardId,
-            writerName : this.writerId,
-            boardTitle : this.boardTitle
-            }
-          )
-          .then(response => {
-            if (response.data.state == -1) {
-              alert(response.data.msg);
-            } else {
-              console.log(response.data.msg);
-              location.reload();
-            }
-          });
-      }
-
-    },
-    refuseCandidate(name){
-        console.log("notify state ");
-        // console.log(name);
-        console.log("보낼 보드 id : " + this.boardId);
-      console.log("보낼 writer id : " + this.writerId);
-        // console.log(boardId);
-        if(localStorage.role === '0'){
-        this.axios
-          .post(
-            "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/notifyState/guestRefuse",
-          {
-            userName : name,
-            notificationId : this.notificationId,
-            boardId : this.boardId,
-            writerName : this.writerId
           }
-          )
-          .then(response => {
-            if (response.data.state == -1) {
-              alert("거절에 실패했습니다.");
-            } else {
-              console.log("거절에 성공했습니다.");
-              location.reload();
+          this.getMyReferenceList = result;
+          
+        });
+      } else if (localStorage.role == 1) {
+      this.axios
+        .get(
+          `http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/reference/getHostReference/${userId}`
+        )
+        .then(response => {
+          // console.log("나한테 작성된 reference 정보 값1")
+          // console.log(response.data);
+          // console.log("나한테 작성된 reference 정보 값1")
+          this.getMyReferenceList = response.data;
+          let result = response.data;
+          for(let i = 0; i<result.length; i++){
+            if(result[i].title === undefined)
+            {
+              result.splice(i, 1);
             }
-         });
-         
-         }else if(localStorage.role === '1'){
-        this.axios
-          .post(
-            "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/notifyState/hostRefuse",
-          {
-            userName : name,
-            notificationId : this.notificationId,
-            boardId : this.boardId,
-            writerName : this.writerId
-            }
-          )
-          .then(response => {
-            if (response.data.state == -1) {
-              alert("거절에 실패했습니다.");
-            } else {
-              console.log("거절에 성공했습니다.");
-              location.reload();
-            }
-          });
-         }
-
+          }
+          this.getMyReferenceList = result;
+        });
+      }
     },
-  }
+  },
+  
 };
 </script>
 <style>
-.info1 div{
-  margin-left:12px;
-  margin-bottom:10px;
+.btns{
+  margin-top:10px;
 }
-/* .rating{
+.btn2{
   margin-left:5px;
-  margin-top:0px;
-} */
-.cont{
-  margin-left:30px;
-  margin-top:30px;
+}
+div{
+  margin-bottom:5px;
 }
 </style>

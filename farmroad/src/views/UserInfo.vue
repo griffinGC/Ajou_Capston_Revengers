@@ -53,7 +53,8 @@
             v-for="reference in getMyReferenceList"
             :key="reference._Id"
             avatar
-            router :to="{name : ReferenceProfile}"  
+            @click="dialog === true"
+            router :to="{ name : 'ReferenceProfile', params:{sendName : reference.writer}}"  
           >
 
             <v-list-tile-avatar v-if="reference.writerImg">
@@ -148,15 +149,15 @@ export default {
     this.getMyReference();
     this.getNotificationInfo();
     // this.compareReference(this.referenceList, this.alreadyReference);
-    console.log("들어있는 값 : " + this.referenceList);
-    console.log("reference 값 : " + this.getMyReferenceList);
+    // console.log("들어있는 값 : " + this.referenceList);
+    // console.log("reference 값 : " + this.getMyReferenceList);
   },
   mounted(){
     this.role = localStorage.role;
     this.getInfo();
     this.getMyReference();
     this.getNotificationInfo();
-    console.log("들어있는 값 : " + this.referenceList);
+    // console.log("들어있는 값 : " + this.referenceList);
   },
   methods: {
     getInfo() {
@@ -209,9 +210,9 @@ export default {
           `http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/reference/getGuestMyReference/${userId}`
         )
         .then(response => {
-          console.log("notification 정보 값1")
-          console.log(response.data);
-          console.log("notification 정보 값1")
+          // console.log("notification 정보 값1")
+          // console.log(response.data);
+          // console.log("notification 정보 값1")
           // this.notificationList = response.data;
           this.referenceList = response.data;
         });
@@ -221,9 +222,9 @@ export default {
           `http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/reference/getHostMyReference/${userId}`
         )
         .then(response => {
-          console.log("notification 정보 값2")
-          console.log(response.data);
-          console.log("notification 정보 값2")
+          // console.log("notification 정보 값2")
+          // console.log(response.data);
+          // console.log("notification 정보 값2")
           // this.notificationList = response.data;
           this.referenceList = response.data;
         });
@@ -238,9 +239,9 @@ export default {
           `http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/reference/getGuestReference/${userId}`
         )
         .then(response => {
-          console.log("나한테 작성된 reference 정보 값1")
-          console.log(response.data);
-          console.log("나한테 작성된 reference 정보 값1")
+          // console.log("나한테 작성된 reference 정보 값1")
+          // console.log(response.data);
+          // console.log("나한테 작성된 reference 정보 값1")
           this.getMyReferenceList = response.data;
           let result = response.data;
           for(let i = 0; i<result.length; i++){
@@ -258,9 +259,9 @@ export default {
           `http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/reference/getHostReference/${userId}`
         )
         .then(response => {
-          console.log("나한테 작성된 reference 정보 값1")
-          console.log(response.data);
-          console.log("나한테 작성된 reference 정보 값1")
+          // console.log("나한테 작성된 reference 정보 값1")
+          // console.log(response.data);
+          // console.log("나한테 작성된 reference 정보 값1")
           this.getMyReferenceList = response.data;
           let result = response.data;
           for(let i = 0; i<result.length; i++){

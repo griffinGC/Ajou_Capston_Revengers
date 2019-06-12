@@ -120,21 +120,11 @@
 
         <div class="grey--text text--darken-1">Ability</div>
         <v-layout row wrap>
-          <v-flex sm2>
-            <v-checkbox v-model="work" label="농업" value="농업"></v-checkbox>
-          </v-flex>
-          <v-flex sm2>
-            <v-checkbox v-model="work" label="임업" value="임업"></v-checkbox>
-          </v-flex>
-          <v-flex sm2>
-            <v-checkbox v-model="work" label="수산업" value="수산업"></v-checkbox>
-          </v-flex>
-          <v-flex sm2>
-            <v-checkbox v-model="work" label="목축업" value="목축업"></v-checkbox>
-          </v-flex>
-          <v-flex sm2>
-            <v-checkbox v-model="work" label="기타" value="기타"></v-checkbox>
-          </v-flex>
+            <v-flex sm2><v-checkbox v-model="work" label="농업" value="agriculture"></v-checkbox></v-flex>
+            <v-flex sm2><v-checkbox v-model="work" label="임업" value="forestry"></v-checkbox></v-flex>
+            <v-flex sm2><v-checkbox v-model="work" label="수산업" value="fishery"></v-checkbox></v-flex>
+            <v-flex sm2><v-checkbox v-model="work" label="목축업" value="livestock"></v-checkbox></v-flex>
+            <v-flex sm2><v-checkbox v-model="work" label="기타" value="others"></v-checkbox></v-flex>
         </v-layout>
         <!--signup btn-->
         <br>

@@ -220,15 +220,15 @@ export default {
           "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/chatRoom/createChatRoom",
           {
             chatRoomId: this.chatRoomId,
-            hostUserName: info.userName,
-            guestUserName: localStorage.username
+            hostUserName: localStorage.username,
+            guestUserName: info.userName
           }
         )
         .then(response => {
           if (response.data.state == -1) {
-            console.log(response.data.msg);
+            console.log("create room faild"+response.data);
           }
-          console.log(response.data.msg);
+          console.log("create success"+response.data);
           this.$router.push({
             name: "chatroom",
             params: { chatRoomId: this.chatRoomId }

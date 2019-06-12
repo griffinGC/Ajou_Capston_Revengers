@@ -3,7 +3,8 @@
     <v-flex xs12>
       <v-flex xl12>
         <div class="grey--text text--darken-1">Notification</div>
-        <v-card color="lime lighten-5" height="450" v-chat-scroll>
+        <!-- <v-card color="lime lighten-5" height="450" v-chat-scroll> -->
+          <v-card color="lime lighten-5" height="450" class="scroll">
           <v-card class="pa-1" v-for="notification in notificationList" :key="notification.id">
             <v-layout row wrap :class="`pa-1 project.${notification.boardInfo.title}`">
               <v-flex xs12 md6>
@@ -40,6 +41,7 @@
             </v-layout>
           </v-card>
         </v-card>
+      </v-card>
       </v-flex>
     </v-flex>
     <v-flex>
@@ -142,7 +144,7 @@ export default {
     if (localStorage.role == 0) {
       this.axios
         .get(
-          "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/hostBoard/getList"
+          `http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/hostBoard/filterBoard/${localStorage.username}`
         )
         .then(response => {
           console.log(response.data);
@@ -152,7 +154,7 @@ export default {
     } else if (localStorage.role == 1) {
       this.axios
         .get(
-          "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/guestBoard/getList"
+          `http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/guestBoard/filterBoard/${localStorage.username}`
         )
         .then(response => {
           console.log(response.data);

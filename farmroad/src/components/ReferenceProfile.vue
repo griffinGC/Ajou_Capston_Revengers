@@ -1,7 +1,7 @@
 <template>
 <v-container grid-list-md>
     <v-layout row wrap>
-      <v-flex xs6 sm7 md4>
+      <v-flex xs6 sm7 md10>
       <v-card >
         
          <v-img v-if="profileImg" :src="profileImg" alt="Avatar">
@@ -33,8 +33,6 @@
         <v-flex xs5 offset-xs1 class="grey--text font-weight-bold">평점</v-flex>
         <v-flex xs6></v-flex>
         <v-flex xs8 sm8 md8 text-md-right offset-xs4 offset-md3 mb-3>
-          <v-btn class="light-blue lighten-2 white--text" v-on:click.native="editInfo">수정하기</v-btn>
-          <v-btn class="light-blue lighten-2 white--text" v-on:click.native="saveCancel">취소 </v-btn>
         </v-flex>
         <v-divider></v-divider>
         </v-layout>
@@ -72,45 +70,14 @@
       </v-card>
       </v-flex>
       <v-flex md5>
-      <v-card>
-        
-          <v-card class="pa-1" v-for="reference in referenceList" :key="reference.id">
-          <v-layout row wrap :class="`pa-1 project.${reference._id}`">
-
-            <v-flex xs5 md3>
-              <div class="caption grey--text">글 제목</div>
-              
-              <div>{{reference.boardTitle}}</div>
-            </v-flex>
-
-            <v-flex xs6 sm4 md5>
-              <div class="caption grey--text">글 작성자</div>
-              <div>{{reference.userName}}</div>
-            </v-flex>
-
-
-            <v-flex xs6 sm4 md2>
-              <div>
-                <WriteReference
-                :boardId="`${reference.boardId}`" 
-                :boardWriter="`${reference.userName}`"
-                v-if="!reference.title"
-                />
-                <!--show reference-->
-              <ShowReference v-bind:referenceId="reference.id" v-else/>
-              </div>
-            </v-flex>
-          </v-layout>
-        </v-card>
-      </v-card>
       </v-flex>
     </v-layout>
   </v-container>
 </template>
 
 <script>
+import { constants } from "crypto";
 import WriteReference from '../components/WriteReference'
-import ShowReference from '../components/ShowReference'
 export default {
   data() {
     
@@ -143,25 +110,19 @@ export default {
     };
   },
   components: {
-    WriteReference,
-    ShowReference
+    WriteReference
   },
   created(){
     console.log("userInfo is created");
     this.role = localStorage.role
     this.getInfo();
     this.getMyReference();
-    this.getNotificationInfo();
-    // this.compareReference(this.referenceList, this.alreadyReference);
-    // console.log("들어있는 값 : " + this.referenceList);
-    // console.log("reference 값 : " + this.getMyReferenceList);
+
   },
   mounted(){
     this.role = localStorage.role;
     this.getInfo();
     this.getMyReference();
-    this.getNotificationInfo();
-    // console.log("들어있는 값 : " + this.referenceList);
   },
   methods: {
     getInfo() {
@@ -198,41 +159,6 @@ export default {
             this.reference = userData.reference;
         });
       };
-    },
-    editInfo(){
-      this.$router.push('/editUserInfo');
-    },
-    saveCancel(){
-      this.$router.push('/');
-    },
-    getNotificationInfo(){
-      let userId = localStorage.username;
-      //guest일때는 host가 approve한 것 보여줌
-      if (localStorage.role == 0) {
-      this.axios
-        .get(
-          `http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/reference/getGuestMyReference/${userId}`
-        )
-        .then(response => {
-          // console.log("notification 정보 값1")
-          // console.log(response.data);
-          // console.log("notification 정보 값1")
-          // this.notificationList = response.data;
-          this.referenceList = response.data;
-        });
-      } else if (localStorage.role == 1) {
-      this.axios
-        .get(
-          `http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/reference/getHostMyReference/${userId}`
-        )
-        .then(response => {
-          // console.log("notification 정보 값2")
-          // console.log(response.data);
-          // console.log("notification 정보 값2")
-          // this.notificationList = response.data;
-          this.referenceList = response.data;
-        });
-      }
     },
     getMyReference(){
       let userId = localStorage.username;
@@ -278,13 +204,6 @@ export default {
         });
       }
     },
-    checkWriter(){
-      for (let index = 0; index < reference.length; index++) {
-       console.log(reference[index])
-
-        
-      }
-    }
   },
   
 };

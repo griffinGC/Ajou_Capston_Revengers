@@ -4,6 +4,40 @@ var router = express.Router();
 const referenceModel = require('../schemas/reference');
 
 
+//guest가 자기가 작성한 reference가져오기 
+router.get('/getGuestWrited/:id',function(req, res,next){
+  let type = "host"
+  if(!req.params.id){
+    return res.json({state : -1, msg : "board ID is empty"});
+  }
+    referenceModel.find({id : req.params.id, boardType : type},function(err,getInfo){
+        if(err) {
+          return res.json({state : -1 , msg : err});
+        };
+        if(getInfo){
+            return res.json(getInfo[0])
+        } 
+      }); 
+});
+
+
+//host가 자기가 작성할 reference가져오기 
+router.get('/getHostWrited/:id',function(req, res,next){
+  let type = "guest"
+  if(!req.params.id){
+    return res.json({state : -1, msg : "board ID is empty"});
+  }
+    referenceModel.find({id : req.params.id, boardType : type},function(err,getInfo){
+        if(err) {
+          return res.json({state : -1 , msg : err});
+        };
+        if(getInfo){
+            return res.json(getInfo[0])
+        } 
+      }); 
+});
+
+
 
 //guest => host 후기 글 작성 
 router.post('/createHostReference',function(req, res, next){

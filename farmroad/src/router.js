@@ -14,6 +14,7 @@ import MyMap from './views/MyMap'
 import Review from './views/Review'
 import ChatRoom from './views/ChatRoom'
 import ChatRoomList from './components/ChatRoomList'
+import ReferenceProfile from './components/ReferenceProfile'
 
 Vue.use(Router)
 
@@ -80,6 +81,21 @@ const router =  new Router({
       beforeEnter: (to, from, next) => {
         console.log('router beforEnter message: '+to.params.comments)
         if(to.params.comments){
+          next()
+        }
+      }
+    },
+    {
+      path: '/referenceProfile',
+      name: 'ReferenceProfile',
+      component: ReferenceProfile,
+      meta:{
+        requiresAuth: true
+      },
+      props: true,
+      beforeEnter: (to, from, next) => {
+        console.log('router beforEnter message: '+to.params.sendName)
+        if(to.params.sendName){
           next()
         }
       }

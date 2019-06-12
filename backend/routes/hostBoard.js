@@ -54,6 +54,7 @@ router.get('/filterBoard/:id',function(req, res,next){
                         }
                     }
                 }
+                console.log(board[0]);
                 if(board[i].preferCount > 0){
                     result.push(board[i]);
                     console.log("넣을 값 : " +board[i]);

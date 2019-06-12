@@ -124,7 +124,7 @@
             <v-checkbox v-model="selected" label="농사경험이 있어요" value="farm"></v-checkbox>
           </v-item-group>
         </v-layout>
-        
+        {{selected}}
         <!--sign up btn-->
         <v-btn :disabled="!valid" left color="success" @click="validate">Sign Up</v-btn>
       </v-form>

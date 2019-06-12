@@ -78,7 +78,7 @@
             <v-checkbox v-model="selected" hide-details label="농사경험이 있어요" value="농사경험이 있어요"></v-checkbox>
             </v-flex>
           </v-flex>
-          <v-icon>location_on</v-icon><span class="grey--text text--darken-1"> 일하는 지역</span>
+          <!-- <v-icon>location_on</v-icon><span class="grey--text text--darken-1"> 일하는 지역</span>
           <v-flex xs12 d-flex>
             <v-flex xs6>
             <v-checkbox v-model="workLocation" hide-details label="경기도" value="경기도"></v-checkbox>
@@ -94,7 +94,7 @@
             <v-checkbox v-model="workLocation" hide-details label="강원도" value="강원도"></v-checkbox>
             <v-checkbox v-model="workLocation" hide-details label="제주도" value="제주도"></v-checkbox>
             </v-flex>
-          </v-flex>
+          </v-flex> -->
           <v-textarea label="Content" v-model="content" prepend-icon="edit" required></v-textarea>
           <v-alert v-model="alert" dismissible type="success">create Board success</v-alert>
 
@@ -189,7 +189,7 @@ export default {
       let temp = JSON.stringify(this.selected);
       // 문자열로 보내서 backend에서 데이터 처리
       formData.append("preferAbility", temp);
-      formData.append("location", this.workLocation);
+      // formData.append("location", this.workLocation);
       console.log(formData)
       this.axios
         .post(

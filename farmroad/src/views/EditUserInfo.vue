@@ -15,7 +15,7 @@
       <v-flex xs12 class="text-xs-center text-sm-center text-md-center text-lg-center">
         <img :src="imageUrl" height="150" v-if="imageUrl">
         <v-text-field
-          label="Select Image"
+          label="사진 올리기"
           @click="pickFile"
           v-model="imageName"
           prepend-icon="attach_file"
@@ -43,7 +43,7 @@
         :rules="[rules.required, rules.min]"
         :type="show1 ? 'text' : 'password'"
         name="input-10-1"
-        hint="At least 8 characters"
+        hint="최소 8자 이상되어야 합니다."
         counter
         @click:append="show1 = !show1"
       ></v-text-field>
@@ -152,9 +152,9 @@ export default {
 
       show1: false,
       rules: {
-        required: value => !!value || "Required.",
-        min: v => v.length >= 8 || "Min 8 characters",
-        emailMatch: () => "The email and password you entered don't match"
+        required: value => !!value || "필수",
+        min: v => v.length >= 8 || "최소 8자 이상",
+        emailMatch: () => "이메일 형식에 맞지 않습니다."
       },
       role: ""
     };

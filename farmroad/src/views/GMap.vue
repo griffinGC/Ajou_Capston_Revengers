@@ -1,16 +1,16 @@
   <template>
   <v-layout row justify-center>
-    <v-btn color="primary" dark @click.stop="dialog = true">set location</v-btn>
+    <v-btn color="primary" dark @click.stop="dialog = true">위치 선택!</v-btn>
     <v-dialog v-model="dialog" fullscreen>
       <v-card>
         <div class="map">
-          <h2>Map</h2>
+          <h2>지도</h2>
           <div class="google-map" id="map"></div>
         </div>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="green darken-1" flat="flat" @click="dialog = false">Cancel</v-btn>
-          <v-btn color="green darken-1" flat="flat" @click="saveLocation">confirm</v-btn>
+          <v-btn color="white darken-1" class="success" flat="flat" @click="dialog = false">취소</v-btn>
+          <v-btn color="white darken-1" class="success" flat="flat" @click="saveLocation">확인</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>

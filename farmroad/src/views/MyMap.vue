@@ -7,9 +7,42 @@
       </div>
     </v-flex>
     <v-flex>
-      <v-layout column wrap>
-        <v-flex xs12 sm12 md12>
-          <div height="800" background-color="blue" class="box1"></div>
+    <v-layout column wrap>
+      <v-flex xs12 sm12 md12>
+        <div height="800" background-color="blue" class="box1"></div>
+      </v-flex>
+    <v-flex xs12 sm12 md12>
+      <v-card>
+        <div>주인장 정보</div>
+        <v-layout row wrap>
+        <v-img v-if="profileImg" :src="profileImg" alt="Avatar" height="275"></v-img>
+        <v-icon v-else>person</v-icon>
+        <v-layout row wrap>
+        <v-flex xs5 sm5 offset-xs1 class="grey--text font-weight-bold">유저 아이디</v-flex>
+        <v-flex xs6 sm6>{{userName}}</v-flex>
+        <v-flex xs5 sm5 offset-xs1 v-if="role === '0'" class="grey--text font-weight-bold">유저정보</v-flex>
+        <v-flex xs5 sm5 v-if="role === '0'">주인장</v-flex>
+        <!-- <v-flex xs5 sm5 offset-xs1 v-if="role === '1'" class="grey--text font-weight-bold">유저정보</v-flex>
+        <v-flex xs6 v-if="role === '1'">Guest</v-flex> -->
+        <v-flex xs5 offset-xs1 class="grey--text font-weight-bold">이름</v-flex>
+        <v-flex xs6>{{name}}</v-flex>
+        <v-flex xs5 offset-xs1 class="grey--text font-weight-bold">성별</v-flex>
+        <v-flex xs6>{{gender}}</v-flex>
+        <v-flex xs5 offset-xs1 class="grey--text font-weight-bold">나이</v-flex>
+        <v-flex xs6>{{age}}</v-flex>
+        <v-flex xs5 offset-xs1 class="grey--text font-weight-bold">전화번호</v-flex>
+        <v-flex xs6>{{phone}}</v-flex>
+        <v-flex xs5 offset-xs1 class="grey--text font-weight-bold">이메일</v-flex>
+        <v-flex xs6>{{email}}</v-flex>
+        <v-flex xs5 offset-xs1 v-if="role === '0'" class="grey--text font-weight-bold">직업</v-flex>
+        <v-flex xs6 v-if="role === '0'">{{work}}</v-flex>
+        <v-flex xs5 offset-xs1 v-if="role === '0'" class="grey--text font-weight-bold">지역</v-flex>
+        <v-flex xs6 v-if="role === '0'">{{location}}</v-flex>
+        <v-flex xs5 offset-xs1 class="grey--text font-weight-bold">주소</v-flex>
+        <v-flex xs6>{{address}}</v-flex>
+        <v-flex xs5 offset-xs1 class="grey--text font-weight-bold">평점</v-flex>  
+        <v-flex xs6>
+          <v-rating :value="star" readonly size="15"></v-rating>
         </v-flex>
         <v-flex xs12 sm12 md12>
           <v-card>
@@ -186,10 +219,12 @@ export default {
       user: ""
     };
   },
+
   props: ["boardId"],
 
   
-  mounted() {
+  mounted(){
+
     this.role = localStorage.role;
     this.getInfo();
     this.renderMap();
@@ -235,8 +270,8 @@ export default {
             this.email = userData.Info.email;
             this.reference = userData.reference;
             this.lat = userData.Info.latitude;
+            console.log(this.lat);
             this.lng = userData.Info.longitude;
-            // let temp =
             this.preferAbility = userData.preferAbility;
             console.log("user info" + userData.Info.latitude);
             console.log("ability legnth : " + this.preferAbility.length);

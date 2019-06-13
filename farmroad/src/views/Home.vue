@@ -2,26 +2,26 @@
   <v-container fluid grid-list-lg>
     <v-flex xs12>
       <v-flex xl12>
-        <div class="grey--text text--darken-1">Notification</div>
+        <div class="grey--text text--darken-1">요청 알림</div>
         <v-card>
         <!-- <v-card color="lime lighten-5" height="450" v-chat-scroll> -->
           <v-card color="lime lighten-5" height="450" class="scroll">
           <v-card class="pa-1" v-for="notification in notificationList" :key="notification.id">
             <v-layout row wrap :class="`pa-1 project.${notification.boardInfo.title}`">
               <v-flex xs12 md6>
-                <div class="caption grey--text">Title</div>
+                <div class="caption grey--text">제목</div>
                 <!-- <div>{{project.title}}</div> -->
                 <div>{{notification.boardInfo.title}}</div>
               </v-flex>
 
               <v-flex xs6 sm4 md2>
-                <div class="caption grey--text">Person</div>
+                <div class="caption grey--text">신청한 사람</div>
                 <!-- <div>{{project.guestInfo}}</div> -->
                 <div>{{notification.userName}}</div>
               </v-flex>
 
               <v-flex xs6 sm4 md2>
-                <div class="caption grey--text">Due</div>
+                <div class="caption grey--text">날짜</div>
                 <!-- <div>{{project.due}}</div> -->
                 <div></div>
               </v-flex>
@@ -47,7 +47,7 @@
     </v-flex>
     <v-flex>
       <v-flex xs12>
-        <div class="grey--text text--darken-1">Recommended Boards</div>
+        <div class="grey--text text--darken-1">추천하는 게시물</div>
         <v-card color="blue lighten-5" height="450" class="scroll">
           <v-container fluid grid-list-md>
             <v-layout row wrap>
@@ -74,7 +74,7 @@
     </v-flex>
     <v-flex>
       <v-flex xs12>
-        <div class="grey--text text--darken-1">Message list</div>
+        <div class="grey--text text--darken-1">메세지 목록</div>
         <v-card color="green lighten-5" height="450" class="scroll">
           <v-card>
             <v-flex>

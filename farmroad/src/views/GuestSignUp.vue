@@ -1,27 +1,27 @@
 <template>
   <v-card>
-    <v-card-title class="headline">Guest Sign Up</v-card-title>
+    <v-card-title class="headline">여행객 회원가입</v-card-title>
     <v-card-text>
       <!--input from-->
       <v-form class="px-3" ref="form" v-model="valid" lazy-validation>
         <!--username-->
         <v-text-field
-          label="Username"
+          label="아이디"
           v-model="username"
           :rules="usernameRules"
           prepend-icon="person"
         ></v-text-field>
 
         <!--username check btn and alert-->
-        <v-alert :value="alertSuccess" type="success">This is a success alert.</v-alert>
-        <v-alert :value="alertError" type="error">This is a error alert.</v-alert>
-        <v-btn left color="success" @click="checkUsername">check</v-btn>
+        <v-alert :value="alertSuccess" type="success">사용 가능한 아이디입니다.</v-alert>
+        <v-alert :value="alertError" type="error">중복된 아이디입니다.</v-alert>
+        <v-btn left color="success" @click="checkUsername">아이디 중복 확인</v-btn>
 
         <!--img upload-->
         <v-flex xs12 class="text-xs-center text-sm-center text-md-center text-lg-center">
           <img :src="imageUrl" height="150" v-if="imageUrl">
           <v-text-field
-            label="Select Image"
+            label="이미지 선택"
             @click="pickFile"
             v-model="imageName"
             prepend-icon="attach_file"
@@ -36,7 +36,7 @@
         </v-flex>
 
         <!--name-->
-        <v-text-field label="Name" v-model="myName" prepend-icon="account_box"></v-text-field>
+        <v-text-field label="이름" v-model="myName" prepend-icon="account_box"></v-text-field>
 
         <!--password-->
         <v-text-field
@@ -45,7 +45,7 @@
           :rules="[passwordRules.required, passwordRules.min]"
           :type="show1 ? 'text' : 'password'"
           name="input-10-1"
-          label="Password"
+          label="패스워드"
           hint="At least 8 characters"
           counter
           required
@@ -57,13 +57,13 @@
         <v-text-field
           v-model="email"
           :rules="emailRules"
-          label="E-mail"
+          label="이메일"
           required
           prepend-icon="email"
         ></v-text-field>
 
         <!--phone-->
-        <v-text-field v-model="phone" label="phone" :rules="[phoneRules.required,phoneRules.min]" required prepend-icon="phone"></v-text-field>
+        <v-text-field v-model="phone" label="전화번호" :rules="[phoneRules.required,phoneRules.min]" required prepend-icon="phone"></v-text-field>
         <v-alert :value="alertPhoneSuccess" type="success">전화번호 전송 성공!</v-alert>
         <v-alert :value="alertPhoneError" type="error">전화번호 전송 에러!</v-alert>
         <v-btn  left color="success" @click="sendPhoneNumber">전화번호 인증</v-btn>
@@ -76,7 +76,7 @@
         <v-slider
           v-model="age"
           :rules="rules"
-          label="Age"
+          label="나이"
           step="1"
           thumb-label="always"
           ticks
@@ -89,7 +89,7 @@
           v-model="select"
           :items="gender"
           :rules="[v => !!v || 'Item is required']"
-          label="gender"
+          label="성별"
           required
           prepend-icon="wc"
         ></v-select>
@@ -97,7 +97,7 @@
         <!--ability-->
         <!-- <v-text-field v-model="ability" label="ability" required prepend-icon="list_alt"></v-text-field> -->
 
-        <div class="grey--text text--darken-1">Ability</div>
+        <div class="grey--text text--darken-1">능력</div>
         <v-layout row wrap>
           <v-item-group><span>
             <v-checkbox v-model="selected" label="요리를 잘해요" value="cook"></v-checkbox>
@@ -146,13 +146,13 @@ export default {
       selected: [],
       username: "",
       usernameRules: [
-        v => !!v || "Name is required",
-        v => (v && v.length >= 8) || "Name must be less than 10 characters"
+        v => !!v || "아이디가 필요합니다.",
+        v => (v && v.length >= 8) || "아이디는 최소 10글자 이상이어야 합니다."
       ],
       password: "",
       passwordRules: {
-        required: value => !!value || "Required.",
-        min: v => v.length >= 8 || "Min 8 characters"
+        required: value => !!value || "패스워드를 입력해야 합니다.",
+        min: v => v.length >= 8 || "패스워드를 최소 8글자 이상이어야 합니다."
       },
 
       dialog: true,
@@ -160,28 +160,28 @@ export default {
 
       email: "",
       emailRules: [
-        v => !!v || "E-mail is required",
-        v => /.+@.+/.test(v) || "E-mail must be valid"
+        v => !!v || "이메일을 입력해야 합니다.",
+        v => /.+@.+/.test(v) || "정상적인 이메일이어야 합니다."
       ],
 
       phone: "",
       phoneRules: {
-        required: value => !!value || "Required.",
-        min: v => v.length >= 8 || "Min 8 characters"
+        required: value => !!value || "전화번호를 입력해야 합니다.",
+        min: v => v.length >= 8 || "최소 8글자 이상이어야 합니다"
       },
 
       confirmNumber: "",
       confirmRules: {
-        required: value => !!value || "Required.",
-        min: v => v.length === 4 || "4자리 숫자!",
-        number: v => isNaN(v) === false || "숫자!"
+        required: value => !!value || "인증번호를 입력해야 합니다",
+        min: v => v.length === 4 || "4자리의 숫자이어야 합니다",
+        number: v => isNaN(v) === false || "숫자를 입력해야 합니다"
       },
 
 
       select: null,
-      gender: ["Male", "Female"],
+      gender: ["남성", "여성"],
       age: 20,
-      rules: [v => v <= 100 || "Really?!"],
+      rules: [v => v <= 100 || "?!"],
       ability: "",
       show1: false,
       show2: true,

@@ -8,9 +8,9 @@
         <v-flex xs5 sm5 offset-xs1 class="grey--text font-weight-bold">유저 아이디</v-flex>
         <v-flex xs6 sm6>{{userName}}</v-flex>
         <v-flex xs5 sm5 offset-xs1 v-if="role === '0'" class="grey--text font-weight-bold">유저정보</v-flex>
-        <v-flex xs5 sm5 v-if="role === '0'">Host</v-flex>
+        <v-flex xs5 sm5 v-if="role === '0'">주인장</v-flex>
         <v-flex xs5 sm5 offset-xs1 v-if="role === '1'" class="grey--text font-weight-bold">유저정보</v-flex>
-        <v-flex xs6 v-if="role === '1'">Guest</v-flex>
+        <v-flex xs6 v-if="role === '1'">여행객</v-flex>
         <v-flex xs5 offset-xs1 class="grey--text font-weight-bold">이름</v-flex>
         <v-flex xs6>{{name}}</v-flex>
         <v-flex xs5 offset-xs1 class="grey--text font-weight-bold">성별</v-flex>

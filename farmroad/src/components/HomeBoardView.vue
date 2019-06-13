@@ -1,7 +1,7 @@
 <template>
   <v-dialog v-model="dialog" max-width="650px">
     <!-- <v-btn @click="viewClicked()" flat slot="activator" class="success">view</v-btn> -->
-    <v-btn flat slot="activator" class="success">view</v-btn>
+    <v-btn flat slot="activator" class="success">정보 확인</v-btn>
       <v-card>
         <v-container>
           <v-layout row wrap class="cont">
@@ -48,11 +48,11 @@
                 <v-card-actions>
                 <v-btn flat slot="activator" color="success" :disabled="nowApprove" @click="approveCandidate(candidateData.userName)">
                   <v-icon small left>favorite</v-icon>
-                  <span>Approve</span>
+                  <span>승낙</span>
                   </v-btn>
                 <v-btn flat slot="activator" color="success" :disabled="nowRefuse" @click="refuseCandidate(candidateData.userName)">
                   <v-icon small left>clear</v-icon>
-                  <span>Refuse</span>
+                  <span>거절</span>
                     </v-btn>
                   </v-card-actions>
                 </v-flex>
@@ -137,7 +137,10 @@ export default {
             this.candidateData.phone = userData.phone;
             this.candidateData.email = userData.email;
             this.candidateData.reference = userData.reference;
+
             // this.candidateData.boardId = userData.boardId;
+            this.candidateData.notificationId = userData.notificationId;
+
           });
       }else{
         //내가 host일 경우 guest정보를 가져옴 
@@ -155,7 +158,11 @@ export default {
             this.candidateData.phone = userData.phone;
             this.candidateData.email = userData.email;
             this.candidateData.reference = userData.reference;
+
             // this.candidateData.boardId = userData.boardId;
+
+            this.candidateData.notificationId = userData.notificationId;
+
         });
       };
     },

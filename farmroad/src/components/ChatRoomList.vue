@@ -60,8 +60,8 @@ export default {
                 console.log("doc has changed!!");
                 this.$notify({
                   group: "foo",
-                  title: "new message",
-                  text: "new message has comming"
+                  title: "새로운 메세지 도착!",
+                  text: "새로운 메시지가 도착했습니다!"
                 });
               });
             }
@@ -83,8 +83,8 @@ export default {
                 console.log(chatRoom);
                 this.$notify({
                   group: "foo",
-                  title: "new message",
-                  text: "new message has comming"
+                  title: "새로운 메세지 도착!",
+                  text: "새로운 메시지가 도착했습니다!"
                 });
               });
             }

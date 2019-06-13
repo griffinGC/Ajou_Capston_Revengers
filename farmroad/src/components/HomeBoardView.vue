@@ -48,11 +48,11 @@
                 <v-card-actions>
                 <v-btn flat slot="activator" color="success" :disabled="nowApprove" @click="approveCandidate(candidateData.userName)">
                   <v-icon small left>favorite</v-icon>
-                  <span>Approve</span>
+                  <span>승낙</span>
                   </v-btn>
                 <v-btn flat slot="activator" color="success" :disabled="nowRefuse" @click="refuseCandidate(candidateData.userName)">
                   <v-icon small left>clear</v-icon>
-                  <span>Refuse</span>
+                  <span>거절</span>
                     </v-btn>
                   </v-card-actions>
                 </v-flex>

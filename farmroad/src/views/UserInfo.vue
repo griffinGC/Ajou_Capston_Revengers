@@ -25,7 +25,7 @@
         <v-flex xs5 offset-xs1 class="grey--text font-weight-bold">전화번호</v-flex>
         <v-flex xs6>{{phone}}</v-flex>
         <v-flex xs5 offset-xs1 v-if="role === '1'" class="grey--text font-weight-bold">직업</v-flex>
-        <v-flex xs6 v-if="role === '1'">{{work}}</v-flex>
+        <v-flex xs6 v-if="role === '1'">{{this.work}}</v-flex>
         <v-flex xs5 offset-xs1 v-if="role === '1'" class="grey--text font-weight-bold">지역</v-flex>
         <v-flex xs6 v-if="role === '1'">{{location}}</v-flex>
         <v-flex xs5 offset-xs1 class="grey--text font-weight-bold">주소</v-flex>
@@ -54,9 +54,9 @@
             :key="reference._Id"
             avatar
             @click="dialog === true"
-            router :to="{ name : 'ReferenceProfile', params:{sendName : reference.writer}}"  
+            
+            router :to="{ name : 'ReferenceProfile', params:{sendName : reference.writer, sendRole : reference.boardType}}"  
           >
-
             <v-list-tile-avatar v-if="reference.writerImg">
               <img  :src="reference.writerImg">
             </v-list-tile-avatar>
@@ -96,7 +96,7 @@
                 :boardWriter="`${reference.userName}`"
                 v-if="!reference.title"
                 />
-                <!--show reference-->
+                
               <ShowReference v-bind:referenceId="reference.id" v-else/>
               </div>
             </v-flex>
@@ -176,7 +176,24 @@ export default {
             this.name = userData.name;
             this.profileImg = userData.profileImg;
             this.age = userData.age;
-            this.ability = userData.ability;
+
+            let abilityListKor = ["요리를 잘해요", "미용을 잘해요", "애를 잘돌봐요", "청소를 잘해요", "운전을 잘해요", "도배를 잘해요", "짐나르는거 잘해요", "노래를 잘해요", "말동무를 잘해요", "컴퓨터를 잘다뤄요", "농기계를 잘다뤄요", "농사경험이 있어요"];
+            let abilityListEng = ["cook", "beauty", "baby", "clean", "drive", "paper", "carry", "sing", "talk", "comp", "machine", "farm"];
+            let userAbility = new Array();
+            let receiveAbility = userData.ability;
+            for(let i = 0; i<receiveAbility.length; i++){
+              for(let z = 0; z <abilityListEng.length;z++){
+                if(receiveAbility[i] === abilityListEng[z]){
+                  userAbility.push(abilityListKor[z]);
+                }
+              }
+            }
+            let tempStr = "";
+            for(let j = 0; j<userAbility.length; j++){
+              tempStr = tempStr +" , " + userAbility[j];
+            }
+            tempStr = tempStr.substring(2, tempStr.length);
+            this.ability = tempStr;
             this.phone = userData.phone;
             this.email = userData.email;
             this.reference = userData.reference;
@@ -190,7 +207,18 @@ export default {
             this.name = userData.name;
             this.profileImg = userData.profileImg;
             this.age = userData.age;
-            this.work = userData.work;
+            if(userData.work === 'agriculture'){
+              console.log("1")
+              this.work = "농업"
+            }else if(userData.work === 'forestry'){
+              this.work = "임업"
+            }else if(userData.work === 'fishery'){
+              this.work = "수산업"
+            }else if(userData.work === 'livestock'){
+              this.work = "목축업"
+            }else if(userData.work === 'others'){
+              this.work = "기타"
+            }
             this.address = userData.address;
             this.location = userData.location;
             this.phone = userData.phone;
@@ -217,7 +245,6 @@ export default {
           // console.log("notification 정보 값1")
           // console.log(response.data);
           // console.log("notification 정보 값1")
-          // this.notificationList = response.data;
           this.referenceList = response.data;
         });
       } else if (localStorage.role == 1) {

@@ -19,12 +19,12 @@
       </li>
 
       <v-btn flat color="white" @click="signOut" v-if="user">
-        <span>Sign Out</span>
+        <span>로그아웃</span>
         <v-icon right>exit_to_app</v-icon>
       </v-btn>
       <v-btn flat color="white" router :to="{name: 'Signin'}" v-if="!user">
         <v-icon left>account_circle</v-icon>
-        <span>Sign In</span>
+        <span>로그인</span>
       </v-btn>
     </v-toolbar>
 

@@ -1,7 +1,7 @@
 <template>
   <v-dialog v-model="dialog" max-width="650px">
     <!-- <v-btn @click="viewClicked()" flat slot="activator" class="success">view</v-btn> -->
-    <v-btn flat slot="activator" class="success">view</v-btn>
+    <v-btn flat slot="activator" class="success">정보 확인</v-btn>
       <v-card>
         <v-container>
           <v-layout row wrap class="cont">

@@ -50,8 +50,8 @@ export default {
 
     this.$notify({
             group: "foo",
-            title: "new message",
-            text: "newwwwww"
+            title: "메세지 도착!",
+            text: "새로운 메세지가 도착했습니다!"
           });
     ref.onSnapshot(snapshot => {
       snapshot.docChanges().forEach(change => {

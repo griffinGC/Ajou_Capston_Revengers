@@ -18,7 +18,7 @@
             :type="show1 ? 'text' : 'password'"
             name="input-10-1"
             label="비밀번호"
-            hint="At least 8 characters"
+            hint="최소 8자 이상입력해야 합니다."
             counter
             required
             prepend-icon="lock"

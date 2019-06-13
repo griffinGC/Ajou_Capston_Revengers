@@ -63,7 +63,7 @@ const hostSchema = new mongoose.Schema({
     latitude : {
         type : Number
     },
-    longtitude : {
+    longitude : {
         type : Number
     },
 })

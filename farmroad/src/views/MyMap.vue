@@ -195,6 +195,8 @@ export default {
             this.phone = userData.phone;
             this.email = userData.Info.email;
             this.reference = userData.reference;
+            this.lat = userData.Info.latitude;
+            this.lng = userData.Info.longitude;
             // let temp = 
             this.preferAbility = userData.preferAbility;
 

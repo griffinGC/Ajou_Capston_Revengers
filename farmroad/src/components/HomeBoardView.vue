@@ -156,6 +156,7 @@ export default {
             this.candidateData.email = userData.email;
             this.candidateData.reference = userData.reference;
             // this.candidateData.boardId = userData.boardId;
+
         });
       };
     },

@@ -1,10 +1,10 @@
 <template>
   <v-flex>
     <v-card>
-      <v-card-title>
+      <v-card-title>>
         <h2>chat room</h2>
       </v-card-title>
-      <v-list class="messages" two-line v-chat-scroll>
+      <v-list class="메시지" two-line v-chat-scroll>
         <template v-for="msg in messages">
           <v-list-tile :key="msg.id" avatar>
             <v-list-tile-avatar>
@@ -19,11 +19,11 @@
       </v-list>
       <v-card-actions></v-card-actions>
       <form @submit.prevent="addMessage">
-        <v-text-field label="new message" v-model="newMessage" :rules="newMessageRules" required></v-text-field>
+        <v-text-field label="새로운 메시지" v-model="newMessage" :rules="newMessageRules" required></v-text-field>
       </form>
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn color="green darken-1" flat router :to="{name: 'home'}">Back</v-btn>
+        <v-btn color="green darken-1" flat router :to="{name: 'home'}">뒤로가기</v-btn>
       </v-card-actions>
     </v-card>
   </v-flex>
@@ -41,7 +41,7 @@ export default {
     return {
       messages: [],
       newMessage: "",
-      newMessageRules: [v => !!v || "Message is required"]
+      newMessageRules: [v => !!v || "메시지를 작성해야 합니다."]
     };
   },
   mounted() {

@@ -15,7 +15,7 @@
       <v-flex xs12 class="text-xs-center text-sm-center text-md-center text-lg-center">
         <img :src="imageUrl" height="150" v-if="imageUrl">
         <v-text-field
-          label="Select Image"
+          label="사진 올리기"
           @click="pickFile"
           v-model="imageName"
           prepend-icon="attach_file"

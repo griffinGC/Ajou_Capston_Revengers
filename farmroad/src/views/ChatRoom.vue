@@ -1,7 +1,7 @@
 <template>
   <v-flex>
     <v-card>
-      <v-card-title>
+      <v-card-title>>
         <h2>chat room</h2>
       </v-card-title>
       <v-list class="메시지" two-line v-chat-scroll>
@@ -23,7 +23,7 @@
       </form>
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn color="green darken-1" flat router :to="{name: 'home'}">Back</v-btn>
+        <v-btn color="green darken-1" flat router :to="{name: 'home'}">뒤로가기</v-btn>
       </v-card-actions>
     </v-card>
   </v-flex>

@@ -138,10 +138,14 @@ export default {
             this.candidateData.email = userData.email;
             this.candidateData.reference = userData.reference;
 <<<<<<< HEAD
+<<<<<<< HEAD
             this.candidateData.notificationId = userData.notificationId;
 =======
             // this.candidateData.boardId = userData.boardId;
 >>>>>>> ad34295f4d324f65126c356c718f01cefba41d36
+=======
+            // this.candidateData.boardId = userData.boardId;
+>>>>>>> 76db566368086956d0953b9dc3ff8aacf37eb5c5
           });
       }else{
         //내가 host일 경우 guest정보를 가져옴 
@@ -160,10 +164,15 @@ export default {
             this.candidateData.email = userData.email;
             this.candidateData.reference = userData.reference;
 <<<<<<< HEAD
+<<<<<<< HEAD
             this.candidateData.notificationId = userData.notificationId;
 =======
             // this.candidateData.boardId = userData.boardId;
 >>>>>>> ad34295f4d324f65126c356c718f01cefba41d36
+=======
+            // this.candidateData.boardId = userData.boardId;
+
+>>>>>>> 76db566368086956d0953b9dc3ff8aacf37eb5c5
         });
       };
     },

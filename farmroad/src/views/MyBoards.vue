@@ -42,10 +42,10 @@
                     </div>
                   </v-card-text>
                   <v-card-actions>
-                    <!-- <v-btn flat slot="activator" color="success" @click="messager(board.boardId)">
+                    <v-btn flat slot="activator" color="success" @click="messager(board.boardId)">
                       <v-icon small left>message</v-icon>
                       <span>Comment</span>
-                    </v-btn> -->
+                    </v-btn>
                     <v-spacer></v-spacer>
                     <v-btn flat slot="activator" color="red" @click="delBoard(board.boardId)">
                       <v-icon small left>delete</v-icon>
@@ -94,12 +94,12 @@ export default {
   },
   methods: {
     messager(id) {
-      if(localStorage.role ==1){
-        this.chatId = id + "guestboardsmessager";
-      }else{
-        this.chatId = id+ "hostboardsmessager"
+      if (localStorage.role == 1) {
+        this.chatId = "host" + id;
+      } else {
+        this.chatId = "guest" + id;
       }
-      
+
       this.axios
         .post(
           "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/chat",
@@ -113,7 +113,7 @@ export default {
           console.log(response.data);
 
           console.log(this.chatId);
-          this.$router.push({ name: "chat", params: { name: this.chatId } });
+          this.$router.push({ name: "chat", params: { comments: this.chatId } });
         });
     },
     delBoard(id) {
@@ -153,8 +153,7 @@ export default {
             }
           });
       }
-    },
-    
+    }
   }
 };
 </script>

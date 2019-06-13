@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 const guestModel = require('../schemas/createGuest');
+const hostModel = require('../schemas/createHost');
 
 const multer = require('multer');
 
@@ -12,6 +13,36 @@ router.get('/',function(req, res,next){
   console.log("board Test");
   return res.json({state : 0, msg : "board router test"});
   });     
+
+//guest의 요구사항에 맞는 host board 게시판 글 가져오기
+router.get('/filterBoard/:id',function(req, res,next){
+    // id로 host의 id를 받아옴 
+    hostModel.findAbility(req.params.id, function(err, hostInfo){
+        // location 값은 하나
+        let location = hostInfo[0].location;
+        console.log(location);
+        guestBoard.find({}, function(err, board){
+            if(err){
+                return res.json({state : -1, msg : err});
+            }
+            var result = new Array();    
+            for(let i = 0; i<board.length; i++){
+                board[i].preferCount = 0;
+                for(let j = 0 ; j < board[i].preferLocation.length; j++){
+                    if(board[i].preferLocation[j] === location){
+                        ++board[i].preferCount;
+                        console.log("보드의 카운트 값 : " + board[i].preferCount);
+                    }
+                }
+                if(board[i].preferCount > 0){
+                    result.push(board[i]);
+                }
+            }
+            console.log(result);
+            return res.json(result);
+        })
+    })
+  });       
 
 //guest boardId에 맞는 게시판 글 가져오기
 router.get('/getBoard/:id',function(req, res,next){

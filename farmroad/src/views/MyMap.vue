@@ -43,64 +43,64 @@
         <v-flex xs6>
           <v-rating :value="star" readonly size="15"></v-rating>
         </v-flex>
+        <v-btn router :to="{ name : 'ReferenceProfile', params:{sendName : this.userName, sendRole : 'guest'}}"   flat slot="activator" color="info">
+          <v-icon small left>expand_more</v-icon>
+          <span>글 작성자 정보 상세보기</span>
+        </v-btn>
         <v-divider></v-divider>
         </v-layout>
         </v-layout>
         <v-flex><div>원하는 능력</div>
         <v-layout row wrap>
-          <!-- <v-flex v-for="n in 12" :key="n" xs6 sm3 md2>
-            <v-flex v-if="preferAbility===">
-              <v-checkbox input-value="true" value disabled hide-details label="요리를 잘해요"></v-checkbox>
-            </v-flex><v-flex><v-checkbox value disabled hide-details label="요리를 잘해요"></v-checkbox></v-flex>
-          </v-flex> -->
-            <v-flex v-if="preferAbility.includes('요리를 잘해요')" xs6 sm3 md2>
+            <v-flex v-if="preferAbility.includes('cook')" xs6 sm3 md2>
               <v-checkbox input-value="true" value disabled hide-details label="요리를 잘해요"></v-checkbox>
             </v-flex>
             <v-flex v-else xs6 sm3 md2><v-checkbox value disabled hide-details label="요리를 잘해요" xs6 sm3 md2></v-checkbox></v-flex>
-            <v-flex v-if="preferAbility.includes('미용을 잘해요')" xs6 sm3 md2>
+            <v-flex v-if="preferAbility.includes('beauty')" xs6 sm3 md2>
               <v-checkbox input-value="true" value disabled hide-details label="미용을 잘해요"></v-checkbox>
             </v-flex>
             <v-flex v-else xs6 sm3 md2><v-checkbox value disabled hide-details label="미용을 잘해요" xs6 sm3 md2></v-checkbox></v-flex>
-            <v-flex v-if="preferAbility.includes('애를 잘돌봐요')" xs6 sm3 md2>
+            <v-flex v-if="preferAbility.includes('baby')" xs6 sm3 md2>
               <v-checkbox input-value="true" value disabled hide-details label="애를 잘돌봐요"></v-checkbox>
             </v-flex>
             <v-flex v-else xs6 sm3 md2><v-checkbox value disabled hide-details label="애를 잘돌봐요" xs6 sm3 md2></v-checkbox></v-flex>
-            <v-flex v-if="preferAbility.includes('청소를 잘해요')" xs6 sm3 md2>
+            <v-flex v-if="preferAbility.includes('clean')" xs6 sm3 md2>
               <v-checkbox input-value="true" value disabled hide-details label="청소를 잘해요"></v-checkbox>
             </v-flex>
             <v-flex v-else xs6 sm3 md2><v-checkbox value disabled hide-details label="청소를 잘해요" xs6 sm3 md2></v-checkbox></v-flex>
-            <v-flex v-if="preferAbility.includes('운전을 잘해요')" xs6 sm3 md2>
+            <v-flex v-if="preferAbility.includes('drive')" xs6 sm3 md2>
               <v-checkbox input-value="true" value disabled hide-details label="운전을 잘해요"></v-checkbox>
             </v-flex>
             <v-flex v-else xs6 sm3 md2><v-checkbox value disabled hide-details label="운전을 잘해요" xs6 sm3 md2></v-checkbox></v-flex>
-            <v-flex v-if="preferAbility.includes('도배를 잘해요')" xs6 sm3 md2>
+            <v-flex v-if="preferAbility.includes('paper')" xs6 sm3 md2>
               <v-checkbox input-value="true" value disabled hide-details label="도배를 잘해요"></v-checkbox>
             </v-flex>
             <v-flex v-else xs6 sm3 md2><v-checkbox value disabled hide-details label="도배를 잘해요" xs6 sm3 md2></v-checkbox></v-flex>
-            <v-flex v-if="preferAbility.includes('짐나르는거 잘해요')" xs6 sm3 md2>
+            <v-flex v-if="preferAbility.includes('carry')" xs6 sm3 md2>
               <v-checkbox input-value="true" value disabled hide-details label="짐나르는거 잘해요"></v-checkbox>
             </v-flex>
             <v-flex v-else xs6 sm3 md2><v-checkbox value disabled hide-details label="짐나르는거 잘해요" xs6 sm3 md2></v-checkbox></v-flex>
-            <v-flex v-if="preferAbility.includes('노래를 잘해요')" xs6 sm3 md2>
+            <v-flex v-if="preferAbility.includes('sing')" xs6 sm3 md2>
               <v-checkbox input-value="true" value disabled hide-details label="노래를 잘해요"></v-checkbox>
             </v-flex>
             <v-flex v-else xs6 sm3 md2><v-checkbox value disabled hide-details label="노래를 잘해요" xs6 sm3 md2></v-checkbox></v-flex>
-            <v-flex v-if="preferAbility.includes('말동무를 잘해요')" xs6 sm3 md2>
+            <v-flex v-if="preferAbility.includes('talk')" xs6 sm3 md2>
               <v-checkbox input-value="true" value disabled hide-details label="말동무를 잘해요"></v-checkbox>
             </v-flex>
             <v-flex v-else xs6 sm3 md2><v-checkbox value disabled hide-details label="말동무를 잘해요" xs6 sm3 md2></v-checkbox></v-flex>
-            <v-flex v-if="preferAbility.includes('컴퓨터를 잘다뤄요')" xs6 sm3 md2>
+            <v-flex v-if="preferAbility.includes('comp')" xs6 sm3 md2>
               <v-checkbox input-value="true" value disabled hide-details label="컴퓨터를 잘다뤄요"></v-checkbox>
             </v-flex>
             <v-flex v-else xs6 sm3 md2><v-checkbox value disabled hide-details label="컴퓨터를 잘다뤄요" xs6 sm3 md2></v-checkbox></v-flex>
-            <v-flex v-if="preferAbility.includes('농기계를 잘다뤄요')" xs6 sm3 md2>
+            <v-flex v-if="preferAbility.includes('machine')" xs6 sm3 md2>
               <v-checkbox input-value="true" value disabled hide-details label="농기계를 잘다뤄요"></v-checkbox>
             </v-flex>
             <v-flex v-else xs6 sm3 md2><v-checkbox value disabled hide-details label="농기계를 잘다뤄요" xs6 sm3 md2></v-checkbox></v-flex>
-            <v-flex v-if="preferAbility.includes('농사경험이 있어요')" xs6 sm3 md2>
+            <v-flex v-if="preferAbility.includes('farm')" xs6 sm3 md2>
               <v-checkbox input-value="true" value disabled hide-details label="농사경험이 있어요"></v-checkbox>
             </v-flex>
             <v-flex v-else xs6 sm3 md2><v-checkbox value disabled hide-details label="농사경험이 있어요" xs6 sm3 md2></v-checkbox></v-flex>
+        
         </v-layout>
         </v-flex>
 
@@ -158,6 +158,7 @@ export default {
   mounted(){
     this.role = localStorage.role;
     this.getInfo();
+    this.renderMap()
   },
   methods: {
     renderMap() {
@@ -168,6 +169,8 @@ export default {
         minZoom: 3,
         streetViewControl: false
       });
+      var uluru = {lat: this.lat, lng: this.lng}
+       var marker = new google.maps.Marker({position: uluru, map: map});
     },
     getInfo() {
       // localStorage.role == 0 이면 guest && 1이면 host
@@ -192,6 +195,8 @@ export default {
             this.phone = userData.phone;
             this.email = userData.Info.email;
             this.reference = userData.reference;
+            this.lat = userData.Info.latitude;
+            this.lng = userData.Info.longitude;
             // let temp = 
             this.preferAbility = userData.preferAbility;
 

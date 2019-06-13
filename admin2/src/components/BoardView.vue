@@ -1,19 +1,12 @@
 <template>
   <v-dialog v-model="dialog" max-width="650px">
-    <v-btn flat slot="activator" color="grey" @click="viewAction(board)">
-      <v-icon small left>streetview</v-icon>
-      <span>view</span>
-    </v-btn>
+    <v-btn flat slot="activator" class="info">게시글 정보 </v-btn>
     <v-card>
       <v-container grid-list-md>
         <v-layout row wrap>
           <v-flex md6>
-            <!-- <v-avatar> 
-      <img class="black--text" height="275px" :src="board.boardImg">
-            </v-avatar>-->
             <v-avatar size="230px">
               <img :src="board.Info.profileImg">
-              <!-- <v-icon >person</v-icon> -->
             </v-avatar>
           </v-flex>
           <!-- guest info -->
@@ -31,8 +24,8 @@
               <v-flex md6>{{board.Info.phone}}</v-flex>
               <v-flex md5 ml-3>이메일</v-flex>
               <v-flex md6>{{board.Info.email}}</v-flex>
-              <!-- <v-flex md5 ml-3>평점</v-flex> -->
-              <!-- <v-flex md6>{{board.Info.reference}}</v-flex> -->
+              <v-flex md5 ml-3>평점</v-flex>
+              <v-flex md6>{{board.Info.reference}}</v-flex>
             </v-layout>
           </v-flex>
           <!-- board title & content -->
@@ -106,41 +99,20 @@
           <v-flex md3 v-else>
             <v-checkbox value disabled hide-details label="제주도"></v-checkbox>
           </v-flex>
+
         </v-layout>
       </v-container>
 
-      <v-card-actions>
-        <!--Notification button-->
-        <v-btn :disabled="loading" slot="activator" color="success" @click="saveNotification(board.boardId)">
-          <v-icon small left>add</v-icon>
-          <span>신청하기</span>
-        </v-btn>
-
-        <!--messager button-->
-        <v-btn flat slot="activator" color="success" @click="messager(board.Info)">
-          <v-icon small left>message</v-icon>
-          <span>메신저</span>
-        </v-btn>
-        <v-btn router :to="{ name : 'ReferenceProfile', params:{sendName : board.Info.userName, sendRole : 'host'}}"   flat slot="activator" color="info">
-          <v-icon small left>expand_more</v-icon>
-          <span>글 작성자 정보 상세보기</span>
-        </v-btn>
-        <v-btn flat slot="activator" color="error">
-          <v-icon small left>report</v-icon>
-          <span>신고하기</span>
-        </v-btn>
-      </v-card-actions>
     </v-card>
-    <Chat v-bind:comments="'guest'+board.boardId"/>
   </v-dialog>
 </template>
 
 <script>
-import Chat from "../views/Chat";
+
 export default {
   props: ["guestBoard"],
   components: {
-    Chat
+
   },
   data() {
     return {
@@ -197,30 +169,6 @@ export default {
       return `${year}-${month.padStart(2, "0")}-${day.padStart(2, "0")}`;
     },
     allowedDates: val => parseInt(val.split("-")[2], 10) % 2 === 0,
-    messager(info) {
-      console.log(info);
-      this.chatRoomId = localStorage.username + info.userName;
-      console.log(this.chatRoomId);
-      this.axios
-        .post(
-          "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/chatRoom/createChatRoom",
-          {
-            chatRoomId: this.chatRoomId,
-            hostUserName: localStorage.username,
-            guestUserName: info.userName
-          }
-        )
-        .then(response => {
-          if (response.data.state == -1) {
-            console.log("create room faild"+response.data);
-          }
-          console.log("create success"+response.data);
-          this.$router.push({
-            name: "chatroom",
-            params: { chatRoomId: this.chatRoomId }
-          });
-        });
-    },
     saveNotification(id) {
       console.log(id);
       if (localStorage.role == 0) {

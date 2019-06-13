@@ -109,6 +109,7 @@
           prepend-icon="accessibility"
         ></v-slider>
 
+
         <v-select
           v-model="select"
           :items="gender"
@@ -117,6 +118,9 @@
           required
           prepend-icon="wc"
         ></v-select>
+
+
+        <GMap/>
 
         <div class="grey--text text--darken-1">Ability</div>
         <v-layout row wrap>
@@ -140,7 +144,7 @@
 </template>
 
 <script>
-import { constants } from "crypto";
+import GMap from "../views/GMap";
 export default {
   data() {
     return {
@@ -200,6 +204,9 @@ export default {
       location: "경기도"
     };
   },
+  components: {
+    GMap
+  },
   methods: {
     validate() {
       var formData = new FormData();
@@ -212,7 +219,9 @@ export default {
       formData.append("age", this.age);
       formData.append("gender", this.select);
       formData.append("work", this.work);
-      formData.append("location", this.location)
+      formData.append("location", this.location);
+      formData.append('lat',localStorage.lat)
+      formData.append('lng', localStorage.lng)
       if (this.$refs.form.validate()) {
         this.snackbar = true;
         this.axios

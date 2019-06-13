@@ -15,6 +15,7 @@ import Review from './views/Review'
 import ChatRoom from './views/ChatRoom'
 import ChatRoomList from './components/ChatRoomList'
 import ReferenceProfile from './components/ReferenceProfile'
+import GMap from './views/GMap'
 
 Vue.use(Router)
 
@@ -151,6 +152,11 @@ const router =  new Router({
       path: '/chatroomlist',
       name: 'chatroomlist',
       component: ChatRoomList
+    },
+    {
+      path: '/gmap',
+      name: 'GMap',
+      component: GMap
     }
   ]
 })

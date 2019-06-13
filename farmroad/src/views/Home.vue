@@ -3,6 +3,7 @@
     <v-flex xs12>
       <v-flex xl12>
         <div class="grey--text text--darken-1">Notification</div>
+        <v-card>
         <!-- <v-card color="lime lighten-5" height="450" v-chat-scroll> -->
           <v-card color="lime lighten-5" height="450" class="scroll">
           <v-card class="pa-1" v-for="notification in notificationList" :key="notification.id">

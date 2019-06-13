@@ -58,6 +58,7 @@
             prepend-icon="work"
             return-object
           ></v-select>
+
           <v-select :items="items1" v-model="diff" label="일의 종류" return-object></v-select>
           <v-icon>accessibility</v-icon><span class="grey--text text--darken-1"> 선호 능력</span>
           <v-flex xs12 d-flex>
@@ -127,6 +128,8 @@ export default {
       workLocation: "",
       
     };
+  },
+  components:{
   },
 
   computed: {

@@ -220,8 +220,9 @@ export default {
       formData.append("gender", this.select);
       formData.append("work", this.work);
       formData.append("location", this.location);
-      formData.append('lat',localStorage.lat)
-      formData.append('lng', localStorage.lng)
+      formData.append('latitude',localStorage.lat)
+      formData.append('longitude', localStorage.lng)
+      console.log('in sign up '+localStorage.lat)
       if (this.$refs.form.validate()) {
         this.snackbar = true;
         this.axios

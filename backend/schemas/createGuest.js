@@ -66,7 +66,7 @@ guestSchema.statics.findAbility = function(name, callback){
 
 guestSchema.plugin(autoIncrement,{
     model : 'guests',
-    field : 'guestId',
+    field : 'id',
     startAt : 0
 })
 

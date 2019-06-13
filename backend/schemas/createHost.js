@@ -78,7 +78,7 @@ hostSchema.statics.findAbility = function(name, callback){
 
 hostSchema.plugin(autoIncrement,{
     model : 'hosts',
-    field : 'hostId',
+    field : 'id',
     startAt : 0
 })
 

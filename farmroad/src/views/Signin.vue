@@ -18,7 +18,7 @@
             :type="show1 ? 'text' : 'password'"
             name="input-10-1"
             label="비밀번호"
-            hint="At least 8 characters"
+            hint="최소 8글자 이상이어야 합니다"
             counter
             required
             prepend-icon="lock"
@@ -49,7 +49,7 @@ export default {
     return {
       username: "",
       usernameRules: [
-        v => !!v || "Name is required",
+        v => !!v || "아이디를 입력해야 합니다.",
         v => (v && v.length >= 8) || "Name must be less than 10 characters"
       ],
       password: "",

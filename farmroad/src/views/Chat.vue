@@ -2,7 +2,7 @@
   <v-layout>
     <v-flex>
       <v-card>
-        <v-card-title>comments</v-card-title>
+        <v-card-title>댓글</v-card-title>
         <v-list two-line class="messages" v-chat-scroll>
           <template v-for="(msg) in messages">
             <v-list-tile :key="msg.id" avatar>

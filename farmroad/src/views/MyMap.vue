@@ -48,59 +48,55 @@
         </v-layout>
         <v-flex><div>원하는 능력</div>
         <v-layout row wrap>
-          <!-- <v-flex v-for="n in 12" :key="n" xs6 sm3 md2>
-            <v-flex v-if="preferAbility===">
-              <v-checkbox input-value="true" value disabled hide-details label="요리를 잘해요"></v-checkbox>
-            </v-flex><v-flex><v-checkbox value disabled hide-details label="요리를 잘해요"></v-checkbox></v-flex>
-          </v-flex> -->
-            <v-flex v-if="preferAbility.includes('요리를 잘해요')" xs6 sm3 md2>
+            <v-flex v-if="board.preferAbility.includes('cook')" xs6 sm3 md2>
               <v-checkbox input-value="true" value disabled hide-details label="요리를 잘해요"></v-checkbox>
             </v-flex>
             <v-flex v-else xs6 sm3 md2><v-checkbox value disabled hide-details label="요리를 잘해요" xs6 sm3 md2></v-checkbox></v-flex>
-            <v-flex v-if="preferAbility.includes('미용을 잘해요')" xs6 sm3 md2>
+            <v-flex v-if="board.preferAbility.includes('beauty')" xs6 sm3 md2>
               <v-checkbox input-value="true" value disabled hide-details label="미용을 잘해요"></v-checkbox>
             </v-flex>
             <v-flex v-else xs6 sm3 md2><v-checkbox value disabled hide-details label="미용을 잘해요" xs6 sm3 md2></v-checkbox></v-flex>
-            <v-flex v-if="preferAbility.includes('애를 잘돌봐요')" xs6 sm3 md2>
+            <v-flex v-if="board.preferAbility.includes('baby')" xs6 sm3 md2>
               <v-checkbox input-value="true" value disabled hide-details label="애를 잘돌봐요"></v-checkbox>
             </v-flex>
             <v-flex v-else xs6 sm3 md2><v-checkbox value disabled hide-details label="애를 잘돌봐요" xs6 sm3 md2></v-checkbox></v-flex>
-            <v-flex v-if="preferAbility.includes('청소를 잘해요')" xs6 sm3 md2>
+            <v-flex v-if="board.preferAbility.includes('clean')" xs6 sm3 md2>
               <v-checkbox input-value="true" value disabled hide-details label="청소를 잘해요"></v-checkbox>
             </v-flex>
             <v-flex v-else xs6 sm3 md2><v-checkbox value disabled hide-details label="청소를 잘해요" xs6 sm3 md2></v-checkbox></v-flex>
-            <v-flex v-if="preferAbility.includes('운전을 잘해요')" xs6 sm3 md2>
+            <v-flex v-if="board.preferAbility.includes('drive')" xs6 sm3 md2>
               <v-checkbox input-value="true" value disabled hide-details label="운전을 잘해요"></v-checkbox>
             </v-flex>
             <v-flex v-else xs6 sm3 md2><v-checkbox value disabled hide-details label="운전을 잘해요" xs6 sm3 md2></v-checkbox></v-flex>
-            <v-flex v-if="preferAbility.includes('도배를 잘해요')" xs6 sm3 md2>
+            <v-flex v-if="board.preferAbility.includes('paper')" xs6 sm3 md2>
               <v-checkbox input-value="true" value disabled hide-details label="도배를 잘해요"></v-checkbox>
             </v-flex>
             <v-flex v-else xs6 sm3 md2><v-checkbox value disabled hide-details label="도배를 잘해요" xs6 sm3 md2></v-checkbox></v-flex>
-            <v-flex v-if="preferAbility.includes('짐나르는거 잘해요')" xs6 sm3 md2>
+            <v-flex v-if="board.preferAbility.includes('carry')" xs6 sm3 md2>
               <v-checkbox input-value="true" value disabled hide-details label="짐나르는거 잘해요"></v-checkbox>
             </v-flex>
             <v-flex v-else xs6 sm3 md2><v-checkbox value disabled hide-details label="짐나르는거 잘해요" xs6 sm3 md2></v-checkbox></v-flex>
-            <v-flex v-if="preferAbility.includes('노래를 잘해요')" xs6 sm3 md2>
+            <v-flex v-if="board.preferAbility.includes('sing')" xs6 sm3 md2>
               <v-checkbox input-value="true" value disabled hide-details label="노래를 잘해요"></v-checkbox>
             </v-flex>
             <v-flex v-else xs6 sm3 md2><v-checkbox value disabled hide-details label="노래를 잘해요" xs6 sm3 md2></v-checkbox></v-flex>
-            <v-flex v-if="preferAbility.includes('말동무를 잘해요')" xs6 sm3 md2>
+            <v-flex v-if="board.preferAbility.includes('talk')" xs6 sm3 md2>
               <v-checkbox input-value="true" value disabled hide-details label="말동무를 잘해요"></v-checkbox>
             </v-flex>
             <v-flex v-else xs6 sm3 md2><v-checkbox value disabled hide-details label="말동무를 잘해요" xs6 sm3 md2></v-checkbox></v-flex>
-            <v-flex v-if="preferAbility.includes('컴퓨터를 잘다뤄요')" xs6 sm3 md2>
+            <v-flex v-if="board.preferAbility.includes('comp')" xs6 sm3 md2>
               <v-checkbox input-value="true" value disabled hide-details label="컴퓨터를 잘다뤄요"></v-checkbox>
             </v-flex>
             <v-flex v-else xs6 sm3 md2><v-checkbox value disabled hide-details label="컴퓨터를 잘다뤄요" xs6 sm3 md2></v-checkbox></v-flex>
-            <v-flex v-if="preferAbility.includes('농기계를 잘다뤄요')" xs6 sm3 md2>
+            <v-flex v-if="board.preferAbility.includes('machine')" xs6 sm3 md2>
               <v-checkbox input-value="true" value disabled hide-details label="농기계를 잘다뤄요"></v-checkbox>
             </v-flex>
             <v-flex v-else xs6 sm3 md2><v-checkbox value disabled hide-details label="농기계를 잘다뤄요" xs6 sm3 md2></v-checkbox></v-flex>
-            <v-flex v-if="preferAbility.includes('농사경험이 있어요')" xs6 sm3 md2>
+            <v-flex v-if="board.preferAbility.includes('farm')" xs6 sm3 md2>
               <v-checkbox input-value="true" value disabled hide-details label="농사경험이 있어요"></v-checkbox>
             </v-flex>
             <v-flex v-else xs6 sm3 md2><v-checkbox value disabled hide-details label="농사경험이 있어요" xs6 sm3 md2></v-checkbox></v-flex>
+        
         </v-layout>
         </v-flex>
 

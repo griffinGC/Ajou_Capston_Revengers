@@ -63,20 +63,20 @@
           <v-icon>accessibility</v-icon><span class="grey--text text--darken-1"> 선호 능력</span>
           <v-flex xs12 d-flex>
             <v-flex xs6>
-            <v-checkbox v-model="selected" hide-details label="요리를 잘해요" value="요리를 잘해요"></v-checkbox>
-            <v-checkbox v-model="selected" hide-details label="미용을 잘해요" value="미용을 잘해요"></v-checkbox>
-            <v-checkbox v-model="selected" hide-details label="육아를 잘해요" value="육아를 잘해요"></v-checkbox>
-            <v-checkbox v-model="selected" hide-details label="청소를 잘해요" value="청소를 잘해요"></v-checkbox>
-            <v-checkbox v-model="selected" hide-details label="운전을 잘해요" value="운전을 잘해요"></v-checkbox>
-            <v-checkbox v-model="selected" hide-details label="도배를 잘해요" value="도배를 잘해요"></v-checkbox>
+            <v-checkbox v-model="selected" hide-details label="요리를 잘해요" value="cook"></v-checkbox>
+            <v-checkbox v-model="selected" hide-details label="미용을 잘해요" value="beauty"></v-checkbox>
+            <v-checkbox v-model="selected" hide-details label="육아를 잘해요" value="baby"></v-checkbox>
+            <v-checkbox v-model="selected" hide-details label="청소를 잘해요" value="clean"></v-checkbox>
+            <v-checkbox v-model="selected" hide-details label="운전을 잘해요" value="drive"></v-checkbox>
+            <v-checkbox v-model="selected" hide-details label="도배를 잘해요" value="paper"></v-checkbox>
             </v-flex>
             <v-flex xs6>
-            <v-checkbox v-model="selected" hide-details label="짐나르는거 잘해요" value="짐나르는거 잘해요"></v-checkbox>
-            <v-checkbox v-model="selected" hide-details label="노래를 잘해요" value="노래를 잘해요"></v-checkbox>
-            <v-checkbox v-model="selected" hide-details label="말동무를 잘해요" value="말동무를 잘해요"></v-checkbox>
-            <v-checkbox v-model="selected" hide-details label="컴퓨터를 잘해요" value="컴퓨터를 잘해요"></v-checkbox>
-            <v-checkbox v-model="selected" hide-details label="농기계를 잘다뤄요" value="농기계를 잘다뤄요"></v-checkbox>
-            <v-checkbox v-model="selected" hide-details label="농사경험이 있어요" value="농사경험이 있어요"></v-checkbox>
+            <v-checkbox v-model="selected" hide-details label="짐나르는거 잘해요" value="carry"></v-checkbox>
+            <v-checkbox v-model="selected" hide-details label="노래를 잘해요" value="sing"></v-checkbox>
+            <v-checkbox v-model="selected" hide-details label="말동무를 잘해요" value="talk"></v-checkbox>
+            <v-checkbox v-model="selected" hide-details label="컴퓨터를 잘해요" value="comp"></v-checkbox>
+            <v-checkbox v-model="selected" hide-details label="농기계를 잘다뤄요" value="machine"></v-checkbox>
+            <v-checkbox v-model="selected" hide-details label="농사경험이 있어요" value="farm"></v-checkbox>
             </v-flex>
           </v-flex>
           <!-- <v-icon>location_on</v-icon><span class="grey--text text--darken-1"> 일하는 지역</span>

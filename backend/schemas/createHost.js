@@ -59,7 +59,13 @@ const hostSchema = new mongoose.Schema({
     },
     visited:{
         type : Array
-    }
+    },
+    latitude : {
+        type : Number
+    },
+    longtitude : {
+        type : Number
+    },
 })
 
 hostSchema.statics.deleteFile = function(name, callback){

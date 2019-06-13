@@ -169,6 +169,8 @@ export default {
         minZoom: 3,
         streetViewControl: false
       });
+      var uluru = {lat: this.lat, lng: this.lng}
+       var marker = new google.maps.Marker({position: uluru, map: map});
     },
     getInfo() {
       // localStorage.role == 0 이면 guest && 1이면 host

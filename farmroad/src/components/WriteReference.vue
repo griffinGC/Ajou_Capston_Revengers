@@ -52,7 +52,8 @@ export default {
   created() {
     console.log("props로 받은 값 : " + this.boardId);
     console.log(this.boardId);
-    console.log(this.boardWriter)
+    console.log("기존의 작성자 : " +this.boardWriter);
+    console.log("사용자 이름 : " + localStorage.username);
     console.log("출력완료");
     this.role=localStorage.role;
   },

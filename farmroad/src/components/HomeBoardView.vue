@@ -5,7 +5,7 @@
       <v-card>
         <v-container>
           <v-layout row wrap class="cont">
-            <v-flex sm5>
+            <v-flex sm6>
               <v-avatar id="avatar" size="220px">
                 <img
                 v-if="candidateData.profileImg"
@@ -22,34 +22,28 @@
                 <!-- </div> -->
               <!-- </v-card-text> -->
             </v-flex>
-            <v-flex>
-                <v-layout column wrap>
-                <v-flex xs12 sm11>
-                  <v-layout row wrap align-top class="info1">
-                    <v-flex sm4 sm6>
-                    <div class="grey--text font-weight-bold">아이디</div>
-                    <div class="grey--text font-weight-bold">이름</div>
-                    <div class="grey--text font-weight-bold">성별</div>
-                    <div class="grey--text font-weight-bold">나이</div>
-                    <div class="grey--text font-weight-bold">전화번호</div>
-                    <div class="grey--text font-weight-bold">이메일</div>
-                    <div v-if="role === '0'" class="grey--text font-weight-bold">위치</div>
-                    <div v-if="role === '1'" class="grey--text font-weight-bold">능력</div>
-                    </v-flex>
-                    <v-flex sm3>
-                    <div>{{candidateData.userName}}</div>
-                    <div>{{candidateData.name}}</div>
-                    <div>{{candidateData.gender}}</div>
-                    <div>{{candidateData.age}}</div>
-                    <div>{{candidateData.phone}}</div>
-                    <div>{{candidateData.email}}</div>
-                    <div v-if="role === '0'">{{candidateData.location}}</div>
-                    <div v-if="role === '0'">{{candidateData.work}}</div>
-                    <div v-if="role === '1'">{{candidateData.ability}}</div>
-                    <!-- <div>{{candidateData.reference}}</div> -->
-                   </v-flex>
-                 </v-layout>
-               </v-flex>
+            <v-flex sm6>
+            <v-layout row wrap>
+            <v-flex sm5 class="grey--text font-weight-bold">아이디</v-flex>
+            <v-flex sm6>{{candidateData.userName}}</v-flex>
+            <v-flex sm5 class="grey--text font-weight-bold">이름</v-flex>
+            <v-flex sm6>{{candidateData.name}}</v-flex>
+            <v-flex sm5 class="grey--text font-weight-bold">성별</v-flex>
+            <v-flex sm6>{{candidateData.gender}}</v-flex>
+            <v-flex sm5 class="grey--text font-weight-bold">나이</v-flex>
+            <v-flex sm6>{{candidateData.age}}</v-flex>
+            <v-flex sm5 class="grey--text font-weight-bold">전화번호</v-flex>
+            <v-flex sm6>{{candidateData.phone}}</v-flex>
+            <v-flex sm5 class="grey--text font-weight-bold">이메일</v-flex>
+            <v-flex sm6>{{candidateData.email}}</v-flex>
+            <v-flex sm5 v-if="role==='0'" class="grey--text font-weight-bold" >위치</v-flex>
+            <v-flex sm6 v-if="role==='0'">{{candidateData.location}}</v-flex>
+            <v-flex sm5 v-if="role==='1'" class="grey--text font-weight-bold" >능력</v-flex>
+            <v-flex sm6 v-if="role==='1'">{{candidateData.ability}}</v-flex>
+            </v-layout>
+            </v-flex>
+            <v-flex sm12 offset-sm5>
+              <v-layout column wrap>
                <v-flex sm3>
                 <v-card-actions>
                 <v-btn flat slot="activator" color="success" :disabled="nowApprove" @click="approveCandidate(candidateData.userName)">
@@ -83,7 +77,7 @@ export default {
       nowRefuse : false,
     };
   },
-  props : ['candidateInfo', 'notificationId', 'state'],
+  props : ['candidateInfo', 'notificationId', 'state', 'boardId','writerId', 'boardTitle'],
   created() {
     // console.log("view is created");
     console.log("props로 받은 값 : " + this.candidateInfo);
@@ -143,7 +137,11 @@ export default {
             this.candidateData.phone = userData.phone;
             this.candidateData.email = userData.email;
             this.candidateData.reference = userData.reference;
+<<<<<<< HEAD
             this.candidateData.notificationId = userData.notificationId;
+=======
+            // this.candidateData.boardId = userData.boardId;
+>>>>>>> ad34295f4d324f65126c356c718f01cefba41d36
           });
       }else{
         //내가 host일 경우 guest정보를 가져옴 
@@ -161,13 +159,19 @@ export default {
             this.candidateData.phone = userData.phone;
             this.candidateData.email = userData.email;
             this.candidateData.reference = userData.reference;
+<<<<<<< HEAD
             this.candidateData.notificationId = userData.notificationId;
+=======
+            // this.candidateData.boardId = userData.boardId;
+>>>>>>> ad34295f4d324f65126c356c718f01cefba41d36
         });
       };
     },
     approveCandidate(name){
       console.log("notify state ");
-        console.log(name);
+      console.log("보낼 보드 id : " + this.boardId);
+      console.log("보낼 writer id : " + this.writerId);
+        // console.log(name);
         //guest일때 host 승인
          if(localStorage.role === '0'){
         this.axios
@@ -175,7 +179,10 @@ export default {
             "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/notifyState/guestApprove",
             {
             userName : name,
-            notificationId : this.notificationId
+            notificationId : this.notificationId,
+            boardId : this.boardId,
+            writerName : this.writerId,
+            boardTitle : this.boardTitle
             }
           )
           .then(response => {
@@ -193,7 +200,10 @@ export default {
             "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/notifyState/hostApprove",
             {
             userName : name,
-            notificationId : this.notificationId
+            notificationId : this.notificationId,
+            boardId : this.boardId,
+            writerName : this.writerId,
+            boardTitle : this.boardTitle
             }
           )
           .then(response => {
@@ -209,7 +219,9 @@ export default {
     },
     refuseCandidate(name){
         console.log("notify state ");
-        console.log(name);
+        // console.log(name);
+        console.log("보낼 보드 id : " + this.boardId);
+      console.log("보낼 writer id : " + this.writerId);
         // console.log(boardId);
         if(localStorage.role === '0'){
         this.axios
@@ -217,7 +229,9 @@ export default {
             "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/notifyState/guestRefuse",
           {
             userName : name,
-            notificationId : this.notificationId
+            notificationId : this.notificationId,
+            boardId : this.boardId,
+            writerName : this.writerId
           }
           )
           .then(response => {
@@ -235,7 +249,9 @@ export default {
             "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/notifyState/hostRefuse",
           {
             userName : name,
-            notificationId : this.notificationId
+            notificationId : this.notificationId,
+            boardId : this.boardId,
+            writerName : this.writerId
             }
           )
           .then(response => {

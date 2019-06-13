@@ -51,12 +51,6 @@ const hostBoardSchema = new mongoose.Schema({
     preferAbility :{
         type : Array
     },
-    latitude : {
-        type : Number
-    },
-    longtitude : {
-        type : Number
-    },
     report : {
         type : Boolean
     },

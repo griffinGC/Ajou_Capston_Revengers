@@ -14,6 +14,8 @@ import MyMap from './views/MyMap'
 import Review from './views/Review'
 import ChatRoom from './views/ChatRoom'
 import ChatRoomList from './components/ChatRoomList'
+import ReferenceProfile from './components/ReferenceProfile'
+import GMap from './views/GMap'
 
 Vue.use(Router)
 
@@ -78,8 +80,23 @@ const router =  new Router({
       },
       props: true,
       beforeEnter: (to, from, next) => {
-        console.log('router beforEnter message: '+to.params.name)
-        if(to.params.name){
+        console.log('router beforEnter message: '+to.params.comments)
+        if(to.params.comments){
+          next()
+        }
+      }
+    },
+    {
+      path: '/referenceProfile',
+      name: 'ReferenceProfile',
+      component: ReferenceProfile,
+      meta:{
+        requiresAuth: true
+      },
+      props: true,
+      beforeEnter: (to, from, next) => {
+        console.log('router beforEnter message: '+to.params.sendName + " , " + to.params.sendRole )
+        if(to.params.sendName){
           next()
         }
       }
@@ -135,6 +152,11 @@ const router =  new Router({
       path: '/chatroomlist',
       name: 'chatroomlist',
       component: ChatRoomList
+    },
+    {
+      path: '/gmap',
+      name: 'GMap',
+      component: GMap
     }
   ]
 })

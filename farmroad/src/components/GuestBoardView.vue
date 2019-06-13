@@ -2,7 +2,7 @@
   <v-dialog v-model="dialog" max-width="650px">
     <v-btn flat slot="activator" color="grey" @click="viewAction(board)">
       <v-icon small left>streetview</v-icon>
-      <span>view</span>
+      <span>글 정보 보기</span>
     </v-btn>
     <v-card>
       <v-container grid-list-md>

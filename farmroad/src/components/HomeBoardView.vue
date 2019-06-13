@@ -137,7 +137,15 @@ export default {
             this.candidateData.phone = userData.phone;
             this.candidateData.email = userData.email;
             this.candidateData.reference = userData.reference;
+<<<<<<< HEAD
             // this.candidateData.boardId = userData.boardId;
+=======
+<<<<<<< HEAD
+            this.candidateData.notificationId = userData.notificationId;
+=======
+            // this.candidateData.boardId = userData.boardId;
+>>>>>>> ad34295f4d324f65126c356c718f01cefba41d36
+>>>>>>> master
           });
       }else{
         //내가 host일 경우 guest정보를 가져옴 
@@ -155,8 +163,16 @@ export default {
             this.candidateData.phone = userData.phone;
             this.candidateData.email = userData.email;
             this.candidateData.reference = userData.reference;
+<<<<<<< HEAD
             // this.candidateData.boardId = userData.boardId;
 
+=======
+<<<<<<< HEAD
+            this.candidateData.notificationId = userData.notificationId;
+=======
+            // this.candidateData.boardId = userData.boardId;
+>>>>>>> ad34295f4d324f65126c356c718f01cefba41d36
+>>>>>>> master
         });
       };
     },

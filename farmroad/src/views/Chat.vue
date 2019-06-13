@@ -3,7 +3,7 @@
     <v-flex>
       <v-card>
         <v-card-title>댓글</v-card-title>
-        <v-list two-line class="messages" v-chat-scroll>
+        <v-list two-line class="메시지" v-chat-scroll>
           <template v-for="(msg) in messages">
             <v-list-tile :key="msg.id" avatar>
               <v-list-tile-avatar>
@@ -20,7 +20,7 @@
 
         <!--submit-->
         <form @submit.prevent="addMessage">
-          <v-text-field label="new message" v-model="newMessage" :rules="newMessageRules" required></v-text-field>
+          <v-text-field label="새로운 메시지" v-model="newMessage" :rules="newMessageRules" required></v-text-field>
         </form>
         <v-card-actions>
           <v-spacer></v-spacer>
@@ -38,7 +38,7 @@ export default {
     return {
       messages: [],
       newMessage: "",
-      newMessageRules: [v => !!v || "Message is required"]
+      newMessageRules: [v => !!v || "메시지를 작성해야 합니다."]
     };
   },
   props: {

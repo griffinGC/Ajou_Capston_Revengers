@@ -3,7 +3,7 @@
     <v-flex>
       <v-card>
         <v-card-title>댓글</v-card-title>
-        <v-list two-line class="메시지" v-chat-scroll>
+        <v-list two-line class="messages" v-chat-scroll>
           <template v-for="(msg) in messages">
             <v-list-tile :key="msg.id" avatar>
               <v-list-tile-avatar>

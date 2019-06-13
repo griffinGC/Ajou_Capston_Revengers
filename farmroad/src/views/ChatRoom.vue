@@ -4,7 +4,7 @@
       <v-card-title>>
         <h2>chat room</h2>
       </v-card-title>
-      <v-list class="메시지" two-line v-chat-scroll>
+      <v-list class="messages" two-line v-chat-scroll>
         <template v-for="msg in messages">
           <v-list-tile :key="msg.id" avatar>
             <v-list-tile-avatar>

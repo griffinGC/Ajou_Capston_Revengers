@@ -145,9 +145,7 @@ export default {
       star:3,
     };
   },
-  props: {
-    boardId: String
-  },
+  props: ['boardId'],
   created(){
     console.log("userInfo is created");
     console.log("boardid : " + this.boardId);
@@ -196,7 +194,9 @@ export default {
             this.email = userData.Info.email;
             this.reference = userData.reference;
             this.lat = userData.Info.latitude;
+            console.log(this.lat);
             this.lng = userData.Info.longitude;
+            console.log(this.lng);
             // let temp = 
             this.preferAbility = userData.preferAbility;
 

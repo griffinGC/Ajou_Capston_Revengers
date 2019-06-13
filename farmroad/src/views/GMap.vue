@@ -57,13 +57,13 @@ export default {
         console.log(e.latLng.lng());
         this.lat = e.latLng.lat();
         this.lng = e.latLng.lng();
+        localStorage.lat = e.latLng.lat();
+        localStorage.lng = e.latLng.lng();
       });
     },
-    saveLocation(){
-      localStorage.lat = this.lat
-      localStorage.lng = this.lng
-      console.log(localStorage.lat+'local saved location'+ localStorage.lng)
-      this.dialog = false
+    saveLocation() {
+      console.log(localStorage.lat + "local saved location" + localStorage.lng);
+      this.dialog = false;
     }
   },
   mounted() {

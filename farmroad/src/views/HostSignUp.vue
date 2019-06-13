@@ -222,6 +222,7 @@ export default {
       formData.append("location", this.location);
       formData.append('latitude',localStorage.lat)
       formData.append('longitude', localStorage.lng)
+      console.log('in sign up '+localStorage.lat)
       if (this.$refs.form.validate()) {
         this.snackbar = true;
         this.axios

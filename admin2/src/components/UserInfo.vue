@@ -107,24 +107,30 @@ export default {
         this.axios
           .get(`http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/user/getInfo/host/${userId}`)
           .then(response => {
-            console.log(response.data[0]);
             let userData = response.data[0];
-            console.log("받은 data 이름: " + userData.userName);
-            // console.log("받은 data 이름2: " + this.candidateData.userName);
             this.candidateData.userName = userData.userName;
-            console.log("받은 data 이름2: " + this.candidateData.userName);
             this.candidateData.name = userData.name;
             this.candidateData.profileImg = userData.profileImg;
             this.candidateData.age = userData.age;
             this.candidateData.gender = userData.gender;
-            this.candidateData.work = userData.work;
+            if(userData.work === 'agriculture'){
+              console.log("1")
+              this.work = "농업"
+            }else if(userData.work === 'forestry'){
+              this.work = "임업"
+            }else if(userData.work === 'fishery'){
+              this.work = "수산업"
+            }else if(userData.work === 'livestock'){
+              this.work = "목축업"
+            }else if(userData.work === 'others'){
+              this.work = "기타"
+            }
             this.candidateData.address = userData.address;
             this.candidateData.location = userData.location;
             this.candidateData.phone = userData.phone;
             this.candidateData.email = userData.email;
             this.candidateData.reference = userData.reference;
-
-          });
+        });
       }else{
         //내가 host일 경우 guest정보를 가져옴 
         this.axios
@@ -132,17 +138,34 @@ export default {
         .then(response =>{
           console.log(response.data[0]);
             let userData = response.data[0];
+
             this.candidateData.userName = userData.userName;
             this.candidateData.name = userData.name;
             this.candidateData.profileImg = userData.profileImg;
             this.candidateData.age = userData.age;
+
+            let abilityListKor = ["요리를 잘해요", "미용을 잘해요", "애를 잘돌봐요", "청소를 잘해요", "운전을 잘해요", "도배를 잘해요", "짐나르는거 잘해요", "노래를 잘해요", "말동무를 잘해요", "컴퓨터를 잘다뤄요", "농기계를 잘다뤄요", "농사경험이 있어요"];
+            let abilityListEng = ["cook", "beauty", "baby", "clean", "drive", "paper", "carry", "sing", "talk", "comp", "machine", "farm"];
+            let userAbility = new Array();
+            let receiveAbility = userData.ability;
+            for(let i = 0; i<receiveAbility.length; i++){
+              for(let z = 0; z <abilityListEng.length;z++){
+                if(receiveAbility[i] === abilityListEng[z]){
+                  userAbility.push(abilityListKor[z]);
+                }
+              }
+            }
+            let tempStr = "";
+            for(let j = 0; j<userAbility.length; j++){
+              tempStr = tempStr +" , " + userAbility[j];
+            }
+            tempStr = tempStr.substring(2, tempStr.length);
             this.candidateData.gender = userData.gender;
-            this.candidateData.ability = userData.ability;
+            this.candidateData.ability = tempStr;
             this.candidateData.phone = userData.phone;
             this.candidateData.email = userData.email;
             this.candidateData.reference = userData.reference;
-
-        });
+          });
       };
     },
     approveCandidate(name){

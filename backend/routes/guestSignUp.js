@@ -150,7 +150,7 @@ router.post('/guest', upload.single('img'),function(req, res,next){
       registerUser.save(function (err) {
           if(err){
               console.log(err);
-              return res.json({state : -1, msg : "error is occured"});
+              return res.json({state : -1, msg : err});
           }
         res.json({ state: 0, msg: 'guest register success!' })
       })

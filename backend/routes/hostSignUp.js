@@ -139,7 +139,7 @@ router.post('/host',upload.single('img'),function(req, res,next){
         registerUser.report = false;
       registerUser.save(function (err) {
           if(err){
-              return res.json({state : -1, msg : "error is occured"});
+              return res.json({state : -1, msg : err});
               
               // return;
           }

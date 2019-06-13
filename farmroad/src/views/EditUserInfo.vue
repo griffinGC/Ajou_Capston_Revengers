@@ -64,7 +64,33 @@
     <!-- <v-card-title><strong >나이 : </strong ><v-text-field v-model="age"></v-text-field></v-card-title> -->
     <v-card-title v-if="role === '0'">
       <strong>능력 :</strong>
-      <v-text-field v-model="ability"></v-text-field>
+      <!-- <v-text-field v-model="ability"></v-text-field> -->
+      <v-layout row wrap>
+          <v-item-group><span>
+            <v-checkbox v-model="ability" label="요리를 잘해요" value="cook"></v-checkbox>
+            <v-checkbox v-model="ability" label="미용을 잘해요" value="beauty"></v-checkbox></span>
+          </v-item-group>
+           <v-item-group>
+            <v-checkbox v-model="ability" label="애를 잘돌봐요" value="baby"></v-checkbox>
+            <v-checkbox v-model="ability" label="청소를 잘해요" value="clean"></v-checkbox>
+          </v-item-group>
+            <v-item-group>
+            <v-checkbox v-model="ability" label="운전을 잘해요" value="drive"></v-checkbox>
+            <v-checkbox v-model="ability" label="도배를 잘해요" value="paper"></v-checkbox>
+          </v-item-group>
+            <v-item-group>
+            <v-checkbox v-model="ability" label="짐나르는거 잘해요" value="carry"></v-checkbox>
+            <v-checkbox v-model="ability" label="노래를 잘해요" value="sing"></v-checkbox>
+          </v-item-group>
+          <v-item-group>
+            <v-checkbox v-model="ability" label="말동무를 잘해요" value="talk"></v-checkbox>
+            <v-checkbox v-model="ability" label="컴퓨터를 잘다뤄요" value="comp"></v-checkbox>
+          </v-item-group>
+          <v-item-group>
+            <v-checkbox v-model="ability" label="농기계를 잘다뤄요" value="machine"></v-checkbox>
+            <v-checkbox v-model="ability" label="농사경험이 있어요" value="farm"></v-checkbox>
+          </v-item-group>
+        </v-layout>
     </v-card-title>
     <v-card-title>
       <strong>전화번호 :</strong>
@@ -195,11 +221,15 @@ export default {
         console.log(this.userName);
         console.log("바뀐 이름 : " + this.name);
         var formData = new FormData();
+        // formData.append("img", this.imageFile);
+        if(!this.imageFile){
+          
+        }
         formData.append("img", this.imageFile);
         formData.append("userName", localStorage.username);
         formData.append("password", this.password);
         formData.append("name", this.name);
-        formData.append("ability", this.ability);
+        formData.append("ability", JSON.stringify(this.ability));
         formData.append("phone", this.phone);
         formData.append("email", this.email);
 

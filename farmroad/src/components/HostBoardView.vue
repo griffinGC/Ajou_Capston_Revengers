@@ -1,6 +1,6 @@
 <template>
   <v-dialog v-model="dialog" max-width="650px">
-    <v-btn flat slot="activator" color="grey">
+    <v-btn flat slot="activator" color="grey" @click="viewAction(board)">
       <v-icon small left>streetview</v-icon>
       <span>view</span>
     </v-btn>
@@ -25,18 +25,11 @@
         </v-flex>
 
         <!--show date-->
-        <div>
-          <v-date-picker
-            width="560px"
-            v-model="showDate"
-            :allowed-dates="allowedDates"
-            class="mt-3"
-            min="2016-06-15"
-            max="2018-03-20"
-          ></v-date-picker>
-        </div>
+
         <!---date and content--->
         <div>
+          <span>{{board.location}}</span>
+          <br>
           <span class="grey--text">{{board.startDate}}</span>
           <br>
           <span>{{board.content}}</span>
@@ -47,7 +40,12 @@
       </v-card-text>
       <v-card-actions>
         <!--Notification button-->
-        <v-btn :disabled="loading" slot="activator" color="success">
+        <v-btn
+          :disabled="loading"
+          slot="activator"
+          color="success"
+          @click="saveNotification(board.boardId)"
+        >
           <v-icon small left>add</v-icon>
           <span>신청하기</span>
         </v-btn>
@@ -76,7 +74,10 @@ import Chat from "../views/Chat";
 export default {
   props: ["hostBoard"],
   components: {
-    Chat
+    Chat,
+    computedDateFormatted() {
+      return this.formatDate(this.date);
+    }
   },
   data() {
     return {
@@ -87,9 +88,6 @@ export default {
       chatId: "",
       loading: "",
       showDate: "2018-03-02",
-
-      selected: [],
-      location: [],
 
       date: new Date().toISOString().substr(0, 10),
       dateFormatted: this.formatDate(new Date().toISOString().substr(0, 10)),
@@ -104,6 +102,9 @@ export default {
     date(val) {
       this.dateFormatted = this.formatDate(this.date);
     }
+  },
+  created() {
+    console.log(this.board);
   },
   methods: {
     formatDate(date) {
@@ -123,48 +124,25 @@ export default {
       console.log(info);
       this.chatRoomId = localStorage.username + info.userName;
       console.log(this.chatRoomId);
-      if (localStorage.role == 0) {
-        this.axios
-          .post(
-            "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/chatRoom/createChatRoom",
-            {
-              chatRoomId: this.chatRoomId,
-              hostUserName: info.userName,
-              guestUserName: localStorage.username
-            }
-          )
-          .then(response => {
-            if (response.data.state == -1) {
-              console.log(response.data.msg);
-            }
+      this.axios
+        .post(
+          "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/chatRoom/createChatRoom",
+          {
+            chatRoomId: this.chatRoomId,
+            hostUserName: localStorage.username,
+            guestUserName: info.userName
+          }
+        )
+        .then(response => {
+          if (response.data.state == -1) {
             console.log(response.data.msg);
-            this.$router.push({
-              name: "chatroom",
-              params: { chatRoomId: this.chatRoomId }
-            });
+          }
+          console.log(response.data.msg);
+          this.$router.push({
+            name: "chatroom",
+            params: { chatRoomId: this.chatRoomId }
           });
-      } else {
-        this.axios
-          .post(
-            "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/chatRoom/createChatRoom",
-            {
-              chatRoomId: this.chatRoomId,
-              hostUserName: localStorage.username,
-              guestUserName: info.userName
-            }
-          )
-          .then(response => {
-            if (response.data.state == -1) {
-              alert(response.data.msg);
-            } else {
-              console.log(response.data.msg);
-              this.$router.push({
-                name: "chatroom",
-                params: { chatRoomId: this.chatRoomId }
-              });
-            }
-          });
-      }
+        });
     },
     saveNotification(id) {
       console.log(id);
@@ -221,7 +199,7 @@ export default {
             if (response.data.state == -1) {
               alert(response.data.msg);
             } else {
-              alert('report success !!')
+              alert("report success !!");
               console.log(response.data.msg);
               location.reload();
             }
@@ -258,13 +236,13 @@ export default {
         }
       }
     },
-      moveMyMap(id){
+    moveMyMap(id) {
       console.log(id);
-        this.$router.push({
+      this.$router.push({
         name: "mymap",
         params: { boardId: id }
       });
-    },
+    }
   }
 };
 </script>

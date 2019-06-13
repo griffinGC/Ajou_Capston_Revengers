@@ -4,6 +4,40 @@ var router = express.Router();
 const referenceModel = require('../schemas/reference');
 
 
+//guest가 자기가 작성한 reference가져오기 
+router.get('/getGuestWrited/:id',function(req, res,next){
+  let type = "host"
+  if(!req.params.id){
+    return res.json({state : -1, msg : "board ID is empty"});
+  }
+    referenceModel.find({id : req.params.id, boardType : type},function(err,getInfo){
+        if(err) {
+          return res.json({state : -1 , msg : err});
+        };
+        if(getInfo){
+            return res.json(getInfo[0])
+        } 
+      }); 
+});
+
+
+//host가 자기가 작성할 reference가져오기 
+router.get('/getHostWrited/:id',function(req, res,next){
+  let type = "guest"
+  if(!req.params.id){
+    return res.json({state : -1, msg : "board ID is empty"});
+  }
+    referenceModel.find({id : req.params.id, boardType : type},function(err,getInfo){
+        if(err) {
+          return res.json({state : -1 , msg : err});
+        };
+        if(getInfo){
+            return res.json(getInfo[0])
+        } 
+      }); 
+});
+
+
 
 //guest => host 후기 글 작성 
 router.post('/createHostReference',function(req, res, next){
@@ -13,27 +47,18 @@ router.post('/createHostReference',function(req, res, next){
     if(!req.body.content){
         return res.json({state : -1, msg : "reference Content is empty!"});
     }
-
-    let writeReference = new referenceModel();
-
-    writeReference.boardId = req.body.boardId;
-    //작성되는곳 host profile
-    writeReference.boardType = "host";
-    //새로 작성될 title
-    writeReference.title = req.body.title;
-    writeReference.writer = req.body.writer;
-    writeReference.writerImg = req.body.writerImg;
-    //작성될 host profile
-    writeReference.userName = req.body.userName;
+    // userName은 작성될 곳의 이름
+    // writer는 작성하는 사람의 이름 
     let day = new Date();
     let yy = day.getFullYear();
     let mm = day.getMonth()
     let dd = day.getDate();
-    writeReference.writeDay = yy + '-' + mm + '-'+ dd;
-    writeReference.content = req.body.content;
-    writeReference.star = req.body.star;
-
-    writeReference.save(function(err){
+    let resultDay = yy  + '-' + mm+"-"+dd;
+    let type = "host"
+    referenceModel.update({userName : req.body.userName, boardType : type, boardId : req.body.boardId, writer : req.body.writer},
+    {
+     $set : {title : req.body.title, writerImg : req.body.writerImg, writeDay : resultDay, content : req.body.content, star: req.body.star} 
+    }, function(err){
         if(err){
             console.log(err);
             return res.json({state : -1, msg : "write reference for host is failed"});
@@ -51,29 +76,17 @@ router.post('/createGuestReference',function(req, res, next){
         return res.json({state : -1, msg : "reference Content is empty!"});
     }
 
-    let writeReference = new referenceModel();
-
-    writeReference.boardId = req.body.boardId;
-    //작성되는곳 host profile
-    writeReference.boardType = "guest";
-    //새로 작성될 title
-    writeReference.title = req.body.title;
-    writeReference.writer = req.body.writer;
-    writeReference.writerImg = req.body.writerImg;
-    //작성될 guest profile
-    
-    writeReference.userName = req.body.userName;
-
 
     let day = new Date();
     let yy = day.getFullYear();
     let mm = day.getMonth()
     let dd = day.getDate();
-    writeReference.writeDay = yy + '-' + mm + '-'+ dd;
-    writeReference.content = req.body.content;
-    writeReference.star = req.body.star;
-
-    writeReference.save(function(err){
+    let resultDay = yy  + '-' + mm+"-"+dd;
+    let type = "guest";
+    referenceModel.update({userName : req.body.userName, boardType : type, boardId : req.body.boardId, writer : req.body.writer},
+    {
+     $set : {title : req.body.title, writerImg : req.body.writerImg, writeDay : resultDay, content : req.body.content, star: req.body.star} 
+    }, function(err){
         if(err){
             console.log(err);
             return res.json({state : -1, msg : "write reference for host is failed"});
@@ -114,7 +127,7 @@ router.get('/getGuestReference/:id',function(req, res,next){
         }); 
 });
 
-//guest가 자기가 작성한 reference가져오기 
+//guest가 자기가 작성할 reference가져오기 
 router.get('/getGuestMyReference/:id',function(req, res,next){
     console.log(req.params.id);
     if(!req.params.id){
@@ -130,7 +143,7 @@ router.get('/getGuestMyReference/:id',function(req, res,next){
         }); 
 });
 
-//host가 자기가 작성한 reference가져오기 
+//host가 자기가 작성할 reference가져오기 
 router.get('/getHostMyReference/:id',function(req, res,next){
     console.log(req.params.id);
     if(!req.params.id){

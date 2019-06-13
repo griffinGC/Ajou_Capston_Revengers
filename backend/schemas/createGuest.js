@@ -60,6 +60,10 @@ guestSchema.statics.deleteFile = function(name, callback){
     this.find({userName : name}, callback);
 }
 
+guestSchema.statics.findAbility = function(name, callback){
+    this.find({userName : name}, callback);
+}
+
 guestSchema.plugin(autoIncrement,{
     model : 'guests',
     field : 'guestId',

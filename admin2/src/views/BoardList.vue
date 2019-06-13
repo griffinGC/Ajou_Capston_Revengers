@@ -19,7 +19,7 @@
           </v-btn>
         </v-toolbar>
 
-        <v-list>
+        <!-- <v-list>
           <v-list-tile>
             <v-list-tile-action>
               <v-icon  color="pink">done</v-icon>
@@ -36,7 +36,7 @@
             <v-icon size="40px">person</v-icon>
 
             <v-btn  color="info" >상태 버튼 </v-btn>
-          </v-list-tile>
+          </v-list-tile> -->
           <v-list-tile
             v-for="board in guestBoardList"
             :key="board.boardId"
@@ -59,13 +59,16 @@
             </v-list-tile-avatar>
             <v-icon v-else size="40px">person</v-icon>
 
+            <v-card-actions>
+              <BoardView  v-bind:guestBoard="board"/>
+            </v-card-actions>
+
             <v-btn v-if="board.report === false" color="error" @click="updateToError(board)">게시글 금지 </v-btn>
             <v-btn v-else color="success" @click="updateToAble(board)">게시글 해제 </v-btn>
 
           </v-list-tile>
         </v-list>
       </v-card>
-
       <v-card v-else>
         <v-toolbar color="indigo" dark>
           <!-- <v-toolbar-side-icon></v-toolbar-side-icon> -->
@@ -79,7 +82,7 @@
         </v-toolbar>
 
         <v-list>
-          <v-list-tile>
+          <!-- <v-list-tile>
             <v-list-tile-action>
               <v-icon  color="pink">done</v-icon>
             </v-list-tile-action>
@@ -95,7 +98,7 @@
             <v-icon size="40px">person</v-icon>
 
             <v-btn  color="info" >상태 버튼 </v-btn>
-          </v-list-tile>
+          </v-list-tile> -->
           <v-list-tile
             v-for="board in hostBoardList"
             :key="board.boardId"
@@ -118,6 +121,10 @@
             </v-list-tile-avatar>
             <v-icon v-else size="40px">person</v-icon>
 
+            <v-card-actions>
+              <HostBoardView  v-bind:hostBoard="board"/>
+            </v-card-actions>
+
             <v-btn v-if="board.report === false" color="error" @click="updateToError(board)">게시글 금지 </v-btn>
             <v-btn v-else color="success" @click="updateToAble(board)">게시글 해제 </v-btn>
           </v-list-tile>
@@ -130,11 +137,13 @@
 
 
 <script>
-
+import BoardView from "../components/BoardView";
+import HostBoardView from "../components/HostBoardView";
 export default {
   name: "reportUser",
   components: {
-    // HomeBoardView
+    BoardView,
+    HostBoardView
   },
   data () {
       return {

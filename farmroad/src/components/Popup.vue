@@ -58,27 +58,28 @@
             prepend-icon="work"
             return-object
           ></v-select>
+
           <v-select :items="items1" v-model="diff" label="일의 종류" return-object></v-select>
           <v-icon>accessibility</v-icon><span class="grey--text text--darken-1"> 선호 능력</span>
           <v-flex xs12 d-flex>
             <v-flex xs6>
-            <v-checkbox v-model="selected" hide-details label="요리" value="cook"></v-checkbox>
-            <v-checkbox v-model="selected" hide-details label="미용" value="beauty"></v-checkbox>
-            <v-checkbox v-model="selected" hide-details label="육아" value="baby"></v-checkbox>
-            <v-checkbox v-model="selected" hide-details label="청소" value="clean"></v-checkbox>
-            <v-checkbox v-model="selected" hide-details label="운전" value="drive"></v-checkbox>
-            <v-checkbox v-model="selected" hide-details label="도배" value="paper"></v-checkbox>
+            <v-checkbox v-model="selected" hide-details label="요리를 잘해요" value="cook"></v-checkbox>
+            <v-checkbox v-model="selected" hide-details label="미용을 잘해요" value="beauty"></v-checkbox>
+            <v-checkbox v-model="selected" hide-details label="육아를 잘해요" value="baby"></v-checkbox>
+            <v-checkbox v-model="selected" hide-details label="청소를 잘해요" value="clean"></v-checkbox>
+            <v-checkbox v-model="selected" hide-details label="운전을 잘해요" value="drive"></v-checkbox>
+            <v-checkbox v-model="selected" hide-details label="도배를 잘해요" value="paper"></v-checkbox>
             </v-flex>
             <v-flex xs6>
-            <v-checkbox v-model="selected" hide-details label="짐나르기" value="carry"></v-checkbox>
-            <v-checkbox v-model="selected" hide-details label="노래" value="sing"></v-checkbox>
-            <v-checkbox v-model="selected" hide-details label="말동부" value="talk"></v-checkbox>
-            <v-checkbox v-model="selected" hide-details label="컴퓨터" value="comp"></v-checkbox>
-            <v-checkbox v-model="selected" hide-details label="농기계" value="machine"></v-checkbox>
-            <v-checkbox v-model="selected" hide-details label="농사경험" value="farm"></v-checkbox>
+            <v-checkbox v-model="selected" hide-details label="짐나르는거 잘해요" value="carry"></v-checkbox>
+            <v-checkbox v-model="selected" hide-details label="노래를 잘해요" value="sing"></v-checkbox>
+            <v-checkbox v-model="selected" hide-details label="말동무를 잘해요" value="talk"></v-checkbox>
+            <v-checkbox v-model="selected" hide-details label="컴퓨터를 잘해요" value="comp"></v-checkbox>
+            <v-checkbox v-model="selected" hide-details label="농기계를 잘다뤄요" value="machine"></v-checkbox>
+            <v-checkbox v-model="selected" hide-details label="농사경험이 있어요" value="farm"></v-checkbox>
             </v-flex>
           </v-flex>
-          <v-icon>location_on</v-icon><span class="grey--text text--darken-1"> 일하는 지역</span>
+          <!-- <v-icon>location_on</v-icon><span class="grey--text text--darken-1"> 일하는 지역</span>
           <v-flex xs12 d-flex>
             <v-flex xs6>
             <v-checkbox v-model="workLocation" hide-details label="경기도" value="경기도"></v-checkbox>
@@ -92,9 +93,9 @@
             <v-checkbox v-model="workLocation" hide-details label="전라북도" value="전라북도"></v-checkbox>
             <v-checkbox v-model="workLocation" hide-details label="전라남도" value="전라남도"></v-checkbox>
             <v-checkbox v-model="workLocation" hide-details label="강원도" value="강원도"></v-checkbox>
-            <v-checkbox v-model="workLocation" hide-details label="제주도" value="제주도  "></v-checkbox>
+            <v-checkbox v-model="workLocation" hide-details label="제주도" value="제주도"></v-checkbox>
             </v-flex>
-          </v-flex>
+          </v-flex> -->
           <v-textarea label="Content" v-model="content" prepend-icon="edit" required></v-textarea>
           <v-alert v-model="alert" dismissible type="success">create Board success</v-alert>
 
@@ -127,6 +128,8 @@ export default {
       workLocation: "",
       
     };
+  },
+  components:{
   },
 
   computed: {
@@ -189,7 +192,7 @@ export default {
       let temp = JSON.stringify(this.selected);
       // 문자열로 보내서 backend에서 데이터 처리
       formData.append("preferAbility", temp);
-      formData.append("location", this.workLocation);
+      // formData.append("location", this.workLocation);
       console.log(formData)
       this.axios
         .post(

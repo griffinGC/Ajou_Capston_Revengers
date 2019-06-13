@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 const hostModel = require('../schemas/createHost');
+const guestModel = require('../schemas/createGuest');
 
 const multer = require('multer');
 
@@ -31,6 +32,47 @@ router.get('/getBoard/:id',function(req, res,next){
         })
   });     
 
+//guest의 요구사항에 맞는 host board 게시판 글 가져오기
+router.get('/filterBoard/:id',function(req, res,next){
+    // id로 guest의 id를 받아옴 
+    guestModel.findAbility(req.params.id, function(err, guestInfo){
+        // console.log(guestInfo);
+        let ability = guestInfo[0].ability;
+        console.log(ability);
+        hostBoard.find({}, function(err, board){
+            if(err){
+                return res.json({state : -1, msg : err});
+            }
+            var result = new Array();    
+            for(let i = 0; i<board.length; i++){
+                board[i].preferCount = 0;
+                for(let j = 0 ; j < ability.length; j++){
+                    for(let k = 0; k<board[i].preferAbility.length; k++){
+                        if(ability[j] === board[i].preferAbility[k]){
+                            ++board[i].preferCount;
+                            console.log("보드의 카운트 값 : " + board[i].preferCount);
+                        }
+                    }
+                }
+                if(board[i].preferCount > 0){
+                    result.push(board[i]);
+                }    
+            }
+            console.log("중간값 : " + result[0].preferCount);
+            for(let i = 0; i< result.length -1; i++){
+                for(let j = 1; j<result.length; j++){
+                    if(result[i].preferCount > result[j].preferCount){
+                        let temp = result[i].preferCount;
+                        result[i].preferCount = result[j].preferCount;
+                        result[j].preferCount = temp;
+                    }
+                }
+            }
+            console.log(result);
+            return res.json(result);
+        })
+    })
+  });     
 
 //host게시판 글 가져오기
 router.get('/getList',function(req, res,next){

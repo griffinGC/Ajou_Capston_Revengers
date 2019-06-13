@@ -24,7 +24,7 @@
           <v-checkbox v-model="workLocation" label="강원도" value="강원도"></v-checkbox>
           <v-checkbox v-model="workLocation" label="제주도" value="제주도"></v-checkbox>
         </v-item-group>
-        {{ this.workLocation}}
+        <!-- {{ this.workLocation}} -->
         <v-btn flat class="success" @click="sortLocation(boards)">지역 검색</v-btn>
       </v-layout>
     </v-form>
@@ -32,30 +32,29 @@
       <div class="grey--text text--darken-1"></div>
       <v-layout row wrap>
         <v-item-group>
-          <v-checkbox v-model="selected" label="요리를 잘해요" value="cook"></v-checkbox>
-          <v-checkbox v-model="selected" label="미용 잘해요" value="beauty"></v-checkbox>
+          <v-checkbox v-model="selected" label="요리를 잘해요" value="요리를 잘해요"></v-checkbox>
+          <v-checkbox v-model="selected" label="미용 잘해요" value="미용 잘해요"></v-checkbox>
         </v-item-group>
         <v-item-group>
-          <v-checkbox v-model="selected" label="애를 잘돌봐요" value="baby"></v-checkbox>
-          <v-checkbox v-model="selected" label="청소를 잘해요" value="clean"></v-checkbox>
+          <v-checkbox v-model="selected" label="애를 잘돌봐요" value="애를 잘돌봐요"></v-checkbox>
+          <v-checkbox v-model="selected" label="청소를 잘해요" value="청소를 잘해요"></v-checkbox>
         </v-item-group>
         <v-item-group>
-          <v-checkbox v-model="selected" label="운전을 잘해요" value="drive"></v-checkbox>
-          <v-checkbox v-model="selected" label="도배를 잘해요" value="paper"></v-checkbox>
+          <v-checkbox v-model="selected" label="운전을 잘해요" value="운전을 잘해요"></v-checkbox>
+          <v-checkbox v-model="selected" label="도배를 잘해요" value="도배를 잘해요"></v-checkbox>
         </v-item-group>
         <v-item-group>
-          <v-checkbox v-model="selected" label="짐나르는거 잘해요" value="carry"></v-checkbox>
-          <v-checkbox v-model="selected" label="노래를 잘해요" value="sing"></v-checkbox>
+          <v-checkbox v-model="selected" label="짐나르는거 잘해요" value="짐나르는거 잘해요"></v-checkbox>
+          <v-checkbox v-model="selected" label="노래를 잘해요" value="노래를 잘해요"></v-checkbox>
         </v-item-group>
         <v-item-group>
-          <v-checkbox v-model="selected" label="말동부를 잘해요" value="talk"></v-checkbox>
-          <v-checkbox v-model="selected" label="컴퓨터를 잘다뤄요" value="comp"></v-checkbox>
+          <v-checkbox v-model="selected" label="말동무를 잘해요" value="말동무를 잘해요"></v-checkbox>
+          <v-checkbox v-model="selected" label="컴퓨터를 잘다뤄요" value="컴퓨터를 잘다뤄요"></v-checkbox>
         </v-item-group>
         <v-item-group>
-          <v-checkbox v-model="selected" label="농기계를 잘다뤄요" value="machine"></v-checkbox>
-          <v-checkbox v-model="selected" label="농사경험이 있어요" value="farm"></v-checkbox>
+          <v-checkbox v-model="selected" label="농기계를 잘다뤄요" value="농기계를 잘다뤄요"></v-checkbox>
+          <v-checkbox v-model="selected" label="농사경험이 있어요" value="농사경험이 있어요"></v-checkbox>
         </v-item-group>
-        <!-- {{ this.selected}} -->
         <v-btn flat class="success" @click="sortBoard(boards)">선택사항 검색</v-btn>
       </v-layout>
     </v-form>
@@ -72,9 +71,8 @@
             </v-card-text>
 
             <v-card-actions>
-              <!------------------------------view dialog start--------------------------------->
-            <HostBoardView v-bind:hostBoard="board"/>
-              <!------------------------------view dialog end--------------------------------->
+              <HostBoardView v-if="role===true" v-bind:hostBoard="board"/>
+              <GuestBoardView v-if="role===false" v-bind:guestBoard="board"/>
             </v-card-actions>
           </v-card>
         </v-flex>
@@ -88,13 +86,15 @@ import firebase from "firebase";
 import Chat from "../views/Chat";
 import UserInfoVue from "./UserInfo.vue";
 import Review from "./Review";
-import HostBoardView from '../components/HostBoardView'
+import HostBoardView from "../components/HostBoardView";
+import GuestBoardView from "../components/GuestBoardView";
 export default {
   components: {
     computedDateFormatted() {
       return this.formatDate(this.date);
     },
-
+    HostBoardView,
+    GuestBoardView,
     Review,
     Chat,
     HostBoardView
@@ -103,22 +103,10 @@ export default {
     return {
       boards: [],
       newBoards: [],
-      rating: 3,
-      items: [1, 2, 3, 4, 5],
-      workDays: "",
-      chatId: "",
-      loading: "",
-      showDate: "2018-03-02",
 
       selected: [],
       workLocation: [],
-
-      date: new Date().toISOString().substr(0, 10),
-      dateFormatted: this.formatDate(new Date().toISOString().substr(0, 10)),
-      showCard: false,
-      diff: "",
       role: null,
-      chatRoomId: ""
     };
   },
   created() {
@@ -169,28 +157,7 @@ export default {
         });
     }
   },
-  watch: {
-    date(val) {
-      this.dateFormatted = this.formatDate(this.date);
-    }
-  },
   methods: {
-    formatDate(date) {
-      if (!date) return null;
-
-      const [year, month, day] = date.split("-");
-      return `${month}/${day}/${year}`;
-    },
-    parseDate(date) {
-      if (!date) return null;
-
-      const [month, day, year] = date.split("/");
-      return `${year}-${month.padStart(2, "0")}-${day.padStart(2, "0")}`;
-    },
-
-    //allowedDate for date
-    allowedDates: val => parseInt(val.split("-")[2], 10) % 2 === 0,
-
     sortBoard(boards) {
       let tempBoards = new Array();
       boards.forEach(index => {
@@ -220,7 +187,7 @@ export default {
       boards.forEach(index => {
         index.count = 0;
         for (let i = 0; i < this.workLocation.length; i++) {
-          if (index.location === this.workLocation[i]) {
+          if (index.Info.location === this.workLocation[i]) {
             console.log("같은 곳의 위치 : " + this.workLocation[i]);
             ++index.count;
           }
@@ -238,157 +205,6 @@ export default {
         this.newBoards = boards;
       }
     },
-    messager(info) {
-      this.chatRoomId = localStorage.username + info.userName;
-
-      if (localStorage.role == 0) {
-        this.axios
-          .post(
-            "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/chatRoom/createChatRoom",
-            {
-              chatRoomId: this.chatRoomId,
-              hostUserName: info.userName,
-              guestUserName: localStorage.username
-            }
-          )
-          .then(response => {
-            if (response.data.state == -1) {
-              console.log(response.data.msg);
-            }
-            console.log(response.data.msg);
-            this.$router.push({
-              name: "chatroom",
-              params: { chatRoomId: this.chatRoomId }
-            });
-          });
-      } else {
-        this.axios
-          .post(
-            "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/chatRoom/createChatRoom",
-            {
-              chatRoomId: this.chatRoomId,
-              hostUserName: localStorage.username,
-              guestUserName: info.userName
-            }
-          )
-          .then(response => {
-            if (response.data.state == -1) {
-              alert(response.data.msg);
-            } else {
-              console.log(response.data.msg);
-              this.$router.push({
-                name: "chatroom",
-                params: { chatRoomId: this.chatRoomId }
-              });
-            }
-          });
-      }
-    },
-    moveMyMap(id){
-      console.log(id);
-        this.$router.push({
-        name: "mymap",
-        params: { boardId: id }
-      });
-    },
-    saveNotification(id) {
-      console.log(id);
-      if (localStorage.role == 0) {
-        this.axios
-          .post(
-            "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/notifyRegister/host/registerNotification",
-            {
-              userName: localStorage.username,
-              boardId: id
-            }
-          )
-          .then(response => {
-            console.log(response.data);
-            if (response.data.state == 0) {
-              alert(response.data.msg);
-              this.$router.go();
-            } else {
-              alert(response.data.msg);
-            }
-          });
-      } else if (localStorage.role == 1) {
-        this.axios
-          .post(
-            "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/notifyRegister/guest/registerNotification",
-            {
-              userName: localStorage.username,
-              boardId: id
-            }
-          )
-          .then(response => {
-            console.log(response.data);
-            if (response.data.state == 0) {
-              alert(response.data.msg);
-              this.$router.go();
-            } else {
-              alert(response.data.msg);
-            }
-          });
-      }
-    },
-    viewAction(board) {
-      var can = board.candidate;
-      console.log(can);
-      this.loading = false;
-      for (let index = 0; index < can.length; index++) {
-        console.log(can[index]);
-        if (can[index] === localStorage.username) {
-          console.log(can[index]);
-          this.loading = true;
-          break;
-        }
-      }
-    },
-    report(board) {
-      console.log(board.boardId);
-      let checkPerson = 0;
-      for(let i = 0; i<board.isReport.length; i++){
-        if(localStorage.username === board.isReport[i]){
-            alert("이미 신고했습니다!");
-            return;
-        }
-      }
-      if (localStorage.role == 0) {
-        this.axios
-          .post(
-            "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/hostBoard/isReportHost/ban",
-            {
-              boardId: board.boardId,
-              userName: localStorage.username
-            }
-          )
-          .then(response => {
-            if (response.data.state == -1) {
-              alert(response.data.msg);
-            } else {
-              console.log(response.data.msg);
-              location.reload();
-            }
-          });
-      } else {
-        this.axios
-          .post(
-            "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/guestBoard/isReportGuest/ban",
-            {
-              boardId: board.boardId,
-              userName: localStorage.username
-            }
-          )
-          .then(response => {
-            if (response.data.state == -1) {
-              alert(response.data.msg);
-            } else {
-              console.log(response.data.msg);
-              location.reload();
-            }
-          });
-      }
-    }
   }
 };
 </script>

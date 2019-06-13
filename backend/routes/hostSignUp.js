@@ -128,6 +128,9 @@ router.post('/host',upload.single('img'),function(req, res,next){
         registerUser.location = req.body.location;
         registerUser.age = req.body.age;
         registerUser.work = req.body.work;
+        registerUser.latitude = req.body.latitude;
+        // registerUser.longitude = req.body.longitude;
+        registerUser.longitude = req.body.longitude;
 
         registerUser.profileImg = "http://ec2-15-164-103-237.ap-northeast-2.compute.amazonaws.com:3000/images/hostProfile/"+newFile;
         

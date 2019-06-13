@@ -226,6 +226,9 @@ export default {
     viewAction(board) {
       var can = board.candidate;
       console.log(can);
+      localStorage.lat = board.Info.latitude
+      console.log('board view!!!!!'+board.Info.latitude)
+      localStorage.lng = board.Info.longitude
       this.loading = false;
       for (let index = 0; index < can.length; index++) {
         console.log(can[index]);

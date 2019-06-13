@@ -48,11 +48,11 @@
                 <v-card-actions>
                 <v-btn flat slot="activator" color="success" :disabled="nowApprove" @click="approveCandidate(candidateData.userName)">
                   <v-icon small left>favorite</v-icon>
-                  <span>Approve</span>
+                  <span>승낙</span>
                   </v-btn>
                 <v-btn flat slot="activator" color="success" :disabled="nowRefuse" @click="refuseCandidate(candidateData.userName)">
                   <v-icon small left>clear</v-icon>
-                  <span>Refuse</span>
+                  <span>거절</span>
                     </v-btn>
                   </v-card-actions>
                 </v-flex>
@@ -158,7 +158,14 @@ export default {
             this.candidateData.phone = userData.phone;
             this.candidateData.email = userData.email;
             this.candidateData.reference = userData.reference;
+<<<<<<< HEAD
             // this.candidateData.boardId = userData.boardId;
+=======
+
+            // this.candidateData.boardId = userData.boardId;
+
+            this.candidateData.notificationId = userData.notificationId;
+>>>>>>> 13212ebfc756948e129f7d8eb5b87c60d3ef1882
 
         });
       };

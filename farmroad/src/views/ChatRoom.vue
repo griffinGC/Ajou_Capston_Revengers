@@ -4,7 +4,7 @@
       <v-card-title>>
         <h2>chat room</h2>
       </v-card-title>
-      <v-list class="메시지" two-line v-chat-scroll>
+      <v-list class="messages" two-line v-chat-scroll>
         <template v-for="msg in messages">
           <v-list-tile :key="msg.id" avatar>
             <v-list-tile-avatar>
@@ -50,8 +50,8 @@ export default {
 
     this.$notify({
             group: "foo",
-            title: "new message",
-            text: "newwwwww"
+            title: "메세지 도착!",
+            text: "새로운 메세지가 도착했습니다!"
           });
     ref.onSnapshot(snapshot => {
       snapshot.docChanges().forEach(change => {

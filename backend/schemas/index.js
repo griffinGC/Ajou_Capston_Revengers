@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const autoIncrement = require('mongoose-auto-increment');
 
 const connect = () =>{
-    mongoose.connect('mongodb://localhost:27017/capDTest',
+    mongoose.connect('mongodb://localhost:27017/capDTest2',
     { useNewUrlParser : true }, (error) =>{
         if(error){
             console.log('디비 연결 에러', error);

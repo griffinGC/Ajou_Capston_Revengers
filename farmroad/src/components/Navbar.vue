@@ -56,10 +56,10 @@ export default {
       drawer: false,
 
       links: [
-        { icon: "home", text: "Home", route: "/home" },
-        { icon: "dashboard", text: "Boards", route: "/about" },
-        { icon: "dashboard", text: "My Boards", route: "/myboards" },
-        { icon: "person", text: "Profile", route: "/userInfo" }
+        { icon: "home", text: "홈 화면", route: "/home" },
+        { icon: "dashboard", text: "게시판", route: "/about" },
+        { icon: "dashboard", text: "내가 쓴 글", route: "/myboards" },
+        { icon: "person", text: "내 정보", route: "/userInfo" }
       ],
       user: null,
       role: null

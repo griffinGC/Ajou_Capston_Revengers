@@ -31,8 +31,8 @@
               <v-flex md6>{{board.Info.phone}}</v-flex>
               <v-flex md5 ml-3>이메일</v-flex>
               <v-flex md6>{{board.Info.email}}</v-flex>
-              <v-flex md5 ml-3>평점</v-flex>
-              <v-flex md6>{{board.Info.reference}}</v-flex>
+              <!-- <v-flex md5 ml-3>평점</v-flex> -->
+              <!-- <v-flex md6>{{board.Info.reference}}</v-flex> -->
             </v-layout>
           </v-flex>
           <!-- board title & content -->
@@ -106,20 +106,6 @@
           <v-flex md3 v-else>
             <v-checkbox value disabled hide-details label="제주도"></v-checkbox>
           </v-flex>
-
-          <!-- <v-flex md3><v-checkbox v-model="workLocation" hide-details label="인천" value="인천"></v-checkbox></v-flex>
-      <v-flex md3><v-checkbox v-model="workLocation" hide-details label="충청북도" value="충청북도"></v-checkbox></v-flex>
-      <v-flex md3><v-checkbox v-model="workLocation" hide-details label="충청남도" value="충청남도"></v-checkbox></v-flex>
-      <v-flex md3><v-checkbox v-model="workLocation" hide-details label="경상북도" value="경상북도"></v-checkbox></v-flex>
-      <v-flex md3><v-checkbox v-model="workLocation" hide-details label="경상남도" value="경상남도"></v-checkbox></v-flex>
-      <v-flex md3><v-checkbox v-model="workLocation" hide-details label="전라북도" value="전라북도"></v-checkbox></v-flex>
-      <v-flex md3><v-checkbox v-model="workLocation" hide-details label="전라남도" value="전라남도"></v-checkbox></v-flex>
-      <v-flex md3><v-checkbox v-model="workLocation" hide-details label="강원도" value="강원도"></v-checkbox></v-flex>
-          <v-flex md3><v-checkbox v-model="workLocation" hide-details label="제주도" value="제주도"></v-checkbox></v-flex>-->
-          <!-- <v-flex v-if="preferAbility.includes('노래를 잘해요')" xs6 sm3 md2>
-              <v-checkbox input-value="true" value disabled hide-details label="노래를 잘해요"></v-checkbox>
-            </v-flex>
-          <v-flex v-else xs6 sm3 md2><v-checkbox value disabled hide-details label="노래를 잘해요" xs6 sm3 md2></v-checkbox></v-flex>-->
         </v-layout>
       </v-container>
 
@@ -135,10 +121,10 @@
           <v-icon small left>message</v-icon>
           <span>메신저</span>
         </v-btn>
-        <!-- <v-btn to="/mymap" flat slot="activator" color="info">
+        <v-btn router :to="{ name : 'ReferenceProfile', params:{sendName : board.Info.userName, sendRole : 'host'}}"   flat slot="activator" color="info">
           <v-icon small left>expand_more</v-icon>
-          <span>상세보기</span>
-        </v-btn>-->
+          <span>글 작성자 정보 상세보기</span>
+        </v-btn>
         <v-btn flat slot="activator" color="error">
           <v-icon small left>report</v-icon>
           <span>신고하기</span>

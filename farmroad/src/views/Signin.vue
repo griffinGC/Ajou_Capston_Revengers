@@ -1,7 +1,7 @@
 <template>
   <div class="login container">
     <v-card flat>
-      <v-card-title class="headline">Sign In</v-card-title>
+      <v-card-title class="headline">로그인</v-card-title>
       <v-card-text>
         <!--输入框组-->
         <v-form class="px-3" ref="form" v-model="valid" lazy-validation>
@@ -28,7 +28,7 @@
             <v-radio label="Host" value="1"></v-radio>
             <v-radio label="Guest" value="0"></v-radio>
           </v-radio-group>
-          <v-btn :disabled="!valid" left color="success" @click="validate">Sign In</v-btn>
+          <v-btn :disabled="!valid" left color="success" @click="validate">로그인</v-btn>
         </v-form>
       </v-card-text>
       <v-card-actions>
@@ -36,8 +36,8 @@
         <v-spacer></v-spacer>
 
         <!--底部按钮组-->
-        <v-btn color="green darken-1" flat router :to="{name: 'HostSignup'}">Host signUp</v-btn>
-        <v-btn color="green darken-1" flat router :to="{name: 'GuestSignup'}">Guest SignUP</v-btn>
+        <v-btn color="green darken-1" flat router :to="{name: 'HostSignup'}">주인장 회원가입</v-btn>
+        <v-btn color="green darken-1" flat router :to="{name: 'GuestSignup'}">여행객 회원가입</v-btn>
       </v-card-actions>
     </v-card>
   </div>

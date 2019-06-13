@@ -16,7 +16,7 @@
               <v-dialog max-width="600px">
                 <v-btn flat slot="activator" color="grey">
                   <v-icon small left>streetview</v-icon>
-                  <span>view</span>
+                  <span>게시글 보기</span>
                 </v-btn>
                 <v-card>
                   <v-img class="white--text" height="200px" :src="board.boardImg">
@@ -33,7 +33,6 @@
                   </v-card-title>
                   <v-card-text>
                     <div>
-                      <span class="grey--text">Number 10</span>
                       <br>
                       <span>{{board.content}}</span>
                     </div>
@@ -44,12 +43,12 @@
                   <v-card-actions>
                     <v-btn flat slot="activator" color="success" @click="messager(board.boardId)">
                       <v-icon small left>message</v-icon>
-                      <span>Comment</span>
+                      <span>댓글</span>
                     </v-btn>
                     <v-spacer></v-spacer>
                     <v-btn flat slot="activator" color="red" @click="delBoard(board.boardId)">
                       <v-icon small left>delete</v-icon>
-                      <span>Delete</span>
+                      <span>삭제</span>
                     </v-btn>
                   </v-card-actions>
                 </v-card>

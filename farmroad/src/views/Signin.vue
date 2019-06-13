@@ -1,12 +1,12 @@
 <template>
   <div class="login container">
     <v-card flat>
-      <v-card-title class="headline">로그인</v-card-title>
+      <v-card-title class="headline">회원가입</v-card-title>
       <v-card-text>
         <!--输入框组-->
         <v-form class="px-3" ref="form" v-model="valid" lazy-validation>
           <v-text-field
-            label="Username"
+            label="아이디"
             v-model="username"
             :rules="usernameRules"
             prepend-icon="person"
@@ -17,7 +17,7 @@
             :rules="[passwordRules.required, passwordRules.min]"
             :type="show1 ? 'text' : 'password'"
             name="input-10-1"
-            label="Password"
+            label="비밀번호"
             hint="At least 8 characters"
             counter
             required
@@ -25,8 +25,8 @@
             @click:append="show1 = !show1"
           ></v-text-field>
           <v-radio-group v-model="radios" :mandatory="false">
-            <v-radio label="Host" value="1"></v-radio>
-            <v-radio label="Guest" value="0"></v-radio>
+            <v-radio label="주인장" value="1"></v-radio>
+            <v-radio label="여행객" value="0"></v-radio>
           </v-radio-group>
           <v-btn :disabled="!valid" left color="success" @click="validate">로그인</v-btn>
         </v-form>
@@ -88,7 +88,7 @@ export default {
           )
           .then(respones => {
             if (respones.data.state == -1) {
-              alert(respones.data.msg);
+              alert("아이디 또는 비밀번호가 틀렸습니다!");
             } else if (respones.data.state == 0) {
               if (!respones.data.report) {
                 console.log('login success!')
@@ -100,7 +100,7 @@ export default {
                 this.$router.push({ name: "welcome" });
                 location.reload();
               }else{
-                alert("Your account has been banned!!")
+                alert("정지된 계정 입니다!")
               }
             }else{
               console.log('no state!')

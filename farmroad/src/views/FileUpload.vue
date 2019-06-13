@@ -18,7 +18,7 @@
             @change="onFilePicked"
           >
         </v-flex>
-        <v-btn color="success" @click="uploadImg">Upload</v-btn>
+        <v-btn color="success" @click="uploadImg">사진 올리기</v-btn>
       </v-container>
     </v-content>
   </div>

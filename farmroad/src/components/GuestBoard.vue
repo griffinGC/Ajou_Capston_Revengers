@@ -1,19 +1,19 @@
 <template>
   <v-dialog v-model="dialog" max-width="600px">
-    <v-btn flat slot="activator" class="success">add guest Board</v-btn>
+    <v-btn flat slot="activator" class="success">여행 글 생성</v-btn>
     <v-card>
       <v-card-title>
-        <h2>Add a Guest Board</h2>
+        <h2>여행 글 생성</h2>
       </v-card-title>
       <v-card-text>
         <v-form class="px-3">
           
-          <v-text-field label="Title" v-model="title" prepend-icon="folder"></v-text-field>
+          <v-text-field label="제목" v-model="title" prepend-icon="folder"></v-text-field>
           <!--img upload-->
           <v-flex xs12 class="text-xs-center text-sm-center text-md-center text-lg-center">
             <img :src="imageUrl" height="150" v-if="imageUrl">
             <v-text-field
-              label="Select Image"
+              label="이미지 선택"
               @click="pickFile"
               v-model="imageName"
               prepend-icon="attach_file"
@@ -42,8 +42,8 @@
             <template v-slot:activator="{ on }">
               <v-text-field
                 v-model="dateFormatted"
-                label="start date"
-                hint="MM/DD/YYYY format"
+                label="시작날짜"
+                hint="월/일/연도 순으로 입력해주세요!"
                 persistent-hint
                 prepend-icon="event"
                 @blur="date = parseDate(dateFormatted)"
@@ -55,11 +55,11 @@
           <v-select
             :items="items"
             v-model="workDay"
-            label="work day"
+            label="여행 할 기간"
             prepend-icon="work"
             return-object
           ></v-select>
-          <v-text-field label="Category" v-model="category" prepend-icon="category"></v-text-field>
+          <v-text-field label="봉사하고 싶은 분야" v-model="category" prepend-icon="category"></v-text-field>
           <v-icon>location_on</v-icon><span class="grey--text text--darken-1"> 선호 지역</span>
           <v-flex xs12 d-flex>
             <v-flex xs6>
@@ -78,8 +78,8 @@
             </v-flex>
           </v-flex>
           <v-textarea label="Content" v-model="content" prepend-icon="edit"></v-textarea>
-          <v-alert v-model="alert" dismissible type="success">create Guest success</v-alert>
-          <v-btn flat class="success mx-0 mt-3" @click="createGuestBoard">Add project</v-btn>
+          <v-alert v-model="alert" dismissible type="success">성공적으로 글이 생성되었습니다!</v-alert>
+          <v-btn flat class="success mx-0 mt-3" @click="createGuestBoard">여행 글 생성</v-btn>
         </v-form>
       </v-card-text>
     </v-card>
